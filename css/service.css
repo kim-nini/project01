@@ -79,7 +79,7 @@ button {
   font-size: 0.7rem;
   text-transform: uppercase;
   padding: 10px 30px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   background: white;
   transition: 0.3s;
 }
@@ -281,7 +281,7 @@ button:hover {
 }
 
 .qna> :nth-child(3) :first-child {
-  background: #9bce26;
+  background: #FFC924;
   border-radius: 5px;
   color: white;
   font-weight: bold;
