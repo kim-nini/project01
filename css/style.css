@@ -17,8 +17,9 @@
 }
 .sub_nav_cont>li:last-child {
     margin-bottom: 0;
+    
 }
 
-.sub_nav_cont>li:hover {
-    border-bottom: 1px solid rgba(0,0,0,.1));
+.sub_nav_cont>li>a:hover {
+    border-bottom: 1px solid rgba(0,0,0,.5);
 }
