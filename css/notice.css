@@ -18,7 +18,8 @@ table {
   
   #board-search .search-window {
     padding: 15px 0;
-    background-color: #f9f7f9;
+    background-color: #f3f3f3;
+    border-top: 1px solid #ccc;
   }
   #board-search .search-window .search-wrap {
     position: relative;
@@ -124,8 +125,8 @@ table {
   }
   
   .btn-dark {
-    background: #555;
-    color: #fff;
+    background: #FFC924;
+    color: black;
   }
   
   .btn-dark:hover, .btn-dark:focus {
@@ -133,18 +134,7 @@ table {
     border-color: #373737;
     color: #fff;
   }
-  
-  .btn-dark {
-    background: #555;
-    color: #fff;
-  }
-  
-  .btn-dark:hover, .btn-dark:focus {
-    background: #373737;
-    border-color: #373737;
-    color: #fff;
-  }
-  
+    
   /* reset */
   
   * {
