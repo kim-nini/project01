@@ -1,5 +1,5 @@
 .cart_table{padding-top: 4.5rem}
-.cart_table>p{font-size: 3rem;border-bottom: 2px solid #222; padding: 0 0 10px 40px;}
+.cart_table>p{font-size: 2.6rem;border-bottom: 2px solid #222; padding: 0 0 10px 40px;}
 .cart_table .cart_list{padding: 4rem; font-size: 14px}
 .cart_table .cart_list li>div{display: inline-block;}
 .cart_table .cart_list li:first-of-type .del_btn{float: right; background:url(https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/icon_trash.svg) no-repeat 5px; border: 1px solid #222; margin-bottom: 1.5rem;
