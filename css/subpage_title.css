@@ -13,7 +13,7 @@
     margin: auto;
 }
 
-.category-button>button {
+.category-button>a {
     width: 150px;
     height: 60px;
     font-size: 18px;
@@ -22,10 +22,13 @@
     border-radius: 25px;
     margin: 0 10px;
     transition: 0.3s;
+    display: block;
+    text-align: center;
+    padding-top: 18px;
 
 }
 
-.category-button>button:hover {
+.category-button>a:hover {
     background-color: #FFC924;
     color: #F3F3F3;
 }
