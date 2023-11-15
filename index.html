@@ -11,6 +11,7 @@
     
    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="css/style.css">
 
     <style>
         /* ------------------------------------------------------------------------- */
@@ -102,8 +103,15 @@
                     <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                         <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="index.html">HOME</a></li>
                         <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="sub/shop.html">SHOP</a></li>
-                        <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="sub/review.html">커뮤니티</a></li>
-                        <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="sub/service.html">고객센터</a></li>
+                        <li class="sub_nav_title">
+                            <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="sub/review.html">BOARD</a>
+                            <ul class="sub_nav_cont">
+                                <li><a href="sub/notice.html">공지사항</a></li>
+                                <li><a href="sub/">Q&A</a></li>
+                                <li><a href="sub/review.html">리뷰</a></li>
+                                <li><a href="sub/service.html">고객센터</a></li>
+                            </ul>
+                        </li>
                         
                     </ul>
                 </nav>
@@ -118,6 +126,10 @@
             <!-- 상단 로고 end-->
 
             <div class="order-2 md:order-3 flex items-center" id="nav-content">
+                <a class="inline-block no-underline hover:text-black" href="sub/login.html">
+                    LOGIN
+                </a>
+
 
                 <a class="inline-block no-underline hover:text-black" href="sub/mypage.html">
                     <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
