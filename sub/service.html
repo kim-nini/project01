@@ -12,8 +12,9 @@
 	
    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
-   <link rel="stylesheet" href="../css/service.css">
    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+   <link rel="stylesheet" href="../css/style.css">
+   <link rel="stylesheet" href="../css/service.css">
    <link rel="stylesheet" href="../css/subpage_title.css">
 
 
@@ -88,14 +89,29 @@
             <input class="hidden" type="checkbox" id="menu-toggle" />
 
             <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
-                <nav>
-                    <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
-                      <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="../index.html">HOME</a></li>
-                      <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="shop.html">SHOP</a></li>
-                      <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="review.html">후기</a></li>
-                      <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="service.html">고객센터</a></li>
-                    </ul>
-                </nav>
+              <nav>
+                <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
+                    <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="../index.html">HOME</a></li>
+                    <li class="sub_nav_title">
+                        <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="shop.html">SHOP</a>
+                        <ul class="sub_nav_cont">
+                            <li><a href="">ALL</a></li>
+                            <li><a href="">LIVING</a></li>
+                            <li><a href="">WALKING</a></li>
+                            <li><a href="">FOOD</a></li>
+                        </ul>
+                    </li>                    
+                    <li class="sub_nav_title">
+                        <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="review.html">COMMUNITY</a>
+                        <ul class="sub_nav_cont">
+                            <li><a href="notice.html">NOTICE</a></li>
+                            <li><a href="review.html">REVIEW</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="qna.html">Q&A</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
             </div>
 
            <!-- 상단 로고 start-->
@@ -128,37 +144,46 @@
     </nav>
 
 
+    <section class="bg-white py-8 notice">
+      <div class="container mx-auto items-center flex-wrap pt-4 pb-12">
+          <h2 class="category-title">Q & A</h2>
+          <div class="w-full container mx-auto mt-0 px-2 py-3 ">
+              <div class="category-button button_wrap flex itmes-center">
+                  <a href="notice.html">NOTICE</a>
+                  <a href="faq.html">FAQ</a>
+                  <a href="qna.html">Q&A</a>
+                  <a href="review.html">REVIEW</a>
+              </div>
+          </div>
+      </div>
+  </section>
 
     <!-- 서브페이지 내용 붙여넣기할 부분 -->
     <section class="bg-white py-8">
       <div class="container mx-auto items-centerpt-4 pb-12">
-        <article class="hd">
-                <div class="sub-cont-title">
+        <!-- <article class="hd"> -->
+                <!-- <div class="sub-cont-title">
                   <p >
                     <h2>고객센터</h2>
-                    <!-- <p>무엇을 도와드릴까요</p> -->
+                    <p>무엇을 도와드릴까요</p>
                   </p>
-              </div>
+              </div> -->
               
             
         
-            <div>
-              <h3>택배사 파업 관련 공지사항</h3>
+            <!-- <div>
+              <h3>1:1 문의</h3>
         
-              <p>택배사 파업 관련 문의량 증가로, 고객님 문의에 대한 답변이 지연되고 있습니다. <br>
-                순차적으로 답변 드리겠으며 최대한 빠르게 답변 드릴 수 있도록 최선의 노력을 다하겠습니다.</p>
-              <p>귀중한 시간을 내셔서 올리브영 온라인몰을 방문해주신 소중한 고객님께 <br>
-                이용에 불편을 드려 진심으로 죄송합니다. 감사합니다.</p>
+              <p>문의하실 내용을 작성해주세요.</p>
             </div>
-          </article>
+          </article> -->
         
         
           <article class="qna">
         
             <div>
               <ul>
-                <li><a href="#">faq</a></li>
-                <li><a href="#">1:1문의</a></li>
+                <li><a href="#">상품문의</a></li>
                 <li><a href="#">공지사항</a></li>
               </ul>
             </div>
