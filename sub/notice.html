@@ -10,10 +10,11 @@
     <meta name="description" content="Free open source Tailwind CSS Store template">
     <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
     
-   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
 	
-   <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/notice.css">
+    <link rel="stylesheet" href="../css/subpage_title.css">
     <style>
         .work-sans {
             font-family: 'Work Sans', sans-serif;
@@ -98,7 +99,7 @@
         <!-- 상단 로고 start-->
         <div class="order-1 md:order-2">
             <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl" href="../index.html">
-                <img src="../img/logo.png" alt="그르르 상단로고" class="fill-current text-gray-800 mr-2" width="230">
+                <img src="../media/img/logo.png" alt="그르르 상단로고" class="fill-current text-gray-800 mr-2" width="230">
             </a>
         </div>
         <!-- 상단 로고 end-->
@@ -125,14 +126,29 @@
 </nav>
 
 
+<section class="bg-white py-8 notice">
+    <div class="container mx-auto items-center flex-wrap pt-4 pb-12">
+        <h2 class="category-title">공지사항</h2>
+        <div class="w-full container mx-auto mt-0 px-2 py-3 ">
+            <div class="category-button button_wrap flex itmes-center">
+                <button>공지사항</button>
+                <button>Q&A</button>
+                <button>리뷰</button>
+                <button>고객센터</button>
+        </div>
+        </div>
+    </div>
+</section>
 
 
-<section class="notice">
-        <div class="page-title">
+
+<!-- <section class="bg-white py-8 notice"> -->
+    <!-- <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12 page-title">
+
               <div class="container">
                   <h3>공지사항</h3>
               </div>
-          </div>
+          </div> -->
       
           <!-- board seach area -->
           <div id="board-search">
