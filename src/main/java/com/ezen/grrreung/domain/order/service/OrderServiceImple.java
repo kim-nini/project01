@@ -1,8 +1,8 @@
 package com.ezen.grrreung.domain.order.service;
 
+import com.ezen.grrreung.domain.order.dto.Order;
 import com.ezen.grrreung.domain.order.mapper.OrderMapper;
 import com.ezen.grrreung.domain.transaction.NotEnoughMoneyException;
-import com.ezen.grrreung.domain.transaction.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

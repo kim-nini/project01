@@ -1,6 +1,7 @@
 package com.ezen.grrreung.domain.order.mapper;
 
-import com.ezen.grrreung.domain.transaction.Order;
+
+import com.ezen.grrreung.domain.order.dto.Order;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

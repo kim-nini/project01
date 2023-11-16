@@ -1,4 +1,4 @@
-package com.ezen.grrreung.domain.transaction;
+package com.ezen.grrreung.domain.order.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +16,11 @@ import lombok.ToString;
 public class Order {
 	private int orderId;
 	private String memberId;
+	private String orderStatus;
+	private String orderMemo;
+	private String orderName;
+	private String orderAdd;
 	private String payStatus;
+	private String orderHp;
 }
 
