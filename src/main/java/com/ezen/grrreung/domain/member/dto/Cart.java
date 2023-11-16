@@ -7,12 +7,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Member {
+public class Cart {
+    private String cartId;
     private String memberId;
-    private String password;
-    private String name;
-    private String hp;
-    private String email;
-    private String admin;
-    private String address;
+    private String itemId;
+    private String cartAmount;
 }
