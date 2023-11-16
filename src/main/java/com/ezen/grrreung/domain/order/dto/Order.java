@@ -16,6 +16,7 @@ import lombok.ToString;
 public class Order {
 	private int orderId;
 	private String memberId;
+	private String orderDate;
 	private String orderStatus;
 	private String orderMemo;
 	private String orderName;
