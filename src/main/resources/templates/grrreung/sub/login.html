@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
+    <title>Grr-reung 그르릉 로그인</title>
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/login.js" defer></script>
+    <!--    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">-->
+
+</head>
+
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+
+
+<!-- login-form -->
+<section class="bg-white py-8">
+    <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+        <div class="form-wrap">
+            <div class="tabs">
+                <h3 class="signup-tab"><a class="active" href="#signup-tab-content">Sign Up</a></h3>
+                <h3 class="login-tab"><a href="#login-tab-content">Login</a></h3>
+            </div><!--.tabs-->
+
+            <div class="tabs-content">
+                <div id="signup-tab-content" class="active">
+                    <form class="signup-form" action="" method="post">
+                        <input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email">
+                        <input type="text" class="input" id="user_name" autocomplete="off" placeholder="Username">
+                        <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
+                        <input type="submit" class="button" value="Sign Up">
+                    </form><!--.login-form-->
+                    <div class="help-text">
+                        <p>By signing up, you agree to our</p>
+                        <p><a href="#">Terms of service</a></p>
+                    </div><!--.help-text-->
+                </div><!--.signup-tab-content-->
+
+                <div id="login-tab-content">
+                    <form class="login-form" action="" method="post">
+                        <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username">
+                        <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
+                        <input type="checkbox" class="checkbox" id="remember_me">
+                        <label for="remember_me">Remember me</label>
+
+                        <input type="submit" class="button" value="Login">
+                    </form><!--.login-form-->
+                    <div class="help-text">
+                        <p><a href="#">Forget your password?</a></p>
+                    </div><!--.help-text-->
+                </div><!--.login-tab-content-->
+            </div><!--.tabs-content-->
+        </div><!--.form-wrap-->
+    </div>
+</section>
+
+<!-- 푸터 -->
+<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title></title>
+</head>
+<body>
+	<h2>파일 목록</h2>
+	<table border="1">
+		<tr>
+			<td>파일명/파일사이즈</td>
+		</tr>
+		<tr th:each="file :  ${files}">
+			<td th:text="${file}"></td>
+		</tr>
+	</table>
+
+	<img src="/download/image1-4df079ab-58d6-4ef9-a3ff-f7081f265437.jpg">
+</body>
+</html>

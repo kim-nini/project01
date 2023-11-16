@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+    <link rel="stylesheet" href="/css/register.css">
+
+	 <script src="/js"></script>
+
+    <title>Grr-reung 그르릉 회원가입</title>
+</head>
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+
+<!-- 헤더 -->
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+
+    <!-- 서브페이지 내용 붙여넣기할 부분 -->
+    <section class="bg-white py-8">
+            <div class="wrapper">
+                <div class="pagetitlewrap">
+                    <div class="pagetitlecontent">
+                        <h2>회원가입</h2>
+                        <p>그르릉의 서비스를 이용하세요</p>
+                        <div class="locatwrap">
+                            <a href="/">Main</a>
+                            <span class="active">회원가입</span>
+                        </div>
+                    </div>
+                </div>
+             <div class="sectionInner container">
+                 <div class="content">
+                     <div class="joinStepWrap ">
+                         <img src="../../lib/img/login/join_step03.gif" alt="" class="joinStep_Img container" />
+                     </div>
+                     <table class="tableWrap">
+                             <tbody class="personalInfo">
+                                 <tr>
+                                     <th class="tableNumber">이름</th>
+                                     <td class="tableTitle">
+                                         <span class="txtInput">그르릉</span>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <th class="tableNumber">생년월일</th>
+                                     <td class="tableTitle text ">2008년 04월 01일 (남성)</td>
+                                 </tr>
+                                 <tr>
+                                     <th class="tableNumber">핸드폰</th>
+                                     <td class="tableTitle text">01012345678</td>
+                                 </tr>
+                                 <tr>
+                                     <th class="tableNumber">아이디</th>
+                                     <td class="tableTitle">
+                                         <label for="checkId"><input type="text" id="checkId"class="inputBox" /></label>
+                                         <a href="#" class="btn01">중복확인</a>	
+                                         <span class="text">6~12자의 영문만 가능합니다.</span>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <th class="tableNumber">비밀번호</th>
+                                     <td class="tableTitle">
+                                         <label for="insertPw"><input type="password" id="insertPw" class="inputBox" /></label>
+                                         <span class="text">비밀번호는 8자리 이상이며, 숫자영문 혼용은 필수입니다.</span>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <th class="tableNumber">비밀번호 확인</th>
+                                     <td class="tableTitle">
+                                         <label for="checkPw"><input type="password" id="checkPw" class="inputBox" /></label>
+                                         <span class="text">입력하신 비밀번호를 확인합니다.</span>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <th class="tableNumber">우편번호</th>
+                                     <td class="tableTitle">
+                                         <label for="PostalCode"><input type="text" id="PostalCode" class="inputBox" style="width:30%;" /></label>
+                                         <a href="#" class="btn01">우편번호 검색</a>	
+                                     </td>
+                                 </tr>
+                                 <tr class="address">
+                                     <th class="tableNumber">주소</th>
+                                     <td class="tableTitle">
+                                         <label for="address1"><input type="text" id="address1"class="inputBox" style="width:100%;" /></label>
+                                         <label for="address2"><input type="text" id="address2" class="inputBox" style="width:100%;" placeholder="나머지 주소를 입력해주세요" /></label>
+                                     </td>
+                                 </tr>
+                                 <tr class="eMail">
+                                     <th class="tableNumber">이메일</th>
+                                     <td class="tableTitle">
+                                         <label for="emailId"><input type="text" id="emailId" class="inputBox" style="width:20%;" /></label>
+                                         <span class="text emailAt">@</span>
+                                         <label for="emailWrite"><input type="text" id="emailWrite"class="inputBox" style="width:20%;" value=""/></label>
+                                         <div class="custom_select" style="width:20%;">
+                                             <span class="text"></span>
+                                             <select name="" id="" >
+                                                 <option value="">직접입력</option>
+                                                 <option value="">naver.com</option>
+                                                 <option value="">hanmail.net</option>
+                                                 <option value="">nate.com</option>
+                                                 <option value="">daum.net</option>
+                                             </select>
+                                         </div>
+                                     </td>
+                                 </tr>							
+                             </tbody>
+                         </table>		
+                     <div class="btnwrap">
+                         <a href="#" class="btn01">취소</a>
+                         <a href="../main/main.jsp" class="btn2">등록</a>
+                     </div>
+                 
+                 </div>
+                 
+             </div>
+         </div>
+    
+        
+    </section>
+
+    <!-- 푸터-->
+    <th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+
+
+
+
+
+</body>
+</html>
