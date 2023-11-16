@@ -1,0 +1,101 @@
+@charset "utf-8";
+
+.joinForm {
+    width:600px;
+    padding: 30px 20px;
+    background-color:#FFFFFF;
+    text-align:center;
+    border-radius: 15px;
+    margin: auto;
+}
+
+.joinForm h2 {
+    text-align: center;
+    margin: 30px;
+}
+
+.textForm {
+    border-bottom: 2px solid #adadad;
+    margin: 30px;
+    padding: 10px 10px;
+}
+
+
+.id {
+    width: 100%;
+    border:none;
+    outline:none;
+    color: #636e72;
+    font-size:16px;
+    height:25px;
+    background: none;
+}
+
+.pw {
+    width: 100%;
+    border:none;
+    outline:none;
+    color: #636e72;
+    font-size:16px;
+    height:25px;
+    background: none;
+}
+
+.name {
+    width: 100%;
+    border:none;
+    outline:none;
+    color: #636e72;
+    font-size:16px;
+    height:25px;
+    background: none;
+}
+
+.email {
+    width: 100%;
+    border:none;
+    outline:none;
+    color: #636e72;
+    font-size:16px;
+    height:25px;
+    background: none;
+}
+
+.address {
+    width: 100%;
+    border:none;
+    outline:none;
+    color: #636e72;
+    font-size:16px;
+    height:25px;
+    background: none;
+}
+
+.cellphoneNo {
+    width: 100%;
+    border:none;
+    outline:none;
+    color: #636e72;
+    font-size:16px;
+    height:25px;
+    background: none;
+}
+
+.btn {
+    margin-bottom: 40px;
+    width: 180px;
+    height: 45px;
+    background-color: #565656;
+    background-position: left;
+    background-size: 200%;
+    color:white;
+    font-weight: bold;
+    border:none;
+    cursor:pointer;
+    transition: 0.4s;
+    display:inline;
+}
+
+.btn:hover {
+    background-position: right;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ezen.grrreung.domain.order.mapper.OrderMapper">
+	
+	<insert id="create" parameterType="Order">
+		INSERT INTO orders(order_id, member_id)
+		VALUES(orders_seq.NEXTVAL, #{memberId})
+		
+		<selectKey keyProperty="orderId" resultType="int" order="AFTER">
+			SELECT orders_seq.CURRVAL FROM dual 
+		</selectKey>
+	</insert>
+	
+	<update id="updatePayStatus" parameterType="Order">
+		UPDATE orders
+		SET pay_status = #{payStatus}
+		WHERE order_id = #{orderId}
+	</update>
+	
+</mapper>
+
