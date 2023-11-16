@@ -1,112 +1,184 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300);
-* {
-	margin: 0;
-	padding: 0; }
-
-a {
-	color: #666;
-	text-decoration: none; }
-a:hover {
-	color: #4FDA8C; }
-
-input {
-	font: 16px/26px "Raleway", sans-serif; }
-
 body {
-	color: #666;
-	background-color: #f1f2f2;
-	font: 16px/26px "Raleway", sans-serif; }
-
-.form-wrap {
-	background-color: #fff;
-	width: 320px;
-	margin: 3em auto;
-	box-shadow: 0px 1px 8px #BEBEBE;
-	-webkit-box-shadow: 0px 1px 8px #BEBEBE;
-	-moz-box-shadow: 0px 1px 8px #BEBEBE; }
-.form-wrap .tabs {
-	overflow: hidden; }
-.form-wrap .tabs h3 {
-	float: left;
-	width: 50%; }
-.form-wrap .tabs h3 a {
-	padding: 0.5em 0;
-	text-align: center;
-	font-weight: 400;
-	background-color: #e6e7e8;
+	font-family: 'Montserrat', sans-serif;
+	background: white;
+}
+.login_container {
 	display: block;
-	color: #666; }
-.form-wrap .tabs h3 a.active {
-	background-color: #fff; }
-.form-wrap .tabs-content {
-	padding: 1.5em; }
-.form-wrap .tabs-content div[id$="tab-content"] {
-	display: none; }
-.form-wrap .tabs-content .active {
-	display: block !important; }
-.form-wrap form .input {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	color: inherit;
-	font-family: inherit;
-	padding: .8em 0 10px .8em;
-	border: 1px solid #CFCFCF;
-	outline: 0;
-	display: inline-block;
-	margin: 0 0 .8em 0;
-	padding-right: 2em;
-	width: 100%; }
-.form-wrap form .button {
-	width: 100%;
-	padding: .8em 0 10px .8em;
-	background-color: #28A55F;
-	border: none;
-	color: #fff;
-	cursor: pointer;
-	text-transform: uppercase; }
-.form-wrap form .button:hover {
-	background-color: #4FDA8C; }
-.form-wrap form .checkbox {
-	visibility: hidden;
-	padding: 20px;
-	margin: .5em 0 1.5em; }
-.form-wrap form .checkbox:checked + label:after {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-	filter: alpha(opacity=100);
-	opacity: 1; }
-.form-wrap form label[for] {
-	position: relative;
-	padding-left: 20px;
-	cursor: pointer; }
-.form-wrap form label[for]:before {
-	content: '';
-	position: absolute;
-	border: 1px solid #CFCFCF;
-	width: 17px;
-	height: 17px;
-	top: 0px;
-	left: -14px; }
-.form-wrap form label[for]:after {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	filter: alpha(opacity=0);
-	opacity: 0;
-	content: '';
-	position: absolute;
-	width: 9px;
-	height: 5px;
-	background-color: transparent;
-	top: 4px;
-	left: -10px;
-	border: 3px solid #28A55F;
-	border-top: none;
-	border-right: none;
-	-webkit-transform: rotate(-45deg);
-	-moz-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg);
-	transform: rotate(-45deg); }
-.form-wrap .help-text {
-	margin-top: .6em; }
-.form-wrap .help-text p {
+	max-width: 680px;
+	width: 80%;
+	margin: 120px auto;
+}
+h1 {
+	color: #4f4f4f;
+	font-size: 48px;
+	letter-spacing: -3px;
 	text-align: center;
-	font-size: 14px; }
+	margin: 120px 0 80px 0;
+	transition: .2s linear;
+}
+.links {
+	list-style-type: none;
+}
+.links li {
+	display: inline-block;
+	margin: 0 20px 0 0;
+	transition: .2s linear;
+}
+.links li:nth-child(2) {
+	opacity: .6;
+}
+.links li:nth-child(2):hover {
+	opacity: 1;
+}
+.links li:nth-child(3) {
+	opacity: .6;
+	float: right;
+}
+.links li:nth-child(3):hover {
+	opacity: 1;
+}
+.links li a {
+	text-decoration: none;
+	color: #0f132a;
+	font-weight: bolder;
+	text-align: center;
+	cursor: pointer;
+}
+form {
+	width: 100%;
+	max-width: 680px;
+	margin: 40px auto 10px;
+}
+form .input__block {
+	margin: 20px auto;
+	display: block;
+	position: relative;
+}
+
+
+form .input__block input {
+	display: block;
+	width: 480px;
+	max-width: 680px;
+	height: 50px;
+	margin: 0 auto;
+	border-radius: 8px;
+	border: none;
+	background: rgba(15, 19, 42, 0.1);
+	color: rgba(15, 19, 42, 0.3);
+	padding: 0 0 0 15px;
+	font-size: 14px;
+	font-family: 'Montserrat', sans-serif;
+}
+form .input__block input:focus, form .input__block input:active {
+	outline: none;
+	border: none;
+	color: #0f132a;
+}
+form .input__block input.repeat__password {
+	opacity: 0;
+	display: none;
+	transition: .2s linear;
+}
+form .login__btn ,form .signin__btn{
+	background: #FFC924;
+	color: white;
+	display: block;
+	width: 480px;
+	max-width: 680px;
+	height: 50px;
+	border-radius: 8px;
+	margin: 0 auto 25px;
+	border: none;
+	cursor: pointer;
+	font-size: 14px;
+	font-family: 'Montserrat', sans-serif;
+	box-shadow: 0 15px 30px rgba(255, 201, 36, 0.36);
+	transition: .2s linear;
+	text-align: center;
+	padding-top: 16px;
+}
+form .login__btn:hover, form .signin__btn:hover {
+	box-shadow: 0 0 0 rgba(233, 30, 99, 0);
+}
+.separator {
+	display: block;
+	margin: 30px auto 10px;
+	text-align: center;
+	height: 40px;
+	position: relative;
+	background: transparent;
+	color: rgba(15, 19, 42, 0.4);
+	font-size: 13px;
+	width: 90%;
+	max-width: 680px;
+}
+.separator::before {
+	content: "";
+	position: absolute;
+	top: 8px;
+	left: 67px;
+	background: rgba(15, 19, 42, 0.2);
+	height: 1px;
+	width: 34%;
+}
+.separator::after {
+	content: "";
+	position: absolute;
+	top: 8px;
+	right: 67px;
+	background: rgba(15, 19, 42, 0.2);
+	height: 1px;
+	width: 34%;
+}
+.google__btn, .kakao__btn {
+	display: block;
+	width: 480px;
+	max-width: 680px;
+	margin: 20px auto;
+	height: 50px;
+	cursor: pointer;
+	font-size: 14px;
+	font-family: 'Montserrat', sans-serif;
+	border-radius: 8px;
+	border: none;
+	line-height: 40px;
+}
+
+.kakao__btn {
+	position: relative;
+	padding-left: 26px;
+}
+
+.kakao_icon {
+	width: 33px;
+	position: absolute;
+	top: 8px;
+	left: 156px;
+}
+.google__btn.google__btn, .kakao__btn.google__btn {
+	background: #5b90f0;
+	color: white;
+	box-shadow: 0 15px 30px rgba(91, 144, 240, 0.36);
+	transition: .2s linear;
+}
+.google__btn.google__btn .fa, .kakao__btn.google__btn .fa {
+	font-size: 20px;
+	padding: 0 5px 0 0;
+}
+.google__btn.google__btn:hover, .kakao__btn.google__btn:hover {
+	box-shadow: 0 0 0 rgba(91, 144, 240, 0);
+}
+.google__btn.github__btn, .kakao__btn.kakao__btn {
+	background: #3A2929;
+	color: white;
+	box-shadow: 0 15px 30px rgba(37, 40, 45, 0.36);
+	transition: .2s linear;
+}
+.google__btn.github__btn .fa, .kakao__btn.kakao__btn .fa {
+	font-size: 20px;
+	padding: 0 5px 0 0;
+}
+.google__btn.kakao__btn:hover, .kakao__btn.kakao__btn:hover {
+	box-shadow: 0 0 0 rgba(37, 40, 45, 0);
+}
