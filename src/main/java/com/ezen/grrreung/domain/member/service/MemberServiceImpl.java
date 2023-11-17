@@ -17,4 +17,14 @@ public class MemberServiceImpl implements  MemberService {
     public void register(Member member) {
         memberMapper.create(member);
     }
+
+    @Override
+    public Member getMember(String memberId) {
+        return null;
+    }
+
+    @Override
+    public Member getMemberByEmail(String email) {
+        return null;
+    }
 }
