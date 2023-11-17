@@ -1,6 +1,7 @@
 package com.ezen.grrreung;
 
-import com.ezen.grrreung.domain.transaction.Order;
+
+import com.ezen.grrreung.domain.order.dto.Order;
 import com.ezen.grrreung.domain.order.mapper.OrderMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,8 +6,8 @@
 <mapper	namespace="com.ezen.grrreung.domain.order.mapper.OrderMapper">
 	
 	<insert id="create" parameterType="Order">
-		INSERT INTO orders(order_id, member_id)
-		VALUES(orders_seq.NEXTVAL, #{memberId})
+		INSERT INTO order_gr(order_id, member_id)
+		VALUES(ordergr_seq.NEXTVAL, #{memberId})
 		
 		<selectKey keyProperty="orderId" resultType="int" order="AFTER">
 			SELECT orders_seq.CURRVAL FROM dual 

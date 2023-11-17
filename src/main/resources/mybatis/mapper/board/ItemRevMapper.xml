@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ezen.grrreung.domain.board.mapper.ItemRevMapper">
+
+	<insert id="create" parameterType="ItemRev">
+		INSERT INTO item_rev(
+			rev_code,
+			item_id,
+		    rev_title,
+			rev_cont,
+			rev_auth,
+			member_id
+		) VALUES (
+					 item_rev_no_seq.NEXTVAL,
+					 111111,
+					 '리뷰내용',
+		          	'리뷰 제목',
+					 '리뷰작성자',
+					 '멤버아이디'
+				 )
+	</insert>
+
+	<select id="postList" resultType="ItemRev">
+		SELECT *
+		FROM item_rev
+		order by rev_code DESC
+	</select>
+
+
+	
+</mapper>
+

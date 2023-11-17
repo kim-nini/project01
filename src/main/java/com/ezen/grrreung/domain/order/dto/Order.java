@@ -21,7 +21,7 @@ public class Order {
 	private String orderMemo;
 	private String orderName;
 	private String orderAdd;
-	private String payStatus;
 	private String orderHp;
+	private String payStatus;
 }
 
