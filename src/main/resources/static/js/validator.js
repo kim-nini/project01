@@ -20,15 +20,7 @@ function isId(value) {
     return regExp.test(value);
 }
 
-/**
- * 이메일 사용 가능 여부
- * @param {string} 입력 이메일
- * @returns 이메일 사용 가능 여부
- */
-function isEmail(value) {
-    var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    return regExp.test(value);
-}
+
 
 /**
  * 숫자 입력 여부
@@ -54,3 +46,32 @@ function isName(value) {
     }
     return true;
 }
+
+
+/**
+ * 핸드폰 번호 입력 여부
+ * @param {string} 입력 문자열
+ * @returns 핸드폰 번호 사용 가능 여부
+ */
+function isHp(value) {
+    var regExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    if (!regExp.test(value)) {
+        return false;
+    } else if (value.length < 11 || value.length > 11) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * 이메일 사용 가능 여부
+ * @param {string} 입력 이메일
+ * @returns 이메일 사용 가능 여부
+ */
+function isEmail(value) {
+    var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    return regExp.test(value);
+}
+
+
+

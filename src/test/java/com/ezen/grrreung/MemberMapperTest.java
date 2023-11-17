@@ -16,44 +16,16 @@ public class MemberMapperTest {
 	
 	@Autowired
 	private MemberMapper memberMapper;
-	
-	@Test
-	public void findByAllTest() {
-		List<Member> list = memberMapper.findByAll();
-		for (Member member : list) {
-			log.info(member.toString());
-		}
-	}
-	
-	@Test
-	public void findByIdTest() {
-		// given
-		String memberId = "bangry";
-		// when
-		Member member = memberMapper.findById(memberId);
-		// then
-		assertThat(memberId)
-			.isNotNull();
-		log.info("회원정보 : {}", member.toString());
-	}
-	
-	@Test
-	void findByNameLikeTest() {
-		String findName = "김";
-		List<Member> list = memberMapper.findByNameLike(findName);
-		log.info("이름 와일드카드 검색 : {}", list);
-		for (Member member : list) {
-			log.info(member.toString());
-		}
-	}
-	
+
 	@Test
 	void createTest() {
 		Member createMember = new Member();
 		createMember.setMemberId("ddalang");
 		createMember.setName("김딸랑");
-		createMember.setPasswd("1111");
+		createMember.setPassword("1111");
 		createMember.setEmail("ddalang@gmail.com");
+		createMember.setHp("010-1111-2222");
+		createMember.setAddress("경기도 하남시");
 		memberMapper.create(createMember);
 		log.info("회원 등록 완료 : {}", createMember);
 	}

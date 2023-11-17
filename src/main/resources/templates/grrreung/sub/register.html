@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="/css/register.css">
 
     <title>Grr-reung 그르릉 회원가입</title>
+
+    <script src="/js/validator.js" defer></script>
+    <script src="/js/member.js" defer></script>
 </head>
 
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
@@ -14,29 +17,50 @@
     <!-- 서브페이지 내용 붙여넣기할 부분 -->
     <section class="bg-white py-8">
         <div class="container mx-auto items-centerpt-4 pb-12">
-            <form action="" method="post" class="joinForm">
+            <form action="/member/register" method="post" class="joinForm">
                 <h2>JOIN IN</h2>
+                <!-- 아이디-->
                 <div class="textForm">
-                    <input name="loginId" type="text" class="id" placeholder="아이디">
+                    <input name="memberId" id="memberId" type="text" class="id" placeholder="아이디">
                 </div>
+                <p id="memberId-message"></p>
+
+                <!-- 비밀번호-->
                 <div class="textForm">
-                    <input name="loginPw" type="password" class="pw" placeholder="비밀번호">
+                    <input name="password" id="password " type="password" class="pw" placeholder="비밀번호">
                 </div>
+                <p id="passwd-message"></p>
+
+                <!-- 비밀번호 확인-->
                 <div class="textForm">
-                    <input name="loginPwConfirm" type="password" class="pw" placeholder="비밀번호 확인">
+                    <input name="loginPwConfirm" id="passwordCheck" type="password" class="pw" placeholder="비밀번호 확인">
                 </div>
+                <p id="passwdCheck-message"></p>
+
+                <!-- 이름-->
                 <div class="textForm">
-                    <input name="name" type="password" class="name" placeholder="이름">
+                    <input name="name" id="name" type="text" class="name" placeholder="이름">
                 </div>
+                <p id="name-message"></p>
+
+                <!-- 핸드폰번호-->
                 <div class="textForm">
-                    <input name="cellphoneNo" type="text" class="cellphoneNo" placeholder="전화번호 ('-' 를 제외한 번호 입력)">
+                    <input name="hp" id="hp" type="text" class="cellphoneNo" placeholder="전화번호 ('-' 를 제외한 번호 입력)">
                 </div>
+                <p id="hp-message"></p>
+
+                <!-- 이메일-->
                 <div class="textForm">
-                    <input name="email" type="text" class="email" placeholder="이메일">
+                    <input name="email" id="email" type="text" class="email" placeholder="이메일">
                 </div>
+                <p id="email-message"></p>
+
+                <!-- 주소-->
                 <div class="textForm">
-                    <input name="address" type="text" class="address" placeholder="주소">
+                    <input name="address" id="address" type="text" class="address" placeholder="주소">
+
                 </div>
+
 
                 <input type="submit" class="btn" value="JOIN"/>
                 <input type="reset" class="btn" value="RESET"/>
