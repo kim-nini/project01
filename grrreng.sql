@@ -1,4 +1,4 @@
-CREATE TABLE order (
+CREATE TABLE order_gr (
 	order_id	        NUMBER(20)	    NOT NULL,
 	member_id	    VARCHAR2(30)	    NOT NULL,
 	order_date	    DATE	                NOT NULL,
@@ -17,8 +17,16 @@ CREATE TABLE member (
 	hp	                VARCHAR2(255)	NOT NULL,
 	email	            VARCHAR2(255)	NULL,
 	admin	        VARCHAR2(255)	DEFAULT 'N',
-	address	        VARCHAR2(255)	NOT NULL
+	address	        VARCHAR2(255)	NOT NULL,
+    address2	        VARCHAR2(255)	NOT NULL,
+    address3        VARCHAR2(255)	NOT NULL
 );
+
+select * from member;
+
+select member_id, password 
+from member
+where member_id = 'ddalang' and password = '1111';
 
 CREATE TABLE order_item (
 	order_item_id	NUMBER(20)	NOT NULL,
@@ -74,6 +82,7 @@ CREATE TABLE item_qna (
 CREATE TABLE item_rev (
 	rev_code	    NUMBER(20)	    NOT NULL,
 	item_id	    NUMBER(20)	    NOT NULL,
+    rev_title      VARCHAR2(100)   NOT NULL,
 	rev_cont	    VARCHAR2(500)	NOT NULL,
 	rev_auth	    VARCHAR2(30)	    NOT NULL,
 	rev_date	    DATE	                DEFAULT sysdate,
@@ -93,7 +102,7 @@ CREATE TABLE category (
 	cate_top	    NUMBER(20)	NULL
 );
 
-ALTER TABLE order ADD CONSTRAINT PK_ORDER PRIMARY KEY ( 
+ALTER TABLE order_gr ADD CONSTRAINT PK_ORDER_GR PRIMARY KEY ( 
     order_id
 );
 
@@ -138,12 +147,64 @@ ALTER TABLE category ADD CONSTRAINT PK_CATEGORY PRIMARY KEY (
 	cate_code
 );
 
-ALTER TABLE order_item ADD CONSTRAINT FK_order_TO_order_item_1 FOREIGN KEY (
+ALTER TABLE order_item ADD CONSTRAINT FK_order_gr_TO_order_item_1 FOREIGN KEY (
 	order_id
 )
-REFERENCES order (
+REFERENCES order_gr (
 	order_id
 );
 
 
+-----------------------------------------------------------------------------------------------------------------
 
+
+--# 리뷰게시판 번호에 사용할 시퀀스 생성
+drop sequence item_rev_no_seq;
+
+CREATE SEQUENCE item_rev_no_seq
+    START WITH 1
+    INCREMENT BY 1; 
+
+--# 테스트인서트
+INSERT INTO item_rev(
+            rev_code,
+            item_id,
+            rev_title,
+            rev_cont,
+            rev_auth,
+            member_id
+        ) VALUES (
+                     item_rev_no_seq.NEXTVAL,
+                     111111,
+                     '리뷰내용',
+                     '리뷰 제목1',
+                     '리뷰작성자',
+                     '멤버아이디'
+                 );
+
+SELECT * FROM item_rev;
+commit;
+
+delete from item_rev where rev_code=2;
+
+SELECT *
+		FROM item_rev
+		order by rev_code DESC;
+----------------------------------------------------------
+
+
+--# 드롭
+
+drop table member;
+drop table order_item;
+drop table order_gr;
+drop table item;
+drop table item_img;
+drop table cart;
+drop table notice;
+drop table item_qna;
+drop table item_rev;
+drop table item_qna_re;
+drop table category;
+
+-----------------------

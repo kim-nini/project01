@@ -19,12 +19,22 @@ public class MemberServiceImpl implements  MemberService {
     }
 
     @Override
+    public void login(Member member) {
+        memberMapper.findById(member.getMemberId(), member.getPassword());
+    }
+
+    @Override
     public Member getMember(String memberId) {
         return null;
     }
 
     @Override
     public Member getMemberByEmail(String email) {
+        return null;
+    }
+
+    @Override
+    public Member getMemberByPw(String password) {
         return null;
     }
 }

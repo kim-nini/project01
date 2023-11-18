@@ -4,8 +4,14 @@
 <mapper namespace="com.ezen.grrreung.domain.member.mapper.MemberMapper">
 
     <insert id="create" parameterType="Member">
-        INSERT INTO member(member_id, password, name, hp, email, address)
-        VALUES (#{memberId}, #{password}, #{name}, #{hp}, #{email}, #{address})
+        INSERT INTO member(member_id, password, name, hp, email, address, address2, address3)
+        VALUES (#{memberId}, #{password}, #{name}, #{hp}, #{email}, #{address}, #{address2}, #{address3})
     </insert>
+
+    <select id="login" parameterType="map" resultType="Member">
+        select member_id, password
+        from member
+        where member_id = #{memberId} and password = #{password}
+    </select>
 
 </mapper>

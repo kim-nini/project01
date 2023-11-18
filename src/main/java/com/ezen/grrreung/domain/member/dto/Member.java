@@ -15,4 +15,6 @@ public class Member {
     private String email;
     private String admin;
     private String address;
+    private String address2;
+    private String address3;
 }

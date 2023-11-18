@@ -11,8 +11,14 @@ public interface MemberMapper {
 
     /**
      * 신규회원 저장
-     * @param member
      */
     public void create(Member member);
+
+    /**
+    * 로그인
+    */
+    public Member findById(@Param("memberId") String memberId,
+                           @Param("password") String password);
+
 
 }
