@@ -52,14 +52,11 @@ public class MemberController {
                         @RequestParam("password") String password) {
         log.info("수신한 회원 아이디 : {}", memberId);
         log.info("수신한 회원 비밀번호 : {}", password);
-        if (memberId != null) {
-            if (password != null) {
+        memberService.login(memberId, password);
+        if (memberId != null && password != null) {
                 return "redirect:/";
-            }
         } else {
             return "grrreung/sub/login";
         }
-        return "redirect:/";
     }
-
 }

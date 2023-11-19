@@ -15,12 +15,12 @@ public class MemberServiceImpl implements  MemberService {
 
     @Override
     public void register(Member member) {
-        memberMapper.create(member);
+        memberMapper.register(member);
     }
 
     @Override
-    public void login(Member member) {
-        memberMapper.findById(member.getMemberId(), member.getPassword());
+    public Member login(String memberId, String password) {
+       return memberMapper.login(memberId, password);
     }
 
     @Override
@@ -33,8 +33,4 @@ public class MemberServiceImpl implements  MemberService {
         return null;
     }
 
-    @Override
-    public Member getMemberByPw(String password) {
-        return null;
-    }
 }

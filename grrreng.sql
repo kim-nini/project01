@@ -21,7 +21,7 @@ CREATE TABLE member (
     address2	        VARCHAR2(255)	NOT NULL,
     address3        VARCHAR2(255)	NOT NULL
 );
-
+commit;
 select * from member;
 
 select member_id, password 
