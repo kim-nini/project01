@@ -16,6 +16,8 @@ public interface ItemRevService {
     // 게시글목록
     public List<ItemRev> postList();
 
+
+
     // 게시글상세보기
     public ItemRev postInfo(int revCode);
 
@@ -26,6 +28,6 @@ public interface ItemRevService {
     // 게시글 수정
     public void updatePost(ItemRev itemRev);
 
-    // 게시글 검색 목록
+
 
 }

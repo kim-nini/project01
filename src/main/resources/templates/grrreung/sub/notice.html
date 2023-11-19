@@ -42,26 +42,16 @@
               <tr>
                   <th scope="col" class="th-num">번호</th>
                   <th scope="col" class="th-title">제목</th>
+                  <th scope="col" class="th-title">작성자</th>
                   <th scope="col" class="th-date">등록일</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
-                  <td>3</td>
-                  <th><a href="#!">[공지사항] 개인정보 처리방침 변경안내처리방침</a></th>
-                  <td>2017.07.13</td>
-              </tr>
-
-              <tr>
-                  <td>2</td>
-                  <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                  <td>2017.06.15</td>
-              </tr>
-
-              <tr>
-                  <td>1</td>
-                  <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                  <td>2017.06.15</td>
+              <tr th:each="notice, status : ${list}">
+                  <td th:text="${notice.notiCode}"></td>
+                  <td th:text="${notice.notiTitle}"></td>
+                  <td th:text="${notice.notiAuth}"></td>
+                  <td th:text="${notice.notiDate}"></td>
               </tr>
               </tbody>
           </table>

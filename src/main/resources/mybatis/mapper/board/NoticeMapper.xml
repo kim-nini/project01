@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ezen.grrreung.domain.board.mapper.NoticeMapper">
+
+	<insert id="create" parameterType="Notice">
+		INSERT INTO notice (
+			noti_code,
+			noti_title,
+			noti_cont,
+			noti_date,
+			noti_auth
+		) VALUES (
+					 1,
+					 'Important Notice',
+					 'This is an important notice.',
+					 TO_DATE('2023-01-01', 'YYYY-MM-DD'),
+					 'admin'
+				 )
+	</insert>
+
+	<select id="postList" resultType="Notice">
+		SELECT *
+		FROM notice
+		order by noti_code DESC
+	</select>
+
+
+	
+</mapper>
+

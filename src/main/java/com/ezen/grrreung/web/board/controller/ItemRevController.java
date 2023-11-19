@@ -1,4 +1,4 @@
-package com.ezen.grrreung.web.board;
+package com.ezen.grrreung.web.board.controller;
 
 import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.service.ItemRevService;
