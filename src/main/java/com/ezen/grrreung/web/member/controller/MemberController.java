@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @Controller
 @RequestMapping("/grrreung")
@@ -16,25 +15,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-
-    /**
-     * 회원 가입 화면 요청
-     */
-    @GetMapping("/register")
-    public String registerForm() {
-        return "/grrreung/sub/register";
-    }
-
-    /**
-     * 회원 가입 처리 요청
-     */
-    @PostMapping("/register")
-    public String register(@ModelAttribute("member") Member member) {
-        log.info("수신한 회원 정보 : {}", member.toString());
-        memberService.register(member);
-        return "redirect:/";
-    }
-
 
     /**
      * 로그인 화면 요청
@@ -59,4 +39,69 @@ public class MemberController {
             return "grrreung/sub/login";
         }
     }
+
+
+
+
+    /**
+     * 회원 가입 화면 요청
+     */
+    @GetMapping("/register")
+    public String registerForm() {
+        return "/grrreung/sub/register";
+    }
+
+    /**
+     * 회원 가입 처리 요청
+     */
+    @PostMapping("/register")
+    public String register(@ModelAttribute("member") Member member) {
+        log.info("수신한 회원 정보 : {}", member.toString());
+        memberService.register(member);
+        return "/grrreung/sub/result";
+    }
+
+
+    /**
+     * 회원가입 결과 화면
+     */
+    @RequestMapping("/result")
+    public String result(HttpServletRequest request){
+        return "/grrreung/sub/result";
+    }
+
+
+
+    /**
+     * 회원가입 상세 정보
+     */
+    @GetMapping("/mypage/{memberId}")
+    public String info(@PathVariable String memberId, Model model){
+        Member member = memberService.memberInfo(memberId);
+        model.addAttribute("member", member);
+        return "/grrreung/sub/mypage";
+    }
+
+
+    /**
+     * 회원가입 수정
+     */
+    @GetMapping("/update/{memberId}")
+    public String update(@PathVariable String memberId, Model model){
+        Member member = memberService.memberInfo(memberId);
+        model.addAttribute("member", member);
+        return "/grrreung/sub/";
+    }
+
+    /**
+     * 회원가입 수정 처리
+     */
+    @PostMapping("/update/{memberId}")
+    public String update(@ModelAttribute("member") Member member) {
+        memberService.updateInfo(member);
+        return "redirect:/grrreung/sub/mypage";
+    }
+
+
+
 }

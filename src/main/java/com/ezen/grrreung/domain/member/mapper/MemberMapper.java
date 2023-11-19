@@ -12,7 +12,7 @@ public interface MemberMapper {
     /**
      * 회원가입
      */
-    public void register(Member member);
+    public void creat(Member member);
 
     /**
     * 로그인
@@ -20,4 +20,14 @@ public interface MemberMapper {
     public Member login(String memberId,
                         String password);
 
+    /**
+     * 마이페이지
+     */
+    public Member findById(String memberId);
+
+
+    /**
+     * 마이페이지 수정
+     */
+    public void update(Member member);
 }

@@ -15,7 +15,7 @@ public class MemberServiceImpl implements  MemberService {
 
     @Override
     public void register(Member member) {
-        memberMapper.register(member);
+        memberMapper.creat(member);
     }
 
     @Override
@@ -31,6 +31,16 @@ public class MemberServiceImpl implements  MemberService {
     @Override
     public Member getMemberByEmail(String email) {
         return null;
+    }
+
+    @Override
+    public Member memberInfo(String memberId) {
+        return memberMapper.findById(memberId);
+    }
+
+    @Override
+    public void updateInfo(Member member) {
+        memberMapper.update(member);
     }
 
 }
