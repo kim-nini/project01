@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 공통 환경설정 -->
+    <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
+    <link rel="stylesheet" href="/css/notice.css">
+    <link rel="stylesheet" href="/css/post.css">
+    <title>그르릉 Grr-reung 상품등록하기</title>
+</head>
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+<!-- 헤더 -->
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+
+
+<!--<section class="bg-white py-8 notice">-->
+<!--    <div class="container mx-auto items-center flex-wrap pt-4 pb-12">-->
+<!--        <div class="w-full container mx-auto mt-0 px-2 py-3 ">-->
+<!--            <div class="category-button button_wrap flex itmes-center">-->
+
+<!--                <a href="#">상품추가</a>-->
+<!--                <a href="#">상품관리</a>-->
+<!--                <a href="#">상품삭제</a>-->
+<!--                <a href="#"></a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+
+
+<section class="bg-white py-8">
+    <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+
+        <h2>상품등록하기</h2>
+        <article class="qna">
+
+            <div>
+                <ul>
+                    <li><a href="#">상품문의</a></li>
+                    <li><a href="#">답변확인</a></li>
+                </ul>
+            </div>
+
+            <table>
+                <colgroup>
+                    <col style="width:25%">
+                    <col style="width:75%">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th>
+                        <label>카테고리</label>
+                    </th>
+
+                    <td>
+                        <select>
+                            <option value="" disabled selected>카테고리</option>
+                            <option value="1">LIVING</option>
+                            <option value="2">WALKING</option>
+                            <option value="3">FOOD</option>
+                        </select>
+
+<!--                        <select disabled="disabled">-->
+<!--                            <option value="" disabled selected>상품선택</option>-->
+<!--                            <option value="1">item1</option>-->
+<!--                            <option value="2">item2</option>-->
+<!--                            <option value="3">item3</option>-->
+<!--                        </select>-->
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>내용</th>
+                    <td>
+                        <textarea id="InputTextarea" name="item" cols="5" rows="1" placeholder="상품 설명" style="width:98%;height:280px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>이미지</th>
+                    <td>
+                        <div class="filebox">
+
+                            <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+                            <label for="file">파일찾기</label>
+                            <input type="file" id="file">
+
+
+                            <p>※ 5MB 이하의 이미지 파일 (JPG, PNG, GIF) 1개를 첨부하실 수 있습니다.</p>
+                        </div>
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+            <div class="btn_wrap">
+                <a href="#">등록</a>
+                <a href="#">취소</a>
+            </div>
+        </article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <nav id="store" class="w-full z-30 top-0 px-6 py-1">
+            <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+                <h2>상품 등록</h2>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="uploadfiles" multiple><br>
+                    <input type="text" name="uploader" placeholder="작성자"><br>
+                    <input type="text" name="description" placeholder="파일설명"><br>
+                    <button type="submit">업로드</button>
+                </form>
+            </div>
+        </nav>
+    </div>
+</section>
+
+
+
+
+<!-- 푸터 -->
+<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+
+
+
+
+</body>
+</html>
