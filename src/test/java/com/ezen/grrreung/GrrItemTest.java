@@ -65,7 +65,8 @@ public class GrrItemTest {
 
 	@Test
 	public void  findItemImageTest() {
-		ItemImg thumbnail = itemMapper.findThumbnail(1);
+//		ItemImg thumbnail = itemMapper.findThumbnail(1);
+		String thumbnail = itemMapper.findThumbnail(1);
 		log.info(thumbnail.toString());
 
 	}

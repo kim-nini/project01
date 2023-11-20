@@ -22,10 +22,10 @@ public class GrrShopController {
 //    }
 
     // 상품 정보 / 상세 페이지 이동
-//    @RequestMapping("/item")
-//    public String itemInfo(){
-//        return "/grrreung/sub/item";
-//    }
+    @RequestMapping("/item")
+    public String itemInfo(){
+        return "/grrreung/sub/item";
+    }
 
 
     // 공지사항 이동

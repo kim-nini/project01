@@ -110,8 +110,7 @@ from item_img M
 where I.item_id = 1;
 
 
-
-
+-- #7. item 장바구니에 넣기
 
 
 

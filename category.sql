@@ -1,12 +1,11 @@
-
 CREATE TABLE category (
    cate_code   NUMBER(20)   NOT NULL,
    cate_name   VARCHAR2(30)   NOT NULL,
-   cate_top       NUMBER(20)   NULL
+   cate_top        VARCHAR2(30)   NULL
 );
-
+drop table category;
 -- 테이블 category 임시데이터
-insert into category(cate_code, cate_name, cate_top) values(1001, '방석', 'living');
+insert into category values(1001, '방석', 'living');
 insert into category(cate_code, cate_name, cate_top) values(1002, '이불', 'living');
 insert into category(cate_code, cate_name, cate_top) values(1003, '넥카라', 'living');
 insert into category(cate_code, cate_name, cate_top) values(1004, '계단', 'living');
@@ -25,6 +24,7 @@ insert into category(cate_code, cate_name, cate_top) values(2007, '벌레퇴치�
 insert into category(cate_code, cate_name, cate_top) values(2008, '의류', 'walking');
 
 
+commit;
 
 insert into category(cate_code, cate_name, cate_top) values(3001, '트릿', 'food');
 insert into category(cate_code, cate_name, cate_top) values(3002, '쮸르', 'food');

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ItemMapper {
@@ -25,7 +26,6 @@ public interface ItemMapper {
     // item 등록
     public void createItem(Item item);
 
-
     // 검색 타입별 item 검색
     public List<Item> findBySearchType(@Param("type") String type, @Param("value") String value);
 
@@ -35,9 +35,11 @@ public interface ItemMapper {
     // 통합 검색
     public List<Item> findBySearchAllOption();
 
+    // 상품 썸네일 1장 불러오기
+    public String findThumbnail(int itemId);
 
-    // item 이미지 불러오기
-    public ItemImg findThumbnail(int itemId);
+    // 상품 이미지 전체 불러오기 => 컬럼 이름 key , 컬럼 값이 value
+    public  List<Map<String, Object>> findItemImages(int itemId);
 
 
 }

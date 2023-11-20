@@ -41,8 +41,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemImg showThumbnail(int itemId) {
+    public String showThumbnail(int itemId) {
         return itemMapper. findThumbnail(itemId);
+    }
+
+    @Override
+    public List<ItemImg> showImageSlide(int itemId) {
+        return itemMapper.findItemImages(itemId);
     }
 }
 //    private final MemberMapper memberMapper;

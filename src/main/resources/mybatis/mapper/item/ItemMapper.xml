@@ -45,14 +45,21 @@
 	</insert>
 
 
-	<select id="findThumbnail" parameterType="int" resultType="ItemImg">
-		select M.img_name,  M.img_url, M.rep_img_yn
+	<select id="findThumbnail" parameterType="int" resultType="string">
+		select M.img_name
 		from item_img M
 				 inner join item I
 							on I.item_id = M.item_id
 		where I.item_id = #{value} and M.rep_img_yn= 'Y'
 	</select>
 
+	<select id="findItemImages" parameterType="int" resultType="ItemImg">
+		select M.img_name, M.rep_img_yn
+		from item_img M
+				 inner join item I
+							on I.item_id = M.item_id
+		where I.item_id = #{value}
+	</select>
 
 </mapper>
 

@@ -19,7 +19,11 @@ public interface ItemService {
     // item 1개 조회
     public Item findByItemId(int itemId);
 
-    public ItemImg showThumbnail(int itemId);
+    // item 썸네일
+    public String showThumbnail(int itemId);
+
+    // 상품 이미지 전체 조회하기
+    public  List<ItemImg> showImageSlide(int itemId);
 
 
 
