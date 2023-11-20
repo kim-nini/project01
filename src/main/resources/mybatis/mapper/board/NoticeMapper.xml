@@ -4,28 +4,44 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper	namespace="com.ezen.grrreung.domain.board.mapper.NoticeMapper">
-
+<!--게시글등록-->
 	<insert id="create" parameterType="Notice">
 		INSERT INTO notice (
 			noti_code,
 			noti_title,
-			noti_cont,
-			noti_date,
-			noti_auth
+			noti_cont
 		) VALUES (
-					 1,
-					 'Important Notice',
-					 'This is an important notice.',
-					 TO_DATE('2023-01-01', 'YYYY-MM-DD'),
-					 'admin'
+					 notice_seq.NEXTVAL,
+					 #{notiTitle},
+					 #{notiCont}
 				 )
 	</insert>
-
+<!--전체리스트-->
 	<select id="postList" resultType="Notice">
 		SELECT *
 		FROM notice
 		order by noti_code DESC
 	</select>
+<!--검색리스트-->
+	<select id="searchList" parameterType="String" resultType="Notice">
+		SELECT *
+		FROM notice
+		WHERE
+			noti_title LIKE '%' || #{searchValue} || '%'
+		   OR noti_auth LIKE '%' || #{searchValue} || '%'
+		order by noti_code DESC
+	</select>
+<!--	상세보기-->
+	<select id="findByBno" parameterType="int" resultType="Notice">
+		SELECT noti_code,
+			   noti_title,
+			   noti_cont,
+			   noti_auth,
+			   TO_CHAR(noti_date, 'yyyy-MM-DD HH24:MI:SS')  noti_date
+		FROM notice
+		WHERE noti_code = #{notiCode}
+	</select>
+
 
 
 	

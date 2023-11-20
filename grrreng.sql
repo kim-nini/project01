@@ -28,8 +28,8 @@ DROP TABLE category;
 CREATE TABLE order_gr (
     order_id     NUMBER(20) NOT NULL,
     member_id    VARCHAR2(30) NOT NULL,
-    order_date   DATE NOT NULL,
-    order_status VARCHAR2(255) NOT NULL,
+    order_date   DATE  DEFAULT sysdate,
+    order_status VARCHAR2(255) DEFAULT '주문완료',
     order_memo   VARCHAR2(100) NULL,
     order_name   VARCHAR2(30) NOT NULL,
     order_add    VARCHAR2(255) NOT NULL,
@@ -212,6 +212,25 @@ INSERT INTO member (
     '123 Main St'
 );
 
+-- Insert data into order_gr table
+INSERT INTO order_gr (
+    order_id,
+    member_id,
+    order_memo,
+    order_name,
+    order_add,
+    order_hp,
+    order_price
+) VALUES (
+    order_gr_seq.NEXTVAL,
+    'member001',
+    'Urgent order',
+    'John Doe',
+    '123 Main St',
+    '555-1234',
+    '100.00'
+);
+
 -- Insert data into order_item table
 INSERT INTO order_item (
     order_item_id,
@@ -272,24 +291,6 @@ INSERT INTO cart (
     2
 );
 
--- Insert data into order_gr table
-INSERT INTO order_gr (
-    order_id,
-    member_id,
-    order_memo,
-    order_name,
-    order_add,
-    order_hp,
-    order_price
-) VALUES (
-    order_gr_seq.NEXTVAL,
-    'member001',
-    'Urgent order',
-    'John Doe',
-    '123 Main St',
-    '555-1234',
-    '100.00'
-);
 
 -- Insert data into notice table
 INSERT INTO notice (
@@ -435,8 +436,7 @@ FROM
 ORDER BY
     rev_code DESC;
 
-
---
+-------------------------------------------------------------------------------
 
 SELECT
     *
@@ -446,5 +446,10 @@ WHERE
     qna_title LIKE '%1%'
     or member_id LIKE '%1%';
 
-
-
+SELECT noti_code,
+           noti_title,
+           noti_cont,
+           noti_auth,
+           TO_CHAR(noti_date, 'yyyy-MM-DD HH24:MI:SS')  noti_date
+        FROM notice
+        WHERE noti_code = 1;

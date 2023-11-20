@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper	namespace="com.ezen.grrreung.domain.board.mapper.ItemRevMapper">
-
+<!--게시글등록-->
 	<insert id="create" parameterType="ItemRev">
 		INSERT INTO item_rev(
 			rev_code,
@@ -15,19 +15,37 @@
 		) VALUES (
 					 item_rev_no_seq.NEXTVAL,
 					 111111,
-					 '리뷰내용',
-		          	'리뷰 제목',
+					 #{revTitle},
+					 #{revCont},
 					 '멤버아이디'
 				 )
 	</insert>
-
+<!--전체리스트-->
 	<select id="postList" resultType="ItemRev">
 		SELECT *
 		FROM item_rev
 		order by rev_code DESC
 	</select>
-
-
+<!--검색리스트-->
+	<select id="searchList" parameterType="String" resultType="ItemRev">
+		SELECT *
+		FROM item_rev
+		WHERE
+			rev_title LIKE '%' || #{searchValue} || '%'
+		   OR member_id LIKE '%' || #{searchValue} || '%'
+		   OR item_id LIKE '%' || #{searchValue} || '%'
+		order by rev_code DESC
+	</select>
+<!--	상세보기-->
+	<select id="findByBno" parameterType="int" resultType="ItemRev">
+		SELECT rev_code,
+			   rev_title,
+			   rev_cont,
+			   member_id,
+			   TO_CHAR(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+		FROM item_rev
+		WHERE rev_code = #{revCode}
+	</select>
 	
 </mapper>
 

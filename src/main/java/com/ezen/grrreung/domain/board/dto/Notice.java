@@ -13,7 +13,7 @@ public class Notice {
   private int notiCode;
   private String notiTitle;
   private String notiCont;
-  private Date notiDate;
+  private String notiDate;
   private String notiAuth;
 
 }

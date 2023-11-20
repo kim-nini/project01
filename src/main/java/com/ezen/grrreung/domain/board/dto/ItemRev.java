@@ -13,7 +13,6 @@ public class ItemRev {
   private String memberId;
   private String revTitle;
   private String revCont;
-  private String revAuth;
   private String revDate;
 
 }

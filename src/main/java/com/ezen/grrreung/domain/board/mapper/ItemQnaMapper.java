@@ -17,11 +17,15 @@ public interface ItemQnaMapper {
     // QNA 검색 리스트
     public List<ItemQna> searchList(String searchValue);
 
+    // QNA 상세보기
     public ItemQna findByBno(int qnaCode);
 
-    public void updateByQnaCode(ItemQna itemQna);
+    // 수정
+    public void updateByBno(ItemQna itemQna);
 
+    // 삭제
     public void deletePost(int qnaCode);
 
+    // 조회수
     public void hitCountUpdate(int qnaCode);
 }
