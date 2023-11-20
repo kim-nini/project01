@@ -67,9 +67,20 @@ public class GrrItemTest {
 	public void  findItemImageTest() {
 //		ItemImg thumbnail = itemMapper.findThumbnail(1);
 		String thumbnail = itemMapper.findThumbnail(1);
-		log.info(thumbnail.toString());
+		log.info(thumbnail);
+	}
+
+	@Test
+	public void findItemImages() {
+		List<ItemImg> images = itemMapper.findItemImages(5);
+		for (ItemImg img : images) {
+			log.info("파일명 : {}" , img.getImgName());
+		}
+
 
 	}
+
+
 
 
 

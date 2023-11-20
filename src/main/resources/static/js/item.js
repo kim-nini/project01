@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var slider = $("#slider");
     var thumb = $("#thumb");
-    var slidesPerPage = 4; //globaly define number of elements per page
+    var slidesPerPage = 5; //globaly define number of elements per page
     var syncedSecondary = true;
     slider.owlCarousel({
         items: 1,

@@ -17,9 +17,8 @@
 }
 .heading-section h2 {
 	font-size: 32px;
-    font-weight: 500;
-    padding-top: 10px;
-    padding-bottom: 15px;
+    font-weight: 700;
+    padding: 15px;
 	font-family: 'Poppins', sans-serif;
 }
 .user-img {
@@ -192,6 +191,19 @@
     border: solid 2px #212529; 
     transition: all 0.5s ease-in-out 0s;
 }
+
+.round-gray-btn {
+	border-radius: 4px;
+	background: #717171;
+	color: #fff;
+	padding: 7px 45px;
+	display: inline-block;
+	margin-top: 20px;
+	border: solid 2px #717171;
+	transition: all 0.5s ease-in-out 0s;
+}
+.round-gray-btn:hover,
+.round-gray-btn:focus,
 .round-black-btn:hover,
 .round-black-btn:focus {
 	background: transparent;
@@ -244,7 +256,8 @@
 	font-size: 24px;
     font-weight: 600;
     line-height: 24px;
-    margin-bottom: 6px;
+    margin: 30px 0;
+	text-align: center;
     text-transform: uppercase;
     color: #000;
 }

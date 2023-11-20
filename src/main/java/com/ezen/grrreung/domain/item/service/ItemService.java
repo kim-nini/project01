@@ -4,6 +4,7 @@ import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ItemService {
 

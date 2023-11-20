@@ -54,12 +54,29 @@
 	</select>
 
 	<select id="findItemImages" parameterType="int" resultType="ItemImg">
-		select M.img_name, M.rep_img_yn
-		from item_img M
-				 inner join item I
-							on I.item_id = M.item_id
-		where I.item_id = #{value}
+		SELECT
+			item_id,
+			img_name,
+			img_url
+		FROM
+			item_img
+		where item_id = #{value}
 	</select>
+
+	<!-- 상세설명(이미지파일) 가져오기 -->
+	<select id="findDescriptionImages" parameterType="string" resultType="string">
+		SELECT
+			i.item_id,
+			m.img_name,
+			m.img_url
+		FROM
+			item_img m
+				INNER JOIN item i ON i.item_id = m.item_id
+		WHERE
+			img_name LIKE '%description%'
+	</select>
+
+
 
 </mapper>
 

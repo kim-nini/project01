@@ -21,7 +21,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/grrreung")
@@ -88,29 +90,30 @@ public class ItemController {
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
 
-//    @GetMapping("/itemImages/{itemId}")
-//    public ResponseEntity<Resource> itemImages(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
-//
-//        List<ItemImg> imgFiles = itemService.showImageSlide(itemId);
-//        log.info("파일명: {}", imgFiles);
-//
-//        Path path = Paths.get(location + "/" + imgFileName);
-//        String contentType = Files.probeContentType(path);
-//
-//        // 이미지 파일 외에는 모두 다운로드 처리
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add(HttpHeaders.CONTENT_TYPE, contentType);
-//        Resource resource = new FileSystemResource(path);
-//        if(!contentType.startsWith("image")){
-//            // 응답 헤더에 파일정보 설정
-//            headers.setContentDisposition(
-//                    ContentDisposition
-//                            .builder("attachment")
-//                            .filename(fileName, StandardCharsets.UTF_8).build());
-//            resource = new FileSystemResource(path);
-//        }
-//        return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
-//    }
+    // 상품 전체 이미지 가져오기 => 상세정보 페이지에 이미지 슬라이드 나타낼 부분
+    @GetMapping("/itemImages/{itemId}")
+    public ResponseEntity<Resource> itemImages(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
+        HttpHeaders headers=null;
+        Resource resource=null;
+        ResponseEntity<Resource> responseEntity = null;
+
+        List<ItemImg> imgFiles = itemService.showImageSlide(itemId);
+        for (ItemImg img : imgFiles) {
+            Path path = Paths.get(location + "/" + img.getImgName());
+            String contentType = Files.probeContentType(path);
+
+            headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+            resource = new FileSystemResource(path);
+            responseEntity = new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+
+            log.info("파일명 : {}", img.getImgName());
+//            String imgName = img.getImgName();
+//            model.addAttribute("imgName", imgName);
+
+        }
+        return responseEntity;
+    }
 
 
 

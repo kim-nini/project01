@@ -38,8 +38,14 @@ public interface ItemMapper {
     // 상품 썸네일 1장 불러오기
     public String findThumbnail(int itemId);
 
-    // 상품 이미지 전체 불러오기 => 컬럼 이름 key , 컬럼 값이 value
-    public  List<Map<String, Object>> findItemImages(int itemId);
+//    // 상품 이미지 전체 불러오기 => Map의 컬럼 명: key , 컬럼 값: value
+//    public  List<Map<String, Object>> findItemImages(int itemId);
+    public  List<ItemImg> findItemImages(int itemId);
+
+
+    // 상세설명(이미지파일) 가져오기
+
+
 
 
 }

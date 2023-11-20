@@ -3,9 +3,21 @@ CREATE TABLE item_img (
    item_id           NUMBER(20)       NOT NULL,
    img_name       VARCHAR2(255)   NOT NULL,
    ori_img_name   VARCHAR2(255)   NOT NULL,
-   img_url           VARCHAR2(255)   DEFAULT 'C:/ezen-lecture/final_workspace/shoppingmall-project/upload',
+   img_url           VARCHAR2(255)   DEFAULT 'C:/grrreung/shoppingmall-project/upload',
    rep_img_yn       VARCHAR2(255)   DEFAULT 'N'
 );
+
+--img_url           VARCHAR2(255)   DEFAULT 'C:/ezen-lecture/final_workspace/shoppingmall-project/upload',
+
+SELECT
+    item_id,
+    img_name,
+    img_url
+FROM
+    item_img;
+
+
+
 DROP TABLE ITEM_IMG;
 -- 대표이미지 여부 제약조건 추가
 ALTER TABLE ITEM_IMG ADD CONSTRAINT REP_IMG_YN_CHECK CHECK(
@@ -99,7 +111,8 @@ insert into item_img(item_img_id, item_id, img_name, ori_img_name)
 values ( 04 , 07, 'item07_image04.png','image04');
 insert into item_img(item_img_id, item_id, img_name, ori_img_name)
 values ( 05 , 07, 'item07_image05.png','image05');
-
+insert into item_img(item_img_id, item_id, img_name, ori_img_name)
+values ( 05 , 07, 'item07_description.png','image07');
 
 insert into item_img(item_img_id, item_id, img_name, ori_img_name, rep_img_yn)
 values ( 01 , 08, 'item08_image01.png', 'image01', 'Y');
@@ -165,9 +178,25 @@ commit;
 select item_img_id, item_id, img_name, ori_img_name, img_url, rep_img_yn from item_img;
 
 
-select M.img_name, M.img_name, M.img_url, M.rep_img_yn
+select M.img_name, M.img_url, M.rep_img_yn
 		from item_img M
 				 inner join item I
 							on I.item_id = M.item_id
 		where I.item_id = 1 and M.rep_img_yn= 'Y';
+
+
+
+SELECT
+    i.item_id,
+    m.img_name,
+    m.img_url
+FROM
+         item_img m
+    INNER JOIN item i ON i.item_id = m.item_id
+WHERE
+    img_name LIKE '%description%';
+
+
+
+
 

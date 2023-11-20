@@ -15,12 +15,12 @@
             <input class="hidden" type="checkbox" id="menu-toggle" />
 
             <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
-                <nav>
+                <nav class="headerMainMenu">
                     <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                         <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="/grrreung/">HOME</a></li>
                         <li class="sub_nav_title">
                             <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="/grrreung/shop">SHOP</a>
-                            <ul class="sub_nav_cont">
+                            <ul class="sub_nav_cont ">
                                 <li><a href="/grrreung/shop">ALL</a></li>
                                 <li><a th:href="@{/grrreung/shop/{cateTop}(cateTop='living')}">LIVING</a></li>
                                 <li><a th:href="@{/grrreung/shop/{cateTop}(cateTop='walking')}">WALKING</a></li>
@@ -29,7 +29,7 @@
                         </li>
                         <li class="sub_nav_title">
                             <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="/grrreung/notice">COMMUNITY</a>
-                            <ul class="sub_nav_cont">
+                            <ul class="sub_nav_cont toggleMenu">
                                 <li><a href="/grrreung/notice">NOTICE</a></li>
                                 <li><a href="/grrreung/faq">FAQ</a></li>
                                 <li><a href="/grrreung/qna">Q&A</a></li>
@@ -72,6 +72,7 @@
             </div>
         </div>
     </header>
+
 </th:block>
 </body>
 </html>

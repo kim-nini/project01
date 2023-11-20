@@ -60,15 +60,29 @@ h2 {
 .sub_nav_title {
     position: relative;
 }
+
+.sub_nav_title>a {
+    padding: 0.5rem 2rem;
+}
+
 .sub_nav_cont {
     position: absolute;
-    transform: translateY(6px);
+    transform: translate(-2px,-3px);
     z-index: 1;
     background-color: #FFC924;
     box-shadow: 2px 2px 8px 1px rgba(0,0,0,.1);
     padding: 20px;
-    width: 123px;
+    width: 120px;
+    font-size: 14px;
+
 }
+.toggleMenu{
+
+    transform: translate(23px,-3px);
+}
+
+
+
 
 .sub_nav_cont>li {
     margin: 0  0 8px;
