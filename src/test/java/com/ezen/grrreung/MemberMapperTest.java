@@ -56,7 +56,7 @@ public class MemberMapperTest {
 
 	@Test
 	void findByIdTest(){
-		Member member = memberMapper.findById("ehfpal02");
+		Member member = memberMapper.findById("hihihi");
 		log.info("상세 정보 확인 : {}", member);
 	}
 }

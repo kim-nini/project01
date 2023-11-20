@@ -19,6 +19,7 @@ public interface MemberMapper {
     */
     public Member login(@Param("memberId") String memberId,  @Param("password") String password);
 
+
     /**
      * 마이페이지
      */

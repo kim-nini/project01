@@ -19,11 +19,6 @@ public class MemberServiceImpl implements  MemberService {
     }
 
     @Override
-    public Member login(String memberId, String password) {
-       return memberMapper.login(memberId, password);
-    }
-
-    @Override
     public Member getMember(String memberId) {
         return null;
     }
@@ -32,6 +27,17 @@ public class MemberServiceImpl implements  MemberService {
     public Member getMemberByEmail(String email) {
         return null;
     }
+
+    @Override
+    public Member getMemberByPassword(String password) {
+        return null;
+    }
+
+    @Override
+    public Member login(String memberId, String password) {
+       return memberMapper.login(memberId, password);
+    }
+
 
     @Override
     public Member memberInfo(String memberId) {

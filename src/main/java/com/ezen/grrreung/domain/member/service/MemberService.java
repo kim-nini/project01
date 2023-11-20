@@ -14,6 +14,8 @@ public interface MemberService {
     // 회원가입 유효성 검사
     public Member getMember(String memberId);
     public Member getMemberByEmail(String email);
+    public Member getMemberByPassword(String password);
+
 
     // 마이페이지 상세정보 가져오기
     public Member memberInfo(String memberId);
