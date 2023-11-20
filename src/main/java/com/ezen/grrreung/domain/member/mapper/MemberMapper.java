@@ -12,13 +12,12 @@ public interface MemberMapper {
     /**
      * 회원가입
      */
-    public void creat(Member member);
+    public void create(Member member);
 
     /**
     * 로그인
     */
-    public Member login(String memberId,
-                        String password);
+    public Member login(@Param("memberId") String memberId,  @Param("password") String password);
 
     /**
      * 마이페이지
@@ -30,4 +29,5 @@ public interface MemberMapper {
      * 마이페이지 수정
      */
     public void update(Member member);
+
 }

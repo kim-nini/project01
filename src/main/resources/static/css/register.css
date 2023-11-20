@@ -99,3 +99,7 @@
 .btn:hover {
     background-position: right;
 }
+
+button {
+    margin:0 15px;
+}

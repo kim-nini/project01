@@ -21,7 +21,7 @@ public class MemberMapperTest {
 	@Test
 	void createTest() {
 		Member createMember = new Member();
-		createMember.setMemberId("ddalang3");
+		createMember.setMemberId("ddalang5");
 		createMember.setName("김딸랑");
 		createMember.setPassword("3333");
 		createMember.setEmail("ddalang2@gmail.com");
@@ -29,13 +29,14 @@ public class MemberMapperTest {
 		createMember.setAddress("경기도 하남시");
 		createMember.setAddress2("망원동");
 		createMember.setAddress3("123");
-		memberMapper.register(createMember);
+		memberMapper.create(createMember);
 		log.info("회원 등록 완료 : {}", createMember);
 	}
+
 	@Test
 	void createTest2() {
 		Member createMember = new Member();
-		createMember.setMemberId("bangry");
+		createMember.setMemberId("bangry1");
 		createMember.setName("김방글");
 		createMember.setPassword("2222");
 		createMember.setEmail("bangry@gmail.com");
@@ -43,14 +44,19 @@ public class MemberMapperTest {
 		createMember.setAddress("경기도 하남시");
 		createMember.setAddress2("망원동");
 		createMember.setAddress3("789");
-		memberMapper.register(createMember);
+		memberMapper.create(createMember);
 		log.info("회원 등록 완료 : {}", createMember);
 	}
 
 	@Test
-	@Disabled
 	void LoginTest1(){
 		Member member = memberMapper.login("ehfpal02", "1234");
 		log.info("로그인 정보 확인 : {}", member);
+	}
+
+	@Test
+	void findByIdTest(){
+		Member member = memberMapper.findById("ehfpal02");
+		log.info("상세 정보 확인 : {}", member);
 	}
 }

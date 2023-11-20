@@ -12,25 +12,11 @@ async function memberRegister(event) {
 	event.preventDefault();
 	const form = event.target;
 	// 유효성 검증
-	if (checkValidate(form)) {
-		const member = {
-			memberId: form.memberId.value,
-			passwd: form.passwd.value,
-			passwdCheck: form.passwdCheck.value,
-			name: form.name.value,
-			hp: form.hp.value,
-			email: form.email.value,
-			address: form.address.value
-		};
+	// if (checkValidate(form)) {
+	// 	form.submit();
+	// }
 
-		const result = await requestRegister(member);
-		const target = document.querySelector("#register-result");
-		if (result) {
-			showGlobalMessage(target, `${member.name}님 회원 가입을 축하합니다.`, "success");
-		} else {
-			showGlobalMessage(target, `서버 장애 발생, 다시 한번 시도해 주세요.`, "fail");
-		}
-	}
+	form.submit();
 }
 
 function checkValidate(form) {

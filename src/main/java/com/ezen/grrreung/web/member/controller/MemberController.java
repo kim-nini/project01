@@ -40,9 +40,6 @@ public class MemberController {
         }
     }
 
-
-
-
     /**
      * 회원 가입 화면 요청
      */
@@ -58,18 +55,16 @@ public class MemberController {
     public String register(@ModelAttribute("member") Member member) {
         log.info("수신한 회원 정보 : {}", member.toString());
         memberService.register(member);
-        return "/grrreung/sub/result";
+        return "redirect:/grrreung/result";
     }
-
 
     /**
-     * 회원가입 결과 화면
+     * 회원가입 결과 페이지
      */
-    @RequestMapping("/result")
-    public String result(HttpServletRequest request){
+    @GetMapping("/result")
+    public String resultForm() {
         return "/grrreung/sub/result";
     }
-
 
 
     /**
@@ -81,7 +76,6 @@ public class MemberController {
         model.addAttribute("member", member);
         return "/grrreung/sub/mypage";
     }
-
 
     /**
      * 회원가입 수정
