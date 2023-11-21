@@ -91,15 +91,41 @@ public class ItemController {
 	}
 
     // 상품 전체 이미지 가져오기 => 상세정보 페이지에 이미지 슬라이드 나타낼 부분
+//    @GetMapping("/itemImages/{itemId}")
+//    public ResponseEntity<Resource> itemImages(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
+//        HttpHeaders headers=null;
+//        Resource resource=null;
+//        ResponseEntity<Resource> responseEntity = null;
+//
+//        List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
+//        for (ItemImg img : imgFiles) {
+//            Path path = Paths.get(location + "/" + img.getImgName());
+//            String contentType = Files.probeContentType(path);
+//
+//            headers = new HttpHeaders();
+//            headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+//            resource = new FileSystemResource(path);
+//            responseEntity = new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+//
+//            log.info("파일명 : {}", img.getImgName());
+////            String imgName = img.getImgName();
+////            model.addAttribute("imgName", imgName);
+//
+//        }
+//        return responseEntity;
+//    }
+
+//=============================================================================================================
+
     @GetMapping("/itemImages/{itemId}")
     public ResponseEntity<Resource> itemImages(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
         HttpHeaders headers=null;
         Resource resource=null;
         ResponseEntity<Resource> responseEntity = null;
 
-        List<ItemImg> imgFiles = itemService.showImageSlide(itemId);
-        for (ItemImg img : imgFiles) {
-            Path path = Paths.get(location + "/" + img.getImgName());
+        List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
+        for (Map<String, Object> img : imgFiles) {
+            Path path = Paths.get(location + "/" + img.get(""));
             String contentType = Files.probeContentType(path);
 
             headers = new HttpHeaders();
@@ -107,7 +133,7 @@ public class ItemController {
             resource = new FileSystemResource(path);
             responseEntity = new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 
-            log.info("파일명 : {}", img.getImgName());
+            log.info("파일명 : {}", img.get("imgName"));
 //            String imgName = img.getImgName();
 //            model.addAttribute("imgName", imgName);
 
@@ -115,8 +141,7 @@ public class ItemController {
         return responseEntity;
     }
 
-
-
+//=============================================================================================================
 
     // 카테고리별 상품 출력
     @GetMapping("/shop/{cateTop}")

@@ -47,29 +47,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemImg> showImageSlide(int itemId) {
+    public List<Map<String, Object>> showImageSlide(int itemId) {
         return itemMapper.findItemImages(itemId);
     }
 }
-
-//    private final MemberMapper memberMapper;
-//
-//    @Autowired
-//    public ItemServiceImpl(MemberMapper memberMapper) {
-//        this.memberMapper = memberMapper;
-//    }
-//
-//    @Override
-//    public void register(Member member) {
-//        memberMapper.create(member);
-//    }
-//
-//    @Override
-//    public Member getMember(String memberId) {
-//        return memberMapper.findById(memberId);
-//    }
-//
-//    @Override
-//    public List<Member> getMembers() {
-//        return memberMapper.findByAll();
-//    }

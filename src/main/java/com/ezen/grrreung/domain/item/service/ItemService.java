@@ -24,7 +24,7 @@ public interface ItemService {
     public String showThumbnail(int itemId);
 
     // 상품 이미지 전체 조회하기
-    public  List<ItemImg> showImageSlide(int itemId);
+    public  List<Map<String, Object>> showImageSlide(int itemId);
 
 
 

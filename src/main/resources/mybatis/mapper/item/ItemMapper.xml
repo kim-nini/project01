@@ -46,35 +46,39 @@
 
 
 	<select id="findThumbnail" parameterType="int" resultType="string">
-		select M.img_name
-		from item_img M
-				 inner join item I
-							on I.item_id = M.item_id
-		where I.item_id = #{value} and M.rep_img_yn= 'Y'
+		SELECT M.img_name
+		FROM item_img M
+				INNER JOIN item I
+				ON I.item_id = M.item_id
+		WHERE I.item_id = #{value} AND M.rep_img_yn= 'Y'
 	</select>
-
-	<select id="findItemImages" parameterType="int" resultType="ItemImg">
-		SELECT
-			item_id,
-			img_name,
-			img_url
-		FROM
-			item_img
-		where item_id = #{value}
-	</select>
-
-	<!-- 상세설명(이미지파일) 가져오기 -->
-	<select id="findDescriptionImages" parameterType="string" resultType="string">
+	<!-- 상품 이미지 전체 불러오기-->
+	<select id="findItemImages" parameterType="int" resultType="map">
 		SELECT
 			i.item_id,
 			m.img_name,
-			m.img_url
+			m.item_img_id,
+			m.img_url,
+			m.rep_img_yn
 		FROM
 			item_img m
 				INNER JOIN item i ON i.item_id = m.item_id
 		WHERE
-			img_name LIKE '%description%'
+			i.item_id = #{value}
 	</select>
+
+	<!-- 상세설명(이미지파일) 가져오기 -->
+<!--	<select id="findDescriptionImages" parameterType="string" resultType="string">-->
+<!--		SELECT-->
+<!--			i.item_id,-->
+<!--			m.img_name,-->
+<!--			m.img_url-->
+<!--		FROM-->
+<!--			item_img m-->
+<!--				INNER JOIN item i ON i.item_id = m.item_id-->
+<!--		WHERE-->
+<!--			img_name LIKE '%description%'-->
+<!--	</select>-->
 
 
 

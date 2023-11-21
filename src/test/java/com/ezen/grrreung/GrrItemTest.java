@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @SpringBootTest
@@ -17,6 +18,7 @@ public class GrrItemTest {
 
 	@Autowired
 	private ItemMapper itemMapper;
+
 	@Test
 	public void findAllItemsTest() {
 		List<Item> list = itemMapper.findAllItems();
@@ -72,11 +74,13 @@ public class GrrItemTest {
 
 	@Test
 	public void findItemImages() {
-		List<ItemImg> images = itemMapper.findItemImages(5);
-		for (ItemImg img : images) {
-			log.info("파일명 : {}" , img.getImgName());
-		}
 
+		List<Map<String, Object>> images = itemMapper.findItemImages(1);
+
+		for(Map<String, Object>  map : images) {
+			String imageName = (String)map.get("IMG_NAME");
+			log.info("결과 : {}", imageName);
+		}
 
 	}
 
