@@ -17,10 +17,12 @@ public interface MemberService {
     public Member getMemberByPassword(String password);
 
 
-    // 마이페이지 상세정보 가져오기
+    // 마이페이지 상세정보
     public Member memberInfo(String memberId);
 
-    // 마이페이지 상세정보 수정
+    // 마이페이지 수정
     public void updateInfo(Member member);
 
+    // 회원 탈퇴
+    public void deleteUser(String memberId);
 }

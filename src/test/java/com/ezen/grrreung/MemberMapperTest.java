@@ -59,4 +59,17 @@ public class MemberMapperTest {
 		Member member = memberMapper.findById("hihihi");
 		log.info("상세 정보 확인 : {}", member);
 	}
+
+	@Test
+	void updateTest(){
+		Member member = new Member();
+		member.setPassword("0000");
+		member.setHp("01015455125");
+		member.setMemberId("hihihi");
+		memberMapper.update(member);
+		log.info("수정된 회원정보 : {}", member);
+
+	}
+
+
 }

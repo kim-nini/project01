@@ -1,10 +1,13 @@
 package com.ezen.grrreung.web.member.controller;
+
 import com.ezen.grrreung.domain.member.dto.Member;
 import com.ezen.grrreung.domain.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +33,14 @@ public class MemberController {
      * 로그인 처리 요청
      */
     @PostMapping("/login")
-    public String login(Member member, HttpServletRequest request,  Model model) {
+    public String login(Member member, HttpServletRequest request, Model model) {
         Member findMember = memberService.login(member.getMemberId(), member.getPassword());
         log.info("로그인 회원 아이디 : {}", findMember);
         HttpSession session = request.getSession();
-        if(findMember != null){
+        if (findMember != null) {
             session.setAttribute("loginMember", findMember);
             return "redirect:/";
-        }else{
+        } else {
             return "grrreung/sub/login";
         }
     }
@@ -50,8 +53,7 @@ public class MemberController {
         session.invalidate();
         return "redirect:/";
     }
-        
-    
+
 
     /**
      * 회원 가입 화면 요청
@@ -81,36 +83,56 @@ public class MemberController {
 
 
     /**
-     * 회원가입 상세 정보
+     * 마이페이지 화면
      */
-    @RequestMapping ("/mypage/{memberId}")
-    public String info(@PathVariable String memberId, Model model){
-        System.out.println("전달 받은 아이디 : " + memberId);
+    @RequestMapping("/mypage/{memberId}")
+    public String info(@PathVariable String memberId, Model model) {
         Member member = memberService.memberInfo(memberId);
         model.addAttribute("member", member);
         return "/grrreung/sub/mypage";
     }
 
-    
+
     /**
-     * 회원가입 수정 화면
+     * 마이페이지 수정 화면
      */
     @GetMapping("/update/{memberId}")
-    public String update(@PathVariable String memberId, Model model){
+    // 업데이트 페이지 불러오기
+    public String update(@PathVariable String memberId, Model model) {
+        // DB에서 내용을 가져오기
         Member member = memberService.memberInfo(memberId);
+        // html로 전달해줌
         model.addAttribute("member", member);
         return "/grrreung/sub/update";
     }
 
+
     /**
-     * 회원가입 수정 처리
+     * 마이페이지 수정 처리
      */
     @PostMapping("/update")
-    public String update(@ModelAttribute("member") Member member) {
+    public String update(@ModelAttribute Member member) {
         memberService.updateInfo(member);
-        return "redirect:/grrreung/mypage";
+        return "/grrreung/sub/updateInfo";
     }
 
 
+    /**
+     * 회원 탈퇴 비밀번호 입력
+     */
+//    @PostMapping("/out")
+//    public String deletePw(@RequestParam String password, Model model, Authentication authentication){
+//        Member member = (Member) authentication.getP
+//    }
+
+    /**
+    * 회원 탈퇴
+    */
+    @GetMapping("delete/{memberId}")
+    public String delete(@PathVariable String memberId, HttpSession session){
+        memberService.deleteUser(memberId);
+        session.invalidate();
+        return "redirect:/";
+    }
 
 }

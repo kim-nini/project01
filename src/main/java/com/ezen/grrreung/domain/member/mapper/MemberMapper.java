@@ -31,4 +31,12 @@ public interface MemberMapper {
      */
     public void update(Member member);
 
+
+    /**
+    * 회원 탈퇴
+    */
+    public void delete(String memberId);
+
+
+
 }
