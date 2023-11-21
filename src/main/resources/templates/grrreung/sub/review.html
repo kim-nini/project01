@@ -48,7 +48,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr th:each="itemRev, status : ${list}">
+                      <tr th:each="itemRev : ${list}">
                           <td th:text="${itemRev.revCode}"></td>
                           <td th:text="${itemRev.revTitle}"></td>
                           <td th:text="${itemRev.memberId}"></td>
