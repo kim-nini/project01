@@ -33,14 +33,18 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div id="slider" class="owl-carousel product-slider">
+                        <div id="slider"  class="owl-carousel product-slider">
 
-                            <div class="item" th:each="item : ${item}">
+<!--                            <div class="item" th:each="item : ${item}">-->
+                            <div class="item" th:each="num:${#numbers.sequence(1,5)}">
                                   <img th:src="@{'/grrreung/itemImages/'+ ${item.itemId}}" alt="상세이미지"/>
+                                <p th:text="${result}"></p>
                             </div>
+
+
                         </div>
 
-<!--                        <div id="thumb" class="owl-carousel product-thumb" th:each="item : ${item}">-->
+<!--                        <div id="thumb" th:each="num:${#numbers.sequence(1,5)}" class="owl-carousel product-thumb" >-->
 <!--                            <img th:src="@{'/grrreung/itemImages/'+ ${item.itemId}}" alt="상세이미지"/>-->
 <!--                        </div>-->
 
@@ -217,14 +221,14 @@
 <th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer></script>
 
 
-    <script src="/js/item.js"></script>
     <script src="/js/owl.carousel.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
+<script src="/js/item.js"></script>
 
 
 </body>

@@ -81,6 +81,18 @@
 <!--	</select>-->
 
 
+	<!-- 카테고리 이름 가져오기 상위카테고리명으로 검색함 -->
+	<select id="findCateName" parameterType="string" resultType="Category">
+		SELECT
+			cate_code,
+			cate_name,
+			cate_top
+		FROM
+			category
+		WHERE
+			cate_top = #{value}
+	</select>
+
 
 </mapper>
 

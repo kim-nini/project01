@@ -1,10 +1,12 @@
 package com.ezen.grrreung.web.item.controller;
 
+import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.net.ns.Message;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -21,9 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/grrreung")
@@ -41,9 +41,7 @@ public class ItemController {
     public String homeItemList(Model model){
         List<Item> list = itemService.allItems();
         model.addAttribute("item", list);
-
         return "/grrreung/index";
-
     }
 
     // shop 상품 전체목록 불러오기
@@ -67,10 +65,8 @@ public class ItemController {
     // 썸네일 이미지 1개 불러오기 => index, shop
     @GetMapping("/thumbnail/{itemId}")
     public ResponseEntity<Resource> thumbnailImage(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
-
         String imgFileName = itemService.showThumbnail(itemId);
         log.info("파일명: {}", imgFileName);
-
 
         Path path = Paths.get(location + "/" + imgFileName);
         String contentType = Files.probeContentType(path);
@@ -90,58 +86,44 @@ public class ItemController {
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
 
-    // 상품 전체 이미지 가져오기 => 상세정보 페이지에 이미지 슬라이드 나타낼 부분
-//    @GetMapping("/itemImages/{itemId}")
-//    public ResponseEntity<Resource> itemImages(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
-//        HttpHeaders headers=null;
-//        Resource resource=null;
-//        ResponseEntity<Resource> responseEntity = null;
-//
-//        List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
-//        for (ItemImg img : imgFiles) {
-//            Path path = Paths.get(location + "/" + img.getImgName());
-//            String contentType = Files.probeContentType(path);
-//
-//            headers = new HttpHeaders();
-//            headers.add(HttpHeaders.CONTENT_TYPE, contentType);
-//            resource = new FileSystemResource(path);
-//            responseEntity = new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
-//
-//            log.info("파일명 : {}", img.getImgName());
-////            String imgName = img.getImgName();
-////            model.addAttribute("imgName", imgName);
-//
-//        }
-//        return responseEntity;
-//    }
-
 //=============================================================================================================
-
+    // 상품 전체 이미지 가져오기 => 상세정보 페이지에 이미지 슬라이드 나타낼 부분
     @GetMapping("/itemImages/{itemId}")
-    public ResponseEntity<Resource> itemImages(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
-        HttpHeaders headers=null;
-        Resource resource=null;
-        ResponseEntity<Resource> responseEntity = null;
-
+//    public ResponseEntity<Resource> itemImages(@PathVariable("itemId")int itemId, Model model) throws IOException {
+    public ResponseEntity<Map<String, Object>> itemImages(@PathVariable("itemId")int itemId,@ModelAttribute Model model) throws IOException {
         List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
-        for (Map<String, Object> img : imgFiles) {
-            Path path = Paths.get(location + "/" + img.get(""));
+
+        String imageName = "";
+        Resource resource = null;
+        HttpHeaders headers = new HttpHeaders();
+        Map<String, Object> result = new HashMap<>();
+
+        int i = 1;
+
+        for(Map<String, Object>  map : imgFiles) {
+            imageName = (String) map.get("IMG_NAME");
+            log.info("1)파일명 : {}", imageName);
+            Path path = Paths.get(location + "/" + imageName);
             String contentType = Files.probeContentType(path);
-
-            headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+
             resource = new FileSystemResource(path);
-            responseEntity = new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 
-            log.info("파일명 : {}", img.get("imgName"));
-//            String imgName = img.getImgName();
-//            model.addAttribute("imgName", imgName);
-
+            result.put("file"+i, resource);
+            i++;
+            model.addAttribute("result", result.get("file"+i));
         }
-        return responseEntity;
+        log.info("2) 파일명 : {}", result);
+        log.info("2) 파일사이즈 : {}", result.size());
+
+
+        return new ResponseEntity<Map<String, Object>>(result, headers, HttpStatus.OK);
+
     }
 
+
 //=============================================================================================================
+
 
     // 카테고리별 상품 출력
     @GetMapping("/shop/{cateTop}")
@@ -149,6 +131,23 @@ public class ItemController {
         List<Item> item = itemService.findByCate(cateTop);
         model.addAttribute("item", item);
         return "/grrreung/sub/shop";
+    }
+
+    // (관리자만 가능)상품등록
+    @GetMapping("/admin/item")
+    public String registerItems() {
+
+        return "/grrreung/sub/admin-item";
+    }
+
+    @GetMapping("/admin")
+    public String cateName(String cateTop, Model model) {
+
+        List<Category> cateList = itemService.showCateName(cateTop);
+        model.addAttribute("cateName", cateList);
+        return "/grrreung/sub/admin-item";
+
+
     }
 
 

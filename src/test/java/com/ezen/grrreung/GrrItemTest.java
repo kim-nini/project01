@@ -1,5 +1,6 @@
 package com.ezen.grrreung;
 
+import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.mapper.ItemMapper;
@@ -79,11 +80,20 @@ public class GrrItemTest {
 
 		for(Map<String, Object>  map : images) {
 			String imageName = (String)map.get("IMG_NAME");
-			log.info("결과 : {}", imageName);
+			log.info("이미지 파일명 : {}", imageName);
 		}
 
 	}
 
+
+	@Test
+	public void findCateNameTest() {
+		String cateTop = "living";
+		List<Category> list = itemMapper.findCateName(cateTop);
+		for (Category cate : list) {
+			log.info("하위 카테고리명 : {}", cate.getCateName() );
+		}
+	}
 
 
 

@@ -1,5 +1,6 @@
 package com.ezen.grrreung.domain.item.service;
 
+import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 
@@ -26,7 +27,8 @@ public interface ItemService {
     // 상품 이미지 전체 조회하기
     public  List<Map<String, Object>> showImageSlide(int itemId);
 
-
+    //
+    public List<Category> showCateName(String cateTop);
 
 
 }

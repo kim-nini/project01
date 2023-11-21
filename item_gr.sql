@@ -37,11 +37,8 @@ insert into item values(12, 3003 , '상품12', 10000, 56, '상품설명12', 'sel
 
 truncate table item;
 
-
-
 delete from item
 where item_id=1;
-
 
 
 commit;

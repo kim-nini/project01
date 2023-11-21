@@ -1,5 +1,6 @@
 package com.ezen.grrreung.domain.item.service;
 
+import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.mapper.ItemMapper;
@@ -49,5 +50,10 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Map<String, Object>> showImageSlide(int itemId) {
         return itemMapper.findItemImages(itemId);
+    }
+
+    @Override
+    public List<Category> showCateName(String cateTop) {
+        return itemMapper.findCateName(cateTop);
     }
 }
