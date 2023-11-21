@@ -14,7 +14,7 @@ public class ItemQna {
   private int itemId;
   private String qnaTitle;
   private String qnaCont;
-  private Date qnaDate;
+  private String qnaDate;
   private String memberId;
 
 }

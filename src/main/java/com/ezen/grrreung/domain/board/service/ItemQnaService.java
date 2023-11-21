@@ -19,7 +19,6 @@ public interface ItemQnaService {
     // 게시글상세보기
     public ItemQna postInfo(int qnaCode);
 
-
     // 게시글 삭제
     public void deletePost(int qnaCode);
 

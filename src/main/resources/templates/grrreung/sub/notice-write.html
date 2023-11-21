@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/notice.css">
     <link rel="stylesheet" href="/css/post.css">
 
-    <title>그르릉Grr - 게시글 작성하기</title>
+    <title>그르릉Grr - 공지사항작성</title>
 </head>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
@@ -16,7 +16,7 @@
 
 <!-- 서브 타이틀 -->
 <th:block th:replace="~{/fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}">
-    <h2 class="category-title" th:fragment="title">Q&A</h2>
+    <h2 class="category-title" th:fragment="title">NOTICE</h2>
 </th:block>
 
 
@@ -25,14 +25,12 @@
         <form class="qna" method="post">
             <div>
                 <ul>
-                    <li><a href="#">상품문의</a></li>
-                    <li><a href="#">답변확인</a></li>
+                    <li><a href="#">상품후기작성</a></li>
                 </ul>
             </div>
             <table>
                 <colgroup>
                     <col style="width:25%">
-                    <col style="width:75%">
                 </colgroup>
                 <tbody>
                 <tr>
@@ -60,7 +58,7 @@
                         <label>제목</label>
                     </th>
                     <td>
-                        <input name="qnaTitle" placeholder="제목을 입력하세요" style="width:98%;height:40px;">
+                        <input name="revTitle" placeholder="제목을 입력하세요" style="width:98%;height:40px;">
                     </td>
                 </tr>
 
@@ -68,8 +66,8 @@
 
                     <th>내용</th>
                     <td>
-                        <textarea id="InputTextarea" name="qnaCont" cols="5" rows="1"
-                                  placeholder="문의내용을 입력해주세요.(2000자 이내)" style="width:98%;height:280px;"></textarea>
+                        <textarea id="InputTextarea" name="revCont" cols="5" rows="1"
+                                  placeholder="공지사항 내용을 입력해주세요.(2000자 이내)" style="width:98%;height:280px;"></textarea>
                     </td>
                     <td>
                         <div class="filebox">
@@ -86,25 +84,25 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <th>답변등록알림(선택)</th>
-                    <td>
-                        <ul>
-                            <li><input type="checkbox" value="y">
-                                <label>sms</label>
-                                <select>
-                                    <option>010</option>
-                                    <option>02</option>
-                                    <option>031</option>
-                                    <option>0502</option>
-                                </select><span>-</span>
-                                <input type="tel"><span>-</span><input type="tel">
-                            </li>
-                            <li><input type="checkbox"><label>E-mail</label> <input type="email"><span>@</span><input
-                                    type="email"></li>
-                        </ul>
-                    </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <th>답변등록알림(선택)</th>-->
+<!--                    <td>-->
+<!--                        <ul>-->
+<!--                            <li><input type="checkbox" value="y">-->
+<!--                                <label>sms</label>-->
+<!--                                <select>-->
+<!--                                    <option>010</option>-->
+<!--                                    <option>02</option>-->
+<!--                                    <option>031</option>-->
+<!--                                    <option>0502</option>-->
+<!--                                </select><span>-</span>-->
+<!--                                <input type="tel"><span>-</span><input type="tel">-->
+<!--                            </li>-->
+<!--                            <li><input type="checkbox"><label>E-mail</label> <input type="email"><span>@</span><input-->
+<!--                                    type="email"></li>-->
+<!--                        </ul>-->
+<!--                    </td>-->
+<!--                </tr>-->
                 </tbody>
             </table>
             <div class="btn_wrap">

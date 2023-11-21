@@ -26,8 +26,10 @@
           <form action="">
               <div class="search-wrap">
                   <label for="search" class="blind">공지사항 내용 검색</label>
-                  <input id="search" type="search" name="search_noti" placeholder="제목/내용을 입력해주세요." >
-                  <button type="submit" class="btn btn-dark">검색</button>
+                  <input id="search" type="search" name="search_noti" placeholder="제목 또는 날짜로 검색" >
+                  <button type="submit" class="btn btn-dark searchBtn">검색</button>
+                  <a class="btn btn-dark postBtn" style="right: -130px" href="/notice/create">글쓰기</a>
+<!--                  th:if="${session.loginMember.getAdmin} == 'Y'"-->
               </div>
           </form>
       </div>
@@ -49,7 +51,8 @@
               <tbody>
               <tr th:each="notice, status : ${list}">
                   <td th:text="${notice.notiCode}"></td>
-                  <td th:text="${notice.notiTitle}"></td>
+<!--                  <td th:text="${notice.notiTitle}"></td>-->
+                  <td><a th:text="${notice.notiTitle}" th:href="@{/notice/{notiCode}(notiCode=${notice.notiCode})}"></a></td>
                   <td th:text="${notice.notiAuth}"></td>
                   <td th:text="${notice.notiDate}"></td>
               </tr>

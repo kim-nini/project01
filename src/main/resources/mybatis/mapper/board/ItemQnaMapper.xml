@@ -26,7 +26,7 @@
 		FROM item_qna
 		order by qna_code DESC
 	</select>
-<!--검색값 리스트-->
+<!--검색 리스트-->
     <select id="searchList" parameterType="String" resultType="ItemQna">
         SELECT *
         FROM item_qna
@@ -36,6 +36,16 @@
         order by qna_code DESC
     </select>
 
+<!--상세보기-->
+    <select id="findByBno" parameterType="int" resultType="ItemQna">
+        SELECT qna_code,
+               qna_title,
+               qna_cont,
+               member_id,
+               TO_CHAR(qna_date, 'yyyy-MM-DD HH24:MI:SS') qna_date
+        FROM item_qna
+        WHERE qna_code = #{qnaCode}
+    </select>
 	
 </mapper>
 

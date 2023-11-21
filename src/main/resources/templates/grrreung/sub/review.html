@@ -27,8 +27,9 @@
               <form action="">
                   <div class="search-wrap">
                       <label for="search" class="blind">상품 리뷰 검색</label>
-                      <input id="search" type="search" name="item_id" placeholder="상품명(상품코드)을 입력해주세요.">
-                      <button type="submit" class="btn btn-dark">검색</button>
+                      <input id="search" type="search" name="item_id" placeholder="상품명(상품코드) 또는 작성자로 검색">
+                      <button type="submit" class="btn btn-dark searchBtn">검색</button>
+                      <a class="btn btn-dark postBtn" style="right: -130px" href="/itemrev/create">후기 작성</a>
                   </div>
               </form>
           </div>
@@ -50,7 +51,8 @@
                   <tbody>
                       <tr th:each="itemRev : ${list}">
                           <td th:text="${itemRev.revCode}"></td>
-                          <td th:text="${itemRev.revTitle}"></td>
+<!--                          <td th:text="${itemRev.revTitle}"></td>-->
+                          <td><a th:text="${itemRev.revTitle}" th:href="@{/itemrev/{revCode}(revCode=${itemRev.revCode})}"></a></td>
                           <td th:text="${itemRev.memberId}"></td>
                           <td th:text="${itemRev.revDate}"></td>
                       </tr>

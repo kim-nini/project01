@@ -26,7 +26,7 @@
                   <form method="post">
                       <div class="search-wrap">
                           <label for="search" class="blind">Q&A 내용 검색</label>
-                          <input id="search" type="search" name="searchValue" placeholder="검색어를 입력해주세요.">
+                          <input id="search" type="search" name="searchValue" placeholder="제목 또는 작성자로 검색">
                           <button type="submit" class="btn btn-dark searchBtn">검색</button>
                           <a class="btn btn-dark postBtn" style="right: -130px" href="/itemqna/create">문의하기</a>
                       </div>
@@ -50,7 +50,8 @@
                   <tbody>
                   <tr th:each="itemQna, status : ${list}">
                       <td th:text="${itemQna.qnaCode}"></td>
-                      <td th:text="${itemQna.qnaTitle}"></td>
+<!--                      <td th:text="${itemQna.qnaTitle}"></td>-->
+                      <td><a th:text="${itemQna.qnaTitle}" th:href="@{/itemqna/{qnaCode}(qnaCode=${itemQna.qnaCode})}"></a></td>
                       <td th:text="${itemQna.memberId}"></td>
                       <td th:text="${itemQna.qnaDate}"></td>
                   </tr>
