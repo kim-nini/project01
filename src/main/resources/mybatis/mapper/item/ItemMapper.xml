@@ -100,22 +100,26 @@
 	<select id="findByParams" parameterType="RequestParams" resultType="Item">
 		SELECT
 			item_id,
-			item_name
+			item_name,
+			item_price
 		FROM
 			(
 				SELECT
 					ceil(ROWNUM / #{elementSize}) page,
 					item_id,
-					item_name
+					item_name,
+					item_price
 				FROM
 					(
 						SELECT
 							item_id,
-							item_name
+							item_name,
+							item_price
 						FROM
 							item
                      	<where>
-							<if test="search != null">item_name LIKE '%'||#{search}||'%'</if>
+							<if test="search != null">item_name LIKE '%'||#{search}||'%' and</if>
+							item_sell_status = 'sell'
 						</where>
 					)
 			)

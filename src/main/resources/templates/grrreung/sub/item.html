@@ -33,14 +33,18 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div id="slider"  class="owl-carousel product-slider">
 
+                        <div id="slider"  class="owl-carousel product-slider">
                             <div class="item"  th:each="imgFiles : ${imgFiles}">
                                 <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지" />
                             </div>
-
                         </div>
 
+                        <div id="thumb" class="owl-carousel product-thumb">
+                            <div class="item"  th:each="imgFiles : ${imgFiles}">
+                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지" />
+                            </div>
+                        </div>
 
                     </div>
 
@@ -48,7 +52,7 @@
                         <div class="product-dtl">
                             <div class="product-info">
                                 <h3 th:text="${item.itemName}" class="product-name">상품명</h3>
-                                <span>배송비 : 3,000원 (70,000원 이상 구매 시 무료)</span>
+                                <p>배송비 : 3,000원 (70,000원 이상 구매 시 무료)</p>
 
                                 <div class="reviews-counter">
 
@@ -70,7 +74,7 @@
 
                                 </div>
 
-                                <div th:text="|${item.itemPrice}원|" class="product-price-discount">
+                                <div th:text="|${#numbers.formatInteger(item.itemPrice, 0, 'COMMA')}원|" class="product-price-discount">
                                     <span>상품가격</span>
                                     <span class="line-through">sale가격</span>
                                 </div>

@@ -44,7 +44,8 @@ WHERE CATE_CODE=1000;
 -- #1. 카테고리 검색하기
 SELECT
     cate_code,
-    cate_name
+    cate_name,
+    cate_top
 FROM
     category
 WHERE

@@ -10,7 +10,7 @@ public class RequestParams {
 	private String search;      /** 검색값 */
 	
 	public RequestParams() {
-		this(1, 10, 5, null);
+		this(1, 2, 5, null);
 	}
 	
 	public RequestParams(int requestPage, int elementSize, int pageSize, String search) {

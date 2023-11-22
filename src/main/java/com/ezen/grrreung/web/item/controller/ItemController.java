@@ -47,54 +47,67 @@ public class ItemController {
     }
 
     // shop 상품 전체목록 불러오기
-    @RequestMapping("/shop")
+    @GetMapping("/shop")
     public String allItemsList(Model model){
         List<Item> list = itemService.allItems();
-
-//        List<Item> list = itemService.searchItem(params);
         model.addAttribute("item", list);
-//        model.addAttribute("params", params);
+        RequestParams params = new RequestParams();
+
+        int totalElement = itemService.countByParams(params);
+        log.info(" *** 검색 개수 : {} ", totalElement);
+
+        Pagination pagination = new Pagination(params, totalElement);
+        log.info(" *** 첫페이지 : {}",pagination.getStartPage());
+        log.info(" *** 끝페이지 : {}",pagination.getEndPage());
+        log.info(" ***** pagination : {}", pagination);
+        model.addAttribute("pagination", pagination);
+
+
+
+
         return "/grrreung/sub/shop";
     }
 
 
     // 상품 검색
-    @GetMapping("/search/{itemName}")
-    public String searchItem(@PathVariable("itemName") String itemName, Model model) {
+    @GetMapping("/search")
+    public String searchList(@RequestParam(value="searchValue") String itemName, Model model) {
+        RequestParams params = new RequestParams();
+        String searchValue = itemName;
+        params.setSearch(searchValue);
+        log.info(" *** 넘겨받은 search값 : {}", searchValue);
+
+        List<Item> searchList =  itemService.searchItem(params);
+        model.addAttribute("item", searchList);
+        log.info(" *** 검색 목록 : {}", searchList);
+
+        int totalElement = itemService.countByParams(params);
+        log.info(" *** 검색 개수 : {} ", totalElement);
+
+        Pagination pagination = new Pagination(params, totalElement);
+        log.info(" *** 첫페이지 : {}",pagination.getStartPage());
+        log.info(" *** 끝페이지 : {}",pagination.getEndPage());
+        log.info(" ***** pagination : {}", pagination);
+        model.addAttribute("pagination", pagination);
+
+
+
 
         return "/grrreung/sub/shop";
     }
 
 
-    @RequestMapping("/page")
-    public String page (Model model) {
-        RequestParams params = new RequestParams();
 
-        params.setRequestPage(1);
-        params.setElementSize(4);
-
-        List<Item> list = itemService.searchItem(params);
-
-        model.addAttribute("list", list);
-
-        int count = itemService.countByParams(params);
-        log.info("조회된 상품 개수 : {}", count);
-
-        Pagination pg = new Pagination(params, count);
-
-
-        return "/grrreung/sub/shp";
-    }
 
 
 
     // 아이템 아이디로 상품 한개 상세정보
     @RequestMapping("/shop/item/{itemId}")
     public String itemInfo(@PathVariable("itemId")int itemId, Model model){
-        // 상품 상세정보
         Item item = itemService.findByItemId(itemId);
         // 슬라이드 상품이미지 가져오기
         List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
+        // 상품 정보 이미지 가져오기
         List<Map<String, Object>> itemDescription = itemService.showDescriptionImages(itemId);
 
         model.addAttribute("item", item);
@@ -135,7 +148,6 @@ public class ItemController {
         Path path = Paths.get(location + "/" + imgName);
 		String contentType = Files.probeContentType(path);
 
-		// 이미지 파일 외에는 모두 다운로드 처리
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(HttpHeaders.CONTENT_TYPE, contentType);
 		Resource resource = new FileSystemResource(path);
@@ -143,31 +155,6 @@ public class ItemController {
     }
 
 //=============================================================================================================
-    // 상품 전체 이미지 가져오기 => 상세정보 페이지에 이미지 슬라이드 나타낼 부분
-//    @GetMapping("/itemImages/{itemId}")
-//    public ResponseEntity<Map<String, Object>> itemImages(@PathVariable("itemId")int itemId, Model model) throws IOException {
-//        List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId); // 상품 상세정보 - 이미지 슬라이드
-//
-//        String imageName = "";
-//
-//        Resource resource = null;
-//        HttpHeaders headers = new HttpHeaders();
-//        Map<String, Object> result = new HashMap<>();
-//
-//        for(Map<String, Object>  map : imgFiles) {
-//            imageName = (String) map.get("IMG_NAME");
-//
-//            log.info("1)파일명 : {}", imageName);
-//            Path path = Paths.get(location + "/" + imageName);
-//
-//            String contentType = Files.probeContentType(path);
-//            headers.add(HttpHeaders.CONTENT_TYPE, contentType);
-//            resource = new FileSystemResource(path);
-//        }
-//
-//        return new ResponseEntity<Map<String, Object>>(result, headers, HttpStatus.OK);
-//
-//    }
 
     @GetMapping("/itemInfoImage/{itemId}")
     public ResponseEntity<Map<String, Object>> itemDescriptionImages(@PathVariable("itemId")int itemId, Model model) throws IOException {
@@ -187,10 +174,7 @@ public class ItemController {
             headers.add(HttpHeaders.CONTENT_TYPE, contentType);
             resource = new FileSystemResource(path);
         }
-
-
         return new ResponseEntity<Map<String, Object>>(result, headers, HttpStatus.OK);
-
     }
 //=============================================================================================================
 
@@ -223,14 +207,6 @@ public class ItemController {
     }
 
 //    페이징처리---------------------------------------------------------------------------------
-//    @GetMapping("")
-//    public String itemList(RequestParams params){
-//        List<Item> list = itemService.searchItem(params);
-//
-//
-//        return "grrreung/sub/shop";
-//    }
-
 
 
 
