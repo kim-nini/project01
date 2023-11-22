@@ -1,7 +1,9 @@
 package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemRev;
+import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.mapper.ItemRevMapper;
+import com.ezen.grrreung.web.common.RequestParams;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,15 +20,17 @@ public class ItemRevServiceImpl implements ItemRevService{
     @Override
     public void posting(ItemRev itemRev) { itemRevMapper.create(itemRev); }
 
-    // 리뷰 전체 리스트
+    // 리뷰 전체 + 검색 리스트
     @Override
-    public List<ItemRev> postList() {
-        return itemRevMapper.postList();
+    public List<ItemRev> postList(RequestParams params) {
+        return itemRevMapper.postList(params);
     }
 
-    // 리뷰 검색 리스트
+    // 리뷰 리스트 행갯수
     @Override
-    public List<ItemRev> searchList(String searchValue) { return itemRevMapper.searchList(searchValue); }
+    public int postListCount(RequestParams params) {
+        return itemRevMapper.postListCount(params);
+    }
 
     // 리뷰 상세 보기
     @Override

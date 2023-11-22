@@ -20,7 +20,7 @@ public class NoticeServiceImpl implements NoticeService{
     @Override
     public void posting(Notice notice) { noticeMapper.create(notice);  }
 
-    // 공지사항 전체 리스트
+    // 공지사항 전체 + 검색 리스트
     @Override
     public List<Notice> postList(RequestParams params) {
         return noticeMapper.postList(params);
@@ -31,10 +31,6 @@ public class NoticeServiceImpl implements NoticeService{
     public int postListCount(RequestParams params) {
         return noticeMapper.postListCount(params);
     }
-
-    // 공지사항 검색 리스트
-    @Override
-    public List<Notice> searchList(String searchValue) { return noticeMapper.searchList(searchValue); }
 
     // 공지사항 상세보기
     @Override

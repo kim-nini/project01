@@ -58,6 +58,7 @@
 			page = #{requestPage}
 
 	</select>
+
 <!--전체리스트 행갯수-->
 	<select id="postListCount" parameterType="RequestParams" resultType="int">
 		SELECT COUNT(*) count
@@ -70,15 +71,7 @@
 		</where>
 		order by noti_code DESC
 	</select>
-<!--검색리스트-->
-	<select id="searchList" parameterType="String" resultType="Notice">
-		SELECT *
-		FROM notice
-		WHERE
-			noti_title LIKE '%' || #{searchValue} || '%'
-		   OR noti_auth LIKE '%' || #{searchValue} || '%'
-		order by noti_code DESC
-	</select>
+
 <!--	상세보기-->
 	<select id="findByBno" parameterType="int" resultType="Notice">
 		SELECT noti_code,

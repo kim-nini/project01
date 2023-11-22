@@ -1,7 +1,9 @@
 package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemQna;
+import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.mapper.ItemQnaMapper;
+import com.ezen.grrreung.web.common.RequestParams;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,16 +22,16 @@ public class ItemQnaServiceImpl implements ItemQnaService{
         itemQnaMapper.create(itemQna);
     }
 
-    // QNA 전체 리스트
+    // QNA 전체 + 검색 리스트
     @Override
-    public List<ItemQna> postList() {
-        return itemQnaMapper.postList();
+    public List<ItemQna> postList(RequestParams params) {
+        return itemQnaMapper.postList(params);
     }
 
-    // QNA 검색 리스트
+    // QNA 리스트 행갯수
     @Override
-    public List<ItemQna> searchList(String searchValue) {
-        return itemQnaMapper.searchList(searchValue);
+    public int postListCount(RequestParams params) {
+        return itemQnaMapper.postListCount(params);
     }
 
     // QNA 상세 보기
