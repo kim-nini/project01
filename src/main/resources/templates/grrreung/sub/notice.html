@@ -26,7 +26,7 @@
           <form action="">
               <div class="search-wrap">
                   <label for="search" class="blind">공지사항 내용 검색</label>
-                  <input id="search" type="search" name="search_noti" placeholder="제목 또는 날짜로 검색" >
+                  <input id="search" type="search" name="search" placeholder="제목 또는 날짜로 검색" >
                   <button type="submit" class="btn btn-dark searchBtn">검색</button>
                   <a class="btn btn-dark postBtn" style="right: -130px" href="/notice/create">글쓰기</a>
 <!--                  th:if="${session.loginMember.getAdmin} == 'Y'"-->
@@ -49,15 +49,34 @@
               </tr>
               </thead>
               <tbody>
+
               <tr th:each="notice, status : ${list}">
-                  <td th:text="${notice.notiCode}"></td>
+                  <td th:text="${notice.notiCont}"></td>
 <!--                  <td th:text="${notice.notiTitle}"></td>-->
                   <td><a th:text="${notice.notiTitle}" th:href="@{/notice/{notiCode}(notiCode=${notice.notiCode})}"></a></td>
                   <td th:text="${notice.notiAuth}"></td>
                   <td th:text="${notice.notiDate}"></td>
               </tr>
+
               </tbody>
           </table>
+          <p th:if="${list}!='[]'" style="text-align: center; padding-top: 10px; box-sizing: border-box; font-size: large">검색결과가 없습니다</p>
+          <nav aria-label="Page navigation example">
+              <ul class="pagination" style="" >
+                  <li th:if="${pagination.isShowFirst()}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=1)}">&laquo;</a></li>
+                  <li th:if="${pagination.isShowPrevious()}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
+                  <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=${page})}" name="page" th:text="${page}"></a>
+                  </li>
+                  <li th:if="${pagination.isShowNext()}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
+                  <li th:if="${pagination.isShowLast()}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=${pagination.totalPages})}">&raquo;</a></li>
+              </ul>
+          </nav>
+
       </div>
   </div>
 </section>

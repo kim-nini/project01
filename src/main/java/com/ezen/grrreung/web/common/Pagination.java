@@ -13,8 +13,8 @@ public class Pagination {
     private int listNo;               /** 목록별 식별번호 */
     private int startPage;            /** 현재 페이지가 소속된 목록의 시작 번호 */
     private int endPage;              /** 현재 페이지가 소속된 목록의 마지막 번호 */
-    private int previousStartPage;    /** 이전 페이지가 소속된 목록의 시작 번호 */
-    private int nextStartPage;        /** 다음 페이지가 소속된 목록의 마지막 번호 */
+    private int previousStartPage;    /** 이전 페이지가 소속된 목록의 시작 번호 이전목록 */
+    private int nextStartPage;        /** 다음 페이지가 소속된 목록의 마지막 번호 다음목록*/
 
     public Pagination(RequestParams params, int totalElements ) {
         // 생성자에서 받아 테이블 출력개수 카운트 해서 생성하기
