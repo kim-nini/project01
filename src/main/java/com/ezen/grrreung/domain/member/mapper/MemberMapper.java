@@ -17,7 +17,8 @@ public interface MemberMapper {
     /**
     * 로그인
     */
-    public Member login(@Param("memberId") String memberId,  @Param("password") String password);
+    public Member login(@Param("memberId") String memberId,
+                        @Param("password") String password);
 
 
     /**

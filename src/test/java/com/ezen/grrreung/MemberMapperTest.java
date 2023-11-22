@@ -3,6 +3,9 @@ package com.ezen.grrreung;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 
+import com.ezen.grrreung.domain.member.dto.Cart;
+import com.ezen.grrreung.domain.member.mapper.CartMapper;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ public class MemberMapperTest {
 	
 	@Autowired
 	private MemberMapper memberMapper;
+
+	@Autowired
+	private CartMapper cartMapper;
 
 	@Test
 	void createTest() {
@@ -70,6 +76,8 @@ public class MemberMapperTest {
 		log.info("수정된 회원정보 : {}", member);
 
 	}
+
+
 
 
 }

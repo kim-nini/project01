@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Cart {
-    private String cartId;
+    private int cartId;
     private String memberId;
-    private String itemId;
-    private String cartAmount;
+    private int itemId;
+    private int cartAmount;
 }
