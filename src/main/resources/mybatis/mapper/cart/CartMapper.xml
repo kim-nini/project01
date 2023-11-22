@@ -4,7 +4,7 @@
 <mapper namespace="com.ezen.grrreung.domain.member.mapper.CartMapper">
 
     <!-- 장바구니 상품 리스트 -->
-    <select id="findById" parameterType="String" resultType="Cart">
+    <select id="findById" parameterType="String" resultType="map">
         SELECT i.item_name, i.item_detail, i.item_price, i.item_amount, c.cart_id, c.member_id, c.item_id, c.cart_amount, m.img_url
         FROM cart c
                  inner join item i

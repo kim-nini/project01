@@ -44,6 +44,7 @@
                 </nav>
             </div>
 
+
             <!-- 상단 로고 start-->
             <div class="order-1 md:order-2">
                 <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl"
@@ -55,13 +56,12 @@
 
 
             <!-- 로그인 상태 정보 -->
-            <div class="order-1 md:order-2" th:if="${session.loginMember} != null">
-                <p th:text="${session.loginMember.name}+'님 로그인 중'"></p>
+            <div class="order-1 md:order-2" id="loginInfo" th:if="${session.loginMember} != null">
+                <div th:text="${session.loginMember.name}+'님 로그인 중'"></div>
                 <form action="/grrreung/logout">
-                    <button type="submit" class="btn btn-primary" id="logout">로그아웃</button>
+                    <button type="submit" id="logout">로그아웃</button>
                 </form>
             </div>
-
 
 
             <!-- 아이콘 -->

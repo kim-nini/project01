@@ -1,11 +1,11 @@
 package com.ezen.grrreung.domain.member.service;
 
-import com.ezen.grrreung.domain.member.dto.Cart;
 import com.ezen.grrreung.domain.member.mapper.CartMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +15,7 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public List<Cart> getCartList(String memberId) {
+    public List<Map<String, Object>> getCartList(String memberId) {
         return cartMapper.findById(memberId);
     }
 }

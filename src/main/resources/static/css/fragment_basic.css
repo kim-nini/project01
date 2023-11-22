@@ -96,3 +96,8 @@ h2 {
     font-size: 21px;
     font-weight: 700;
 }
+
+#loginInfo {
+    background-color: black;
+    padding: 0 50px;
+}

@@ -1,11 +1,6 @@
 package com.ezen.grrreung.web.member.controller;
 
-import com.ezen.grrreung.domain.member.dto.Cart;
-import com.ezen.grrreung.domain.member.dto.Member;
 import com.ezen.grrreung.domain.member.service.CartService;
-import com.ezen.grrreung.domain.member.service.MemberService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/grrreung")
@@ -28,7 +24,8 @@ public class CartController {
      */
     @GetMapping("/cart/{memberId}")
     public String list(@PathVariable("memberId") String memberId, Model model){
-        List<Cart> list = cartService.getCartList(memberId);
+        List<Map<String, Object>> list = cartService.getCartList(memberId);
+        //log.info("장바구니 아이템 수: {}", list.size());
         model.addAttribute("list", list);
         return "/grrreung/sub/cart";
     }
