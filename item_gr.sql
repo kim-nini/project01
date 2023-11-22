@@ -107,7 +107,31 @@ from item_img M
 where I.item_id = 1;
 
 
--- #7. item 장바구니에 넣기
+-- #7. item 검색값 페이징처리하기
+    SELECT
+         item_id,
+                          item_name
+          to_char(regdate, 'YYYY-MM-DD DAY') "regdate"
+      FROM
+          (
+              SELECT
+                 ceil(ROWNUM / 10) page,
+                  item_id,
+                          item_name
+              FROM
+                  (
+                      SELECT
+                          item_id,
+                          item_name
+                      FROM
+                          item
+                      where
+                             item_id = 1 
+                  )
+          )
+      WHERE
+          page = 1;
+
 
 
 

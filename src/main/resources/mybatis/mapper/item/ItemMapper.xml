@@ -52,7 +52,7 @@
 				ON I.item_id = M.item_id
 		WHERE I.item_id = #{value} AND M.rep_img_yn= 'Y'
 	</select>
-	<!-- 상품 이미지 전체 불러오기-->
+	<!-- 상품 이미지 전체 불러오기 descripion 제외-->
 	<select id="findItemImages" parameterType="int" resultType="map">
 		SELECT
 			i.item_id,
@@ -64,21 +64,24 @@
 			item_img m
 				INNER JOIN item i ON i.item_id = m.item_id
 		WHERE
-			i.item_id = #{value}
+			i.item_id = #{value} and
+			NOT m.img_name LIKE '%description%'
 	</select>
 
 	<!-- 상세설명(이미지파일) 가져오기 -->
-<!--	<select id="findDescriptionImages" parameterType="string" resultType="string">-->
-<!--		SELECT-->
-<!--			i.item_id,-->
-<!--			m.img_name,-->
-<!--			m.img_url-->
-<!--		FROM-->
-<!--			item_img m-->
-<!--				INNER JOIN item i ON i.item_id = m.item_id-->
-<!--		WHERE-->
-<!--			img_name LIKE '%description%'-->
-<!--	</select>-->
+	<select id="findDescriptionImages" parameterType="int" resultType="map">
+		SELECT
+			i.item_id,
+			m.img_name,
+			m.img_url
+		FROM
+			item_img m
+				INNER JOIN item i ON i.item_id = m.item_id
+		WHERE
+		    i.item_id = #{value} and
+			img_name LIKE '%description%'
+		ORDER  BY img_name ASC
+	</select>
 
 
 	<!-- 카테고리 이름 가져오기 상위카테고리명으로 검색함 -->
@@ -92,6 +95,50 @@
 		WHERE
 			cate_top = #{value}
 	</select>
+
+	<!-- 요청 파라미터 값에 따른 아이템 목록 => 상품명으로 검색하기 -->
+	<select id="findByParams" parameterType="RequestParams" resultType="Item">
+		SELECT
+			item_id,
+			item_name
+		FROM
+			(
+				SELECT
+					ceil(ROWNUM / #{elementSize}) page,
+					item_id,
+					item_name
+				FROM
+					(
+						SELECT
+							item_id,
+							item_name
+						FROM
+							item
+                     	<where>
+							<if test="search != null">item_name LIKE '%'||#{search}||'%'</if>
+						</where>
+					)
+			)
+		WHERE
+			page = #{requestPage}
+	</select>
+
+
+	<!-- 요청 파라미터에 해당하는 상품 개수 -->
+	<select id="countByParams" parameterType="RequestParams" resultType="int">
+		SELECT
+			COUNT(*) count
+		FROM
+			item
+		<where>
+			<if test="search != null">
+				item_name LIKE '%'||#{search}||'%'
+			</if>
+		</where>
+	</select>
+
+
+
 
 
 </mapper>

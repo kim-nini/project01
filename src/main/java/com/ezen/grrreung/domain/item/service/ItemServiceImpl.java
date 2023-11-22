@@ -4,6 +4,7 @@ import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.mapper.ItemMapper;
+import com.ezen.grrreung.web.common.page.RequestParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,28 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<Map<String, Object>> showDescriptionImages(int itemId) {
+        return itemMapper.findDescriptionImages(itemId);
+    }
+
+    @Override
     public List<Category> showCateName(String cateTop) {
         return itemMapper.findCateName(cateTop);
     }
+
+    @Override
+    public List<Item> searchItem(RequestParams params) {
+        return itemMapper.findByParams(params);
+    }
+
+    @Override
+    public int countByParams(RequestParams params) {
+        return itemMapper.countByParams(params);
+    }
+
+//--------------------------------------------------------------------------------------------------------
+
+
+
+
 }

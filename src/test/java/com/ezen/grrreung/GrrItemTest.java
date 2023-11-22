@@ -4,6 +4,8 @@ import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.mapper.ItemMapper;
+import com.ezen.grrreung.web.common.page.Pagination;
+import com.ezen.grrreung.web.common.page.RequestParams;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +95,36 @@ public class GrrItemTest {
 		for (Category cate : list) {
 			log.info("하위 카테고리명 : {}", cate.getCateName() );
 		}
+	}
+
+
+	@Test
+	public void findDescriptionImagesTest() {
+		List<Map<String, Object>> list = itemMapper.findDescriptionImages(11);
+
+		for(Map<String, Object> map : list) {
+			log.info("{}",map.get("IMG_NAME"));
+		}
+	}
+
+	@Test
+	public void findByParamsTest() {
+
+		RequestParams params = new RequestParams();
+		params.setRequestPage(1);
+		params.setElementSize(8);
+		params.setSearch("상품");
+
+		List<Item> list = itemMapper.findByParams(params);
+		for (Item item : list) {
+			log.info("검색 목록 : {}", item);
+		}
+
+		int count = itemMapper.countByParams(params);
+		log.info("조회된 상품 개수 : {}", count);
+		Pagination pg = new Pagination(params, count);
+		log.info("페이지네이션 : {}", pg.toString());
+
 	}
 
 

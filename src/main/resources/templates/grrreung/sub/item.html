@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
@@ -35,18 +35,12 @@
                     <div class="col-md-6">
                         <div id="slider"  class="owl-carousel product-slider">
 
-<!--                            <div class="item" th:each="item : ${item}">-->
-                            <div class="item" th:each="num:${#numbers.sequence(1,5)}">
-                                  <img th:src="@{'/grrreung/itemImages/'+ ${item.itemId}}" alt="상세이미지"/>
-                                <p th:text="${result}"></p>
+                            <div class="item"  th:each="imgFiles : ${imgFiles}">
+                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지" />
                             </div>
-
 
                         </div>
 
-<!--                        <div id="thumb" th:each="num:${#numbers.sequence(1,5)}" class="owl-carousel product-thumb" >-->
-<!--                            <img th:src="@{'/grrreung/itemImages/'+ ${item.itemId}}" alt="상세이미지"/>-->
-<!--                        </div>-->
 
                     </div>
 
@@ -135,8 +129,12 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                           <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-<!--                              <img src="">-->
-                              상세정보 출력할 부분
+
+                              <!-- 상세정보 출력할 부분 (DB에 저장한 이미지 파일 루프 돌려서 보여줌 -->
+                              <th:block th:each="itemDescription : ${itemDescription}">
+                                 <img th:src="@{'/grrreung/img/'+ ${itemDescription.IMG_NAME} }" alt="제품 상세 정보" />
+                              </th:block>
+
                           </div>
                           <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                               <div class="review-heading">그르릉 리뷰 🐾</div>

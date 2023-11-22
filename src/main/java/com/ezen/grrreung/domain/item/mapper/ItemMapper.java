@@ -2,6 +2,8 @@ package com.ezen.grrreung.domain.item.mapper;
 
 import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
+import com.ezen.grrreung.domain.item.dto.ItemImg;
+import com.ezen.grrreung.web.common.page.RequestParams;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -45,10 +47,15 @@ public interface ItemMapper {
 
 
     // 상세설명(이미지파일) 가져오기
-//    public  List<ItemImg> findDescriptionImages(int itemId);
+    public  List<Map<String, Object>> findDescriptionImages(int itemId);
 
-
+    // 카테고리 이름 가져오기
     public List<Category> findCateName(String cateTop);
 
+    // 요청 파라미터 값에 따른 아이템 목록
+    public List<Item> findByParams(RequestParams params);
+
+    // 요청 파라미터에 해당하는 상품 개수
+    public int countByParams(RequestParams params);
 
 }
