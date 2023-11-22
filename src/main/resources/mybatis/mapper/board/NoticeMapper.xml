@@ -16,10 +16,58 @@
 					 #{notiCont}
 				 )
 	</insert>
-<!--전체리스트-->
-	<select id="postList" resultType="Notice">
-		SELECT *
+
+<!-- 전체리스트 및 검색 리스트-->
+	<select id="postList" parameterType="RequestParams" resultType="Notice">
+		SELECT
+			noti_code,
+			noti_title,
+			noti_cont,
+			noti_auth,
+			noti_date
+		FROM
+			(
+				SELECT
+					ceil(ROWNUM / #{elementSize})  page,
+					noti_code,
+					noti_title,
+					noti_cont,
+					noti_auth,
+					noti_date
+				FROM
+					(
+						SELECT
+							noti_code,
+							noti_title,
+							noti_cont,
+							noti_auth,
+							to_char(noti_date, 'yyyy-MM-DD HH24:MI:SS') noti_date
+						FROM
+							notice
+					<where>
+						<if test="search != null">
+							noti_title LIKE '%' || #{search} || '%'
+							OR noti_date LIKE '%' || #{search} || '%'
+						</if>
+					</where>
+						ORDER BY
+							noti_code DESC
+					)
+			)
+		WHERE
+			page = #{requestPage}
+
+	</select>
+<!--전체리스트 행갯수-->
+	<select id="postListCount" parameterType="RequestParams" resultType="int">
+		SELECT COUNT(*) count
 		FROM notice
+		<where>
+			<if test="search != null">
+				noti_title LIKE '%' || #{search} || '%'
+				OR noti_date LIKE '%' || #{search} || '%'
+			</if>
+		</where>
 		order by noti_code DESC
 	</select>
 <!--검색리스트-->

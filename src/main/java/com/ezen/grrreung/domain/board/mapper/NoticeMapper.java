@@ -3,6 +3,7 @@ package com.ezen.grrreung.domain.board.mapper;
 
 import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.Notice;
+import com.ezen.grrreung.web.common.RequestParams;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,7 +15,10 @@ public interface NoticeMapper {
     public void create(Notice notice);
 
     // 공지사항 전체 리스트
-    public List<Notice> postList();
+    public List<Notice> postList(RequestParams params);
+
+    // 공지사항 전체 리스트 행갯수
+    public int postListCount(RequestParams params);
 
     // 공지사항 검색 리스트
     public List<Notice> searchList(String searchValue);

@@ -2,6 +2,7 @@ package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.Notice;
+import com.ezen.grrreung.web.common.RequestParams;
 
 import java.util.List;
 
@@ -12,7 +13,10 @@ public interface NoticeService {
     public void posting(Notice notice);
 
     // 게시글목록
-    public List<Notice> postList();
+    public List<Notice> postList(RequestParams params);
+    
+    // 게시글목록 행갯수
+    public int postListCount(RequestParams params);
 
     // 게시글 검색 목록
     public List<Notice> searchList(String searchValue);

@@ -2,6 +2,7 @@ package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.mapper.NoticeMapper;
+import com.ezen.grrreung.web.common.RequestParams;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +22,14 @@ public class NoticeServiceImpl implements NoticeService{
 
     // 공지사항 전체 리스트
     @Override
-    public List<Notice> postList() {
-        return noticeMapper.postList();
+    public List<Notice> postList(RequestParams params) {
+        return noticeMapper.postList(params);
+    }
+
+    // 공지사항 리스트 행갯수
+    @Override
+    public int postListCount(RequestParams params) {
+        return noticeMapper.postListCount(params);
     }
 
     // 공지사항 검색 리스트

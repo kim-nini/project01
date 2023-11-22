@@ -28,7 +28,7 @@ DROP TABLE category;
 CREATE TABLE order_gr (
     order_id     NUMBER(20) NOT NULL,
     member_id    VARCHAR2(30) NOT NULL,
-    order_date   DATE  DEFAULT sysdate,
+    order_date   DATE DEFAULT sysdate,
     order_status VARCHAR2(255) DEFAULT '주문완료',
     order_memo   VARCHAR2(100) NULL,
     order_name   VARCHAR2(30) NOT NULL,
@@ -299,10 +299,11 @@ INSERT INTO notice (
     noti_cont
 ) VALUES (
     notice_seq.NEXTVAL,
-    'Important Notice',
-    'This is an important notice.'
+    '공지사항테스트입니다',
+    '공지사항테스트.'
 );
 
+COMMIT;
 -- Insert data into item_qna table
 INSERT INTO item_qna (
     qna_code,
@@ -444,12 +445,66 @@ FROM
     item_qna
 WHERE
     qna_title LIKE '%1%'
-    or member_id LIKE '%1%';
+    OR member_id LIKE '%1%';
 
-SELECT noti_code,
-           noti_title,
-           noti_cont,
-           noti_auth,
-           TO_CHAR(noti_date, 'yyyy-MM-DD HH24:MI:SS')  noti_date
-        FROM notice
-        WHERE noti_code = 1;
+SELECT
+    noti_code,
+    noti_title,
+    noti_cont,
+    noti_auth,
+    to_char(noti_date, 'yyyy-MM-DD HH24:MI:SS') noti_date
+FROM
+    notice
+WHERE
+    noti_code = 1;
+
+SELECT
+    noti_code,
+    noti_title,
+    noti_cont,
+    noti_auth,
+    noti_date
+FROM
+    (
+        SELECT
+            ceil(ROWNUM / 5) page,
+            noti_code,
+            noti_title,
+            noti_cont,
+            noti_auth,
+            noti_date
+        FROM
+            (
+                SELECT
+                    noti_code,
+                    noti_title,
+                    noti_cont,
+                    noti_auth,
+                    to_char(noti_date, 'yyyy-MM-DD HH24:MI:SS') noti_date
+                FROM
+                    notice;
+                WHERE
+                    noti_title LIKE '%l%'
+                    OR noti_auth LIKE '%g%'
+                ORDER BY
+                    noti_date DESC
+            )
+    )
+WHERE
+    page = 1
+    
+    
+    
+    SELECT COUNT(*) cnt
+		FROM notice
+		where
+				LIKE '%a%'
+				OR
+    noti_date
+    like
+    '%a%'
+    order
+    by
+    noti_code
+        desc;
+                
