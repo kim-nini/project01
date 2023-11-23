@@ -1,4 +1,4 @@
-package com.ezen.grrreung.domain.member.mapper;
+package com.ezen.grrreung.domain.cart.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

@@ -26,8 +26,9 @@ function isId(value) {
  * @param {string} 입력 문자열
  * @returns 숫자 여부
  */
-function isNumber(value) {
-    let regExp = /^[0-9]*$/;
+function isPasswd(value) {
+    // let regExp = /^[0-9]*$/;
+    let regExp = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
     return regExp.test(value);
 }
 

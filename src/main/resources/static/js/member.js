@@ -2,7 +2,7 @@
 document.querySelector("form").addEventListener("submit", checkValidate);
 document.querySelector('#memberId').addEventListener('input', idCheck);
 document.querySelector('#password').addEventListener('input', pwCheck);
-// document.querySelector('#passwordCheck').addEventListener('input', pwSameCheck);
+document.querySelector('#passwordCheck').addEventListener('input', pwSameCheck);
 document.querySelector('#hp').addEventListener('input', hpCheck);
 document.querySelector('#name').addEventListener('input', nameCheck);
 document.querySelector('#email').addEventListener('input', emailCheck);
@@ -88,21 +88,24 @@ function requestIdDupCheck(inputId) {
 // 비밀번호 메세지 처리
 async function pwCheck(event) {
     let inputPw = event.target.value;
-    if (!isNumber(inputPw)) {
-        showFieldMessage("#passwd-message", "비밀번호는 4~8자 사이의 숫자입니다.", "fail");
-    } else if (inputPw.length >= 4 && inputPw.length <= 8) {
+    if (!isPasswd(inputPw)) {
+        showFieldMessage("#passwd-message", "비밀번호는 8~16자 사이의 숫자 + 영문 + 특수문자 조합입니다.", "fail");
+    } else if (inputPw.length >= 8 && inputPw.length <= 16) {
         showFieldMessage("#passwd-message", "사용 가능한 비밀번호입니다.", "success");
     }
 }
 
 
 // 비밀번호 동일 여부 메세지 처리
-// async function pwSameCheck(event) {
-// 	let checkPw = event.target.value;
-// 	if (checkPw ==  ) {
-// 		showFieldMessage("#passwdCheck-message", "비밀번호는 4~8자 사이의 숫자입니다.", "fail");
-// 	}
-// }
+async function pwSameCheck(event) {
+    const inputPw = document.getElementById('password').value;
+    let checkPw = event.target.value;
+	if (inputPw == checkPw ) {
+        showFieldMessage("#passwdCheck-message", "비밀번호가 일치합니다.", "success");
+    } else{
+        showFieldMessage("#passwdCheck-message", "비밀번호가 일치하지 않습니다.", "fail");
+    }
+}
 
 
 // 이름 메세지 처리
@@ -118,7 +121,7 @@ async function nameCheck(event) {
 
 // 이메일 메세지 처리
 async function emailCheck(event) {
-    let inputEmail = event.target.value;
+    let inputEmail = event.target.value;g
     if (!isEmail(inputEmail)) {
         showFieldMessage("#email-message", "올바른 이메일 형식으로 작성해주세요.", "fail");
     } else if (inputEmail.length >= 6 && inputEmail.length <= 30) {

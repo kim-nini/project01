@@ -1,6 +1,6 @@
-package com.ezen.grrreung.domain.member.service;
+package com.ezen.grrreung.domain.cart.service;
 
-import com.ezen.grrreung.domain.member.mapper.CartMapper;
+import com.ezen.grrreung.domain.cart.mapper.CartMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.ezen.grrreung.domain.member.service;
+package com.ezen.grrreung.domain.cart.service;
 
 import java.util.List;
 import java.util.Map;

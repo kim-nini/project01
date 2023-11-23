@@ -1,4 +1,4 @@
-package com.ezen.grrreung.domain.cart;
+package com.ezen.grrreung.domain.cart.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.ezen.grrreung.web.cart.controller;
 
-import com.ezen.grrreung.domain.member.service.CartService;
+import com.ezen.grrreung.domain.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -29,6 +29,4 @@ public class CartController {
         model.addAttribute("list", list);
         return "/grrreung/sub/cart";
     }
-
-
 }

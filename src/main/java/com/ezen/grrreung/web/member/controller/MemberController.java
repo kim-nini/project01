@@ -35,7 +35,6 @@ public class MemberController {
     @PostMapping("/login")
     public String login(Member member, HttpServletRequest request, Model model) {
         Member findMember = memberService.login(member.getMemberId(), member.getPassword());
-        log.info("로그인 회원 아이디 : {}", findMember);
         HttpSession session = request.getSession();
         if (findMember != null) {
             session.setAttribute("loginMember", findMember);
@@ -102,7 +101,7 @@ public class MemberController {
 
 
     /**
-     * 회원가입 아이디 체크
+     * 회원가입 아이디 중복 체크
      */
     @GetMapping("/idcheck")
     @ResponseBody
