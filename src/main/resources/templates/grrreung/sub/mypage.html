@@ -120,42 +120,70 @@
                                     <strong>Instagram</strong></button>
                             </div>
                         </div>
+
+
+
+
                         <div class="tab-pane fade custom-style" id="account-order-history">
-                            <table class="order-list">
-                                <thead>
-                                <tr>
-                                    <th>주문번호</th>
-                                    <th>주문날짜</th>
-                                    <th>주문상태</th>
-                                    <th>상품</th>
-                                    <th>수량</th>
-                                    <th>상품가격</th>
-                                    <th>총가격</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!-- 여기에 데이터베이스에서 가져온 주문 내역을 표 형태로 출력 -->
-                                <tr>
-                                    <td>주문번호 데이터</td>
-                                    <td>주문날짜 데이터</td>
-                                    <td>주문상태 데이터</td>
-                                    <td>주문상품이름 데이터</td>
-                                    <td>주문상품수량 데이터</td>
-                                    <td>상품별주문가격 데이터</td>
-                                    <td>총가격 데이터</td>
-                                </tr>
-                                <!-- 추가 주문 내역 -->
-                                <!-- <tr>
-                                    <td>...</td>
-                                    <td>...</td>
-                                    <td>...</td>
-                                    <td>...</td>
-                                    <td>...</td>
-                                    <td>...</td>
-                                    <td>...</td>
-                                </tr> -->
-                                </tbody>
-                            </table>
+                            <section class="accordian-container">
+                                <div class="accordian-item">
+                                    <div class="accordian-title">
+                                        <div class="left">
+                                            <div class="title">
+                                                Order 1
+                                            </div>
+                                            <div class="item-count">
+                                                - 1 item
+                                            </div>
+                                            <div class="total">
+                                                Total £46.00
+                                            </div>
+                                        </div>
+                                        <div class="showhide">
+                                            View
+                                        </div>
+                                    </div>
+                                    <article class="accordian-content">
+                                        <div class="title">
+                                            <div class="qty">Qty</div>
+                                            <div class="product">Product</div>
+                                            <div class="price">Price</div>
+                                            <div class="returns">Returns</div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="item-wrapper">
+                                                <div class="qty">
+                                                    <div class="qty-wrapper">
+                                                        <button class="up"><svg class="plusminus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg></button>
+                                                        <input class="value" value="5" type="number" />
+                                                        <button class="down"><svg class="plusminus" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg></button>
+                                                    </div>
+                                                </div>
+                                                <div class="product">
+                                                    <img src="https://www.placecage.com/70/70" alt="">
+                                                    <div class="product-detail">
+                                                        3 Months membership
+                                                        <div class="warning">
+                                                            You have already confirmed a return for this product
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="price">£45.00</div>
+                                                <div class="returns">Cancel</div>
+                                            </div>
+                                        </div>
+
+
+                                    </article>
+                                    <article class="accordian-footer">
+                                        <div class="date">Date: 21/08/2019</div>
+                                        <div class="right">
+                                            <div class="status">Status: <div class="success">Success</div></div>
+                                            <div class="ref">Ref: BO-0917439</div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </section>
                         </div>
 
 
