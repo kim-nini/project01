@@ -77,9 +77,7 @@ public class GrrItemTest {
 
 	@Test
 	public void findItemImages() {
-
 		List<Map<String, Object>> images = itemMapper.findItemImages(1);
-
 		for(Map<String, Object>  map : images) {
 			String imageName = (String)map.get("IMG_NAME");
 			log.info("이미지 파일명 : {}", imageName);
@@ -89,11 +87,20 @@ public class GrrItemTest {
 
 
 	@Test
+	public void findCateAll() {
+		List<Category> cateList = itemMapper.findCateAll();
+		for (Category category: cateList) {
+			log.info("카테고리명 : {} {}",category.getCateTop(), category.getCateName());
+		}
+	}
+
+
+	@Test
 	public void findCateNameTest() {
 		String cateTop = "living";
 		List<Category> list = itemMapper.findCateName(cateTop);
 		for (Category cate : list) {
-			log.info("하위 카테고리명 : {}", cate.getCateName() );
+			log.info("상세 카테고리명 : {}", cate.getCateName() );
 		}
 	}
 
@@ -106,6 +113,9 @@ public class GrrItemTest {
 			log.info("{}",map.get("IMG_NAME"));
 		}
 	}
+
+
+
 
 	@Test
 	public void findByParamsTest() {

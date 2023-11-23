@@ -50,6 +50,9 @@ public interface ItemMapper {
     public  List<Map<String, Object>> findDescriptionImages(int itemId);
 
     // 카테고리 이름 가져오기
+    public  List<Category> findCateAll();
+
+    // 상세 카테고리 가져오기 => 상위카테고리명으로 검색함
     public List<Category> findCateName(String cateTop);
 
     // 요청 파라미터 값에 따른 아이템 목록

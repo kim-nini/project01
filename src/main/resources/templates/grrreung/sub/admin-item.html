@@ -35,19 +35,19 @@
                     </th>
 
                     <td>
-                        <select>
+                        <select class="mainCategory" name="mainCategory">
                             <option value="" disabled selected>카테고리</option>
-                            <option value="1">LIVING</option>
-                            <option value="2">WALKING</option>
-                            <option value="3">FOOD</option>
+                            <th:block th:each="category : ${cateList}">
+                                <option th:text="${category.cateTop}" th:value="${category.cateTop}"></option>
+                            </th:block>
                         </select>
 
-                        <select>
+                        <select class="subCategory" name="subCategory">
                             <option value="" disabled selected>카테고리2</option>
-<!--                            <option th:each="cateList: ${cateList}" th:value="${cateList}" th:text="${}"></option>-->
-                            <option value="1">cate1</option>
-                            <option value="2">cate2</option>
-                            <option value="3">cate3</option>
+
+<!--                            <option value="1">cate1</option>-->
+<!--                            <option value="2">cate2</option>-->
+<!--                            <option value="3">cate3</option>-->
                         </select>
                     </td>
                 </tr>
@@ -99,8 +99,8 @@
         </article>
     </div>
 
-
 </section>
+<script src="/js/admin-item.js"></script>
 
 <!-- 푸터 -->
 <th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />

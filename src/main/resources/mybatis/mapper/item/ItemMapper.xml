@@ -11,7 +11,7 @@
 	ORDER BY item_id DESC
 	</select>
 
-
+	<!-- 상품 번호로 1개의 상품 조회 -->
 	<select id="findByItemId" parameterType="int" resultType="Item">
 		SELECT item_id,	cate_code, item_name, item_price, item_amount, item_detail,	item_sell_status
 		FROM item
@@ -22,6 +22,7 @@
 		</where>
 	</select>
 
+	<!-- 카테고리(버튼사용)로 상품 검색하기 -->
 	<select id="findByCategory" parameterType="string" resultType="Item">
 		SELECT
 			c.cate_code,
@@ -39,12 +40,7 @@
 		ORDER BY item_id DESC
 	</select>
 
-	<insert id="createItem" parameterType="Item">
-		INSERT INTO item(item_id, cate_code, item_name, item_price ,item_amount, item_detail)
-		VALUES (#{itemId}, #{cateCode}, #{itemName}, #{itemPrice}, #{itemAmount}, #{itemDetail})
-	</insert>
-
-
+	<!-- 상품 이미지중 대표사진 *썸네일* 검색 -->
 	<select id="findThumbnail" parameterType="int" resultType="string">
 		SELECT M.img_name
 		FROM item_img M
@@ -52,6 +48,7 @@
 				ON I.item_id = M.item_id
 		WHERE I.item_id = #{value} AND M.rep_img_yn= 'Y'
 	</select>
+
 	<!-- 상품 이미지 전체 불러오기 descripion 제외-->
 	<select id="findItemImages" parameterType="int" resultType="map">
 		SELECT
@@ -66,6 +63,7 @@
 		WHERE
 			i.item_id = #{value} and
 			NOT m.img_name LIKE '%description%'
+		ORDER BY item_id ASC
 	</select>
 
 	<!-- 상세설명(이미지파일) 가져오기 -->
@@ -84,6 +82,14 @@
 	</select>
 
 
+	<!-- 카테고리 이름 가져오기-->
+	<select id="findCateAll" resultType="Category">
+		SELECT
+			DISTINCT cate_top
+		FROM
+			category
+	</select>
+
 	<!-- 카테고리 이름 가져오기 상위카테고리명으로 검색함 -->
 	<select id="findCateName" parameterType="string" resultType="Category">
 		SELECT
@@ -95,6 +101,8 @@
 		WHERE
 			cate_top = #{value}
 	</select>
+
+
 
 	<!-- 요청 파라미터 값에 따른 아이템 목록 => 상품명으로 검색하기 -->
 	<select id="findByParams" parameterType="RequestParams" resultType="Item">
@@ -140,6 +148,24 @@
 			</if>
 		</where>
 	</select>
+
+
+	<!-- 상품등록하기 ********************************************************************** -->
+
+	<!-- 상품 등록하기 -->
+	<insert id="createItem" parameterType="Item">
+		INSERT INTO item(item_id, cate_code, item_name, item_price ,item_amount, item_detail)
+		VALUES (#{itemId}, #{cateCode}, #{itemName}, #{itemPrice}, #{itemAmount}, #{itemDetail})
+	</insert>
+
+
+<!--	<select id="insertItemImg"></select>-->
+<!--	<select id="insertCategory"></select>-->
+
+
+
+
+
 
 
 

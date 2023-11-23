@@ -110,14 +110,14 @@ where I.item_id = 1;
 -- #7. item 검색값 페이징처리하기
     SELECT
          item_id,
-                          item_name
-          to_char(regdate, 'YYYY-MM-DD DAY') "regdate"
+        item_name
+         
       FROM
           (
               SELECT
                  ceil(ROWNUM / 10) page,
                   item_id,
-                          item_name
+                  item_name
               FROM
                   (
                       SELECT
@@ -136,7 +136,12 @@ where I.item_id = 1;
 
 
 
-
+-- # 8. 
+SELECT
+			cate_code,
+			cate_top
+		FROM
+			category
 
 
 

@@ -85,8 +85,14 @@
 <!--                <li th:each="pagination : ${pagination}">-->
                 <li th:each="pagination : ${pagination}">
                     <a th:text="${pagination.startPage}" href="#"></a>
+                </li>
+                <li>
                     <a th:text="${pagination.totalPages}" href="#"></a>
+                </li>
+                <li>
                     <a th:text="${pagination.endPage}" href="#"></a>
+                </li>
+                <li>
                     <a th:text="${pagination.totalPages}" href="#"></a>
                 </li>
 

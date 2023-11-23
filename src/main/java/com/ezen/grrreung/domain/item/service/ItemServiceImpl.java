@@ -59,6 +59,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<Category> categoryAllList() {
+        return itemMapper.findCateAll();
+    }
+
+    @Override
     public List<Category> showCateName(String cateTop) {
         return itemMapper.findCateName(cateTop);
     }

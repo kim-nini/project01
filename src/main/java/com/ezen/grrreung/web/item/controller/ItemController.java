@@ -6,6 +6,7 @@ import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.service.ItemService;
 import com.ezen.grrreung.web.common.page.Pagination;
 import com.ezen.grrreung.web.common.page.RequestParams;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import oracle.net.ns.Message;
@@ -62,9 +63,6 @@ public class ItemController {
         log.info(" ***** pagination : {}", pagination);
         model.addAttribute("pagination", pagination);
 
-
-
-
         return "/grrreung/sub/shop";
     }
 
@@ -90,15 +88,8 @@ public class ItemController {
         log.info(" ***** pagination : {}", pagination);
         model.addAttribute("pagination", pagination);
 
-
-
-
         return "/grrreung/sub/shop";
     }
-
-
-
-
 
 
     // 아이템 아이디로 상품 한개 상세정보
@@ -193,20 +184,31 @@ public class ItemController {
         return "/grrreung/sub/admin-item";
     }
 
-    @GetMapping("/admin")
-    public String cateName(String cateTop, Model model) {
-
-        List<Category> cateList = itemService.showCateName(cateTop);
-        model.addAttribute("cateName", cateList);
+    @RequestMapping("/admin")
+    public String searchCategory(Model model) {
+        List<Category> cateList = itemService.categoryAllList();
+        model.addAttribute("cateList", cateList);
+//        log.info("{}", cateList);
         return "/grrreung/sub/admin-item";
     }
 
-    @GetMapping("/order")
-    public String orderSheet() {
-        return "/grrreung/sub/order-sheet";
+    @GetMapping("/sub-category")
+    @ResponseBody
+    public List<Category> searchDetailCategory(@RequestParam String category, Model model) {
+        log.info("수신한 메인카테고리 : {}", category);
+
+        List<Category> subCateList = itemService.showCateName(category);
+        log.info("검색한 상세 카테고리 : {}", subCateList);
+
+        return subCateList;
     }
 
-//    페이징처리---------------------------------------------------------------------------------
+
+//    @GetMapping("/order")
+//    public String orderSheet() {
+//        return "/grrreung/sub/order-sheet";
+//    }
+
 
 
 

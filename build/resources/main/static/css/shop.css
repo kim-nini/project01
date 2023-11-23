@@ -1,14 +1,14 @@
 @charset "utf-8";
 
 
-html, body{
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    color: #222;
-}
+/*html, body{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    font-family: 'Open Sans', sans-serif;*/
+/*    color: #222;*/
+/*}*/
 
 a{
     text-decoration: none;
@@ -68,26 +68,39 @@ p, li, a{
 .pagination{
     padding: 50px 0 30px 0;
     margin: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .pagination ul{
-    margin: 0;
-    padding: 0;
+    margin: auto;
+    padding: 50px;
     list-style-type: none;
 }
 
+.pagination ul li{
+    float: left;
+}
+
 .pagination a{
-    display: inline-block;
+    display: block;
     padding: 10px 18px;
+    width: 40px;
+    height: 40px;
     color: #222;
+    /*margin: 0 5px;*/
 }
 
 /* TWELVE */
 
-.p12 a:first-of-type, .p12 a:last-of-type, .p12 .is-active{
+.p12 a:first-of-type, .p12 a:last-of-type {
+    background-color: #FFF;
+    color: #FFC924;
+    font-weight: bold;
+}
+.p12 .is-active {
     background-color: #FFC924;
     color: #fff;
-    font-weight: bold;
 }
 
 [name="itemName"] {

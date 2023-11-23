@@ -31,8 +31,13 @@ public interface ItemService {
     // 상품 상세정보 description 이미지 불러오기
     public  List<Map<String, Object>> showDescriptionImages(int itemId);
 
-    // 카테고리명 불러오기
+
+    // 저장된 카테고리 불러오기
+    public List<Category> categoryAllList();
+
+    // 상세 카테고리명 불러오기
     public List<Category> showCateName(String cateTop);
+
 
 //--------------------------------------------------------------------------------------------------------
 
