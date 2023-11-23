@@ -35,7 +35,7 @@
 				JOIN order_item oi ON g.order_id = oi.order_id
 				JOIN item       i ON oi.item_id = i.item_id
 		WHERE
-			member_id = #{memberId};
+			member_id = #{memberId}
 	</select>
 	
 </mapper>

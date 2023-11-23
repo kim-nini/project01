@@ -10,7 +10,7 @@ public interface OrderService {
 //	public void order(OrderGr order) throws NotEnoughMoneyException;
 
 	// 주문 내역 조회
-	public Map<String,String> orderHistory(String memberId);
+	public Map<String,Object> orderHistory(String memberId);
 }
 
 

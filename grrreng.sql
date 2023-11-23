@@ -247,6 +247,7 @@ INSERT INTO order_item (
     2
 );
 
+
 -- Insert data into item table
 INSERT INTO item (
     item_id,

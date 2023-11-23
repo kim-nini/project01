@@ -19,7 +19,7 @@ public class OrderServiceImple implements OrderService{
 	private final OrderMapper orderMapper;
 
 	@Override
-	public Map<String, String> orderHistory(String memberId) {
+	public Map<String, Object> orderHistory(String memberId) {
 		return orderMapper.orderHistoryByMember(memberId);
 	}
 
