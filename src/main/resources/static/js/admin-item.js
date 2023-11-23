@@ -2,40 +2,51 @@
     const mainCate = document.querySelector(".mainCategory");
     const subCategory = document.querySelector(".subCategory");
 
+    // 메인 카테고리 select box에 change 이벤트 추가
     mainCate.addEventListener("change", selectCategory);
 
 
     // db에서 불러온 서브 카테고리 화면에 추가해주기
     // option 동적 생성
    async function selectCategory(event){
-        let array  = await categoryRequest();
+       subCategory.innerHTML = "";
 
-        // for (category  of  array){
-        //     console.log(category.cateName);
-        // }
+       let array  = await categoryRequest();
 
-       array.forEach(category => {
-           console.log(category.cateName);
-       });
+        for (category  of  array) {
+            // console.log(category.cateName);
+            const option = document.createElement('option');
+            option.value = category.cateCode;
+            option.textContent = category.cateName;
+            subCategory.appendChild(option);
+        }
 
-       array.forEach(category => {
-       subCategory.innerHTML=
-           "<option value='category.cateName'></option>";
-       });
-
+       // subCategory.value.innerHTML = `${category.cateName}`;
+       //  array.forEach(category => {
+       //     console.log(category.cateName);
+       // });
     }
 
 
-    // 카테고리
-    function categoryRequest() {
+
+
+    // 상세 카테고리이름 불러오기
+   function categoryRequest() {
         const category = mainCate.options[mainCate.selectedIndex].value;
-
         const url =`/grrreung/sub-category?category=${category}`;
-
         return fetch(url)
             .then((response) => {
                 return response.json();
             });
+   }
+
+//==============================================================================================
+
+    function displayFileName() {
+        var input = document.getElementById('fileInput1');
+        var label = document.getElementById('fileLabel');
+        var fileName = input.files[0].name;
+        label.innerHTML = fileName;
     }
 
 
@@ -43,52 +54,16 @@
 
 
 
-// 카테고리명 출력
-// function categoryRequest(mainCategory) {
-//     const url = "/sub-category?category=${category.cateTop}";
-//
-//     return fetch(url)
-//         .then((response) => {
-//             return response.json();
-//         });
-// }
 
-// // id 중복 체크 함수
-// function idCheck(member) {
-//     const url = "/idCheck?id=`${member.memberId}";
-//     return fetch(url)
-//         .then((response) => {
-//             return response.json();
-//         });
-// }
 
-// // 멤버 등록 함수 이벤트
-// async function registerItem(event) {
-//     event.preventDefault();
-//     const form = event.target;
-//
-//     // 폼 필드에서 데이터 읽기
-//
-//     // 폼 데이터에 대한 유효성 검증 넣어줘야함***********************
-//     const registerMember  = {// member 객체 생성
-//         memberId: form.memberId.value,
-//         passwd: form.passwd.value,
-//         name: form.name.value,
-//         email: form.email.value
-//     };
-//
-//     const result = await registerRequest(registerMember);   // 비동기 통신하는 registerRequest함수호출
-//     // console.log(memberJson);
-//     // if(result) {
-//     //
-//     //     showResultMessage(target, `${member.name} 님 회원가입을 축하드립니다!!!`);
-//     // } else {
-//     //     showResultMessage(target, '서버 통신 오류!');
-//     // }
-// }
-//
-// // 회원 정보 등록 결과 보여주는 함수 이벤트
-// async function showResultMessage(member) {
-//     const resultDiv = document.querySelector("#resultDiv");
-//     resultDiv.innerHTML=`${member.name} 님 회원가입을 축하드립니다!!!`;
-// }
+
+
+
+
+
+
+
+
+
+
+

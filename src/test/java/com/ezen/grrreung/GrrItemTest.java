@@ -138,7 +138,11 @@ public class GrrItemTest {
 	}
 
 
-
+	@Test
+	public void registerItemTest() {
+		Item item = new Item(13, 1003, "상품13", 32000, 100, "상품설명13" );
+		itemMapper.createItem(item);
+	}
 
 
 

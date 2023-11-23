@@ -152,11 +152,13 @@
 
 	<!-- 상품등록하기 ********************************************************************** -->
 
+
 	<!-- 상품 등록하기 -->
 	<insert id="createItem" parameterType="Item">
 		INSERT INTO item(item_id, cate_code, item_name, item_price ,item_amount, item_detail)
 		VALUES (#{itemId}, #{cateCode}, #{itemName}, #{itemPrice}, #{itemAmount}, #{itemDetail})
 	</insert>
+
 
 
 <!--	<select id="insertItemImg"></select>-->

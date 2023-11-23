@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 공통 환경설정 -->
     <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
@@ -12,90 +12,124 @@
 
 <!-- 헤더 -->
 <th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
-<h2 class="category-title bg-white py-8 ">상품 등록</h2>
+
+    <section class="bg-white py-8 notice">
+        <div class="container mx-auto items-center flex-wrap pt-4 pb-12">
+
+            <!-- /* 페이지 내부 서브 타이틀 */ -->
+            <h2 class="category-title bg-white py-8 ">상품 등록</h2>
+
+            <div class="w-full container mx-auto mt-0 px-2 py-3 ">
+                <div class="category-button button_wrap flex itmes-center">
+                    <a href="/grrreung/notice">상품등록</a>
+                    <a href="/grrreung/faq">상품수정</a>
+                    <a href="/grrreung/qna">메뉴</a>
+                    <a href="/grrreung/review">메뉴</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 
 
 <section class="bg-white py-8 notice">
     <div class="container mx-auto items-centerpt-4 pb-12">
 
-        <article class="qna">
-
-
-
+        <article class="item-register">
             <table>
-                <colgroup>
-                    <col style="width:25%">
-                    <col style="width:75%">
-                </colgroup>
-                <tbody>
-                <tr>
+                <form action="/grrreung/newItem" method="post" >
 
-                    <th>
-                        <label>카테고리</label>
-                    </th>
+                    <tr>
+                        <th>
+                            <label>카테고리</label>
+                        </th>
 
-                    <td>
-                        <select class="mainCategory" name="mainCategory">
-                            <option value="" disabled selected>카테고리</option>
-                            <th:block th:each="category : ${cateList}">
-                                <option th:text="${category.cateTop}" th:value="${category.cateTop}"></option>
-                            </th:block>
-                        </select>
+                       <td>
+                            <select class="mainCategory" name="mainCategory">
+                                <option value="" disabled selected>카테고리</option>
+                                <th:block th:each="category : ${cateList}">
+                                    <option th:text="${category.cateTop}" th:value="${category.cateTop}"></option>
+                                </th:block>
+                            </select>
 
-                        <select class="subCategory" name="subCategory">
-                            <option value="" disabled selected>카테고리2</option>
+                            <select class="subCategory" name="cateCode">
+                                <option value="" selected disabled>------</option>
+                            </select>
+                        </td>
+                    </tr>
 
-<!--                            <option value="1">cate1</option>-->
-<!--                            <option value="2">cate2</option>-->
-<!--                            <option value="3">cate3</option>-->
-                        </select>
-                    </td>
-                </tr>
+                    <tr>
+                        <th>상품명</th>
+                        <td><input type="text" name="itemName" placeholder="ex) 상품13"></td>
+                    </tr>
+
+                    <tr>
+                        <th>품번</th>
+                        <td><input type="text" name="itemId" placeholder="ex) 52"></td>
+                    </tr>
+
+                    <tr>
+                        <th>가격</th>
+                        <td><input type="text" name="itemPrice" placeholder="' , '을 제외한 숫자만 입력"><span>원</span></td>
+                    </tr>
+
+                    <tr>
+                        <th>재고</th>
+                        <td><input type="text" name="itemAmount" placeholder="숫자만 입력"><span>개</span></td>
+                    </tr>
+
+                    <tr>
+                        <th>상품 설명</th>
+                        <td>
+                            <textarea id="InputTextarea" name="itemDetail" cols="5" rows="1" placeholder="상품 상세 설명을 입력해주세요." style="width:98%;height:280px;"></textarea>
+                        </td>
+                    </tr>
 
 
-                <tr>
-                    <th>내용</th>
-                    <td>
-                        <textarea id="InputTextarea" name="inqCont" cols="5" rows="1" placeholder="문의내용을 입력해주세요.(2000자 이내)" style="width:98%;height:280px;"></textarea>
-                    </td>
-                    <td>
-                        <div class="filebox">
+                    <tr>
+                        <th>상품 대표이미지<br>(슬라이드)</th>
+                        <td>
+                            <div class="filebox">
+                                <label for="fileInput1" class="custom-file-upload">
+<!--                                    <span>파일찾기</span>-->
+                                    <input type="file" name="fileInput">
+                                </label>
+                                <p>※ 대표이미지(썸네일)을 선택해주세요.</p>
+                            </div>
 
-                            <input class="upload-name" value="첨부파일" placeholder="첨부파일">
-                            <label for="file">파일찾기</label>
-                            <input type="file" id="file">
+                            <div>
+                                <img class="preview">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>상세정보 이미지</th>
+                        <td>
+                            <div class="filebox">
+                                <label for="fileInput2" class="custom-file-upload">
+<!--                                    <span>파일찾기</span>-->
+                                    <input type="file" name="fileInput">
+                                </label>
+                                <p>※ 상세정보에 나타낼 이미지 파일을 선택해주세요.</p>
+                            </div>
+
+                            <div>
+                                <img class="preview">
+                            </div>
+                        </td>
+                    </tr>
 
 
-                            <p>※ 대표이미지(썸네일)을 선택해주세요.</p>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>답변등록알림(선택)</th>
-                    <td>
-                        <ul>
-                            <li><input type="checkbox" name="sms" value="y">
-                                <label>sms</label>
-                                <select>
-                                    <option>010</option>
-                                    <option>02</option>
-                                    <option>031</option>
-                                    <option>0502</option>
-                                </select><span>-</span>
-                                <input type="tel"><span>-</span><input type="tel">
-                            </li>
-                            <li><input type="checkbox"><label>E-mail</label> <input type="email"><span>@</span><input type="email"></li>
-                        </ul>
-                    </td>
-                </tr>
-                </tbody>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" >등록</button>
+                            <button>취소</button>
+                        </td>
+                    </tr>
+                </form>
             </table>
-
-            <div class="btn_wrap">
-                <a href="#">등록</a>
-                <a href="#">취소</a>
-            </div>
         </article>
     </div>
 

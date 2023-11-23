@@ -51,85 +51,82 @@ button:hover {
   line-height: 1.5;
 }
 
-.qna {
-  width: 90%;
+.item-register  {
+  width: 60%;
   margin: 0 auto;
   text-transform: uppercase;
 }
 
-.qna> :nth-child(1) {
-  display: flex;
-  justify-content: center;
+.item-register > :nth-child(1) {
+  /*display: flex;*/
+  /*justify-content: center;*/
   margin: 0 auto;
 }
 
-/*.qna :nth-child(1) ul {*/
-/*  list-style: none;*/
-/*  display: flex;*/
-/*  text-align: center;*/
-/*  padding: 15px 165px;*/
-/*  border-bottom: 1px solid #888888;*/
-/*}*/
 
-/*.qna :nth-child(1) ul li {*/
-/*  width: 200px;*/
-/*  height: 50px;*/
-/*  background: #444;*/
-/*}*/
+table {
+  width: 100%;
+  border-top: 1px solid #888;
+  border-collapse: collapse;
+}
+tbody{
+  width: 80%;
+  margin: auto;
+}
 
-/*.qna :nth-child(1) ul li a {*/
-/*  line-height: 3.5;*/
-/*  color: white;*/
-/*}*/
+tr, th, td, input {
+  padding: 10px;
+}
+
+tr:first-of-type>th:first-of-type ,td:first-of-type{
+  padding-top: 30px;
+}
 
 
-/*.qna :nth-child(1) ul :nth-child(2) {*/
-/*  background: #F3F3F3;*/
-/*}*/
+input {
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin-right: 8px;
+}
 
-/*.qna :nth-child(1) ul :nth-child(2) a {*/
-/*  color: #444;*/
-/*}*/
 
-/*.qna> :nth-child(1)> :nth-child(1) {*/
-/*  height: 60px;*/
-/*  padding: 10px 0;*/
-/*}*/
+select {
+  width: 150px;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #999;
+  border-radius: 5px;
+}
 
-.qna> :nth-child(1) th {
+.item-register {
+  /*display: flex;*/
+  /*flex-direction: column-reverse;*/
+  /*align-items: center;*/
+  margin: auto;
+}
+.item-register> :nth-child(1) th {
   width: 160px;
   color: black;
   text-align: left;
   padding-right: 5px;
 }
 
-.qna> :nth-child(2) td select {
-  width: 220px;
-  height: 38px;
-  border-radius: 3px;
-  border: 1px solid #eee;
-  margin-top: 20px;
-}
 
-.qna> :nth-child(1)> :last-child> :nth-child(2)>td {
-  display: flex;
-  flex-direction: column;
-}
-
-.qna> :nth-child(1)> :last-child> :nth-child(2) td textarea {
+textarea {
   margin-top: 1rem;
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 3px;
+  resize: none;
 }
 
-.qna> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) div {
+.item-register> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) div {
   margin: 10px 0 2rem 0;
   /*display: flex;*/
   align-items: center;
 }
 
-.qna> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) div label button {
+.item-register> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) div label button {
   width: 85px;
   height: 38px;
   padding: 0;
@@ -138,77 +135,45 @@ button:hover {
   font-weight: bold;
 }
 
-.qna> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) p {
+.item-register> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) p {
   font-size: 12px;
   margin-left: 5px;
 }
 
-.qna> :nth-child(1)> :last-child> :nth-child(3) td {
-  height: 100px;
-  margin-top: 10px;
-  border-top: 1px solid #eee;
-}
+/*.item-register> :nth-child(1)> :last-child> :nth-child(3) td {*/
+/*  height: 100px;*/
+/*  margin-top: 10px;*/
+/*  border-top: 1px solid #eee;*/
+/*}*/
 
-.qna> :nth-child(1)> :last-child> :nth-child(3) ul {
-  list-style: none;
-}
 
-.qna> :nth-child(1)> :last-child> :nth-child(3) ul li {
-  margin: 10px 0;
-}
-
-.qna> :nth-child(1)> :last-child> :nth-child(3) ul li label {
-  margin: 5px;
-}
-
-.qna> :nth-child(1)> :last-child> :nth-child(3) ul li select {
-  width: 120px;
-  height: 30px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-}
-
-.qna> :nth-child(1)> :last-child> :nth-child(3) ul li span {
-  margin: 8px;
-}
-
-.qna> :nth-child(1)> :last-child> :nth-child(3) ul li :nth-child(5), .qna> :nth-child(1)> :last-child> :nth-child(3) ul li :nth-child(7) {
-  width: 120px;
-  height: 30px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-}
-
-.qna> :nth-child(1)> :last-child> :nth-child(3) ul :last-child :nth-child(3), .qna> :nth-child(1)> :last-child> :nth-child(3) ul :last-child :nth-child(5) {
-  width: 120px;
-  height: 30px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-}
-
-.qna> :nth-child(2) {
+.item-register> :nth-child(2) {
   text-align: center;
 }
 
-.qna> :nth-child(2) button {
+.item-register> :nth-child(2) button {
   width: 150px;
   height: 50px;
   margin: 20px 10px;
   font-size: 1rem;
 }
 
-.qna> :nth-child(2) :first-child {
+.item-register> :nth-child(2) :first-child {
   background: #FFC924;
   border-radius: 5px;
   color: white;
   font-weight: bold;
 }
 
-.qna> :nth-child(2) :last-child {
+.item-register> :nth-child(2) :last-child td {
   background: #888;
   border-radius: 5px;
   color: white;
   font-weight: bold;
+
+}
+.item-register> :last-child :last-child>td {
+  text-align: center;
 }
 
 /*[type="file"]>p:first-child {*/
@@ -219,50 +184,98 @@ button:hover {
 /*}*/
 
 
-.filebox .upload-name {
-  display: inline-block;
-  height: 40px;
-  padding: 0 10px;
-  vertical-align: middle;
-  border: 1px solid #ddd;
-  width: 230px;
-  color: #999;
+/*.filebox  {*/
+/*  display: inline-block;*/
+/*  padding: 0 10px;*/
+/*  vertical-align: middle;*/
+/*  width: 550px;*/
+/*  color: #999;*/
+/*}*/
+/*.upload-btn {*/
+/*  height: 40px;*/
+/*  padding: 0 10px;*/
+/*  color: #333;*/
+/*  z-index: 1;*/
+/*}*/
+
+
+.filebox  p {
+  padding-top : 47px;
 }
 
-.filebox > p {
-  padding-top : 10px;
-}
 
+/*.filebox label {*/
+/*  display: inline-block;*/
+/*  padding: 10px 20px;*/
+/*  color: #333;*/
+/*  vertical-align: middle;*/
+/*  background-color: #999999;*/
+/*  cursor: pointer;*/
+/*  height: 40px;*/
+/*  margin-left: 10px;*/
+/*}*/
 
-.filebox label {
-  display: inline-block;
-  padding: 10px 20px;
-  color: #fff;
-  vertical-align: middle;
-  background-color: #999999;
-  cursor: pointer;
-  height: 40px;
-  margin-left: 10px;
-}
 
 [type='file'] {
   position: absolute;
-  width: 0;
-  height: 0;
+  width: 400px;
+  height: 40px;
   padding: 0;
   overflow: hidden;
-  border: 0;
+  border: 1px solid #999;
+  line-height: 40px;
+  /*left: 37px;*/
 }
 
-.btn_wrap {
-  display: flex;
-  justify-content: space-between;
-  padding: 50px 300px;
+
+button {
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  background-color: #555;
+  border-radius: 3px;
+  color:#eee;
 }
-.btn_wrap>a {
-  display: block;
-  width: 150px;
-  height: 50px;
-  padding-top: 12px;
-  font-size: 20px;
+button:hover {
+  background-color: #888;
 }
+
+button:first-of-type {
+  margin-right: 30px;
+}
+
+
+
+
+
+input[type="file"] {
+  /*position: absolute;*/
+  width: 400px;
+  height: 40px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #999;
+  line-height: 40px;
+  /*display: none;*/
+}
+
+/*.custom-file-upload {*/
+/*  display: inline-block;*/
+/*  padding: 10px 20px;*/
+/*  font-size: 16px;*/
+/*  font-family: Arial, sans-serif;*/
+/*  cursor: pointer;*/
+/*  border: 2px solid #ccc;*/
+/*  border-radius: 5px;*/
+/*  background-color: #f8f8f8;*/
+/*}*/
+
+/* Style the file input label */
+/*.custom-file-upload span {*/
+/*  color: #333;*/
+/*}*/
+
+/* Change style on hover */
+/*.custom-file-upload:hover {*/
+/*  background-color: #e0e0e0;*/
+/*}*/

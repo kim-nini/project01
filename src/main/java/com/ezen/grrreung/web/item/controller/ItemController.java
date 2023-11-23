@@ -9,6 +9,7 @@ import com.ezen.grrreung.web.common.page.RequestParams;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 import oracle.net.ns.Message;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -178,12 +179,6 @@ public class ItemController {
         return "/grrreung/sub/shop";
     }
 
-    // (관리자만 가능)상품등록
-    @GetMapping("/admin/item")
-    public String registerItems() {
-        return "/grrreung/sub/admin-item";
-    }
-
     @RequestMapping("/admin")
     public String searchCategory(Model model) {
         List<Category> cateList = itemService.categoryAllList();
@@ -192,16 +187,39 @@ public class ItemController {
         return "/grrreung/sub/admin-item";
     }
 
+    // 상세 카테고리 불러오기
     @GetMapping("/sub-category")
     @ResponseBody
     public List<Category> searchDetailCategory(@RequestParam String category, Model model) {
         log.info("수신한 메인카테고리 : {}", category);
-
         List<Category> subCateList = itemService.showCateName(category);
         log.info("검색한 상세 카테고리 : {}", subCateList);
-
         return subCateList;
     }
+
+//==============================================================================================
+    // 아이템 등록하기
+    @PostMapping ("/newItem")
+    public String registerItem(@ModelAttribute Item item, @RequestParam int cateCode) {
+
+        log.info("수신정보:{}", item.toString());
+        item.setCateCode(cateCode);
+
+
+        itemService.registerItem(item);
+        // 카테고리 선택한정보로 value값으로 카테고리 코드 cateCode 받아오기
+
+
+        return "redirect:/grrreung/admin";
+
+    }
+//==============================================================================================
+
+
+
+
+
+
 
 
 //    @GetMapping("/order")
