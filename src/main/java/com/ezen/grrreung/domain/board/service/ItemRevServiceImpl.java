@@ -4,17 +4,16 @@ import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.mapper.ItemRevMapper;
 import com.ezen.grrreung.web.common.RequestParams;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ItemRevServiceImpl implements ItemRevService{
 
     private final ItemRevMapper itemRevMapper;
-    public ItemRevServiceImpl(ItemRevMapper itemRevMapper) {
-        this.itemRevMapper = itemRevMapper;
-    }
 
     // 리뷰 작성
     @Override

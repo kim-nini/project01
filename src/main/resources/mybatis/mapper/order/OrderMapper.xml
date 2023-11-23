@@ -19,6 +19,24 @@
 		SET pay_status = #{payStatus}
 		WHERE order_id = #{orderId}
 	</update>
+
+<!--	주문내역조회-->
+	<select id="orderHistoryByMember" parameterType="String" resultType="map" >
+		SELECT
+			g.order_id,
+			g.order_date,
+			g.order_status,
+			g.order_price_all,
+			oi.order_amount,
+			oi.order_price,
+			i.item_name
+		FROM
+			order_gr g
+				JOIN order_item oi ON g.order_id = oi.order_id
+				JOIN item       i ON oi.item_id = i.item_id
+		WHERE
+			member_id = #{memberId};
+	</select>
 	
 </mapper>
 

@@ -34,7 +34,15 @@ CREATE TABLE order_gr (
     order_name   VARCHAR2(30) NOT NULL,
     order_add    VARCHAR2(255) NOT NULL,
     order_hp     VARCHAR2(30) NOT NULL,
-    order_price  VARCHAR2(50) NOT NULL
+    order_price_all  VARCHAR2(50) NOT NULL
+);
+
+CREATE TABLE order_item (
+    order_item_id NUMBER(20) NOT NULL,
+    order_id      NUMBER(20) NOT NULL,
+    item_id       NUMBER(20) NOT NULL,
+    order_price   NUMBER(20) NOT NULL,
+    order_amount  NUMBER(20) NOT NULL
 );
 
 CREATE TABLE member (
@@ -45,14 +53,6 @@ CREATE TABLE member (
     email     VARCHAR2(255) NULL,
     admin     VARCHAR2(255) DEFAULT 'N',
     address   VARCHAR2(255) NOT NULL
-);
-
-CREATE TABLE order_item (
-    order_item_id NUMBER(20) NOT NULL,
-    order_id      NUMBER(20) NOT NULL,
-    item_id2      NUMBER(20) NOT NULL,
-    order_price   NUMBER(20) NOT NULL,
-    order_amount  NUMBER(20) NOT NULL
 );
 
 CREATE TABLE item (
@@ -212,6 +212,7 @@ INSERT INTO member (
     '123 Main St'
 );
 
+
 -- Insert data into order_gr table
 INSERT INTO order_gr (
     order_id,
@@ -220,7 +221,7 @@ INSERT INTO order_gr (
     order_name,
     order_add,
     order_hp,
-    order_price
+    order_price_all
 ) VALUES (
     order_gr_seq.NEXTVAL,
     'member001',
@@ -235,7 +236,7 @@ INSERT INTO order_gr (
 INSERT INTO order_item (
     order_item_id,
     order_id,
-    item_id2,
+    item_id,
     order_price,
     order_amount
 ) VALUES (
@@ -482,7 +483,7 @@ FROM
                     noti_auth,
                     to_char(noti_date, 'yyyy-MM-DD HH24:MI:SS') noti_date
                 FROM
-                    notice;
+                    notice
                 WHERE
                     noti_title LIKE '%l%'
                     OR noti_auth LIKE '%g%'
@@ -491,20 +492,32 @@ FROM
             )
     )
 WHERE
-    page = 1
-    
-    
-    
-    SELECT COUNT(*) cnt
-		FROM notice
-		where
-				LIKE '%a%'
-				OR
-    noti_date
-    like
-    '%a%'
-    order
-    by
-    noti_code
-        desc;
-                
+    page = 1;
+
+SELECT
+    COUNT(*) cnt
+FROM
+    notice
+WHERE
+    noti_title LIKE '%a%'
+    OR noti_date LIKE '%a%'
+ORDER BY
+    noti_code DESC;
+
+
+-- member_id 별 주문내역 조회 셀렉문 
+
+SELECT
+    g.order_id,
+    g.order_date,
+    g.order_status,
+    g.order_price_all,
+    oi.order_amount,
+    oi.order_price,
+    i.item_name
+FROM
+         order_gr g
+    JOIN order_item oi ON g.order_id = oi.order_id
+    JOIN item       i ON oi.item_id = i.item_id
+WHERE
+    member_id = 'member001';

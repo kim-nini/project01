@@ -13,7 +13,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class Order {
+public class OrderGr {
 	private int orderId;
 	private String memberId;
 	private String orderDate;
@@ -22,6 +22,6 @@ public class Order {
 	private String orderName;
 	private String orderAdd;
 	private String orderHp;
-	private String payStatus;
+	private String orderPriceAll;
 }
 

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/notice.css">
     <link rel="stylesheet" href="/css/post.css">
 
-    <title>그르릉Grr - 공지사항작성</title>
+    <title>그르릉Grr - 상품 후기</title>
 </head>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
@@ -19,10 +19,10 @@
     <h2 class="category-title" th:fragment="title">REVIEW</h2>
 </th:block>
 
-<div class="container mx-auto bg-white py-8 notice">
+<div class="container mx-auto bg-white py-8 notice custom-notice">
     <h1 th:text="${itemRev.revTitle}"></h1>
-    <p th:text="${itemRev.memberId}">작성자: ${board.writer}</p>
-    <p th:text="${itemRev.revDate}">작성일: ${board.regdate}</p>
+    <p th:text="${itemRev.memberId}"></p>
+    <p th:text="${itemRev.revDate}"></p>
     <p>조회수: ${board.hitCount}</p>
     <p th:text="${itemRev.revCont}"></p>
 

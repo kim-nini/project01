@@ -50,14 +50,7 @@ public class ItemQnaController {
 
         return "/grrreung/sub/qna";
     }
-    
-//    // 포스트 매핑 -> 게시글 검색
-//    @PostMapping("/list")
-//    public String searchList(@ModelAttribute("searchValue")String searchValue, Model model){
-//        List<ItemQna> list = itemQnaService.searchList(searchValue);
-//        model.addAttribute("list",list);
-//        return "/grrreung/sub/qna";
-//    }
+
     
    //  게시글 등록 겟매핑 -> 게시글 등록 화면으로 넘어감
     @GetMapping("/create")

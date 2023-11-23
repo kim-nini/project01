@@ -57,13 +57,6 @@ public class NoticeController {
         return "/grrreung/sub/notice";
     }
 
-//    // 포스트 매핑 -> 게시글 검색
-//    @PostMapping("/list")
-//    public String searchList(@ModelAttribute("searchValue")String searchValue, Model model){
-//        List<Notice> list = noticeService.searchList(searchValue);
-//        model.addAttribute("list",list);
-//        return "/grrreung/sub/notice";
-//    }
 
     // 게시글 등록 겟매핑 -> 게시글 등록 화면으로 넘어감
     @GetMapping("/create")

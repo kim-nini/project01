@@ -52,14 +52,6 @@ public class ItemRevController {
         return "/grrreung/sub/review";
     }
 
-
-    // 포스트 매핑 -> 게시글 검색
-//    @PostMapping("/list")
-//    public String searchList(@ModelAttribute("searchValue")String searchValue, Model model){
-//        List<ItemRev> list = itemRevService.searchList(searchValue);
-//        model.addAttribute("list",list);
-//        return "/grrreung/sub/review";
-//    }
     
     // 게시글 등록 겟매핑 -> 게시글 등록 화면으로 넘어감
     @GetMapping("/create")
