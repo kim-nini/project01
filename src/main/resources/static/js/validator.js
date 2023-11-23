@@ -21,9 +21,8 @@ function isId(value) {
 }
 
 
-
 /**
- * 숫자 입력 여부
+ * 비밀번호(숫자) 입력 여부
  * @param {string} 입력 문자열
  * @returns 숫자 여부
  */
@@ -31,6 +30,7 @@ function isNumber(value) {
     let regExp = /^[0-9]*$/;
     return regExp.test(value);
 }
+
 
 /**
  * 한글 이름 입력 여부

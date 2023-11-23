@@ -11,11 +11,8 @@ public interface MemberService {
     // 회원가입
     public void register(Member member);
 
-    // 회원가입 유효성 검사
+    // 회원가입 아이디 중복 검사
     public Member getMember(String memberId);
-    public Member getMemberByEmail(String email);
-    public Member getMemberByPassword(String password);
-
 
     // 마이페이지 상세정보
     public Member memberInfo(String memberId);

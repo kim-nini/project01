@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
+    <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
     <link rel="stylesheet" href="/css/login.css">
     <script src="/js/login.js" defer></script>
     <!--    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">-->
@@ -9,55 +9,48 @@
 </head>
 
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+
 
 
 <!-- login-form -->
 <section class="bg-white py-8">
-        <div class="login_container">
-            <h1>LOGIN</h1>
-            <!-- Form -->
-            <form  action="/grrreung/login" method="post">
-                <!-- id-->
-                <div class="first-input input__block first-input__block">
-                    <input type="text" id="memberId" name="memberId" placeholder="ID" class="input">
-                </div>
+    <div class="login_container">
+        <h1>LOGIN</h1>
+        <!-- Form -->
+        <form action="/grrreung/login" method="post">
 
-                <!-- password-->
-                <div class="input__block">
-                    <input type="password" name="password" placeholder="Password" class="input">
-                </div>
-
-
-                <!-- log in button -->
-                <button class="login__btn" type="submit">
-                    LOGIN
-                </button>
-                <a class="signin__btn" onclick="location.href='http://localhost/grrreung/register'">
-                    SIGN UP
-                </a>
-
-            </form>
-            <!-- separator -->
-            <div class="separator">
-                <p>OR</p>
+            <!-- 아이디 -->
+            <div class="first-input input__block first-input__block">
+                <input type="text" id="memberId" name="memberId" placeholder="ID" class="input">
             </div>
-            <!-- google button -->
-            <button class="google__btn">
-                <i class="fa fa-google"></i>
-                Login with Google
-            </button>
-            <!-- google button -->
-            <button class="kakao__btn">
 
-                <img src="/media/img/kakaotalk_logo.png" alt="카카오톡아이콘" class="kakao_icon"> Login with Kakao
+            <!-- 비밀번호 -->
+            <div class="input__block">
+                <input type="password" name="password" placeholder="Password" class="input">
+            </div>
+            <p id="errormessage" th:if="${loginResult == false}">아이디 또는 비밀번호를 다시 확인하세요.</p>
+
+            <!-- 로그인 버튼 -->
+            <button class="login__btn" type="submit">
+                LOGIN
             </button>
+        </form>
+
+        <!-- separator -->
+        <div class="separator">
+            <p>OR</p>
         </div>
+        <!-- 회원가입 버튼 -->
+        <button class="signin__btn" onclick="location.href='http://localhost/grrreung/register'">
+            SIGN UP
+        </button>
+    </div>
 
 </section>
 
 <!-- 푸터 -->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
 </body>
 
 </html>

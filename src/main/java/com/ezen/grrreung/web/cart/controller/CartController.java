@@ -1,4 +1,4 @@
-package com.ezen.grrreung.web.member.controller;
+package com.ezen.grrreung.web.cart.controller;
 
 import com.ezen.grrreung.domain.member.service.CartService;
 import lombok.RequiredArgsConstructor;

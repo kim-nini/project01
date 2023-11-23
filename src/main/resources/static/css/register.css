@@ -1,10 +1,10 @@
 @charset "utf-8";
 
 .joinForm {
-    width:600px;
+    width: 600px;
     padding: 30px 20px;
-    background-color:#FFFFFF;
-    text-align:center;
+    background-color: #FFFFFF;
+    text-align: center;
     border-radius: 15px;
     margin: auto;
 }
@@ -23,61 +23,61 @@
 
 .id {
     width: 100%;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     color: #636e72;
-    font-size:16px;
-    height:25px;
+    font-size: 16px;
+    height: 25px;
     background: none;
 }
 
 .pw {
     width: 100%;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     color: #636e72;
-    font-size:16px;
-    height:25px;
+    font-size: 16px;
+    height: 25px;
     background: none;
 }
 
 .name {
     width: 100%;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     color: #636e72;
-    font-size:16px;
-    height:25px;
+    font-size: 16px;
+    height: 25px;
     background: none;
 }
 
 .email {
     width: 100%;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     color: #636e72;
-    font-size:16px;
-    height:25px;
+    font-size: 16px;
+    height: 25px;
     background: none;
 }
 
 .address {
     width: 100%;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     color: #636e72;
-    font-size:16px;
-    height:25px;
+    font-size: 16px;
+    height: 25px;
     background: none;
 }
 
 .cellphoneNo {
     width: 100%;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     color: #636e72;
-    font-size:16px;
-    height:25px;
+    font-size: 16px;
+    height: 25px;
     background: none;
 }
 
@@ -88,12 +88,12 @@
     background-color: #565656;
     background-position: left;
     background-size: 200%;
-    color:white;
+    color: white;
     font-weight: bold;
-    border:none;
-    cursor:pointer;
+    border: none;
+    cursor: pointer;
     transition: 0.4s;
-    display:inline;
+    display: inline;
 }
 
 .btn:hover {
@@ -101,5 +101,48 @@
 }
 
 button {
-    margin:0 15px;
+    margin: 0 15px;
+}
+
+/*#sample2_postcode, #sample2_address, #sample2_detailAddress, #sample2_extraAddress {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*}*/
+
+/*#sample2_postcode, #sample2_search {*/
+/*    width: 100px;*/
+/*}*/
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #adadad;
+    width: 250px;
+}
+
+.row1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row1 input {
+    width: 100px;
+}
+
+.row2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row2 input {
+    width: 100px;
+}
+
+#sample2_address {
+    width: 200px;
 }

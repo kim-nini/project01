@@ -41,6 +41,7 @@ public class MemberController {
             session.setAttribute("loginMember", findMember);
             return "redirect:/";
         } else {
+            model.addAttribute("loginResult", false);
             return "grrreung/sub/login";
         }
     }
@@ -53,6 +54,24 @@ public class MemberController {
         session.invalidate();
         return "redirect:/";
     }
+
+
+//    /**
+//     * 아이디 비밀번호 일치 여부
+//     */
+//
+//    @GetMapping("/idpwcheck")
+//    @ResponseBody
+//    public boolean loginCheck(@RequestParam("id") String id, @RequestParam("password") String password){
+//        log.info("수신한 아이디 : {} ", id);
+//        log.info("수신한 비밀번호 : {} ", password);
+//        Member member = memberService.getMember(id);
+//
+//        if(member != null){
+//            return true;
+//        }
+//        return false;
+//    }
 
 
     /**
@@ -79,6 +98,20 @@ public class MemberController {
     @GetMapping("/result")
     public String result(HttpServletRequest request) {
         return "/grrreung/sub/result";
+    }
+
+
+    /**
+     * 회원가입 아이디 체크
+     */
+    @GetMapping("/idcheck")
+    @ResponseBody
+    public boolean idCheck(@RequestParam("memberId") String memberId) {
+        Member member = memberService.getMember(memberId);
+        if (member != null) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -126,10 +159,10 @@ public class MemberController {
 //    }
 
     /**
-    * 회원 탈퇴
-    */
+     * 회원 탈퇴
+     */
     @GetMapping("delete/{memberId}")
-    public String delete(@PathVariable String memberId, HttpSession session){
+    public String delete(@PathVariable String memberId, HttpSession session) {
         memberService.deleteUser(memberId);
         session.invalidate();
         return "redirect:/";

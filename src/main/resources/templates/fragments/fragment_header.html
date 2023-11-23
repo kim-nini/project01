@@ -55,23 +55,27 @@
             <!-- 상단 로고 end-->
 
 
-            <!-- 로그인 상태 정보 -->
-            <div class="order-1 md:order-2" id="loginInfo" th:if="${session.loginMember} != null">
-                <div th:text="${session.loginMember.name}+'님 로그인 중'"></div>
-                <form action="/grrreung/logout">
-                    <button type="submit" id="logout">로그아웃</button>
-                </form>
-            </div>
+
+
 
 
             <!-- 아이콘 -->
             <div class="order-2 md:order-3 flex items-center" id="nav-content">
+                <!-- 로그인/회원가입 아이콘 -->
                 <a id="login_icon" class="inline-block no-underline hover:text-black" width="24" height="24"
-                   href="/grrreung/login">
+                   href="/grrreung/login" th:if="${session.loginMember} == null">
                     <i class="fa-solid fa-arrow-right-to-bracket fill-current hover:text-black"></i>
                 </a>
 
+                <!-- 로그인 상태 정보 -->
+                <div id="loginInfo" th:if="${session.loginMember} != null">
+                    <div th:text="${session.loginMember.name}+'님 로그인 중'"></div>
+                    <form action="/grrreung/logout">
+                        <button type="submit" id="logout">로그아웃</button>
+                    </form>
+                </div>
 
+                <!-- 마이페이지 아이콘 -->
                 <a class="inline-block no-underline hover:text-black" href="/grrreung/mypage">
                     <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                          viewBox="0 0 24 24">
@@ -80,6 +84,7 @@
                     </svg>
                 </a>
 
+                <!-- 장바구니 아이콘 -->
                 <a class="pl-3 inline-block no-underline hover:text-black" href="/grrreung/cart">
                     <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                          viewBox="0 0 24 24">

@@ -13,42 +13,37 @@ public class MemberServiceImpl implements  MemberService {
 
     private final MemberMapper memberMapper;
 
+    // 회원 등록
     @Override
     public void register(Member member) {
         memberMapper.create(member);
     }
 
+    // 아이디 중복 검사
     @Override
     public Member getMember(String memberId) {
-        return null;
+        return memberMapper.findById(memberId);
     }
 
-    @Override
-    public Member getMemberByEmail(String email) {
-        return null;
-    }
-
-    @Override
-    public Member getMemberByPassword(String password) {
-        return null;
-    }
-
+    // 로그인
     @Override
     public Member login(String memberId, String password) {
        return memberMapper.login(memberId, password);
     }
 
-
+    // 아이디로 마이페이지 정보 가져오기
     @Override
     public Member memberInfo(String memberId) {
         return memberMapper.findById(memberId);
     }
 
+    // 마이페이지 정보 수정
     @Override
     public void updateInfo(Member member) {
         memberMapper.update(member);
     }
 
+    // 회원 탈퇴
     @Override
     public void deleteUser(String memberId) {
         memberMapper.delete(memberId);
