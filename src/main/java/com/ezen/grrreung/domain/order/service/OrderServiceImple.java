@@ -23,9 +23,9 @@ public class OrderServiceImple implements OrderService{
 		return orderMapper.orderHistoryByMember(memberId);
 	}
 
-	//@Transactional
-	@Transactional(noRollbackFor = NotEnoughMoneyException.class)
-	public void order(OrderGr order) throws NotEnoughMoneyException {
+//	//@Transactional
+//	@Transactional(noRollbackFor = NotEnoughMoneyException.class)
+//	public void order(OrderGr order) throws NotEnoughMoneyException {
 //		log.info("========= OrderServiceImple.order() 메소드 호출됨 =========");
 //		// #1. 주문테이블에 주문 관련 기본 정보 저장
 //		orderMapper.create(order);
@@ -49,8 +49,8 @@ public class OrderServiceImple implements OrderService{
 //			orderMapper.updatePayStatus(order);
 //		}
 //		log.info(">> 결제 완료.....");
-//		log.info("========= OrderServiceImple.order() 메소드 종료됨 =========");
-	}
+//		log.info("========= OrderServiceImple.order() 메소드 종료됨 =========");}
+
 }
 
 

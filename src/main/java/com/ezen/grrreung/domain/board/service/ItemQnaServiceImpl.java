@@ -4,16 +4,22 @@ import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.mapper.ItemQnaMapper;
 import com.ezen.grrreung.web.common.RequestParams;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Service
 public class ItemQnaServiceImpl implements ItemQnaService{
 
     private final ItemQnaMapper itemQnaMapper;
+
+    @Autowired
+    public ItemQnaServiceImpl(ItemQnaMapper itemQnaMapper) {
+        this.itemQnaMapper = itemQnaMapper;
+    }
 
     // QNA 작성
     @Override

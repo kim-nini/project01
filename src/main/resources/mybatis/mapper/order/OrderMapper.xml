@@ -5,7 +5,7 @@
 
 <mapper	namespace="com.ezen.grrreung.domain.order.mapper.OrderMapper">
 	
-	<insert id="create" parameterType="Order">
+	<insert id="create" parameterType="OrderGr">
 		INSERT INTO order_gr(order_id, member_id)
 		VALUES(ordergr_seq.NEXTVAL, #{memberId})
 		
@@ -14,7 +14,7 @@
 		</selectKey>
 	</insert>
 	
-	<update id="updatePayStatus" parameterType="Order">
+	<update id="updatePayStatus" parameterType="OrderGr">
 		UPDATE orders
 		SET pay_status = #{payStatus}
 		WHERE order_id = #{orderId}
