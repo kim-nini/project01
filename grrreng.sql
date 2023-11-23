@@ -299,7 +299,7 @@ INSERT INTO notice (
     noti_cont
 ) VALUES (
     notice_seq.NEXTVAL,
-    '공지사항테스트입니다',
+    '4공지사항테스트입니다',
     '공지사항테스트.'
 );
 
