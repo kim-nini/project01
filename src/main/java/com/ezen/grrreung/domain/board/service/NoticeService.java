@@ -9,25 +9,22 @@ import java.util.List;
 
 public interface NoticeService {
 
-    // 게시글 등록
+    // 공지사항 등록
     public void posting(Notice notice);
 
-    // 게시글목록
+    // 공지사항 전체 + 검색 목록
     public List<Notice> postList(RequestParams params);
     
-    // 게시글목록 행갯수
+    // 공지사항 목록 행갯수
     public int postListCount(RequestParams params);
 
-    // 게시글 검색 목록
-    public List<Notice> searchList(String searchValue);
-
-    // 게시글상세보기
+    // 공지사항 상세보기
     public Notice postInfo(int notiCode);
 
-    // 게시글 삭제
+    // 공지사항 삭제
     public void deletePost(int notiCode);
 
-    // 게시글 수정
+    // 공지사항 수정
     public void updatePost(Notice Notice);
 
 

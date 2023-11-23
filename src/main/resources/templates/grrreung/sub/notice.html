@@ -51,7 +51,7 @@
               <tbody>
 
               <tr th:each="notice, status : ${list}">
-                  <td th:text="${notice.notiCont}"></td>
+                  <td th:text="${notice.notiCode}"></td>
 <!--                  <td th:text="${notice.notiTitle}"></td>-->
                   <td><a th:text="${notice.notiTitle}" th:href="@{/notice/{notiCode}(notiCode=${notice.notiCode})}"></a></td>
                   <td th:text="${notice.notiAuth}"></td>
@@ -60,7 +60,7 @@
 
               </tbody>
           </table>
-          <p th:if="${list}!='[]'" style="text-align: center; padding-top: 10px; box-sizing: border-box; font-size: large">검색결과가 없습니다</p>
+          <p th:if="${list}=='[]'" style="text-align: center; padding-top: 10px; box-sizing: border-box; font-size: large">검색결과가 없습니다</p>
           <nav aria-label="Page navigation example">
               <ul class="pagination" style="" >
                   <li th:if="${pagination.isShowFirst()}" class="page-item">

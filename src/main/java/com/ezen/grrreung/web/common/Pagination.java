@@ -137,6 +137,6 @@ public class Pagination {
         System.out.println("검색된 행수: " + pagination2.getTotalElements());
         System.out.println("요청페이지: " + pagination2.getParams().getRequestPage());
         System.out.println("전체페이지수: " + pagination2.getTotalPages());
-
     }
+
 }

@@ -4,6 +4,8 @@ import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.service.ItemRevService;
+import com.ezen.grrreung.web.common.Pagination;
+import com.ezen.grrreung.web.common.RequestParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +20,47 @@ public class ItemRevController {
     // 비지니스로직을 제공하는 객체생성
     private final ItemRevService itemRevService;
 
-    // itemrev 게시글 목록
-    @GetMapping("")
-    public String postList(Model model){
-        List<ItemRev> list = itemRevService.postList();
-        model.addAttribute("list",list);
+    // itemRev 전체 목록
+    @GetMapping()
+    public String postList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                           @RequestParam(value = "search", required = false, defaultValue = "") String search,
+                           Model model){
+        // 페이징 처리와 관련된 변수
+        int elementSize = 5; // 화면에 보여지는 행의 갯수
+        int pageSize = 3;     // 화면에 보여지는 페이지 갯수
+
+        // 여러개의 요청 파라메터 정보 저장
+        RequestParams params = new RequestParams(page, elementSize, pageSize, search);
+
+        // 페이징처리 값 테이블의 전체 갯수
+        int selectCount = itemRevService.postListCount(params);
+
+        // params : 사용자가 선택한 페이지번호 , 검색값 여부
+        // 페이징 처리 계산 유틸리티 활용
+        Pagination pagination = new Pagination(params, selectCount);
+        if (pagination.getEndPage() == 0) {
+            pagination.setEndPage(1);
+        }
+        List<ItemRev> list = itemRevService.postList(params);
+
+
+
+        model.addAttribute("params", params); // 요청 파라메터
+        model.addAttribute("pagination", pagination); // 페이징 계산 결과
+        model.addAttribute("list",list); // db 리스트
+
         return "/grrreung/sub/review";
     }
 
+
+    // 포스트 매핑 -> 게시글 검색
+//    @PostMapping("/list")
+//    public String searchList(@ModelAttribute("searchValue")String searchValue, Model model){
+//        List<ItemRev> list = itemRevService.searchList(searchValue);
+//        model.addAttribute("list",list);
+//        return "/grrreung/sub/review";
+//    }
+    
     // 게시글 등록 겟매핑 -> 게시글 등록 화면으로 넘어감
     @GetMapping("/create")
     public String form(){ return "/grrreung/sub/rev-write"; }
@@ -45,13 +80,7 @@ public class ItemRevController {
         return "/grrreung/sub/rev-cont";
     }
 
-    // 포스트 매핑 -> 게시글 검색
-    @PostMapping("/list")
-    public String searchList(@ModelAttribute("searchValue")String searchValue, Model model){
-        List<ItemRev> list = itemRevService.searchList(searchValue);
-        model.addAttribute("list",list);
-        return "/grrreung/sub/review";
-    }
+
     
 
 }

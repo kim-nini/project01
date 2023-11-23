@@ -27,7 +27,7 @@
               <form action="">
                   <div class="search-wrap">
                       <label for="search" class="blind">상품 리뷰 검색</label>
-                      <input id="search" type="search" name="item_id" placeholder="상품명(상품코드) 또는 작성자로 검색">
+                      <input id="search" type="search" name="search" placeholder="상품명(상품코드) 또는 작성자로 검색">
                       <button type="submit" class="btn btn-dark searchBtn">검색</button>
                       <a class="btn btn-dark postBtn" style="right: -130px" href="/itemrev/create">후기 작성</a>
                   </div>
@@ -49,7 +49,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr th:each="itemRev, status : ${list}">
+                      <tr th:each="itemRev : ${list}">
                           <td th:text="${itemRev.revCode}"></td>
 <!--                          <td th:text="${itemRev.revTitle}"></td>-->
                           <td><a th:text="${itemRev.revTitle}" th:href="@{/itemrev/{revCode}(revCode=${itemRev.revCode})}"></a></td>
@@ -58,6 +58,22 @@
                       </tr>
                   </tbody>
                 </table>
+            <p th:if="${list}=='[]'" style="text-align: center; padding-top: 10px; box-sizing: border-box; font-size: large">검색결과가 없습니다</p>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" style="" >
+                    <li th:if="${pagination.isShowFirst()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=1)}">&laquo;</a></li>
+                    <li th:if="${pagination.isShowPrevious()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
+                    <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${page})}" name="page" th:text="${page}"></a>
+                    </li>
+                    <li th:if="${pagination.isShowNext()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
+                    <li th:if="${pagination.isShowLast()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination.totalPages})}">&raquo;</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </section>

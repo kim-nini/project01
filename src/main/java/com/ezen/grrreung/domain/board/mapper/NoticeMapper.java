@@ -14,14 +14,11 @@ public interface NoticeMapper {
     // 공지사항 작성하기
     public void create(Notice notice);
 
-    // 공지사항 전체 리스트
+    // 공지사항 전체 + 검색 리스트
     public List<Notice> postList(RequestParams params);
 
-    // 공지사항 전체 리스트 행갯수
+    // 공지사항 리스트 행갯수
     public int postListCount(RequestParams params);
-
-    // 공지사항 검색 리스트
-    public List<Notice> searchList(String searchValue);
 
     // 공지사항 상세보기
     public Notice findByBno(int notiCode);
