@@ -10,9 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
-//@RequestMapping("/order")
+@RequestMapping("/order")
 @RequiredArgsConstructor
 @Slf4j
 public class OrderGrController {
@@ -20,11 +21,14 @@ public class OrderGrController {
     private final OrderService orderService;
 
 //    주문내역조회
-//    @GetMapping("/")
-    public String orderHistory(){
+    @GetMapping
+    @ResponseBody
+    public Map<String, Object> orderHistory(@RequestParam String memberId, Model model){
+        Map<String, Object> map = orderService.orderHistory(memberId);
+       String order_id = "" + map.get("order_id");
+        log.info(order_id);
 
-
-        return "/grrreung/sub/mypage";
+        return map;
     }
 
 
