@@ -24,8 +24,8 @@ public class CartController {
      */
     @GetMapping("/cart/{memberId}")
     public String list(@PathVariable("memberId") String memberId, Model model){
+        log.info("받아오는 아이디 : {}", memberId);
         List<Map<String, Object>> list = cartService.getCartList(memberId);
-        //log.info("장바구니 아이템 수: {}", list.size());
         model.addAttribute("list", list);
         return "/grrreung/sub/cart";
     }
