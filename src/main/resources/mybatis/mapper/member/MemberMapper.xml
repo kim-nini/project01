@@ -5,20 +5,20 @@
 
     <!-- 회원가입 -->
     <insert id="create" parameterType="Member">
-        INSERT INTO member(member_id, password, name, hp, email, address, address2, address3)
-        VALUES (#{memberId}, #{password}, #{name}, #{hp}, #{email}, #{address}, #{address2}, #{address3})
+        INSERT INTO member(member_id, password, name, hp, email, address, address2, address3, address4)
+        VALUES (#{memberId}, #{password}, #{name}, #{hp}, #{email}, #{address}, #{address2}, #{address3}, #{address4})
     </insert>
 
     <!-- 로그인   -->
     <select id="login" parameterType="map" resultType="Member">
-        select member_id, password, name, hp, email, address, address2, address3
+        select member_id, password, name, hp, email, address, address2, address3, address4
         from member
         where member_id = #{memberId} and password = #{password}
     </select>
 
     <!-- 마이페이지 상세보기   -->
     <select id="findById" parameterType="String" resultType="Member">
-        select member_id, password, name, hp, email, address, address2, address3
+        select member_id, password, name, hp, email, address, address2, address3, address4
         from member
         where member_id = #{memberId}
     </select>
@@ -42,6 +42,9 @@
             <if test="address3 != null">
                 address3 = #{address3},
             </if>
+            <if test="address4 != null">
+                address4 = #{address4},
+            </if>
             <if test="hp != null">
                 hp = #{hp}
             </if>
@@ -55,6 +58,4 @@
         delete from member
         where member_id = #{memberId}
     </delete>
-
-
 </mapper>

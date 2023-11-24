@@ -1,8 +1,6 @@
 package com.ezen.grrreung;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
-import com.ezen.grrreung.domain.member.mapper.CartMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,8 +15,6 @@ public class MemberMapperTest {
 	@Autowired
 	private MemberMapper memberMapper;
 
-	@Autowired
-	private CartMapper cartMapper;
 
 	@Test
 	void createTest() {

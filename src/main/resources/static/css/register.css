@@ -114,7 +114,9 @@ button {
 /*    width: 100px;*/
 /*}*/
 
-#container {
+
+/* 우편번호 */
+#container1 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -122,31 +124,28 @@ button {
     border-bottom: 1px solid #adadad;
     width: 250px;
 }
-
-.row1 {
+#container2, #container3 {
+    border-bottom: 1px solid #adadad;
+}
+.row1, .row2, .row3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 .row1 input {
     width: 100px;
 }
-
-.row2 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.row2, .row3 {
+   text-align: left;
 }
-
-.row2 input {
-    width: 100px;
-}
-
 #sample2_address {
+    width: 100%;
+}
+#sample2_detailAddress, #sample2_extraAddress {
     width: 200px;
 }
 
+/* 유효성 메세지 */
 p{
     font-size: 13px;
 }

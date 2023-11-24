@@ -76,7 +76,7 @@
                 </div>
 
                 <!-- 마이페이지 아이콘 -->
-                <a class="inline-block no-underline hover:text-black" href="/grrreung/mypage">
+                <a class="inline-block no-underline hover:text-black" href="/grrreung/mypage" th:if="${session.loginMember} != null">
                     <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                          viewBox="0 0 24 24">
                         <circle fill="none" cx="12" cy="7" r="3"/>

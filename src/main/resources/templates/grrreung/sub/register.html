@@ -57,17 +57,21 @@
             <p id="email-message"></p>
 
             <!-- 주소-->
-            <div class="textForm" id="container">
+            <div class="textForm" id="container1">
                 <div class="row1">
                     <input type="text" id="sample2_postcode" name="address" placeholder="우편번호">
                     <input type="button" id="sample2_search" onclick="sample2_execDaumPostcode()" value="우편번호 찾기"><br>
                 </div>
             </div>
-            <div class="textForm">
+            <div class="textForm" id="container2">
                 <div class="row2">
                     <input type="text" id="sample2_address" name="address2" placeholder="주소"><br>
+                </div>
+            </div>
+            <div class="textForm" id="container3">
+                <div class="row3">
                     <input type="text" id="sample2_detailAddress" name="address3" placeholder="상세주소">
-                    <input type="text" id="sample2_extraAddress" placeholder="추가정보">
+                    <input type="text" id="sample2_extraAddress" name="address4" placeholder="추가정보">
                 </div>
             </div>
 
@@ -83,7 +87,7 @@
             <button type="reset" class="btn">RESET</button>
         </form>
 
-
+        <!-- 우편번호 찾기 스크립트 -->
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script>
             // 우편번호 찾기 화면을 넣을 element

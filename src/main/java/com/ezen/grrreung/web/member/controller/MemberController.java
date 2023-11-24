@@ -55,24 +55,6 @@ public class MemberController {
     }
 
 
-//    /**
-//     * 아이디 비밀번호 일치 여부
-//     */
-//
-//    @GetMapping("/idpwcheck")
-//    @ResponseBody
-//    public boolean loginCheck(@RequestParam("id") String id, @RequestParam("password") String password){
-//        log.info("수신한 아이디 : {} ", id);
-//        log.info("수신한 비밀번호 : {} ", password);
-//        Member member = memberService.getMember(id);
-//
-//        if(member != null){
-//            return true;
-//        }
-//        return false;
-//    }
-
-
     /**
      * 회원 가입 화면 요청
      */

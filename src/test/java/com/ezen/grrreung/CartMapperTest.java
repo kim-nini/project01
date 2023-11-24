@@ -1,6 +1,6 @@
 package com.ezen.grrreung;
 
-import com.ezen.grrreung.domain.member.mapper.CartMapper;
+import com.ezen.grrreung.domain.cart.mapper.CartMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
