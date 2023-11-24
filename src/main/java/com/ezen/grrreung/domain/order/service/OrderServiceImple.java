@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,7 +20,7 @@ public class OrderServiceImple implements OrderService{
 	private final OrderMapper orderMapper;
 
 	@Override
-	public Map<String, Object> orderHistory(String memberId) {
+	public List<Map<String, Object>> orderHistory(String memberId) {
 		return orderMapper.orderHistoryByMember(memberId);
 	}
 

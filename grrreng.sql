@@ -26,15 +26,15 @@ DROP TABLE category;
 -- CREATE ---------------------------------
 
 CREATE TABLE order_gr (
-    order_id     NUMBER(20) NOT NULL,
-    member_id    VARCHAR2(30) NOT NULL,
-    order_date   DATE DEFAULT sysdate,
-    order_status VARCHAR2(255) DEFAULT '주문완료',
-    order_memo   VARCHAR2(100) NULL,
-    order_name   VARCHAR2(30) NOT NULL,
-    order_add    VARCHAR2(255) NOT NULL,
-    order_hp     VARCHAR2(30) NOT NULL,
-    order_price_all  VARCHAR2(50) NOT NULL
+    order_id        NUMBER(20) NOT NULL,
+    member_id       VARCHAR2(30) NOT NULL,
+    order_date      DATE DEFAULT sysdate,
+    order_status    VARCHAR2(255) DEFAULT '주문완료',
+    order_memo      VARCHAR2(100) NULL,
+    order_name      VARCHAR2(30) NOT NULL,
+    order_add       VARCHAR2(255) NOT NULL,
+    order_hp        VARCHAR2(30) NOT NULL,
+    order_price_all VARCHAR2(50) NOT NULL
 );
 
 CREATE TABLE order_item (
@@ -240,11 +240,11 @@ INSERT INTO order_item (
     order_price,
     order_amount
 ) VALUES (
-    1,
+    4,
     10000,
-    101,
-    50.00,
-    2
+    103,
+    80.00,
+    3
 );
 
 
@@ -257,12 +257,12 @@ INSERT INTO item (
     item_amount,
     item_detail
 ) VALUES (
-    101,
+    103,
     1,
-    'Sample Item',
-    25.00,
-    50,
-    'Description of the item'
+    '103번 상품',
+    5000,
+    100,
+    '3번 상품 상세설명'
 );
 
 -- Insert data into item_img table
@@ -513,12 +513,41 @@ SELECT
     g.order_date,
     g.order_status,
     g.order_price_all,
-    oi.order_amount,
-    oi.order_price,
-    i.item_name
+     i.item_name,
+    oi.order_amount
+FROM
+         order_item oi
+    JOIN order_gr g ON g.order_id = oi.order_id
+    LEFT OUTER JOIN item     i ON oi.item_id = i.item_id
+WHERE
+    member_id = 'member001'
+ORDER BY
+    order_id desc;
+    
+update  order_gr set order_price_all = 230 where order_id = 10000;
+
+----
+
+
+SELECT
+   *
+FROM
+         order_item oi
+    JOIN order_gr g ON g.order_id = oi.order_id
+    LEFT OUTER JOIN item     i ON oi.item_id = i.item_id
+WHERE
+
+    g.order_id = 10000;
+    
+    
+    ----
+
+
+SELECT
+    *
 FROM
          order_gr g
     JOIN order_item oi ON g.order_id = oi.order_id
-    JOIN item       i ON oi.item_id = i.item_id
+   LEFT OUTER JOIN item       i ON oi.item_id = i.item_id
 WHERE
     member_id = 'member001';

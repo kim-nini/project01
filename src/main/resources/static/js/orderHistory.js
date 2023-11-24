@@ -7,17 +7,17 @@ let text;
 
 // 가져온 리스트 뷰에 보여주기
 async function orderHistory(event) {
-	try {
-		const map = await getOrderHistory();
-
-		// 여기서 map은 객체라고 가정합니다.
-		const orderId = map["ORDER_ID"];
-		console.log(orderId);
-		title.innerHTML = orderId;
-	} catch (error) {
-		console.error("Error fetching order history:", error);
-	}
-
+		const list = await getOrderHistory();
+		for (order of list) {
+			for (key in order){
+			// const option = document.createElement('option');
+			// option.value = category.cateCode;
+			// option.textContent = category.cateName;
+			// subCategory.appendChild(option);
+				console.log(key, order[key]);
+				console.log(order["ORDER_ID"]);
+			}
+		}
 
 }
 
@@ -30,4 +30,26 @@ function getOrderHistory(){
 		});
 }
 
+
+// -----------------------------템플릿 js
+function toggleClass(element, tClass) {
+	tClass = tClass.replace(/\s/g, "");
+
+	var classes =  element.className;
+	element.className = classes.indexOf(tClass) !== -1
+		? classes.replace(" " + tClass, "")
+		: classes + " " + tClass;
+}
+
+
+
+var showhide = document.getElementsByClassName("showhide");
+
+console.log(showhide)
+
+showhide[0].addEventListener('click', function() {
+	var wrapper = showhide[0].closest(".accordian-item");
+	console.log(wrapper)
+	toggleClass(wrapper, 'active2');
+}, false);
 

@@ -27,15 +27,16 @@
 			g.order_date,
 			g.order_status,
 			g.order_price_all,
-			oi.order_amount,
-			oi.order_price,
-			i.item_name
+			i.item_name,
+			oi.order_amount
 		FROM
 			order_gr g
 				JOIN order_item oi ON g.order_id = oi.order_id
 				JOIN item       i ON oi.item_id = i.item_id
 		WHERE
 			member_id = #{memberId}
+		ORDER BY
+			order_id DESC
 	</select>
 	
 </mapper>

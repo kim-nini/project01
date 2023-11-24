@@ -23,12 +23,12 @@ public class OrderGrController {
 //    주문내역조회
     @GetMapping
     @ResponseBody
-    public Map<String, Object> orderHistory(@RequestParam String memberId, Model model){
-        Map<String, Object> map = orderService.orderHistory(memberId);
-       String order_id = "" + map.get("order_id");
-        log.info(order_id);
+    public List<Map<String, Object>> orderHistory(@RequestParam String memberId, Model model){
+        List<Map<String, Object>> list = orderService.orderHistory(memberId);
+//       String order_id = "" + map.get("order_id");
+        log.info(list.toString());
 
-        return map;
+        return list;
     }
 
 
