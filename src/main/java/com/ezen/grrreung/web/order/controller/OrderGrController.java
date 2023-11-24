@@ -21,6 +21,11 @@ public class OrderGrController {
 
 //    주문내역조회
 //    @GetMapping("/")
+    public String orderHistory(){
+
+
+        return "/grrreung/sub/mypage";
+    }
 
 
     /**
