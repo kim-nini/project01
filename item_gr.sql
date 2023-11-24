@@ -136,12 +136,35 @@ where I.item_id = 1;
 
 
 
--- # 8. 
+-- # 8. 등록한 상품 정보 수정하기 페이지에 보여줄 내용
 SELECT
-			cate_code,
-			cate_top
+    c.cate_top,
+    c.cate_name,
+    i.item_name,
+    i.item_id,
+    i.item_price,
+    i.item_amount,
+    i.item_detail,
+    i.item_sell_status
+FROM
+         category c
+    INNER JOIN item i ON c.cate_code = i.cate_code;
+
+-- #. 9.
+    UPDATE item
+		SET
+		SELECT
+			c.cate_top,
+			c.cate_name,
+			i.item_name,
+			i.item_id,
+			i.item_price,
+			i.item_amount,
+			i.item_detail,
+			i.item_sell_status
 		FROM
-			category
+			category c
+				INNER JOIN item i ON c.cate_code = i.cate_code
 
 
 

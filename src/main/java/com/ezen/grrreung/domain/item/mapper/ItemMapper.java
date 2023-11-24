@@ -25,9 +25,6 @@ public interface ItemMapper {
     // 카테고리로 상품 조회
     public List<Item> findByCategory(String cateTop);
 
-    // item 등록
-    public void createItem(Item item);
-
     // 검색 타입별 item 검색
     public List<Item> findBySearchType(@Param("type") String type, @Param("value") String value);
 
@@ -60,5 +57,16 @@ public interface ItemMapper {
 
     // 요청 파라미터에 해당하는 상품 개수
     public int countByParams(RequestParams params);
+//======================================================================================
+    // 상품 등록하기
+    public void createItem(Item item);
+
+    // 상품 이미지 업로드 처리
+    public void insertItemImg(ItemImg itemImg);
+//======================================================================================
+    
+    // 상품 수정 페이지에서 나타낼 수정이 가능한 상품 정보 가져오기
+    public Map<String, Object> updateItemInfo(int itemId);
+
 
 }

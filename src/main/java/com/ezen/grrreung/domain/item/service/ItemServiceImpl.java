@@ -21,12 +21,6 @@ public class ItemServiceImpl implements ItemService {
         this.itemMapper = itemMapper;
     }
 
-
-    @Override
-    public void registerItem(Item item) {
-        itemMapper.createItem(item);
-    }
-
     @Override
     public List<Item> allItems() {
         return itemMapper.findAllItems();
@@ -80,7 +74,20 @@ public class ItemServiceImpl implements ItemService {
 
 //--------------------------------------------------------------------------------------------------------
 
+    @Override
+    public void registerItem(Item item) {
+        itemMapper.createItem(item);
+    }
 
+    @Override
+    public void uploadItemimg(ItemImg itemImg) {
+        itemMapper.insertItemImg(itemImg);
+    }
+
+    @Override
+    public Map<String, Object> updateInfo(int itemId) {
+        return itemMapper.updateItemInfo(itemId);
+    }
 
 
 }

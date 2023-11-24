@@ -1,3 +1,8 @@
+document.querySelector("button").addEventListener('click', function() {
+    console.log('버튼이 클릭되었습니다.');
+}, false);
+
+
 
     const mainCate = document.querySelector(".mainCategory");
     const subCategory = document.querySelector(".subCategory");
@@ -42,12 +47,12 @@
 
 //==============================================================================================
 
-    function displayFileName() {
-        var input = document.getElementById('fileInput1');
-        var label = document.getElementById('fileLabel');
-        var fileName = input.files[0].name;
-        label.innerHTML = fileName;
-    }
+    // function displayFileName() {
+    //     var input = document.getElementById('fileInput1');
+    //     var label = document.getElementById('fileLabel');
+    //     var fileName = input.files[0].name;
+    //     label.innerHTML = fileName;
+    // }
 
 
 

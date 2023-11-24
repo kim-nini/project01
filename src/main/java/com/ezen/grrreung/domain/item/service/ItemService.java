@@ -10,9 +10,6 @@ import java.util.Map;
 
 public interface ItemService {
 
-    // item 등록
-    public void registerItem(Item item);
-
     // item 전체 조회
     public List<Item> allItems();
 
@@ -46,5 +43,19 @@ public interface ItemService {
 
    // 요청 파라미터에 해당하는 상품 개수
     public int countByParams(RequestParams params);
+
+
+//--------------------------------------------------------------------------------------------------------
+
+    // 상품 등록
+    public void registerItem(Item item);
+
+    // 상품 이미지 업로드
+    public void uploadItemimg(ItemImg itemImg);
+//
+    // 상품 수정 페이지 출력
+    public Map<String, Object> updateInfo(int itemId);
+
+
 }
 

@@ -68,7 +68,7 @@ values (item_img_id_sq.nextval , 03, 'item03_image05.png','image05');
 
 
 insert into item_img(item_img_id, item_id, img_name, ori_img_name, rep_img_yn)
-values ( item_img_id_sq.nextval , 04, 'item04_image01.png', 'image01', 'Y');
+values (item_img_id_sq.nextval , 04, 'item04_image01.png', 'image01', 'Y');
 insert into item_img(item_img_id, item_id, img_name, ori_img_name)
 values ( item_img_id_sq.nextval , 04, 'item04_image02.png','image02');
 insert into item_img(item_img_id, item_id, img_name, ori_img_name)

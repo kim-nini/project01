@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Data
 public class ItemImg {
     private int itemImgId;
@@ -14,4 +14,12 @@ public class ItemImg {
     private String oriImgName;
     private String imgUrl;
     private String repImgYN;
+
+    public ItemImg (int itemId,  String imgName, String oriImgName) {
+        this.itemId = itemId;
+        this.imgName = imgName;
+        this.oriImgName = oriImgName;
+    }
+
 }
+

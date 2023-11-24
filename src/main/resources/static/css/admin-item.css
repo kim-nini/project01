@@ -5,9 +5,6 @@ button {
 }
 
 
-button:hover {
-  cursor: pointer;
-}
 
 .hd> :first-child {
   width: 100%;
@@ -235,6 +232,7 @@ button {
   background-color: #555;
   border-radius: 3px;
   color:#eee;
+  cursor: pointer;
 }
 button:hover {
   background-color: #888;

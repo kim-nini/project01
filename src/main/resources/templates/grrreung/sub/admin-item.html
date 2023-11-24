@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 공통 환경설정 -->
     <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
@@ -21,10 +21,10 @@
 
             <div class="w-full container mx-auto mt-0 px-2 py-3 ">
                 <div class="category-button button_wrap flex itmes-center">
-                    <a href="/grrreung/notice">상품등록</a>
-                    <a href="/grrreung/faq">상품수정</a>
-                    <a href="/grrreung/qna">메뉴</a>
-                    <a href="/grrreung/review">메뉴</a>
+                    <a href="/grrreung/admin">상품등록</a>
+                    <a href="/grrreung/admin/item-update">상품수정</a>
+                    <a href="#">메뉴</a>
+                    <a href="#">메뉴</a>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
 
         <article class="item-register">
             <table>
-                <form action="/grrreung/newItem" method="post" >
+                <form action="/grrreung/register-item" method="post" enctype="multipart/form-data">
 
                     <tr>
                         <th>
@@ -70,7 +70,7 @@
                     </tr>
 
                     <tr>
-                        <th>가격</th>
+                        <th>단가</th>
                         <td><input type="text" name="itemPrice" placeholder="' , '을 제외한 숫자만 입력"><span>원</span></td>
                     </tr>
 
@@ -91,9 +91,9 @@
                         <th>상품 대표이미지<br>(슬라이드)</th>
                         <td>
                             <div class="filebox">
-                                <label for="fileInput1" class="custom-file-upload">
+                                <label for="uploadfiles" name="uploadfiles" class="custom-file-upload">
 <!--                                    <span>파일찾기</span>-->
-                                    <input type="file" name="fileInput">
+                                    <input type="file" name="uploadfiles" id="uploadfiles" multiple >
                                 </label>
                                 <p>※ 대표이미지(썸네일)을 선택해주세요.</p>
                             </div>
@@ -108,9 +108,9 @@
                         <th>상세정보 이미지</th>
                         <td>
                             <div class="filebox">
-                                <label for="fileInput2" class="custom-file-upload">
+                                <label for="uploadfiles2" name="uploadfiles" class="custom-file-upload">
 <!--                                    <span>파일찾기</span>-->
-                                    <input type="file" name="fileInput">
+                                    <input type="file" name="uploadfiles" id="uploadfiles2" multiple >
                                 </label>
                                 <p>※ 상세정보에 나타낼 이미지 파일을 선택해주세요.</p>
                             </div>
@@ -124,10 +124,11 @@
 
                     <tr>
                         <td colspan="2">
-                            <button type="submit" >등록</button>
-                            <button>취소</button>
+                            <button type="submit">등록</button>
+                            <button type="reset">취소</button>
                         </td>
                     </tr>
+
                 </form>
             </table>
         </article>

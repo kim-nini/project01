@@ -1,16 +1,12 @@
 package com.ezen.grrreung.web.item.controller;
 
-import com.ezen.grrreung.domain.item.dto.Category;
-import com.ezen.grrreung.domain.item.dto.Item;
-import com.ezen.grrreung.domain.item.dto.ItemImg;
+import com.ezen.grrreung.domain.item.dto.*;
 import com.ezen.grrreung.domain.item.service.ItemService;
+import com.ezen.grrreung.web.common.page.FileStore;
 import com.ezen.grrreung.web.common.page.Pagination;
 import com.ezen.grrreung.web.common.page.RequestParams;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
-import oracle.net.ns.Message;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -21,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -39,6 +36,8 @@ public class ItemController {
 
     @Value("${file.dir}")
     private String location;
+
+    private final FileStore fileStore;
 
     // 홈화면
     @RequestMapping("/")
@@ -148,6 +147,7 @@ public class ItemController {
 
 //=============================================================================================================
 
+    // 이미지 슬라이드
     @GetMapping("/itemInfoImage/{itemId}")
     public ResponseEntity<Map<String, Object>> itemDescriptionImages(@PathVariable("itemId")int itemId, Model model) throws IOException {
         List<Map<String, Object>> itemDescription = itemService.showDescriptionImages(itemId); // 상품 상세정보 - 상품 상세정보 이미지
@@ -178,7 +178,8 @@ public class ItemController {
         model.addAttribute("item", item);
         return "/grrreung/sub/shop";
     }
-
+// ===================================================================================================
+    // 상위 카테고리 이름 DB에서 찾아오기
     @RequestMapping("/admin")
     public String searchCategory(Model model) {
         List<Category> cateList = itemService.categoryAllList();
@@ -198,19 +199,52 @@ public class ItemController {
     }
 
 //==============================================================================================
-    // 아이템 등록하기
-    @PostMapping ("/newItem")
-    public String registerItem(@ModelAttribute Item item, @RequestParam int cateCode) {
+
+    // 관리자 권한으로 아이템 등록하기
+
+    @PostMapping("/register-item")
+    public String  registerItem(@ModelAttribute Item item, @RequestParam int cateCode, @ModelAttribute UploadForm uploadForm, RedirectAttributes redirectAttributes)
+            throws IOException {
 
         log.info("수신정보:{}", item.toString());
         item.setCateCode(cateCode);
-
-
         itemService.registerItem(item);
         // 카테고리 선택한정보로 value값으로 카테고리 코드 cateCode 받아오기
 
+        log.info("업로드 파일: {}", uploadForm.getUploadfiles());
+
+        // 업로드 파일들 저장
+        List<UploadFile> uploadFiles = fileStore.storeFiles(uploadForm.getUploadfiles());
+        log.info("저장된 파일명 : {}", uploadFiles);
+
+        // DB 테이블에 업로드 파일과 저장된 파일명 저장 후
+
+        for(UploadFile uploadFile: uploadFiles) {
+            ItemImg itemImg = new ItemImg(item.getItemId(), uploadFile.getUploadFileName(), uploadFile.getStoreFileName());
+//            itemImg.setItemId(item.getItemId());
+//            itemImg.setImgName(uploadFile.getUploadFileName());
+//            itemImg.setOriImgName(uploadFile.getStoreFileName());
+            log.info("업로드 파일정보 : {}", uploadFile);
+            itemService.uploadItemimg(itemImg);
+        }
+
+        // 업로드 파일 저장 후
+        // 데이터베이스 테이블에 업로드 파일명과 실제 저장파일명을 저장(테이블의 컬럼이 2개 필요)
 
         return "redirect:/grrreung/admin";
+    }
+
+
+    @RequestMapping ("/update-item")
+    public String registerItem(Model model) {
+        List<Category> cateList = itemService.categoryAllList();
+        model.addAttribute("cateList", cateList);
+
+
+        Map<String, Object> map = itemService.updateInfo(1);
+        model.addAttribute("item", map);
+
+        return "/grrreung/sub/admin-item-update";
 
     }
 //==============================================================================================

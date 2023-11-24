@@ -1,4 +1,4 @@
-package com.ezen.grrreung.web.item.controller;
+package com.ezen.grrreung.web.common.page;
 
 import com.ezen.grrreung.domain.item.dto.UploadFile;
 import jakarta.annotation.PostConstruct;
