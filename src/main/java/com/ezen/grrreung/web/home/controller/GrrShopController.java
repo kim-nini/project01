@@ -9,18 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //@Slf4j
 public class GrrShopController {
 
-    // 메인화면 이동
-//    @RequestMapping("/")
-//    public String home(){
-//        return "/grrreung/index";
-//    }
-
-    // 상품 목록 페이지 이동
-//    @RequestMapping("/shop")
-//    public String shop(){
-//        return "/grrreung/sub/shop";
-//    }
-
     // 상품 정보 / 상세 페이지 이동
     @RequestMapping("/item")
     public String itemInfo(){
