@@ -392,7 +392,7 @@ form {
 }
 
 .qty {
-    flex: 0 0 63px;
+    flex: 0 0 80px;
     text-align: center;
 }
 
@@ -403,7 +403,7 @@ form {
 }
 
 .price {
-    flex: 0 0 90px;
+    flex: 0 0 120px;
     text-align: right;
 }
 

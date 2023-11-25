@@ -60,7 +60,7 @@
 <!--                                    <input type="text" class="form-control mb-1"-->
 <!--                                           th:value="${session.loginMember.memberId}"  readonly>-->
                                     <input type="text" class="form-control mb-1"
-                                           th:value="member001" id="member-id" readonly>
+                                           th:value="customer1" id="member-id" readonly>
                                 </div>
 <!--                                <div class="form-group">-->
 <!--                                    <label class="form-label">이름</label>-->
@@ -135,13 +135,13 @@
                                         <div class="accordian-title">
                                             <div class="left">
                                                 <div class="title" id="order-id">
-                                                    Order 1
+                                                    주문 번호
                                                 </div>
-                                                <div class="item-count" id="order-amount">
-                                                    - 1 item
+                                                <div class="item-count" id="order-item-amount">
+                                                    주문아이템 갯수
                                                 </div>
                                                 <div class="total" id="order-price-all">
-                                                    Total £46.00
+                                                    Total 총 주문금액
                                                 </div>
                                             </div>
                                             <div class="showhide">
@@ -150,34 +150,55 @@
                                         </div>
                                         <article class="accordian-content">
                                             <div class="title">
-                                                <div class="qty">Qty</div>
-                                                <div class="product">Product</div>
-                                                <div class="price">Price</div>
-                                                <div class="returns">Returns</div>
+                                                <div class="product" >상품 정보(상품명)</div>
+                                                <div class="qty" >수량</div>
+                                                <div class="price" >상품가격*수량 금액</div>
+                                                <div class="returns" >주문처리상태</div>
                                             </div>
                                             <div class="item">
                                                 <div class="item-wrapper">
-                                                    <div class="qty">
-                                                        <div class="qty-wrapper">
-                                                            <p>5</p>
-                                                        </div>
-                                                    </div>
+
                                                     <div class="product">
-                                                        <img src="https://www.placecage.com/70/70" alt="">
-                                                        <div class="product-detail">
+                                                        <img src="../../../../../../upload/item01_image01.png" alt="">
+                                                        <div class="product-detail" id="item-name">
                                                             3 Months membership
                                                             <div class="warning">
                                                                 You have already confirmed a return for this product
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="price">£45.00</div>
-                                                    <div class="returns">Cancel</div>
+                                                    <div class="qty">
+                                                        <div class="qty-wrapper" id="order-amount">
+                                                            <p>5</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="price" id="item-price">£45.00</div>
+                                                    <div class="returns" id="order-status">Cancel</div>
+                                                </div>
+                                                <div class="item-wrapper">
+
+                                                    <div class="product">
+                                                        <img src="../../../../../../upload/item01_image01.png" alt="">
+                                                        <div class="product-detail" id="item-name-value">
+                                                            3 Months membership
+                                                            <div class="warning">
+                                                                You have already confirmed a return for this product
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="qty">
+                                                        <div class="qty-wrapper" id="order-amount-value">
+                                                            <p>5</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="price" id="item-price-value">£45.00</div>
+                                                    <div class="returns" id="order-status-value">Cancel</div>
                                                 </div>
                                             </div>
 
 
                                         </article>
+
                                         <article class="accordian-footer">
                                             <div class="date">Date: 21/08/2019</div>
                                             <div class="right">
