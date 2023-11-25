@@ -1649,7 +1649,7 @@ INSERT INTO order_gr (
     '주문자이름',
     '주문자주소',
     '010-1111-2222',
-    '154000'
+    '200000'
 );
 
 INSERT INTO order_gr (
@@ -1694,17 +1694,17 @@ INSERT INTO order_item (
     order_price,
     order_amount
 ) VALUES (
-    2,
-    10000,
-    5,
+    1,
+    10020,
+    1001,
     30000,
-    3
+    10
 );
 
 SELECT
     *
 FROM
-    order_item;
+    order_gr;
 
 -- Insert data into cart table
 INSERT INTO cart (
@@ -1875,6 +1875,8 @@ FROM
 WHERE
     noti_code = 1;
 
+
+-- 페이징처리 select 문
 SELECT
     noti_code,
     noti_title,
@@ -1909,6 +1911,8 @@ FROM
     )
 WHERE
     page = 1;
+    
+-- 페이징 처리 카운트
 
 SELECT
     COUNT(*) cnt
@@ -1993,10 +1997,11 @@ ORDER BY
 --=====================================================================
 
 
+
 SELECT
     og.order_id,
-    COUNT(oi.order_item_id),
-    SUM(oi.order_price * oi.order_amount),
+    COUNT(oi.order_item_id) as order_item_id,
+    SUM(oi.order_price * oi.order_amount) as order_price_all,
     i.item_name,
     oi.order_amount,
     oi.order_price,

@@ -8,23 +8,28 @@ let memberId = document.querySelector("#member-id").value;
 // 데이터 출력할 태그 선택
 let createTag = document.querySelector("#account-order-history");
 
+
+
 // 가져온 리스트 뷰에 보여주기
 async function orderHistory(event) {
 	createTag.innerHTML = "";
 	const orderHistoryList = await getOrderHistory();
 
 
-
 	// 데이터가 있을때만 생성
 	if (orderHistoryList.length > 0) {
 		const dynamicContentContainer = createTag;
-		orderHistoryList.forEach(orderData => {
+		//orderHistoryList.forEach(orderData => {
+		for (order of orderHistoryList) {
+			let item_name, order_amount, order_price, order_status;
 			dynamicContentContainer.appendChild(generateDynamicHTML(orderHistoryList));
-		});
+		//});
+		}// END OF OUTER FOR
 	} else {
 		// 없을때 출력
 		console.log('No data available.');
 	}
+
 
 
 	// 데이터가 있을 때 HTML을 동적으로 생성하는 함수
@@ -119,69 +124,30 @@ async function orderHistory(event) {
 		// .title을 .accordian-content에 추가
 		accordianContent.appendChild(contentTitleDiv);
 
+
+
+
+
+
 		// 데이터 출력 하는 for문
-		for (order of orderHistoryList) {
+
+		// 아이템 내용 출력 start
 			for (key in order){
-				// console.log(key, order[key]);
-				// console.log(order["ORDER_ID"]);
-				// 주문 아이템들을 동적으로 생성
 
-					const itemWrapperDiv = document.createElement('div');
-					itemWrapperDiv.classList.add('item-wrapper');
+				item_name = order["ITEM_NAME"]
+				order_amount = order["ORDER_AMOUNT"]
+				order_price = order["ORDER_PRICE"]
+				order_status = order["ORDER_STATUS"]
 
-					const productDiv = document.createElement('div');
-					productDiv.classList.add('product');
-
-					const productImage = document.createElement('img');
-					productImage.src = '../../../../../../upload/item01_image01.png';
-					productImage.alt = '';
-
-					const productDetailDiv = document.createElement('div');
-					productDetailDiv.classList.add('product-detail');
-					productDetailDiv.id = 'item-name-value';
-					productDetailDiv.textContent = order["ITEM_NAME"];
-
-					const warningDiv = document.createElement('div');
-					warningDiv.classList.add('warning');
-					warningDiv.textContent = 'You have already confirmed a return for this product';
-
-					productDetailDiv.appendChild(warningDiv);
-
-					productDiv.appendChild(productImage);
-					productDiv.appendChild(productDetailDiv);
-
-					const qtyDiv = document.createElement('div');
-					qtyDiv.classList.add('qty');
-
-					const qtyWrapperDiv = document.createElement('div');
-					qtyWrapperDiv.classList.add('qty-wrapper');
-					qtyWrapperDiv.id = 'order-amount-value';
-
-					const pElement = document.createElement('p');
-					pElement.textContent = order["ORDER_AMOUNT"];
-
-					qtyWrapperDiv.appendChild(pElement);
-					qtyDiv.appendChild(qtyWrapperDiv);
-
-					const priceDiv = document.createElement('div');
-					priceDiv.classList.add('price');
-					priceDiv.id = 'item-price-value';
-					priceDiv.textContent = order["ORDER_PRICE"];
-
-					const returnsDiv = document.createElement('div');
-					returnsDiv.classList.add('returns');
-					returnsDiv.id = 'order-status-value';
-					returnsDiv.textContent = order["ORDER_STATUS"];
-
-					itemWrapperDiv.appendChild(productDiv);
-					itemWrapperDiv.appendChild(qtyDiv);
-					itemWrapperDiv.appendChild(priceDiv);
-					itemWrapperDiv.appendChild(returnsDiv);
-
-					accordianContent.appendChild(itemWrapperDiv);
 
 			} // END OF INNER FOR
-		}// END OF OUTER FOR
+
+			// console.log(key, order[key]);
+			// console.log(order["ORDER_ID"]);
+			// 주문 아이템들을 동적으로 생성
+
+		itemContent(item_name, order_amount, order_price, order_status, accordianContent);
+
 
 
 
@@ -240,17 +206,6 @@ async function orderHistory(event) {
 
 
 
-	// 데이터 출력 하는 for문
-		for (order of orderHistoryList) {
-			for (key in order){
-
-				// console.log(key, order[key]);
-				// console.log(order["ORDER_ID"]);
-
-
-			} // END OF INNER FOR
-		}// END OF OUTER FOR
-
 
 	// -----------------------------템플릿 js
 	function toggleClass(element, tClass) {
@@ -277,8 +232,68 @@ async function orderHistory(event) {
 
 
 	// order["ITEM_NAME"];
-}
+}// end of orderHistory
 
+// 아이템 출력 함수 생성
+function itemContent(name, amount, price, status, accordianContent){
+	const itemWrapperDiv = document.createElement('div');
+	itemWrapperDiv.classList.add('item-wrapper');
+
+	const productDiv = document.createElement('div');
+	productDiv.classList.add('product');
+
+	const productImage = document.createElement('img');
+	productImage.src = '../../../../../../upload/item01_image01.png';
+	productImage.alt = '';
+
+	const productDetailDiv = document.createElement('div');
+	productDetailDiv.classList.add('product-detail');
+	productDetailDiv.id = 'item-name-value';
+	productDetailDiv.textContent = item_name;
+
+	const warningDiv = document.createElement('div');
+	warningDiv.classList.add('warning');
+	warningDiv.textContent = 'You have already confirmed a return for this product';
+
+	productDetailDiv.appendChild(warningDiv);
+
+	productDiv.appendChild(productImage);
+	productDiv.appendChild(productDetailDiv);
+
+	const qtyDiv = document.createElement('div');
+	qtyDiv.classList.add('qty');
+
+	const qtyWrapperDiv = document.createElement('div');
+	qtyWrapperDiv.classList.add('qty-wrapper');
+	qtyWrapperDiv.id = 'order-amount-value';
+
+	const pElement = document.createElement('p');
+	pElement.textContent = order_amount;
+
+	qtyWrapperDiv.appendChild(pElement);
+	qtyDiv.appendChild(qtyWrapperDiv);
+
+	const priceDiv = document.createElement('div');
+	priceDiv.classList.add('price');
+	priceDiv.id = 'item-price-value';
+	priceDiv.textContent = order_price;
+
+	const returnsDiv = document.createElement('div');
+	returnsDiv.classList.add('returns');
+	returnsDiv.id = 'order-status-value';
+	returnsDiv.textContent = order_status;
+
+	itemWrapperDiv.appendChild(productDiv);
+	itemWrapperDiv.appendChild(qtyDiv);
+	itemWrapperDiv.appendChild(priceDiv);
+	itemWrapperDiv.appendChild(returnsDiv);
+
+
+	accordianContent.appendChild(itemWrapperDiv);
+
+
+	// 아이템 내용 출력 end
+}
 
 
 // db에서 주문내역 리스트 불러오기
