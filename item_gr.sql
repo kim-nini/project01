@@ -150,10 +150,10 @@ FROM
          category c
     INNER JOIN item i ON c.cate_code = i.cate_code;
 
--- #. 9.
+-- #. 9. 상품정보 수정 해주기 => 미완성임
     UPDATE item
 		SET
-		SELECT
+		
 			c.cate_top,
 			c.cate_name,
 			i.item_name,
@@ -164,8 +164,16 @@ FROM
 			i.item_sell_status
 		FROM
 			category c
-				INNER JOIN item i ON c.cate_code = i.cate_code
+				INNER JOIN item i ON c.cate_code = i.cate_code;
 
+
+-- #10. 
+CREATE TABLE cart (
+   cart_id           NUMBER(20)   NOT NULL,
+   member_id       VARCHAR2(30)   NOT NULL,
+   item_id           NUMBER(20)   NOT NULL,
+   cart_amount       NUMBER(20)   NULL
+);
 
 
 
