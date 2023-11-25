@@ -1,4 +1,4 @@
-package com.ezen.grrreung.web.demo.controller;
+package com.ezen.grrreung.web.home.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

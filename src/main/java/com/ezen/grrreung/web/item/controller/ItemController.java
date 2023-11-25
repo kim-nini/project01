@@ -41,7 +41,7 @@ public class ItemController {
     private final FileStore fileStore;
 
     // 홈화면
-    @RequestMapping("/")
+    @RequestMapping("")
     public String homeItemList(Model model){
         List<Item> list = itemService.allItems();
         model.addAttribute("item", list);
