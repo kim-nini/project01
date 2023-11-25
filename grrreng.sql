@@ -1704,7 +1704,8 @@ INSERT INTO order_item (
 SELECT
     *
 FROM
-    order_gr;
+    order_item;
+    
 
 -- Insert data into cart table
 INSERT INTO cart (
@@ -1959,10 +1960,10 @@ FROM
     JOIN order_gr g ON g.order_id = oi.order_id
     LEFT OUTER JOIN item     i ON oi.item_id = i.item_id
 WHERE
-    g.order_id = 10000;
+    g.order_id = 10020;
     
-    
-    ----
+
+----
 
 
 SELECT
@@ -2023,7 +2024,7 @@ GROUP BY
 ORDER BY
     og.order_date DESC;
     
-    
+    commit;
     
 --=================================================================
 

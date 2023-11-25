@@ -1,7 +1,6 @@
 package com.ezen.grrreung.web.order.controller;
 
 
-import com.ezen.grrreung.domain.item.dto.item;
 import com.ezen.grrreung.domain.order.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class OrderGrController {
     @ResponseBody
     public List<Map<String, Object>> orderHistory(@RequestParam String memberId, Model model){
         List<Map<String, Object>> list = orderService.orderHistory(memberId);
-        log.info(memberId);
+//       String order_id = "" + map.get("order_id");
         log.info(list.toString());
 
         return list;

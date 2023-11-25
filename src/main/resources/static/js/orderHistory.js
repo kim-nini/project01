@@ -3,28 +3,27 @@ document.querySelector("#order-history").addEventListener("click", orderHistory)
 let title = document.querySelector("#title");
 
 // 멤버아이디 가져오기
-let memberId = document.querySelector("#member-id").value;
-
-// 데이터 출력할 태그 선택
-let createTag = document.querySelector("#account-order-history");
+ let memberId = document.querySelector("#member-id").value;
 
 
+ let createTag = document.querySelector("#account-order-history");
 
 // 가져온 리스트 뷰에 보여주기
 async function orderHistory(event) {
 	createTag.innerHTML = "";
 	const orderHistoryList = await getOrderHistory();
-
+	const dynamicContentContainer = createTag;
 
 	// 데이터가 있을때만 생성
 	if (orderHistoryList.length > 0) {
-		const dynamicContentContainer = createTag;
-		//orderHistoryList.forEach(orderData => {
-		for (order of orderHistoryList) {
+		orderHistoryList.forEach(orderData => {
+
 			let item_name, order_amount, order_price, order_status;
 			dynamicContentContainer.appendChild(generateDynamicHTML(orderHistoryList));
-		//});
-		}// END OF OUTER FOR
+
+		});
+
+
 	} else {
 		// 없을때 출력
 		console.log('No data available.');
@@ -130,7 +129,7 @@ async function orderHistory(event) {
 
 
 		// 데이터 출력 하는 for문
-
+		for (order of orderHistoryList) {
 		// 아이템 내용 출력 start
 			for (key in order){
 
@@ -140,11 +139,13 @@ async function orderHistory(event) {
 				order_status = order["ORDER_STATUS"]
 
 
-			} // END OF INNER FOR
+			} // END OF 안쪽 FOR
 
-			// console.log(key, order[key]);
+			console.log(key, order[key]);
 			// console.log(order["ORDER_ID"]);
 			// 주문 아이템들을 동적으로 생성
+		}// END OF OUTER FOR
+
 
 		itemContent(item_name, order_amount, order_price, order_status, accordianContent);
 
@@ -199,6 +200,9 @@ async function orderHistory(event) {
 		wrapperDiv.appendChild(accordianContainer);
 
 		return wrapperDiv;
+
+
+
 	}
 
 
@@ -207,8 +211,10 @@ async function orderHistory(event) {
 
 
 
-	// -----------------------------템플릿 js
-	function toggleClass(element, tClass) {
+
+
+	//-----------------------------템플릿 js
+	function toggleClass(element, tClass){
 		tClass = tClass.replace(/\s/g, "");
 
 		var classes =  element.className;
@@ -218,9 +224,7 @@ async function orderHistory(event) {
 	}
 
 
-
 	var showhide = document.getElementsByClassName("showhide");
-
 	console.log(showhide)
 
 	showhide[0].addEventListener('click', function() {
@@ -229,10 +233,12 @@ async function orderHistory(event) {
 		toggleClass(wrapper, 'active2');
 	}, false);
 
-
-
 	// order["ITEM_NAME"];
+
 }// end of orderHistory
+
+
+
 
 // 아이템 출력 함수 생성
 function itemContent(name, amount, price, status, accordianContent){
@@ -292,10 +298,27 @@ function itemContent(name, amount, price, status, accordianContent){
 	accordianContent.appendChild(itemWrapperDiv);
 
 
+
 	// 아이템 내용 출력 end
 }
 
 
+
+		// const list = await getOrderHistory();
+		// for (order of list) {
+		// 	for (key in order){
+		// 	// const option = document.createElement('option');
+		// 	// option.value = category.cateCode;
+		// 	// option.textContent = category.cateName;
+		// 	// subCategory.appendChild(option);
+		// 		console.log(key, order[key]);
+		// 		console.log(order["ORDER_ID"]);
+		// 	}
+		// }
+
+
+
+// parent of 31bb961 (주문내역 노출 성공 커밋)
 // db에서 주문내역 리스트 불러오기
 function getOrderHistory(){
 	const url = `/order?memberId=${memberId}`;
