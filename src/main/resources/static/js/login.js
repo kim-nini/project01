@@ -43,3 +43,7 @@ $(document).ready(function(){
 			.find(".input__block").find(".input").val("");
 	})
 });
+
+
+
+

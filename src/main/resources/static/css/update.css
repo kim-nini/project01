@@ -103,7 +103,7 @@ form {
 
 }
 
-/* update.html 우편번호 */
+/* 우편번호 */
 #sample3_postcode, #sample3_address,#sample3_detailAddress, #sample3_extraAddress {
     display: block;
     width: 30%;
@@ -129,7 +129,7 @@ form {
     align-items: center;
 }
 
-/* updateInfo.html 회원수정 결과 메세지 */
+/* 회원수정 결과 메세지 */
 #mypagemessage {
     display: block;
     border: #FFC924 solid 3px;
@@ -140,9 +140,4 @@ form {
     text-align: center;
     font-weight: bold;
     font-size: 1.5rem;
-}
-
-/* 우편번호 */
-#post {
-    width: 80px;
 }

@@ -1,92 +1,152 @@
 package com.ezen.grrreung.web.member.controller;
+
 import com.ezen.grrreung.domain.member.dto.Member;
 import com.ezen.grrreung.domain.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/grrreung")
 @RequiredArgsConstructor
+@SessionAttributes
 @Slf4j
 public class MemberController {
 
     private final MemberService memberService;
 
     /**
+     * 로그인 화면 요청
+     */
+    @GetMapping("/login")
+    public String loginForm() {
+        return "grrreung/sub/login";
+    }
+
+    /**
+     * 로그인 처리 요청
+     */
+    @PostMapping("/login")
+    public String login(Member member, HttpServletRequest request, Model model) {
+        Member findMember = memberService.login(member.getMemberId(), member.getPassword());
+        HttpSession session = request.getSession();
+        if (findMember != null) {
+            session.setAttribute("loginMember", findMember);
+            return "redirect:/";
+        } else {
+            model.addAttribute("loginResult", false);
+            return "grrreung/sub/login";
+        }
+    }
+
+    /**
+     * 로그아웃 처리 요청
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
+
+    /**
      * 회원 가입 화면 요청
      */
     @GetMapping("/register")
-    public String registerForm(){
-        return "member/register";
+    public String registerForm() {
+        return "/grrreung/sub/register";
     }
 
     /**
      * 회원 가입 처리 요청
      */
-//    @PostMapping("/register")
-//    public String register(@ModelAttribute("member") Member member,
-//                           HttpServletRequest request,  Model model){
-//        log.info("수신한 회원 정보 : {}", member.toString());
-//        memberService.register(member);
-//        request.getSession().setAttribute("member", member);
-//        return "redirect:/member/result";
-//    }
-
     @PostMapping("/register")
-    @ResponseBody
-    public boolean register(@RequestBody Member member){
+    public String register(@ModelAttribute("member") Member member) {
         log.info("수신한 회원 정보 : {}", member.toString());
-        try {
-            memberService.register(member);
-            return true;
-        }catch (Exception ex){
-            return false;
-        }
+        memberService.register(member);  // 디비연결
+        return "redirect:/grrreung/result";
     }
 
+    /**
+     * 회원가입 결과 페이지
+     */
+    @GetMapping("/result")
+    public String result(HttpServletRequest request) {
+        return "/grrreung/sub/result";
+    }
+
+
+    /**
+     * 회원가입 아이디 중복 체크
+     */
     @GetMapping("/idcheck")
     @ResponseBody
-    public boolean idCheck(@RequestParam("id") String id){
-        log.info("수신한 아이디 : {}", id);
-        Member member = memberService.getMember(id);
-        if(member != null){
+    public boolean idCheck(@RequestParam("memberId") String memberId) {
+        Member member = memberService.getMember(memberId);
+        if (member != null) {
             return true;
         }
         return false;
     }
 
-    /**
-     * 회원 가입 결과 요청
-     */
-    @RequestMapping("/result")
-    public String result(HttpServletRequest request){
-        return "member/result";
-    }
 
     /**
-     * 회원 상세 정보 요청
+     * 마이페이지 화면
      */
-    @RequestMapping("/{memberId}")
-    public String view(@PathVariable("memberId") String id, Model model){
-        System.out.println("전달 받은 아이디 : " + id);
-        Member member = memberService.getMember(id);
+    @RequestMapping("/mypage/{memberId}")
+    public String info(@PathVariable String memberId, Model model) {
+        Member member = memberService.memberInfo(memberId);
         model.addAttribute("member", member);
-        return "member/view";
+        return "/grrreung/sub/mypage";
     }
+
 
     /**
-     * 전체 회원 목록 조회 요청
+     * 마이페이지 수정 화면
      */
-    @GetMapping()
-    public String list(Model model){
-        List<Member> list = memberService.getMembers();
-        model.addAttribute("list", list);
-        return "member/list";
+    @GetMapping("/update/{memberId}")
+    // 업데이트 페이지 불러오기
+    public String update(@PathVariable String memberId, Model model) {
+        // DB에서 내용을 가져오기
+        Member member = memberService.memberInfo(memberId);
+        // html로 전달해줌
+        model.addAttribute("member", member);
+        return "/grrreung/sub/update";
     }
-}
 
+
+    /**
+     * 마이페이지 수정 처리
+     */
+    @PostMapping("/update")
+    public String update(@ModelAttribute Member member) {
+        memberService.updateInfo(member);
+        return "/grrreung/sub/updateInfo";
+    }
+
+
+    /**
+     * 회원 탈퇴 비밀번호 입력
+     */
+//    @PostMapping("/out")
+//    public String deletePw(@RequestParam String password, Model model, Authentication authentication){
+//        Member member = (Member) authentication.getP
+//    }
+
+    /**
+     * 회원 탈퇴
+     */
+    @GetMapping("delete/{memberId}")
+    public String delete(@PathVariable String memberId, HttpSession session) {
+        memberService.deleteUser(memberId);
+        session.invalidate();
+        return "redirect:/";
+    }
+
+}

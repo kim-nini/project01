@@ -1,7 +1,5 @@
 package com.ezen.grrreung;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,46 +14,62 @@ public class MemberMapperTest {
 	
 	@Autowired
 	private MemberMapper memberMapper;
-	
-	@Test
-	public void findByAllTest() {
-		List<Member> list = memberMapper.findByAll();
-		for (Member member : list) {
-			log.info(member.toString());
-		}
-	}
-	
-	@Test
-	public void findByIdTest() {
-		// given
-		String memberId = "bangry";
-		// when
-		Member member = memberMapper.findById(memberId);
-		// then
-		assertThat(memberId)
-			.isNotNull();
-		log.info("회원정보 : {}", member.toString());
-	}
-	
-	@Test
-	void findByNameLikeTest() {
-		String findName = "김";
-		List<Member> list = memberMapper.findByNameLike(findName);
-		log.info("이름 와일드카드 검색 : {}", list);
-		for (Member member : list) {
-			log.info(member.toString());
-		}
-	}
-	
+
+
 	@Test
 	void createTest() {
 		Member createMember = new Member();
-		createMember.setMemberId("ddalang");
+		createMember.setMemberId("ddalang5");
 		createMember.setName("김딸랑");
-		createMember.setPasswd("1111");
-		createMember.setEmail("ddalang@gmail.com");
+		createMember.setPassword("3333");
+		createMember.setEmail("ddalang2@gmail.com");
+		createMember.setHp("010-1111-2222");
+		createMember.setAddress("경기도 하남시");
+		createMember.setAddress2("망원동");
+		createMember.setAddress3("123");
 		memberMapper.create(createMember);
 		log.info("회원 등록 완료 : {}", createMember);
 	}
+
+	@Test
+	void createTest2() {
+		Member createMember = new Member();
+		createMember.setMemberId("bangry1");
+		createMember.setName("김방글");
+		createMember.setPassword("2222");
+		createMember.setEmail("bangry@gmail.com");
+		createMember.setHp("010-1234-2222");
+		createMember.setAddress("경기도 하남시");
+		createMember.setAddress2("망원동");
+		createMember.setAddress3("789");
+		memberMapper.create(createMember);
+		log.info("회원 등록 완료 : {}", createMember);
+	}
+
+	@Test
+	void LoginTest1(){
+		Member member = memberMapper.login("ehfpal02", "1234");
+		log.info("로그인 정보 확인 : {}", member);
+	}
+
+	@Test
+	void findByIdTest(){
+		Member member = memberMapper.findById("hihihi");
+		log.info("상세 정보 확인 : {}", member);
+	}
+
+	@Test
+	void updateTest(){
+		Member member = new Member();
+		member.setPassword("0000");
+		member.setHp("01015455125");
+		member.setMemberId("hihihi");
+		memberMapper.update(member);
+		log.info("수정된 회원정보 : {}", member);
+
+	}
+
+
+
 
 }
