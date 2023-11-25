@@ -47,28 +47,110 @@ document.querySelector("button").addEventListener('click', function() {
 
 //==============================================================================================
 
-    // function displayFileName() {
-    //     var input = document.getElementById('fileInput1');
-    //     var label = document.getElementById('fileLabel');
-    //     var fileName = input.files[0].name;
-    //     label.innerHTML = fileName;
-    // }
 
 
+//==========================================================================================================
+
+document.querySelector('#uploadfiles1').addEventListener('change', previewImages1);
+document.querySelector('#uploadfiles2').addEventListener('change', previewImages2);
+var selectedThumbnail = null;
+
+const previewContainer1 = document.querySelector('#image-container1>ul');
+const previewContainer2 = document.querySelector('#image-container2>ul');
+function previewImages1(event) {
+    previewContainer1.innerHTML = ""; // 기존에 있던 미리보기 파일 지우기
+
+    for (var image of event.target.files) {
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+            var img = document.createElement("img");
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            previewContainer1.classList.add('preview-ul');
+            img.setAttribute("src", event.target.result);
+            img.setAttribute("class", "preview-image");
+
+            img.addEventListener("click", function () {
+                // 이미지 클릭 시 다른 썸네일 선택 제한
+                if (selectedThumbnail !== null) {
+                    selectedThumbnail.classList.remove("selected");
+                }
+
+                // 현재 썸네일 선택 상태 업데이트
+                selectedThumbnail = img;
+
+                // 이미지 클릭 시 선택된 이미지에 border 클래스를 추가
+                img.classList.add("selected");
+            });
+
+            previewContainer1.appendChild(li).appendChild(a).appendChild(img);
+        };
+
+        reader.readAsDataURL(image);
+    }
+}
+
+// 썸네일 선택 비동기처리해서 정보 전달하기
+// var selectedThumbnailUrl = null;
+// document.querySelector('[type="submit"]').addEventListener("click", saveThumbnail);
+//
+// async function saveThumbnail() {
+//     if (!selectedThumbnailUrl) {
+//         alert("썸네일을 선택해주세요.");
+//         return false;
+//     }
+//
+//     try {
+//         // 서버로 선택한 썸네일의 URL 전송
+//         const response = await fetch("/grrreung/saveThumbnail?url=" + encodeURIComponent(selectedThumbnailUrl), {
+//             method: "POST",
+//         });
+//
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+//
+//         const data = await response.text();
+//         alert(data);
+//     } catch (error) {
+//         console.error("Error:", error);
+//     }
+// }
 
 
+function previewImages2(event) {
+    previewContainer2.innerHTML = ""; // 기존에 있던 미리보기 파일 지우기
 
+    for (var image of event.target.files) {
+        var reader = new FileReader();
 
+        reader.onload = function (event) {
+            var img = document.createElement("img");
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            previewContainer2.classList.add('preview-ul');
+            img.setAttribute("src", event.target.result);
+            img.setAttribute("class", "preview-image");
 
+            img.addEventListener("click", function () {
+                // 이미지 클릭 시 다른 썸네일 선택 제한
+                if (selectedThumbnail !== null) {
+                    selectedThumbnail.classList.remove("selected");
+                }
 
+                // 현재 썸네일 선택 상태 업데이트
+                selectedThumbnail = img;
 
+                // 이미지 클릭 시 선택된 이미지에 border 클래스를 추가
+                img.classList.add("selected");
+            });
 
+            previewContainer2.appendChild(li).appendChild(a).appendChild(img);
+        };
 
-
-
-
-
-
-
+        reader.readAsDataURL(image);
+    }
+}
 
 

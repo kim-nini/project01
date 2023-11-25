@@ -55,6 +55,7 @@ CREATE TABLE item_img (
    rep_img_yn       VARCHAR2(255)   DEFAULT 'N'
 );
 
+
 CREATE TABLE cart (
    cart_id           NUMBER(20)   NOT NULL,
    member_id       VARCHAR2(30)   NOT NULL,
@@ -153,7 +154,7 @@ REFERENCES order_gr (
    order_id
 );
 
-
+commit;
 
 
 

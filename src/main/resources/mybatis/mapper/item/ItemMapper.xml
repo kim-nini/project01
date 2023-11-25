@@ -42,7 +42,8 @@
 
 	<!-- 상품 이미지중 대표사진 *썸네일* 검색 -->
 	<select id="findThumbnail" parameterType="int" resultType="string">
-		SELECT M.img_name
+		SELECT
+			M.img_name
 		FROM item_img M
 				INNER JOIN item I
 				ON I.item_id = M.item_id
@@ -162,9 +163,28 @@
 
 	<!-- 상품 이미지 업로드 처리-->
 	<insert id="insertItemImg" parameterType="ItemImg">
-		INSERT INTO item_img(item_img_id, item_id, img_name, ori_img_name)
-		VALUES (item_img_id_sq.nextval , #{itemId}, #{imgName},#{oriImgName})
+		INSERT INTO item_img(item_img_id, item_id, img_name, ori_img_name, rep_img_yn)
+		VALUES (#{itemImgId}, #{itemId}, #{imgName}, #{oriImgName}, #{repImgYN})
 	</insert>
+
+	<select id="selectNextItemImgId" resultType="int">
+		SELECT
+			last_number
+		FROM
+			user_sequences
+		WHERE
+			sequence_name = 'ITEM_IMG_ID_SQ'
+	</select>
+
+<!--	<update id="selectThumbnail" parameterType="int">-->
+<!--		UPDATE item_img-->
+<!--		SET-->
+<!--			rep_img_yn = 'Y'-->
+<!--		WHERE-->
+<!--			item_img_id = #{value}-->
+<!--	</update>-->
+
+
 
 
 	<!-- 상품 정보 조회 => 수정페이지에서 보여줄 내용 출력함 -->

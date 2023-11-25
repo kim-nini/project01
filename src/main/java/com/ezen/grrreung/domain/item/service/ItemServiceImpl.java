@@ -39,7 +39,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public String showThumbnail(int itemId) {
-        return itemMapper. findThumbnail(itemId);
+        return itemMapper.findThumbnail(itemId);
     }
 
     @Override
@@ -80,9 +80,12 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void uploadItemimg(ItemImg itemImg) {
+    public void uploadItemImg(ItemImg itemImg) {
+        int nextItemImgId = itemMapper.selectNextItemImgId() + 1; // 시퀀스 마지막 번호에 1추가
+        itemImg.setItemImgId(nextItemImgId);
         itemMapper.insertItemImg(itemImg);
     }
+
 
     @Override
     public Map<String, Object> updateInfo(int itemId) {

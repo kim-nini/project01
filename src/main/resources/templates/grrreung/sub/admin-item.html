@@ -30,9 +30,6 @@
         </div>
     </section>
 
-
-
-
 <section class="bg-white py-8 notice">
     <div class="container mx-auto items-centerpt-4 pb-12">
 
@@ -91,16 +88,16 @@
                         <th>상품 대표이미지<br>(슬라이드)</th>
                         <td>
                             <div class="filebox">
-                                <label for="uploadfiles" name="uploadfiles" class="custom-file-upload">
+                                <label for="uploadfiles1" class="custom-file-upload">
 <!--                                    <span>파일찾기</span>-->
-                                    <input type="file" name="uploadfiles" id="uploadfiles" multiple >
+                                    <input type="file" name="uploadfiles1" id="uploadfiles1" multiple accept="image/*">
                                 </label>
                                 <p>※ 대표이미지(썸네일)을 선택해주세요.</p>
                             </div>
 
-                            <div>
-                                <img class="preview">
+                            <div id="image-container1"><ul></ul>
                             </div>
+
                         </td>
                     </tr>
 
@@ -108,16 +105,17 @@
                         <th>상세정보 이미지</th>
                         <td>
                             <div class="filebox">
-                                <label for="uploadfiles2" name="uploadfiles" class="custom-file-upload">
+                                <label for="uploadfiles2" class="custom-file-upload">
 <!--                                    <span>파일찾기</span>-->
-                                    <input type="file" name="uploadfiles" id="uploadfiles2" multiple >
+                                    <input type="file" name="uploadfiles2" id="uploadfiles2" multiple accept="image/*">
                                 </label>
                                 <p>※ 상세정보에 나타낼 이미지 파일을 선택해주세요.</p>
                             </div>
 
-                            <div>
-                                <img class="preview">
+                            <div id="image-container2">
+                                <ul></ul>
                             </div>
+
                         </td>
                     </tr>
 

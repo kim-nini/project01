@@ -51,8 +51,8 @@ public interface ItemService {
     public void registerItem(Item item);
 
     // 상품 이미지 업로드
-    public void uploadItemimg(ItemImg itemImg);
-//
+    public void uploadItemImg(ItemImg itemImg);
+
     // 상품 수정 페이지 출력
     public Map<String, Object> updateInfo(int itemId);
 

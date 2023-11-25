@@ -13,5 +13,6 @@ import java.util.List;
 public class UploadForm {
 	private String uploader;
 	private String description;
-	private List<MultipartFile> uploadfiles;
+	private List<MultipartFile> uploadfiles1;
+	private List<MultipartFile> uploadfiles2;
 }

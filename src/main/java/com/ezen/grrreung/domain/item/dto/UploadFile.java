@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class UploadFile {
 	private String uploadFileName;
 	private String storeFileName;
+
 }

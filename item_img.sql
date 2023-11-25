@@ -3,21 +3,43 @@ CREATE TABLE item_img (
    item_id           NUMBER(20)       NOT NULL,
    img_name       VARCHAR2(255)   NOT NULL,
    ori_img_name   VARCHAR2(255)   NOT NULL,
-   img_url           VARCHAR2(255)   DEFAULT 'C:/grrreung/shoppingmall-project/upload',
+   img_url           VARCHAR2(255)   DEFAULT 'C:/grrreung/shoppingmall-project/upload/',
    rep_img_yn       VARCHAR2(255)   DEFAULT 'N'
 );
 
---img_url           VARCHAR2(255)   DEFAULT 'C:/ezen-lecture/final_workspace/shoppingmall-project/upload',
+UPDATE item_img
+SET
+    rep_img_yn = 'Y'
+WHERE
+    item_img_id = 78;
+commit;
+
+
 
 SELECT
-    item_id,
-    img_name,
-    img_url
+   *
+FROM
+    item;
+
+
+SELECT
+   *
 FROM
     item_img;
+    
+
+drop sequence  item_img_id_sq;
 
 
-
+SELECT
+   *
+FROM
+    user_sequences
+WHERE
+    sequence_name = 'ITEM_IMG_ID_SQ';
+    
+    
+    
 DROP TABLE ITEM_IMG;
 -- 대표이미지 여부 제약조건 추가
 ALTER TABLE ITEM_IMG ADD CONSTRAINT REP_IMG_YN_CHECK CHECK(
@@ -28,7 +50,6 @@ ALTER TABLE ITEM_IMG ADD CONSTRAINT REP_IMG_YN_CHECK CHECK(
 
 
 create sequence item_img_id_sq;
--- 테이블 item_img 임시데이터 C:\Users\USER\Desktop\00_project\shoppingmall_project\src\main\resources\web\upload\item\
 
 
 insert into item_img(item_img_id, item_id, img_name, ori_img_name, rep_img_yn)
@@ -50,7 +71,7 @@ values (item_img_id_sq.nextval , 02, 'item02_image02.png','image02');
 insert into item_img(item_img_id, item_id, img_name, ori_img_name)
 values ( item_img_id_sq.nextval , 02, 'item02_image03.png','image03');
 insert into item_img(item_img_id, item_id, img_name, ori_img_name)
-values (item_img_id_sq.nextval , 02, 'item02_image04v','image04');
+values (item_img_id_sq.nextval , 02, 'item02_image04.png','image04');
 insert into item_img(item_img_id, item_id, img_name, ori_img_name)
 values (item_img_id_sq.nextval , 02, 'item02_image05.png','image05');
 
@@ -177,7 +198,7 @@ values (item_img_id_sq.nextval , 12, 'item12_image04.png','image04');
 insert into item_img(item_img_id, item_id, img_name, ori_img_name)
 values (item_img_id_sq.nextval , 12, 'item12_image05.png','image05');
 
-truncate table item_img;
+
 
 
 commit;

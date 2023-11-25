@@ -64,13 +64,11 @@ public class GrrItemTest {
 		for(Item item: list) {
 			log.info(item.toString());
 		}
-
 	}
 
 
 	@Test
 	public void  findItemImageTest() {
-//		ItemImg thumbnail = itemMapper.findThumbnail(1);
 		String thumbnail = itemMapper.findThumbnail(1);
 		log.info(thumbnail);
 	}
@@ -108,7 +106,6 @@ public class GrrItemTest {
 	@Test
 	public void findDescriptionImagesTest() {
 		List<Map<String, Object>> list = itemMapper.findDescriptionImages(11);
-
 		for(Map<String, Object> map : list) {
 			log.info("{}",map.get("IMG_NAME"));
 		}
@@ -119,7 +116,6 @@ public class GrrItemTest {
 
 	@Test
 	public void findByParamsTest() {
-
 		RequestParams params = new RequestParams();
 		params.setRequestPage(1);
 		params.setElementSize(8);
@@ -145,7 +141,7 @@ public class GrrItemTest {
 	}
 
 	@Test
-	public void updateInfo() {
+	public void updateInfoTest() {
 		Map<String, Object> itemInfo = itemMapper.updateItemInfo(1);
 		String itemName = (String)itemInfo.get("ITEM_NAME");
 
@@ -153,7 +149,22 @@ public class GrrItemTest {
 
 	}
 
+	@Test
+	public void uploadItemImgTest() {
+		ItemImg itemImg = new ItemImg();
+		itemImg.setItemImgId(itemMapper.selectNextItemImgId());
+		itemImg.setItemId(3002);
+		itemImg.setImgName("1234");
+		itemImg.setOriImgName("5678");
+		itemImg.setRepImgYN("Y");
+		itemMapper.insertItemImg(itemImg);
+		log.info("저장된 이미지 정보 : {}", itemImg);
+	}
 
-
+	@Test
+	public void sequenceSelectTest() {
+		int sequence = 	itemMapper.selectNextItemImgId();
+		log.info("시퀀스 LAST_NUMBER : {}", sequence);
+	}
 
 }

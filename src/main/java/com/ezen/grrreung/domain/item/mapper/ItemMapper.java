@@ -63,6 +63,8 @@ public interface ItemMapper {
 
     // 상품 이미지 업로드 처리
     public void insertItemImg(ItemImg itemImg);
+
+    public int selectNextItemImgId();
 //======================================================================================
     
     // 상품 수정 페이지에서 나타낼 수정이 가능한 상품 정보 가져오기

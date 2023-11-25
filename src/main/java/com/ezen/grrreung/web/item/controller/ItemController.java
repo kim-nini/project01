@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -111,24 +112,20 @@ public class ItemController {
     // 썸네일 이미지 1개 불러오기 => index, shop
     @GetMapping("/thumbnail/{itemId}")
     public ResponseEntity<Resource> thumbnailImage(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
+        log.info("아이템 아이디:{}", itemId);
+
         String imgFileName = itemService.showThumbnail(itemId);
         log.info("파일명: {}", imgFileName);
 
-        Path path = Paths.get(location + "/" + imgFileName);
+        Path path = Paths.get(location + imgFileName);
         String contentType = Files.probeContentType(path);
+        log.info("컨텐트타입 : {}",contentType);
 
-		// 이미지 파일 외에는 모두 다운로드 처리
+		// 이미지 파일
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(HttpHeaders.CONTENT_TYPE, contentType);
 		Resource resource = new FileSystemResource(path);
-		if(!contentType.startsWith("image")){
-			// 응답 헤더에 파일정보 설정
-			headers.setContentDisposition(
-					ContentDisposition
-							.builder("attachment")
-							.filename(fileName, StandardCharsets.UTF_8).build());
-			resource = new FileSystemResource(path);
-		}
+
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
 
@@ -136,7 +133,7 @@ public class ItemController {
     @GetMapping("/img/{imgName}")
     public ResponseEntity<Resource> imageRender(@PathVariable("imgName") String imgName, Model model) throws IOException {
 
-        Path path = Paths.get(location + "/" + imgName);
+        Path path = Paths.get(location + imgName);
 		String contentType = Files.probeContentType(path);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -205,31 +202,46 @@ public class ItemController {
     @PostMapping("/register-item")
     public String  registerItem(@ModelAttribute Item item, @RequestParam int cateCode, @ModelAttribute UploadForm uploadForm, RedirectAttributes redirectAttributes)
             throws IOException {
-
         log.info("수신정보:{}", item.toString());
         item.setCateCode(cateCode);
         itemService.registerItem(item);
         // 카테고리 선택한정보로 value값으로 카테고리 코드 cateCode 받아오기
+//        log.info("업로드 파일: {}", uploadForm.getUploadfiles1());
 
-        log.info("업로드 파일: {}", uploadForm.getUploadfiles());
+        // 파일 저장************************************************************************
+        // 썸네일
+        List<UploadFile> uploadFiles1 = fileStore.storeFilesThumb(uploadForm.getUploadfiles1());
+//        log.info("썸네일 파일명 : {}", uploadFiles1);
+        // 상세정보
+        List<UploadFile> uploadFiles2 = fileStore.storeFilesDescrip(uploadForm.getUploadfiles2());
+//        log.info("상세정보 파일명 : {}", uploadFiles2);
 
-        // 업로드 파일들 저장
-        List<UploadFile> uploadFiles = fileStore.storeFiles(uploadForm.getUploadfiles());
-        log.info("저장된 파일명 : {}", uploadFiles);
+        // 썸네일))) DB 테이블에 업로드 파일과 저장된 파일명 저장 후
+        for(int i=0; i<uploadFiles1.size(); i++) {
+            UploadFile uploadFile = uploadFiles1.get(i);
+            ItemImg itemImg = new ItemImg();
+            itemImg.setItemId(item.getItemId());
+            itemImg.setImgName(uploadFile.getStoreFileName());
+            itemImg.setOriImgName(uploadFile.getUploadFileName());
 
-        // DB 테이블에 업로드 파일과 저장된 파일명 저장 후
+            // 마지막 파일에 대한 조건 추가
+            if (i == uploadFiles1.size() - 1) {
+                // 마지막 파일에 대한 특별한 처리를 수행
+                itemImg.setRepImgYN("Y");
+            } else {
+                itemImg.setRepImgYN("N");
+            }
 
-        for(UploadFile uploadFile: uploadFiles) {
-            ItemImg itemImg = new ItemImg(item.getItemId(), uploadFile.getUploadFileName(), uploadFile.getStoreFileName());
-//            itemImg.setItemId(item.getItemId());
-//            itemImg.setImgName(uploadFile.getUploadFileName());
-//            itemImg.setOriImgName(uploadFile.getStoreFileName());
-            log.info("업로드 파일정보 : {}", uploadFile);
-            itemService.uploadItemimg(itemImg);
+            log.info("*********** 썸네일 파일정보 : {}", itemImg);
+            itemService.uploadItemImg(itemImg);
         }
 
-        // 업로드 파일 저장 후
-        // 데이터베이스 테이블에 업로드 파일명과 실제 저장파일명을 저장(테이블의 컬럼이 2개 필요)
+        // 상세정보))) DB 테이블에 업로드 파일과 저장된 파일명 저장 후
+        for(UploadFile uploadFile : uploadFiles2) {
+            ItemImg itemImg = new ItemImg(item.getItemId(), uploadFile.getStoreFileName(), uploadFile.getUploadFileName(), null);
+            log.info("상세이미지 파일정보 : {}", uploadFile);
+            itemService.uploadItemImg(itemImg);
+        }
 
         return "redirect:/grrreung/admin";
     }
@@ -247,12 +259,30 @@ public class ItemController {
         return "/grrreung/sub/admin-item-update";
 
     }
+
+    // 썸네일 사진 한장 가지고와서 대표사진 여부 테이블에 등록해주기
+//    @PostMapping("/saveThumbnail")
+//    @ResponseBody
+//    public String saveThumbnail(@RequestParam String url) {
+//        // 여기에서 DB에 썸네일 정보를 저장하는 로직을 수행
+//        log.info("****************************************************");
+//        log.info("Thumbnail ID: " + url + " saved to the database.");
+//        log.info("****************************************************");
+//
+//        // 클라이언트에게 응답
+//        return "redirect:/grrreung/admin";
+//    }
+
+
 //==============================================================================================
 
+    // 회원 장바구니에 아이템 추가하기
+    @RequestMapping("/my-cart")
+    public String addItemToCart(){
 
 
-
-
+        return "/grrreung/sub/cart";
+    }
 
 
 

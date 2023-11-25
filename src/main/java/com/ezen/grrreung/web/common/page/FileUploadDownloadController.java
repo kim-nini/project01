@@ -36,24 +36,24 @@ public class FileUploadDownloadController {
 		return "/grrreung/sub/addItem";
 	}
 
-	@PostMapping("/upload")
-	public String uploadFiles(@ModelAttribute UploadForm uploadForm, RedirectAttributes redirectAttributes)
-			throws IOException {
-		log.info("업로드 파일: {}", uploadForm.getUploadfiles());
-
-		// 업로드 파일들 저장
-		List<UploadFile> uploadFiles = fileStore.storeFiles(uploadForm.getUploadfiles());
-		log.info("저장된 파일명 : {}", uploadFiles);
-		
-		// DB 테이블에 업로드 파일과 저장된 파일명 저장 후
-
-		// 업로드 파일 저장 후
-		// 데이터베이스 테이블에 업로드 파일명과 실제 저장파일명을 저장(테이블의 컬럼이 2개 필요)
-		redirectAttributes.addFlashAttribute("uploader", uploadForm.getUploader());
-		redirectAttributes.addFlashAttribute("description", uploadForm.getDescription());
-		redirectAttributes.addFlashAttribute("uploadFiles", uploadFiles);
-		return "redirect:upload-result";
-	}
+//	@PostMapping("/upload")
+//	public String uploadFiles(@ModelAttribute UploadForm uploadForm, RedirectAttributes redirectAttributes)
+//			throws IOException {
+//		log.info("업로드 파일: {}", uploadForm.getUploadfiles());
+//
+//		// 업로드 파일들 저장
+//		List<UploadFile> uploadFiles = fileStore.storeFilesThumb(uploadForm.getUploadfiles());
+//		log.info("저장된 파일명 : {}", uploadFiles);
+//
+//		// DB 테이블에 업로드 파일과 저장된 파일명 저장 후
+//
+//		// 업로드 파일 저장 후
+//		// 데이터베이스 테이블에 업로드 파일명과 실제 저장파일명을 저장(테이블의 컬럼이 2개 필요)
+//		redirectAttributes.addFlashAttribute("uploader", uploadForm.getUploader());
+//		redirectAttributes.addFlashAttribute("description", uploadForm.getDescription());
+//		redirectAttributes.addFlashAttribute("uploadFiles", uploadFiles);
+//		return "redirect:upload-result";
+//	}
 
 	@GetMapping("/upload-result")
 	public String uploadResult() {
