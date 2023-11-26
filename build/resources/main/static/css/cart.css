@@ -15,7 +15,7 @@ padding: 2px 5px 2px 25px}
 .cart_table .cart_list li>div.opt_info .price_btn input.number{font-size: 18px; background: #f5f5f5; color: #666; margin: 0 3px;}
 .cart_table .cart_list li>div.opt_info>div{display: inline-block}
 .cart_table .cart_list li>div.opt_info>div.total_p{font-size: 18px; float: right}
-.cart_table .cart_list li>div.opt_info>div.total_p strong{vertical-align: sub; margin-right: 6px;}
+.cart_table .cart_list li>div.opt_info>div.total_p strong{margin-right: 6px; vertical-align: 10px; display: inline-block;}
 .cart_table .cart_list li>div.opt_info>div.total_p span{width: 30px;display: inline-block;}
 .cart_table .cart_list li>div.item_detail{width: 60%}
 .cart_table .cart_list li>div.item_detail img{max-width: 150px; width: 25%; margin: 0 5%; float: left;}
