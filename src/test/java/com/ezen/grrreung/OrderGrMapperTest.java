@@ -1,6 +1,7 @@
 package com.ezen.grrreung;
 
-import com.ezen.grrreung.domain.transaction.Order;
+
+import com.ezen.grrreung.domain.order.dto.OrderGr;
 import com.ezen.grrreung.domain.order.mapper.OrderMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
 @Slf4j
-public class OrderMapperTest {
+public class OrderGrMapperTest {
 	
 	@Autowired
 	private OrderMapper orderMapper;
@@ -17,7 +18,7 @@ public class OrderMapperTest {
 	@Test
 	//@Disabled
 	public void createTest() {
-		Order order = Order
+		OrderGr order = OrderGr
 				.builder()
 				.memberId("cangry")
 				.build();

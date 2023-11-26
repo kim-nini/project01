@@ -173,25 +173,33 @@ button:hover {
   margin-top: 20px;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(2)>td {
-  display: flex;
-  flex-direction: column;
-}
-
-.qna> :nth-child(2)> :last-child> :nth-child(2) td textarea {
+.qna> :nth-child(2)> :last-child> :nth-child(2) td input {
   margin-top: 1rem;
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 3px;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(2) :nth-child(3) div {
+
+.qna> :nth-child(2)> :last-child> :nth-child(3)>td {
+  display: flex;
+  flex-direction: column;
+}
+
+.qna> :nth-child(2)> :last-child> :nth-child(3) td textarea {
+  margin-top: 1rem;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+}
+
+.qna> :nth-child(2)> :last-child> :nth-child(3) :nth-child(3) div {
   margin: 10px 0 2rem 0;
   /*display: flex;*/
   align-items: center;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(2) :nth-child(3) div label button {
+.qna> :nth-child(2)> :last-child> :nth-child(3) :nth-child(3) div label button {
   width: 85px;
   height: 38px;
   padding: 0;
@@ -200,48 +208,48 @@ button:hover {
   font-weight: bold;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(2) :nth-child(3) p {
+.qna> :nth-child(2)> :last-child> :nth-child(3) :nth-child(3) p {
   font-size: 12px;
   margin-left: 5px;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(3) td {
+.qna> :nth-child(2)> :last-child> :nth-child(4) td {
   height: 100px;
   margin-top: 10px;
   border-top: 1px solid #eee;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(3) ul {
+.qna> :nth-child(2)> :last-child> :nth-child(4) ul {
   list-style: none;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(3) ul li {
+.qna> :nth-child(2)> :last-child> :nth-child(4) ul li {
   margin: 10px 0;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(3) ul li label {
+.qna> :nth-child(2)> :last-child> :nth-child(4) ul li label {
   margin: 5px;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(3) ul li select {
+.qna> :nth-child(2)> :last-child> :nth-child(4) ul li select {
   width: 120px;
   height: 30px;
   border: 1px solid #eee;
   border-radius: 5px;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(3) ul li span {
+.qna> :nth-child(2)> :last-child> :nth-child(4) ul li span {
   margin: 8px;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(3) ul li :nth-child(5), .qna> :nth-child(2)> :last-child> :nth-child(3) ul li :nth-child(7) {
+.qna> :nth-child(2)> :last-child> :nth-child(4) ul li :nth-child(5), .qna> :nth-child(2)> :last-child> :nth-child(4) ul li :nth-child(7) {
   width: 120px;
   height: 30px;
   border: 1px solid #eee;
   border-radius: 5px;
 }
 
-.qna> :nth-child(2)> :last-child> :nth-child(3) ul :last-child :nth-child(3), .qna> :nth-child(2)> :last-child> :nth-child(3) ul :last-child :nth-child(5) {
+.qna> :nth-child(2)> :last-child> :nth-child(4) ul :last-child :nth-child(3), .qna> :nth-child(2)> :last-child> :nth-child(4) ul :last-child :nth-child(5) {
   width: 120px;
   height: 30px;
   border: 1px solid #eee;
@@ -321,7 +329,7 @@ button:hover {
   justify-content: space-between;
   padding: 50px 290px;
 }
-.btn_wrap>a {
+.btn_wrap>button {
   display: block;
   width: 150px;
   height: 50px;

@@ -5,20 +5,39 @@
 
 <mapper	namespace="com.ezen.grrreung.domain.order.mapper.OrderMapper">
 	
-	<insert id="create" parameterType="Order">
-		INSERT INTO orders(order_id, member_id)
-		VALUES(orders_seq.NEXTVAL, #{memberId})
+	<insert id="create" parameterType="OrderGr">
+		INSERT INTO order_gr(order_id, member_id)
+		VALUES(ordergr_seq.NEXTVAL, #{memberId})
 		
 		<selectKey keyProperty="orderId" resultType="int" order="AFTER">
 			SELECT orders_seq.CURRVAL FROM dual 
 		</selectKey>
 	</insert>
 	
-	<update id="updatePayStatus" parameterType="Order">
+	<update id="updatePayStatus" parameterType="OrderGr">
 		UPDATE orders
 		SET pay_status = #{payStatus}
 		WHERE order_id = #{orderId}
 	</update>
+
+<!--	주문내역조회-->
+	<select id="orderHistoryByMember" parameterType="String" resultType="map" >
+		SELECT
+			g.order_id,
+			g.order_date,
+			g.order_status,
+			g.order_price_all,
+			i.item_name,
+			oi.order_amount
+		FROM
+			order_gr g
+				JOIN order_item oi ON g.order_id = oi.order_id
+				JOIN item       i ON oi.item_id = i.item_id
+		WHERE
+			member_id = #{memberId}
+		ORDER BY
+			order_id DESC
+	</select>
 	
 </mapper>
 

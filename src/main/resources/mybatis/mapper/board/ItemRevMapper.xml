@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ezen.grrreung.domain.board.mapper.ItemRevMapper">
+<!--게시글등록-->
+	<insert id="create" parameterType="ItemRev">
+		INSERT INTO item_rev(
+			rev_code,
+			item_id,
+		    rev_title,
+			rev_cont,
+			member_id
+		) VALUES (
+					 item_rev_no_seq.NEXTVAL,
+					 111111,
+					 #{revTitle},
+					 #{revCont},
+					 '멤버아이디'
+				 )
+	</insert>
+
+	<!-- 전체리스트 및 검색 리스트-->
+	<select id="postList" parameterType="RequestParams" resultType="ItemRev">
+		SELECT
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		rev_date
+		FROM
+		(
+		SELECT
+		ceil(ROWNUM / #{elementSize})  page,
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		rev_date
+		FROM
+		(
+		SELECT
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+		FROM
+		item_rev
+		<where>
+			<if test="search != null">
+				rev_title LIKE '%' || #{search} || '%'
+				OR rev_code LIKE '%' || #{search} || '%'
+				OR member_id LIKE '%' || #{search} || '%'
+			</if>
+		</where>
+		ORDER BY
+		rev_code DESC
+		)
+		)
+		WHERE
+		page = #{requestPage}
+
+	</select>
+
+	<!--전체리스트 행갯수-->
+	<select id="postListCount" parameterType="RequestParams" resultType="int">
+		SELECT COUNT(*) count
+		FROM item_rev
+		<where>
+			<if test="search != null">
+				rev_title LIKE '%' || #{search} || '%'
+				OR rev_date LIKE '%' || #{search} || '%'
+			</if>
+		</where>
+		order by rev_code DESC
+	</select>
+
+<!--	상세보기-->
+	<select id="findByBno" parameterType="int" resultType="ItemRev">
+		SELECT rev_code,
+			   rev_title,
+			   rev_cont,
+			   member_id,
+			   TO_CHAR(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+		FROM item_rev
+		WHERE rev_code = #{revCode}
+	</select>
+	
+</mapper>
+

@@ -1,4 +1,4 @@
-package com.ezen.grrreung.domain.transaction;
+package com.ezen.grrreung.domain.order.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +13,15 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class Order {
+public class OrderGr {
 	private int orderId;
 	private String memberId;
-	private String payStatus;
+	private String orderDate;
+	private String orderStatus;
+	private String orderMemo;
+	private String orderName;
+	private String orderAdd;
+	private String orderHp;
+	private String orderPriceAll;
 }
 
