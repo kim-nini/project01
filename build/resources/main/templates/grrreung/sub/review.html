@@ -60,18 +60,18 @@
                 </table>
             <p th:if="${list}=='[]'" style="text-align: center; padding-top: 10px; box-sizing: border-box; font-size: large">검색결과가 없습니다</p>
             <nav aria-label="Page navigation example">
-                <ul class="pagination" style="" >
-                    <li th:if="${pagination.isShowFirst()}" class="page-item">
+                <ul class="pagination2" style="" >
+                    <li th:if="${pagination2.isShowFirst()}" class="page-item">
                         <a class="page-link" th:href="@{/itemrev(page=1)}">&laquo;</a></li>
-                    <li th:if="${pagination.isShowPrevious()}" class="page-item">
-                        <a class="page-link" th:href="@{/itemrev(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
-                    <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
+                    <li th:if="${pagination2.isShowPrevious()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination2.getPreviousStartPage()})}">&lsaquo;</a></li>
+                    <li th:each="page : ${#numbers.sequence(pagination2.getStartPage(),pagination2.getEndPage())}" class="page-item">
                         <a class="page-link" th:href="@{/itemrev(page=${page})}" name="page" th:text="${page}"></a>
                     </li>
-                    <li th:if="${pagination.isShowNext()}" class="page-item">
-                        <a class="page-link" th:href="@{/itemrev(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
-                    <li th:if="${pagination.isShowLast()}" class="page-item">
-                        <a class="page-link" th:href="@{/itemrev(page=${pagination.totalPages})}">&raquo;</a></li>
+                    <li th:if="${pagination2.isShowNext()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination2.getNextStartPage()})}">&rsaquo;</a></li>
+                    <li th:if="${pagination2.isShowLast()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination2.totalPages})}">&raquo;</a></li>
                 </ul>
             </nav>
         </div>

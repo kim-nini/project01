@@ -49,7 +49,7 @@ public class NoticeController {
         
         
         model.addAttribute("params", params); // 요청 파라메터
-        model.addAttribute("pagination", pagination); // 페이징 계산 결과
+        model.addAttribute("pagination2", pagination); // 페이징 계산 결과
         model.addAttribute("list",list); // db 리스트
         
         return "/grrreung/sub/notice";
