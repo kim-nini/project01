@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,8 +27,9 @@
               <form action="">
                   <div class="search-wrap">
                       <label for="search" class="blind">상품 리뷰 검색</label>
-                      <input id="search" type="search" name="item_id" placeholder="상품명(상품코드)을 입력해주세요.">
-                      <button type="submit" class="btn btn-dark">검색</button>
+                      <input id="search" type="search" name="search" placeholder="상품명(상품코드) 또는 작성자로 검색">
+                      <button type="submit" class="btn btn-dark searchBtn">검색</button>
+                      <a class="btn btn-dark postBtn" style="right: -130px" href="/itemrev/create">후기 작성</a>
                   </div>
               </form>
           </div>
@@ -42,28 +44,36 @@
                       <tr>
                           <th scope="col" class="th-num">번호</th>
                           <th scope="col" class="th-title">제목</th>
+                          <th scope="col" class="th-title">작성자</th>
                           <th scope="col" class="th-date">등록일</th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                          <td>3</td>
-                          <th><a href="#!">[공지사항] 개인정보 처리방침 변경안내처리방침</a></th>
-                          <td>2017.07.13</td>
-                      </tr>
-                      <tr>
-                          <td>2</td>
-                          <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                          <td>2017.06.15</td>
-                      </tr>
-
-                      <tr>
-                          <td>1</td>
-                          <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                          <td>2017.06.15</td>
+                      <tr th:each="itemRev : ${list}">
+                          <td th:text="${itemRev.revCode}"></td>
+<!--                          <td th:text="${itemRev.revTitle}"></td>-->
+                          <td><a th:text="${itemRev.revTitle}" th:href="@{/itemrev/{revCode}(revCode=${itemRev.revCode})}"></a></td>
+                          <td th:text="${itemRev.memberId}"></td>
+                          <td th:text="${itemRev.revDate}"></td>
                       </tr>
                   </tbody>
                 </table>
+            <p th:if="${list}=='[]'" style="text-align: center; padding-top: 10px; box-sizing: border-box; font-size: large">검색결과가 없습니다</p>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" style="" >
+                    <li th:if="${pagination.isShowFirst()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=1)}">&laquo;</a></li>
+                    <li th:if="${pagination.isShowPrevious()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
+                    <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${page})}" name="page" th:text="${page}"></a>
+                    </li>
+                    <li th:if="${pagination.isShowNext()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
+                    <li th:if="${pagination.isShowLast()}" class="page-item">
+                        <a class="page-link" th:href="@{/itemrev(page=${pagination.totalPages})}">&raquo;</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </section>

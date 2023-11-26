@@ -26,8 +26,10 @@
           <form action="">
               <div class="search-wrap">
                   <label for="search" class="blind">공지사항 내용 검색</label>
-                  <input id="search" type="search" name="search_noti" placeholder="제목/내용을 입력해주세요." >
-                  <button type="submit" class="btn btn-dark">검색</button>
+                  <input id="search" type="search" name="search" placeholder="제목 또는 날짜로 검색" >
+                  <button type="submit" class="btn btn-dark searchBtn">검색</button>
+                  <a class="btn btn-dark postBtn" style="right: -130px" href="/notice/create">글쓰기</a>
+<!--                  th:if="${session.loginMember.getAdmin} == 'Y'"-->
               </div>
           </form>
       </div>
@@ -42,29 +44,39 @@
               <tr>
                   <th scope="col" class="th-num">번호</th>
                   <th scope="col" class="th-title">제목</th>
+                  <th scope="col" class="th-title">작성자</th>
                   <th scope="col" class="th-date">등록일</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
-                  <td>3</td>
-                  <th><a href="#!">[공지사항] 개인정보 처리방침 변경안내처리방침</a></th>
-                  <td>2017.07.13</td>
+
+              <tr th:each="notice, status : ${list}">
+                  <td th:text="${notice.notiCode}"></td>
+<!--                  <td th:text="${notice.notiTitle}"></td>-->
+                  <td><a th:text="${notice.notiTitle}" th:href="@{/notice/{notiCode}(notiCode=${notice.notiCode})}"></a></td>
+                  <td th:text="${notice.notiAuth}"></td>
+                  <td th:text="${notice.notiDate}"></td>
               </tr>
 
-              <tr>
-                  <td>2</td>
-                  <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                  <td>2017.06.15</td>
-              </tr>
-
-              <tr>
-                  <td>1</td>
-                  <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                  <td>2017.06.15</td>
-              </tr>
               </tbody>
           </table>
+          <p th:if="${list}=='[]'" style="text-align: center; padding-top: 10px; box-sizing: border-box; font-size: large">검색결과가 없습니다</p>
+          <nav aria-label="Page navigation example">
+              <ul class="pagination" style="" >
+                  <li th:if="${pagination.isShowFirst()}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=1)}">&laquo;</a></li>
+                  <li th:if="${pagination.isShowPrevious()}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
+                  <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=${page})}" name="page" th:text="${page}"></a>
+                  </li>
+                  <li th:if="${pagination.isShowNext()}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
+                  <li th:if="${pagination.isShowLast()}" class="page-item">
+                      <a class="page-link" th:href="@{/notice(page=${pagination.totalPages})}">&raquo;</a></li>
+              </ul>
+          </nav>
+
       </div>
   </div>
 </section>
