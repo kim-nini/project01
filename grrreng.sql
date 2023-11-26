@@ -1913,6 +1913,51 @@ FROM
 WHERE
     page = 1;
     
+    
+    
+-- 아이템 리뷰 서치
+SELECT
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		rev_date
+		FROM
+		(
+		SELECT
+		ceil(ROWNUM / 5)  page,
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		rev_date
+		FROM
+		(
+		SELECT
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+		FROM
+		item_rev
+		where
+				rev_title LIKE '%cust%'
+				OR rev_code LIKE '%cust%'
+				OR member_id = '%cust%'
+			
+		ORDER BY
+		rev_code DESC
+		)
+		)
+		WHERE
+		page = 1;
+
+select *
+from item_rev
+where member_id = 'customer1';
+    
+    
 -- 페이징 처리 카운트
 
 SELECT
@@ -2001,8 +2046,8 @@ ORDER BY
 
 SELECT
     og.order_id,
-    COUNT(oi.order_item_id) as order_item_id,
-    SUM(oi.order_price * oi.order_amount) as order_price_all,
+    COUNT(oi.order_item_id)               AS order_item_id,
+    SUM(oi.order_price * oi.order_amount) AS order_price_all,
     i.item_name,
     oi.order_amount,
     oi.order_price,
@@ -2023,9 +2068,42 @@ GROUP BY
     oi.order_price
 ORDER BY
     og.order_date DESC;
-    
-    commit;
+
+COMMIT;
     
 --=================================================================
+-- 상품명으로 상품코드가져오기
 
+SELECT
+    item_id
+FROM
+    item
+WHERE
+    item_name = '상품1';
 
+COMMIT;
+
+------------상품후기 게시물처리------------------------------
+-- 동일한 order_id,item_id,member_id로 구매한 수량 
+SELECT
+    oi.order_amount
+FROM
+         order_gr og
+    JOIN member     m ON og.member_id = m.member_id
+    JOIN order_item oi ON og.order_id = oi.order_id
+WHERE
+        og.member_id = 'customer1'
+    AND oi.order_item_id = 1
+    AND og.order_id = 10000;
+    
+    
+-- 작성된 게시글 수 조회
+SELECT
+    COUNT(*) cnt
+FROM
+    item_rev
+WHERE
+    item_id = 1
+    And
+    member_id ='멤버아이디';
+    

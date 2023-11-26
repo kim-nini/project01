@@ -22,7 +22,7 @@
 
 <section class="bg-white py-8 notice">
     <div class="container mx-auto items-centerpt-4 pb-12">
-        <form class="qna" method="post">
+        <form action="/itemrev/create" class="qna" method="post">
             <div>
                 <ul>
                     <li><a href="#">상품 후기 작성</a></li>
@@ -35,22 +35,11 @@
                 <tbody>
                 <tr>
                     <th>
-                        <label>문의유형</label>
+                        <label>상품명</label>
                     </th>
 
                     <td>
-                        <select>
-                            <option value="" disabled selected>카테고리</option>
-                            <option value="1">LIVING</option>
-                            <option value="2">WALKING</option>
-                            <option value="3">FOOD</option>
-                        </select>
-                        <select disabled="disabled">
-                            <option value="" disabled selected>상품선택</option>
-                            <option value="1">item1</option>
-                            <option value="2">item2</option>
-                            <option value="3">item3</option>
-                        </select>
+                        <input name="itemName" th:value="${itemName}" readonly style="width:98%;height:40px;">
                     </td>
                 </tr>
                 <tr>

@@ -29,7 +29,7 @@
                       <label for="search" class="blind">상품 리뷰 검색</label>
                       <input id="search" type="search" name="search" placeholder="상품명(상품코드) 또는 작성자로 검색">
                       <button type="submit" class="btn btn-dark searchBtn">검색</button>
-                      <a class="btn btn-dark postBtn" style="right: -130px" href="/itemrev/create">후기 작성</a>
+                      <a class="btn btn-dark postBtn" style="right: -130px" th:href="@{/itemrev/myreview/{memberId}(memberId=${'customer1'})}">나의 후기</a>
                   </div>
               </form>
           </div>

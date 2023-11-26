@@ -35,10 +35,10 @@ public class OrderGrController {
     /**
      * 주문서 작성 화면 요청
      */
-//    @GetMapping("/1")
-//    public String registerForm(){
-//        return "member/1";
-//    }
+    @GetMapping("/form")
+    public String orderForm(){
+        return "/grrreung/sub/order-sheet";
+    }
 
 
 }
