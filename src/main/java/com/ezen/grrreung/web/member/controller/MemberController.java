@@ -6,8 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
-
-    /**
+    /*
      * 로그인 화면 요청
      */
     @GetMapping("/login")
@@ -38,7 +35,7 @@ public class MemberController {
         HttpSession session = request.getSession();
         if (findMember != null) {
             session.setAttribute("loginMember", findMember);
-            return "redirect:/";
+            return "redirect:/grrreung";
         } else {
             model.addAttribute("loginResult", false);
             return "grrreung/sub/login";
@@ -51,7 +48,8 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/";
+
+        return "redirect:/grrreung";
     }
 
 

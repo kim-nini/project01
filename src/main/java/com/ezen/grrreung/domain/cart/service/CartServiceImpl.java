@@ -1,5 +1,6 @@
 package com.ezen.grrreung.domain.cart.service;
 
+import com.ezen.grrreung.domain.cart.dto.Cart;
 import com.ezen.grrreung.domain.cart.mapper.CartMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<Map<String, Object>> getCartList(String memberId) {
         return cartMapper.findById(memberId);
+    }
+
+    @Override
+    public void addToCart(Cart cart) {
+        cartMapper.insertItemToCart(cart);
     }
 }

@@ -144,7 +144,6 @@ public class GrrItemTest {
 	public void updateInfoTest() {
 		Map<String, Object> itemInfo = itemMapper.updateItemInfo(1);
 		String itemName = (String)itemInfo.get("ITEM_NAME");
-
 		log.info("파일 정보 : {}", itemInfo);
 
 	}

@@ -2,8 +2,6 @@ document.querySelector("button").addEventListener('click', function() {
     console.log('버튼이 클릭되었습니다.');
 }, false);
 
-
-
     const mainCate = document.querySelector(".mainCategory");
     const subCategory = document.querySelector(".subCategory");
 
@@ -32,9 +30,6 @@ document.querySelector("button").addEventListener('click', function() {
        // });
     }
 
-
-
-
     // 상세 카테고리이름 불러오기
    function categoryRequest() {
         const category = mainCate.options[mainCate.selectedIndex].value;
@@ -44,8 +39,6 @@ document.querySelector("button").addEventListener('click', function() {
                 return response.json();
             });
    }
-
-//==============================================================================================
 
 
 
@@ -90,33 +83,6 @@ function previewImages1(event) {
         reader.readAsDataURL(image);
     }
 }
-
-// 썸네일 선택 비동기처리해서 정보 전달하기
-// var selectedThumbnailUrl = null;
-// document.querySelector('[type="submit"]').addEventListener("click", saveThumbnail);
-//
-// async function saveThumbnail() {
-//     if (!selectedThumbnailUrl) {
-//         alert("썸네일을 선택해주세요.");
-//         return false;
-//     }
-//
-//     try {
-//         // 서버로 선택한 썸네일의 URL 전송
-//         const response = await fetch("/grrreung/saveThumbnail?url=" + encodeURIComponent(selectedThumbnailUrl), {
-//             method: "POST",
-//         });
-//
-//         if (!response.ok) {
-//             throw new Error(`HTTP error! Status: ${response.status}`);
-//         }
-//
-//         const data = await response.text();
-//         alert(data);
-//     } catch (error) {
-//         console.error("Error:", error);
-//     }
-// }
 
 
 function previewImages2(event) {

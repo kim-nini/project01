@@ -7,40 +7,47 @@ CREATE TABLE item_img (
    rep_img_yn       VARCHAR2(255)   DEFAULT 'N'
 );
 
-UPDATE item_img
-SET
-    rep_img_yn = 'Y'
-WHERE
-    item_img_id = 78;
-commit;
+ALTER TABLE ITEM_IMG ADD CONSTRAINT REP_IMG_YN_CHECK CHECK(
+    REP_IMG_YN LIKE 'Y' OR 
+    REP_IMG_YN LIKE 'N' OR
+    REP_IMG_YN = null
+);
+
+ALTER TABLE item_img ADD CONSTRAINT PK_ITEM_IMG PRIMARY KEY (
+   item_img_id
+);
+
+--------------------------------------------------------------------------------------------------
+
+DROP TABLE ITEM_IMG;
 
 
-
-SELECT
-   *
-FROM
-    item;
-
-
-SELECT
-   *
-FROM
-    item_img;
+SELECT * FROM item;
+SELECT * FROM item_img;
     
 
-drop sequence  item_img_id_sq;
+
+SELECT
+   last_number+1
+FROM
+    user_sequences 
+WHERE
+    sequence_name = 'ITEM_IMG_ID_SQ';
 
 
 SELECT
    *
 FROM
-    user_sequences
+    user_sequences 
 WHERE
     sequence_name = 'ITEM_IMG_ID_SQ';
     
     
-    
-DROP TABLE ITEM_IMG;
+    SELECT
+    item_img_id_sq.NEXTVAL
+FROM
+    dual;
+
 -- 대표이미지 여부 제약조건 추가
 ALTER TABLE ITEM_IMG ADD CONSTRAINT REP_IMG_YN_CHECK CHECK(
     REP_IMG_YN LIKE 'Y' OR 
@@ -48,9 +55,9 @@ ALTER TABLE ITEM_IMG ADD CONSTRAINT REP_IMG_YN_CHECK CHECK(
     REP_IMG_YN = null
 );
 
-
-create sequence item_img_id_sq;
-
+-- 아이템 식별자 (number타입) 시퀀스 생성 
+CREATE SEQUENCE item_img_id_sq START WITH 1 INCREMENT BY 1;
+drop sequence  item_img_id_sq;
 
 insert into item_img(item_img_id, item_id, img_name, ori_img_name, rep_img_yn)
 values ( item_img_id_sq.nextval, 01, 'item01_image01.png', 'image01', 'Y');

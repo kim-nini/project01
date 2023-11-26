@@ -15,11 +15,11 @@ public class ItemImg {
     private String imgUrl;
     private String repImgYN;
 
-    public ItemImg (int itemId,  String imgName, String oriImgName, String repImgYN) {
+    public ItemImg (int itemId,  String imgName, String oriImgName) {
         this.itemId = itemId;
         this.imgName = imgName;
         this.oriImgName = oriImgName;
-        this.repImgYN = null;
+        this.repImgYN = "N";
     }
 
 

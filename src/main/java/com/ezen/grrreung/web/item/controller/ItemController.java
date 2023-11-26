@@ -2,26 +2,27 @@ package com.ezen.grrreung.web.item.controller;
 
 import com.ezen.grrreung.domain.item.dto.*;
 import com.ezen.grrreung.domain.item.service.ItemService;
+import com.ezen.grrreung.domain.member.dto.Member;
+import com.ezen.grrreung.domain.member.service.MemberService;
 import com.ezen.grrreung.web.common.page.FileStore;
 import com.ezen.grrreung.web.common.page.Pagination;
 import com.ezen.grrreung.web.common.page.RequestParams;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,9 +31,11 @@ import java.util.*;
 @Controller
 @RequestMapping("/grrreung")
 @RequiredArgsConstructor
+@SessionAttributes
 @Slf4j
 public class ItemController {
 
+    private final MemberService memberService;
     private final ItemService itemService;
 
     @Value("${file.dir}")
@@ -42,11 +45,25 @@ public class ItemController {
 
     // 홈화면
     @RequestMapping("")
-    public String homeItemList(Model model){
+    public String homeItemList(HttpServletRequest request, Model model){
+        // #1) 로그인정보
+        HttpSession session = request.getSession();
+        Member loginMember = (Member) session.getAttribute("loginMember");
+
+        // 로그인한 사용자 정보가 세션에 있는 경우
+        if (loginMember != null) {
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("loginMember", loginMember);
+        }
+
+
+        // #2) 아이템 정보
         List<Item> list = itemService.allItems();
         model.addAttribute("item", list);
         return "/grrreung/index";
     }
+
+
 
     // shop 상품 전체목록 불러오기
     @GetMapping("/shop")
@@ -97,6 +114,8 @@ public class ItemController {
     @RequestMapping("/shop/item/{itemId}")
     public String itemInfo(@PathVariable("itemId")int itemId, Model model){
         Item item = itemService.findByItemId(itemId);
+        log.info("아이템 상세정보 : {}", item.toString());
+
         // 슬라이드 상품이미지 가져오기
         List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
         // 상품 정보 이미지 가져오기
@@ -238,7 +257,7 @@ public class ItemController {
 
         // 상세정보))) DB 테이블에 업로드 파일과 저장된 파일명 저장 후
         for(UploadFile uploadFile : uploadFiles2) {
-            ItemImg itemImg = new ItemImg(item.getItemId(), uploadFile.getStoreFileName(), uploadFile.getUploadFileName(), null);
+            ItemImg itemImg = new ItemImg(item.getItemId(), uploadFile.getStoreFileName(), uploadFile.getUploadFileName());
             log.info("상세이미지 파일정보 : {}", uploadFile);
             itemService.uploadItemImg(itemImg);
         }

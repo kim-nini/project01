@@ -1,6 +1,8 @@
 package com.ezen.grrreung.domain.cart.mapper;
 
+import com.ezen.grrreung.domain.cart.dto.Cart;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +15,8 @@ public interface CartMapper {
      */
     public List<Map<String, Object>> findById(String memberId);
 
-
+    // 장바구니 상품 추가
+    public void insertItemToCart(Cart cart);
 
 
 }

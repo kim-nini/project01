@@ -92,6 +92,7 @@
 }
 .display-flex {
 	display: flex;
+	margin-bottom: 23px;
 }
 .align-center {
 	align-items: center;
@@ -151,7 +152,7 @@
 }
 .product-dtl label {
 	line-height: 16px;
-	font-size: 15px;
+	font-size: 20px;
 }
 .form-control:focus {
 	outline: none;
@@ -180,6 +181,7 @@
 .product-count .qty {
 	width: 60px;
 	text-align: center;
+	font-size: 18px;
 }
 .round-black-btn {
 	border-radius: 4px;
@@ -274,3 +276,6 @@
 	text-transform: uppercase;
 	cursor: pointer;
 }
+
+
+

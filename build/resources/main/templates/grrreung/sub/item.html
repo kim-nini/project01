@@ -42,7 +42,7 @@
 
                         <div id="thumb" class="owl-carousel product-thumb">
                             <div class="item"  th:each="imgFiles : ${imgFiles}">
-                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지" />
+                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지 미리보기" />
                             </div>
                         </div>
 
@@ -104,20 +104,37 @@
 <!--                            </div>-->
                             <div class="product-count">
                                 <!-- 수량 -->
-                                <label for="amount">수량</label>
-                                <form action="#" class="display-flex">
-                                    <div class="qtyminus">-</div>
-                                    <input type="text" name="quantity" value="1" class="qty">
-                                    <div class="qtyplus">+</div>
-                                </form>
+                                <label for="count">수량</label>
 
-                                <label for="totalPay">총액 : </label><br>
-<!--                                <p th:text="${item.getItemPrice() * 5 }"></p> -->
+<!--                                    <form method="post" th:action="@{/grrreung/add-to-cart/{itemId}/{memberId}(itemId=${itemId}, memberId = ${session.loginMember.memberId})}">-->
+                                    <form method="post" th:action="@{/grrreung/cart/{memberId}(memberId = ${session.loginMember.memberId})}">
+                                         <div class="display-flex">
+                                            <div class="qtyminus caculatorBtn">-</div>
+                                                <input type="text" id="count" name="cartAmount" value="1" class="qty">
+                                            <div class="qtyplus caculatorBtn">+</div>
+                                         </div>
+
+                                        <input style="display:none;" type="text" name="itemId" th:value="${item.itemId}">
+
+                                        <label for="totalAmountPrint">총액 :
+                                            <input id="totalAmount" style="display:none;" th:value="${item.itemPrice}">
+                                            <span type="text" id="totalAmountPrint" name="totalAmountPrint" readonly th:text="|${#numbers.formatDecimal(item.itemPrice, 0, 'DEFAULT', 0, 'DEFAULT')}원|"></span>
+                                        </label>
+
+
+                                        <div>
+                                            <!-- 로그인 접근하는 경우 장바구니에 담는 매핑-->
+                                            <button type="submit" th:if="${session.loginMember}!=null" class="round-gray-btn">장바구니</button>
+                                            <!-- 비회원으로 접근하는 경우 로그인페이지로 매핑 -->
+                                            <button type="submit" th:if="${session.loginMember}==null" th:href="@{/grrreung/login}" class="round-gray-btn">장바구니</button>
+                                            <button type="submit" href="#" class="round-black-btn">바로구매</button>
+                                        </div>
+                                    </form>
 
 
 
-                                <a href="#" class="round-gray-btn">장바구니</a>
-                                <a href="#" class="round-black-btn">바로구매</a>
+
+
                             </div>
                         </div>
                     </div>
@@ -164,8 +181,6 @@
                                               <td>리뷰 등록일</td>
                                               <td>0</td>
                                           </tr>
-
-
 
                                           </tbody>
                                       </table>

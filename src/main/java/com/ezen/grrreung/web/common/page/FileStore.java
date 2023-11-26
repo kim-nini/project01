@@ -98,7 +98,7 @@ public class FileStore {
 		return location + filename;
 	}
 
-	
+
 	// 업로드시 저장되는 파일명 랜덤생성
 	private String createStoreFileName(String originalFilename) {
 		int pos = originalFilename.lastIndexOf(".");

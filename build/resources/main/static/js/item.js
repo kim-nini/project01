@@ -57,25 +57,38 @@ $(document).ready(function() {
             slider.data('owl.carousel').to(number, 100, true);
         }
     }
+
     thumb.on("click", ".owl-item", function(e) {
         e.preventDefault();
         var number = $(this).index();
         slider.data('owl.carousel').to(number, 300, true);
     });
 
+    $(".qtyminus").on("click", function() {
+        var now = $(".qty").val();
+        if ($.isNumeric(now) && parseInt(now) > 0) {
+            now--;
+            $(".qty").val(now).trigger("input");
+        }
+    });
 
-    $(".qtyminus").on("click",function(){
+    $(".qtyplus").on("click", function() {
         var now = $(".qty").val();
-        if ($.isNumeric(now)){
-            if (parseInt(now) -1> 0)
-            { now--;}
-            $(".qty").val(now);
+        if ($.isNumeric(now)) {
+            $(".qty").val(parseInt(now) + 1).trigger("input");
         }
-    })            
-    $(".qtyplus").on("click",function(){
-        var now = $(".qty").val();
-        if ($.isNumeric(now)){
-            $(".qty").val(parseInt(now)+1);
-        }
+    });
+
+    $(".qty").on("input", function() {
+        var quantity = parseInt($(this).val()) || 0; // 수량
+        var itemPrice = parseInt($("#totalAmount").val()) || 0; // 상품 가격
+
+        // 계산된 총 가격을 표시할 곳의 id를 잘 확인하셔서 적절히 변경해주세요.
+        var totalAmountPrint = $("#totalAmountPrint");
+
+        var totalAmount = quantity * itemPrice;
+
+        // 총 가격을 포맷팅하여 표시
+        totalAmountPrint.text(new Intl.NumberFormat().format(totalAmount) + "원");
     });
 });
