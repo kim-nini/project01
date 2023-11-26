@@ -1944,7 +1944,7 @@ SELECT
 		where
 				rev_title LIKE '%cust%'
 				OR rev_code LIKE '%cust%'
-				OR member_id = '%cust%'
+				OR member_id = 'cust'
 			
 		ORDER BY
 		rev_code DESC
