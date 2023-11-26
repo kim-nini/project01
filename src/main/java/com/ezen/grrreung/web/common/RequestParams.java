@@ -2,7 +2,7 @@ package com.ezen.grrreung.web.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Data // 게터세터
 @AllArgsConstructor

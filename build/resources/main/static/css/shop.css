@@ -63,42 +63,57 @@ p, li, a{
     *zoom: 1;
 }
 
-/* GENERAL STYLES */
 
-.pagination{
-    padding: 50px 0 30px 0;
-    margin: auto;
+
+/* Pagination Styles */
+.pagination {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
 }
 
-.pagination ul{
-    margin: auto;
-    padding: 50px;
-    list-style-type: none;
+.page-item {
+    list-style: none;
+    margin-right: 5px;
 }
 
-.pagination ul li{
-    float: left;
-}
-
-.pagination a{
+.page-link {
     display: block;
-    padding: 10px 18px;
-    width: 40px;
-    height: 40px;
-    color: #222;
-    /*margin: 0 5px;*/
-}
-
-/* TWELVE */
-
-.p12 a:first-of-type, .p12 a:last-of-type {
-    background-color: #FFF;
+    padding: 10px 14px;
     color: #FFC924;
-    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #FFC924;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px; /* Adjust font size as needed */
 }
-.p12 .is-active {
+
+.page-link:hover {
+    background-color: #FFC924;
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    background-color: #FFC924;
+    color: #fff;
+    border: 2px solid #FFC924;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Optional: Additional Styling for Navigation Buttons */
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    border-radius: 6px;
+}
+
+.page-item:first-child .page-link:hover,
+.page-item:last-child .page-link:hover {
     background-color: #FFC924;
     color: #fff;
 }

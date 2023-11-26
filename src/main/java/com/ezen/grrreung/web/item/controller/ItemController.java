@@ -1,12 +1,13 @@
 package com.ezen.grrreung.web.item.controller;
 
+import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.item.dto.*;
 import com.ezen.grrreung.domain.item.service.ItemService;
 import com.ezen.grrreung.domain.member.dto.Member;
 import com.ezen.grrreung.domain.member.service.MemberService;
+import com.ezen.grrreung.web.common.Pagination;
+import com.ezen.grrreung.web.common.RequestParams;
 import com.ezen.grrreung.web.common.page.FileStore;
-import com.ezen.grrreung.web.common.page.Pagination;
-import com.ezen.grrreung.web.common.page.RequestParams;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -48,14 +49,17 @@ public class ItemController {
     public String homeItemList(HttpServletRequest request, Model model){
         // #1) 로그인정보
         HttpSession session = request.getSession();
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        // 계속 로그인 상태로 가정하고 작업하기 위해 임시값 지정
+        Member findMember = memberService.login("ddalang", "1111"); 
+//        Member loginMember = (Member) session.getAttribute("loginMember");
 
-        // 로그인한 사용자 정보가 세션에 있는 경우
-        if (loginMember != null) {
-            model.addAttribute("loggedIn", true);
-            model.addAttribute("loginMember", loginMember);
-        }
+        session.setAttribute("loginMember", findMember);
 
+//        // 로그인한 사용자 정보가 세션에 있는 경우
+//        if (loginMember != null) {
+//            model.addAttribute("loggedIn", true);
+//            model.addAttribute("loginMember", loginMember);
+//        }
 
         // #2) 아이템 정보
         List<Item> list = itemService.allItems();
@@ -67,47 +71,57 @@ public class ItemController {
 
     // shop 상품 전체목록 불러오기
     @GetMapping("/shop")
-    public String allItemsList(Model model){
-        List<Item> list = itemService.allItems();
-        model.addAttribute("item", list);
-        RequestParams params = new RequestParams();
+    public String allItemsList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                               @RequestParam(value="searchValue", required = false, defaultValue = "") String searchValue,
+                               @RequestParam(value="cateTop", required = false) String cateTop,
+                               Model model){
+        log.info("들어온 검색값 : {}" ,searchValue);
+        log.info("들어온 카테고리값 : {}" , cateTop);
 
-        int totalElement = itemService.countByParams(params);
-        log.info(" *** 검색 개수 : {} ", totalElement);
+        // 페이징 처리와 관련된 변수
+        int elementSize = 8; // 화면에 보여지는 상품의 갯수
+        int pageSize = 5;     // 화면에 보여지는 페이지 갯수
 
-        Pagination pagination = new Pagination(params, totalElement);
-        log.info(" *** 첫페이지 : {}",pagination.getStartPage());
-        log.info(" *** 끝페이지 : {}",pagination.getEndPage());
-        log.info(" ***** pagination : {}", pagination);
-        model.addAttribute("pagination", pagination);
+        // 여러개의 요청 파라메터 정보 저장
+        RequestParams params =  params = new RequestParams(page, elementSize, pageSize, searchValue);
+
+        int  selectCount = itemService.countBySearchValue(params);    // 페이징처리 값 테이블의 전체 갯수
+        List<Item> list;    // model에 저장할 리스트
+
+        
+        if(cateTop != null) {
+            // 카테고리 버튼으로 카테고리별 아이템 검색할때
+            // params의 search 값을 cateTop으로 변경
+            params.setSearch(cateTop);
+            selectCount = itemService.countBySearchValue(params);
+            list = itemService.findByCate(params);
+        } else {
+            list = itemService.searchItem(params);
+        }
+
+        // params : 사용자가 선택한 페이지번호 , 검색값 여부
+        // 페이징 처리 계산 유틸리티 활용
+        Pagination pagination = new Pagination(params, selectCount);
+        if (pagination.getEndPage() == 0) {
+            pagination.setEndPage(1);
+        }
+
+
+        model.addAttribute("params", params); // 요청 파라메터
+        model.addAttribute("pagination", pagination); // 페이징 계산 결과
+        model.addAttribute("item",list); // db 리스트
 
         return "/grrreung/sub/shop";
     }
 
+//    // 카테고리별 상품 출력
+//    @GetMapping("/shop/{cateTop}")
+//    public String itemCate(@PathVariable("cateTop")String cateTop, Model model) {
+//        List<Item> item = itemService.findByCate(cateTop);
+//        model.addAttribute("item", item);
+//        return "/grrreung/sub/shop";
+//    }
 
-    // 상품 검색
-    @GetMapping("/search")
-    public String searchList(@RequestParam(value="searchValue") String itemName, Model model) {
-        RequestParams params = new RequestParams();
-        String searchValue = itemName;
-        params.setSearch(searchValue);
-        log.info(" *** 넘겨받은 search값 : {}", searchValue);
-
-        List<Item> searchList =  itemService.searchItem(params);
-        model.addAttribute("item", searchList);
-        log.info(" *** 검색 목록 : {}", searchList);
-
-        int totalElement = itemService.countByParams(params);
-        log.info(" *** 검색 개수 : {} ", totalElement);
-
-        Pagination pagination = new Pagination(params, totalElement);
-        log.info(" *** 첫페이지 : {}",pagination.getStartPage());
-        log.info(" *** 끝페이지 : {}",pagination.getEndPage());
-        log.info(" ***** pagination : {}", pagination);
-        model.addAttribute("pagination", pagination);
-
-        return "/grrreung/sub/shop";
-    }
 
 
     // 아이템 아이디로 상품 한개 상세정보
@@ -127,7 +141,7 @@ public class ItemController {
         return "/grrreung/sub/item";
     }
 
-
+//==============================================================================================
     // 썸네일 이미지 1개 불러오기 => index, shop
     @GetMapping("/thumbnail/{itemId}")
     public ResponseEntity<Resource> thumbnailImage(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
@@ -161,7 +175,7 @@ public class ItemController {
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
     }
 
-//=============================================================================================================
+//==============================================================================================
 
     // 이미지 슬라이드
     @GetMapping("/itemInfoImage/{itemId}")
@@ -184,35 +198,7 @@ public class ItemController {
         }
         return new ResponseEntity<Map<String, Object>>(result, headers, HttpStatus.OK);
     }
-//=============================================================================================================
 
-
-    // 카테고리별 상품 출력
-    @GetMapping("/shop/{cateTop}")
-    public String itemCate(@PathVariable("cateTop")String cateTop, Model model) {
-        List<Item> item = itemService.findByCate(cateTop);
-        model.addAttribute("item", item);
-        return "/grrreung/sub/shop";
-    }
-// ===================================================================================================
-    // 상위 카테고리 이름 DB에서 찾아오기
-    @RequestMapping("/admin")
-    public String searchCategory(Model model) {
-        List<Category> cateList = itemService.categoryAllList();
-        model.addAttribute("cateList", cateList);
-//        log.info("{}", cateList);
-        return "/grrreung/sub/admin-item";
-    }
-
-    // 상세 카테고리 불러오기
-    @GetMapping("/sub-category")
-    @ResponseBody
-    public List<Category> searchDetailCategory(@RequestParam String category, Model model) {
-        log.info("수신한 메인카테고리 : {}", category);
-        List<Category> subCateList = itemService.showCateName(category);
-        log.info("검색한 상세 카테고리 : {}", subCateList);
-        return subCateList;
-    }
 
 //==============================================================================================
 
@@ -265,6 +251,24 @@ public class ItemController {
         return "redirect:/grrreung/admin";
     }
 
+    // 상위 카테고리 이름 DB에서 찾아오기
+    @RequestMapping("/admin")
+    public String searchCategory(Model model) {
+        List<Category> cateList = itemService.categoryAllList();
+        model.addAttribute("cateList", cateList);
+//        log.info("{}", cateList);
+        return "/grrreung/sub/admin-item";
+    }
+
+    // 상세 카테고리 불러오기
+    @GetMapping("/sub-category")
+    @ResponseBody
+    public List<Category> searchDetailCategory(@RequestParam String category, Model model) {
+        log.info("수신한 메인카테고리 : {}", category);
+        List<Category> subCateList = itemService.showCateName(category);
+        log.info("검색한 상세 카테고리 : {}", subCateList);
+        return subCateList;
+    }
 
     @RequestMapping ("/update-item")
     public String registerItem(Model model) {

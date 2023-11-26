@@ -31,15 +31,20 @@ public class MemberController {
      */
     @PostMapping("/login")
     public String login(Member member, HttpServletRequest request, Model model) {
-        Member findMember = memberService.login(member.getMemberId(), member.getPassword());
+        Member findMember = memberService.login("ddalang", "1111");
         HttpSession session = request.getSession();
-        if (findMember != null) {
-            session.setAttribute("loginMember", findMember);
-            return "redirect:/grrreung";
-        } else {
-            model.addAttribute("loginResult", false);
-            return "grrreung/sub/login";
-        }
+
+        session.setAttribute("loginMember", findMember);
+        return "redirect:/grrreung";
+
+//        if (findMember != null) {
+//            session.setAttribute("loginMember", findMember);
+//            return "redirect:/grrreung";
+//        } else {
+//
+//            model.addAttribute("loginResult", false);
+//            return "grrreung/sub/login";
+//        }
     }
 
     /**
@@ -125,7 +130,7 @@ public class MemberController {
     @PostMapping("/update")
     public String update(@ModelAttribute Member member) {
         memberService.updateInfo(member);
-        return "/grrreung/sub/updateInfo";
+        return "redirect:/grreung/mypage/{memberId}";
     }
 
 

@@ -22,18 +22,18 @@
                             <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="/grrreung/shop">SHOP</a>
                             <ul class="sub_nav_cont ">
                                 <li><a href="/grrreung/shop">ALL</a></li>
-                                <li><a th:href="@{/grrreung/shop/{cateTop}(cateTop='living')}">LIVING</a></li>
-                                <li><a th:href="@{/grrreung/shop/{cateTop}(cateTop='walking')}">WALKING</a></li>
-                                <li><a th:href="@{/grrreung/shop/{cateTop}(cateTop='food')}">FOOD</a></li>
+                                <li><a th:href="@{/grrreung/shop(cateTop='living')}">LIVING</a></li>
+                                <li><a th:href="@{/grrreung/shop(cateTop='walking')}">WALKING</a></li>
+                                <li><a th:href="@{/grrreung/shop(cateTop='food')}">FOOD</a></li>
                             </ul>
                         </li>
                         <li class="sub_nav_title">
                             <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="/grrreung/notice">COMMUNITY</a>
                             <ul class="sub_nav_cont toggleMenu">
-                                <li><a href="/grrreung/notice">NOTICE</a></li>
-                                <li><a href="/grrreung/faq">FAQ</a></li>
-                                <li><a href="/grrreung/qna">Q&A</a></li>
-                                <li><a href="/grrreung/review">REVIEW</a></li>
+                                <li><a th:href="@{/grrreung/notice}">NOTICE</a></li>
+                                <li><a th:href="@{/grrreung/faq}">FAQ</a></li>
+                                <li><a th:href="@{/grrreung/itemqna}">Q&A</a></li>
+                                <li><a th:href="@{/grrreung/itemrev}">REVIEW</a></li>
                             </ul>
                         </li>
                     </ul>

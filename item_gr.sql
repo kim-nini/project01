@@ -132,10 +132,6 @@ where I.item_id = 1;
       WHERE
           page = 1;
 
-
-
-
-
 -- # 8. 등록한 상품 정보 수정하기 페이지에 보여줄 내용
 SELECT
     c.cate_top,
@@ -168,12 +164,66 @@ FROM
 
 
 -- #10. 
-CREATE TABLE cart (
-   cart_id           NUMBER(20)   NOT NULL,
-   member_id       VARCHAR2(30)   NOT NULL,
-   item_id           NUMBER(20)   NOT NULL,
-   cart_amount       NUMBER(20)   NULL
-);
+SELECT
+    COUNT(*) count
+FROM
+    item
+WHERE
+    item_name LIKE '%상품%'
+	and item_sell_status LIKE 'sell'
+order by item_id DESC;
+
+
+-- #11. 카테고리로 상품 리스트 검색
+        SELECT
+			cate_code,
+			cate_top,
+			item_id,
+			item_name,
+			item_price,
+			item_detail,
+			item_sell_status
+		FROM
+			(
+            SELECT
+            CEIL(ROWNUM / 3) page,
+            cate_code,
+			cate_top,
+			item_id,
+			item_name,
+			item_price,
+			item_detail,
+			item_sell_status
+            FROM
+                (
+                SELECT
+                c.cate_code,
+                c.cate_top,
+                i.item_id,
+                i.item_name,
+                i.item_price,
+                i.item_detail,
+                i.item_sell_status
+                    FROM category c            
+                    INNER JOIN item i 
+                    ON c.cate_code = i.cate_code
+		WHERE
+			cate_top = 'living' and item_sell_status = 'sell'
+              )
+            )
+        where page = 1
+		ORDER BY item_id DESC;
+
+
+
+
+
+
+
+
+
+
+
 
 
 

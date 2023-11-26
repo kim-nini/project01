@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping("/itemqna")
+@RequestMapping("/grrreung/itemqna")
 @RequiredArgsConstructor
 @Controller
 public class ItemQnaController {
@@ -55,14 +55,14 @@ public class ItemQnaController {
    //  게시글 등록 겟매핑 -> 게시글 등록 화면으로 넘어감
     @GetMapping("/create")
     public String form(){
-        return "qna-write";
+        return "qna-cont";
     }
 
     // 포스트 매핑 -> 게시글 등록에서 submit 버튼 클릭시 작동 -> 리스트화 면으로 넘어감
     @PostMapping("/create")
     public String posting(@ModelAttribute("itemQna")ItemQna itemQna){
         itemQnaService.posting(itemQna);
-        return "redirect:/itemqna";
+        return "redirect:/grrreung/itemqna";
     }
 
     // 상세보기 겟매핑

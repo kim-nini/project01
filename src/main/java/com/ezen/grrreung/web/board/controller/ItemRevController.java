@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping("/itemrev")
+@RequestMapping("/grrreung/itemrev")
 @RequiredArgsConstructor
 @Controller
 public class ItemRevController {
@@ -55,13 +55,15 @@ public class ItemRevController {
     
     // 게시글 등록 겟매핑 -> 게시글 등록 화면으로 넘어감
     @GetMapping("/create")
-    public String form(){ return "/grrreung/sub/rev-write"; }
+    public String form(){
+        return "/grrreung/sub/rev-write";
+    }
 
     // 포스트매핑 -> 게시글 등록에서 submit 버튼 클릭시 작동 -> 리스트화면으로 넘어감
     @PostMapping("/create")
     public String posting(@ModelAttribute("itemRev") ItemRev itemRev){
         itemRevService.posting(itemRev);
-        return "redirect:/itemrev";
+        return "redirect:/grrreung/itemrev";
     }
 
     // 상세보기 겟매핑

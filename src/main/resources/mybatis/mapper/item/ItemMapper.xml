@@ -23,21 +23,47 @@
 	</select>
 
 	<!-- 카테고리(버튼사용)로 상품 검색하기 -->
-	<select id="findByCategory" parameterType="string" resultType="Item">
+	<select id="findByCategory" parameterType="RequestParams" resultType="Item">
 		SELECT
-			c.cate_code,
-			c.cate_top,
-			i.item_id,
-			i.item_name,
-			i.item_price,
-			i.item_detail,
-			i.item_sell_status
+			cate_code,
+			cate_top,
+			item_id,
+			item_name,
+			item_price,
+			item_detail,
+			item_sell_status
 		FROM
-			category c
-				INNER JOIN item i ON c.cate_code = i.cate_code
+			(
+				SELECT
+					CEIL(ROWNUM / #{elementSize}) page,
+					cate_code,
+					cate_top,
+					item_id,
+					item_name,
+					item_price,
+					item_detail,
+					item_sell_status
+				FROM
+					(
+						SELECT
+							c.cate_code,
+							c.cate_top,
+							i.item_id,
+							i.item_name,
+							i.item_price,
+							i.item_detail,
+							i.item_sell_status
+						FROM category c
+							 	INNER JOIN item i
+						 		ON c.cate_code = i.cate_code
+						WHERE
+							cate_top = #{search}
+						  	and item_sell_status = 'sell'
+					)
+			)
 		WHERE
-			cate_top = #{cateTop} and item_sell_status = 'sell'
-		ORDER BY item_id DESC
+			page = #{requestPage}
+		ORDER BY item_id ASC
 	</select>
 
 	<!-- 상품 이미지중 대표사진 *썸네일* 검색 -->
@@ -109,50 +135,52 @@
 	<!-- 요청 파라미터 값에 따른 아이템 목록 => 상품명으로 검색하기 -->
 	<select id="findByParams" parameterType="RequestParams" resultType="Item">
 		SELECT
-		item_id,
-		item_name,
-		item_price
-		FROM
-		(
-		SELECT
-		ceil(ROWNUM / #{elementSize}) page,
-		item_id,
-		item_name,
-		item_price
-		FROM
-		(
-		SELECT
-		item_id,
-		item_name,
-		item_price
-		FROM
-		item
+			item_id,
+			item_name,
+			item_price
+			FROM
+				(
+				SELECT
+				ceil(ROWNUM / #{elementSize}) page,
+				item_id,
+				item_name,
+				item_price
+			FROM
+				(
+				SELECT
+				item_id,
+				item_name,
+				item_price
+					FROM
+					item
 		<where>
-			<if test="search != null">item_name LIKE '%'||#{search}||'%' and</if>
+			<if test="search != null">
+		    	item_name LIKE '%'||#{search}||'%' and
+			</if>
 			item_sell_status = 'sell'
 		</where>
-		)
-		)
+					)
+				)
 		WHERE
 		page = #{requestPage}
+		ORDER BY item_id ASC
 	</select>
 
 
 	<!-- 요청 파라미터에 해당하는 상품 개수 -->
 	<select id="countByParams" parameterType="RequestParams" resultType="int">
 		SELECT
-		COUNT(*) count
+			COUNT(*) count
 		FROM
-		item
+			item
 		<where>
 			<if test="search != null">
-				item_name LIKE '%'||#{search}||'%'
+				item_name LIKE '%'||#{search}||'%' and
 			</if>
+				item_sell_status LIKE 'sell'
 		</where>
 	</select>
 
-
-	<!-- 상품등록하기 ********************************************************************** -->
 
 
 	<!-- 상품 등록하기 -->

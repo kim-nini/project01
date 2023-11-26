@@ -3,7 +3,7 @@ package com.ezen.grrreung.domain.item.mapper;
 import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
-import com.ezen.grrreung.web.common.page.RequestParams;
+import com.ezen.grrreung.web.common.RequestParams;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,7 +23,7 @@ public interface ItemMapper {
     public Item findByItemId(int itemId);
 
     // 카테고리로 상품 조회
-    public List<Item> findByCategory(String cateTop);
+    public List<Item> findByCategory(RequestParams params);
 
     // 검색 타입별 item 검색
     public List<Item> findBySearchType(@Param("type") String type, @Param("value") String value);

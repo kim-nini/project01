@@ -3,7 +3,7 @@
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
 <th:block th:fragment="shopTitleFragment(title)">
-    <section class="bg-white py-8 notice">
+    <section class="bg-white py-8 notice firstPosition">
         <div class="container mx-auto items-center flex-wrap pt-4 pb-12">
 
             <!-- /* 페이지 내부 서브 타이틀 */ -->
@@ -12,9 +12,9 @@
             <div class="w-full container mx-auto mt-0 px-2 py-3 ">
                 <div class="category-button button_wrap flex itmes-center">
                     <a href="/grrreung/shop">ALL</a>
-                    <a th:href="@{/grrreung/shop/{cateTop}(cateTop='living')}">LIVING</a>
-                    <a th:href="@{/grrreung/shop/{cateTop}(cateTop='walking')}">WALKING</a>
-                    <a th:href="@{/grrreung/shop/{cateTop}(cateTop='food')}">FOOD</a>
+                    <a th:href="@{/grrreung/shop(cateTop='living')}">LIVING</a>
+                    <a th:href="@{/grrreung/shop(cateTop='walking')}">WALKING</a>
+                    <a th:href="@{/grrreung/shop(cateTop='food')}">FOOD</a>
                 </div>
             </div>
         </div>

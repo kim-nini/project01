@@ -4,7 +4,7 @@ import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.mapper.ItemMapper;
-import com.ezen.grrreung.web.common.page.RequestParams;
+import com.ezen.grrreung.web.common.RequestParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +27,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> findByCate(String cateTop) {
-        return itemMapper.findByCategory(cateTop);
+    public List<Item> findByCate(RequestParams params) {
+        return itemMapper.findByCategory(params);
     }
 
 
@@ -68,7 +68,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public int countByParams(RequestParams params) {
+    public int countBySearchValue(RequestParams params) {
         return itemMapper.countByParams(params);
     }
 

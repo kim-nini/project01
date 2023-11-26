@@ -17,8 +17,8 @@
                         <ul class="cart_list">
                             <li>
                                 <div class="checkbox">
-                                    <input type="checkbox" name="all_chk" id="all_chk">
-                                    <label for="all_chk">전체선택</label>
+                                    <input type="checkbox" name="all_chk" id="all_chk" >
+                                    <label for="all_chk" >전체선택</label>
                                 </div>
                                 <div class="del_btn">삭제 (<span class="num">0</span>)</div>
                             </li>
@@ -40,14 +40,14 @@
                                     <div class="price_btn">
 
                                         <!-- 1개의 상품가격 -->
-                                        <input class="itemPrice" style="display: none;" th:value="${map.ITEM_PRICE}" th:data-item="${map.ITEM_PRICE}">
+                                        <input id="itemPrice" class="itemPrice" style="display: none;" th:value="${map.ITEM_PRICE}" th:data-item="${map.ITEM_PRICE}">
 
                                         <input type="button" value="-" class="minus_btn">
-                                            <input type="text" th:value="${map.CART_AMOUNT}" class="number" readonly>
-                                        <input type="button" value="+" class="plus_btn">
+                                            <input type="text" th:value="${map.CART_AMOUNT}" id="count" class="number" readonly>
+                                        <input type="button" value="+" class="plus_btn" >
                                     </div>
                                     <div class="total_p">
-                                        <strong class="price_amount" th:text="|${map.ITEM_PRICE * map.CART_AMOUNT}원|"></strong>
+                                        <strong class="price_amount" th:text="|${#numbers.formatInteger((map.ITEM_PRICE * map.CART_AMOUNT), 0 , 'COMMA')}원|"></strong>
                                         <span class="del_li_btn"><img src="https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/btn_del_circle.svg"></span>
                                     </div>
                                 </div>
@@ -56,8 +56,6 @@
 
                         <!-- 장바구니 총 결제 금액 -->
                         <div class="cart_total_area">
-
-
 
                             <p>결제 정보</p>
                             <div class="cart_total_price">

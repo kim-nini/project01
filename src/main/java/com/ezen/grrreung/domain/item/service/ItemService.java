@@ -3,7 +3,7 @@ package com.ezen.grrreung.domain.item.service;
 import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
-import com.ezen.grrreung.web.common.page.RequestParams;
+import com.ezen.grrreung.web.common.RequestParams;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ public interface ItemService {
     public List<Item> allItems();
 
     // 카테고리로 조회
-    public List<Item> findByCate(String cateTop);
+    public List<Item> findByCate(RequestParams params);
 
     // item 1개 조회
     public Item findByItemId(int itemId);
@@ -42,7 +42,7 @@ public interface ItemService {
     public List<Item> searchItem(RequestParams params);
 
    // 요청 파라미터에 해당하는 상품 개수
-    public int countByParams(RequestParams params);
+    public int countBySearchValue(RequestParams params);
 
 
 //--------------------------------------------------------------------------------------------------------

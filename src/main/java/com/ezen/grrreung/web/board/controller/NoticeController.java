@@ -1,6 +1,5 @@
 package com.ezen.grrreung.web.board.controller;
 
-import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.service.NoticeService;
 import com.ezen.grrreung.web.common.Pagination;
@@ -11,11 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@RequestMapping("/notice")
+
+@RequestMapping("/grrreung/notice")
 @RequiredArgsConstructor
 @Controller
 @Slf4j
@@ -68,7 +66,7 @@ public class NoticeController {
     @PostMapping("/create")
     public String posting(@ModelAttribute("notice")Notice notice){
         noticeService.posting(notice);
-        return "redirect:/notice";
+        return "redirect:/grrreung/notice";
     }
 
     // 상세보기 겟매핑

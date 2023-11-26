@@ -32,7 +32,7 @@ table {
 }
 
 section.notice {
-  padding: 80px 0 0 0;
+  padding: 100px 0 0 0;
 }
 
 .page-title {
@@ -82,7 +82,7 @@ section.notice {
 
 .board-table {
   font-size: 13px;
-  width: 900px;
+  width: 100%;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
@@ -186,30 +186,30 @@ body {
   padding: 0;
 }
 
-/* Header Styles */
-header {
-  background-color: #FFC924;
-  color: #373737;
-  padding: 10px;
-  text-align: center;
-}
+/*!* Header Styles *!*/
+/*header {*/
+/*  background-color: #FFC924;*/
+/*  color: #373737;*/
+/*  padding: 10px;*/
+/*  text-align: center;*/
+/*}*/
 
 /* Body Styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #fff;
-  color: #373737;
-  margin: 0;
-  padding: 0;
-}
+/*body {*/
+/*  font-family: Arial, sans-serif;*/
+/*  background-color: #fff;*/
+/*  color: #373737;*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*}*/
 
-/* Header Styles */
-header {
-  background-color: #FFC924;
-  color: #373737;
-  padding: 10px;
-  text-align: center;
-}
+/*!* Header Styles *!*/
+/*header {*/
+/*  background-color: #FFC924;*/
+/*  color: #373737;*/
+/*  padding: 10px;*/
+/*  text-align: center;*/
+/*}*/
 
 
 /* Pagination Styles */
