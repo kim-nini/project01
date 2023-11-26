@@ -1,6 +1,5 @@
 package com.ezen.grrreung.web.board.controller;
 
-import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.service.NoticeService;
 import com.ezen.grrreung.web.common.Pagination;
@@ -11,11 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@RequestMapping("/notice")
+
+@RequestMapping("/grrreung/notice")
 @RequiredArgsConstructor
 @Controller
 @Slf4j
@@ -51,7 +49,7 @@ public class NoticeController {
         
         
         model.addAttribute("params", params); // 요청 파라메터
-        model.addAttribute("pagination", pagination); // 페이징 계산 결과
+        model.addAttribute("pagination2", pagination); // 페이징 계산 결과
         model.addAttribute("list",list); // db 리스트
         
         return "/grrreung/sub/notice";

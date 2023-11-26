@@ -4,7 +4,7 @@ import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.mapper.ItemMapper;
-import com.ezen.grrreung.web.common.page.RequestParams;
+import com.ezen.grrreung.web.common.RequestParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,15 +4,14 @@ import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
 import com.ezen.grrreung.domain.item.mapper.ItemMapper;
-import com.ezen.grrreung.web.common.page.Pagination;
-import com.ezen.grrreung.web.common.page.RequestParams;
+import com.ezen.grrreung.web.common.Pagination;
+import com.ezen.grrreung.web.common.RequestParams;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @SpringBootTest

@@ -78,25 +78,25 @@
 
         <!-- 페이지 번호 출력할곳 **************************************************** -->
 
-        <div class="pagination p12" >
+        <div class="pagination2 p12" >
             <ul>
-<!--                <li><a th:text="Previous" th:if="${pagination.isShowFirst}" href="#">Previous</a></li>-->
+<!--                <li><a th:text="Previous" th:if="${pagination2.isShowFirst}" href="#">Previous</a></li>-->
 
-<!--                <li th:each="pagination : ${pagination}">-->
-                <li th:each="pagination : ${pagination}">
-                    <a th:text="${pagination.startPage}" href="#"></a>
+<!--                <li th:each="pagination2 : ${pagination2}">-->
+                <li th:each="pagination2 : ${pagination2}">
+                    <a th:text="${pagination2.startPage}" href="#"></a>
                 </li>
                 <li>
-                    <a th:text="${pagination.totalPages}" href="#"></a>
+                    <a th:text="${pagination2.totalPages}" href="#"></a>
                 </li>
                 <li>
-                    <a th:text="${pagination.endPage}" href="#"></a>
+                    <a th:text="${pagination2.endPage}" href="#"></a>
                 </li>
                 <li>
-                    <a th:text="${pagination.totalPages}" href="#"></a>
+                    <a th:text="${pagination2.totalPages}" href="#"></a>
                 </li>
 
-<!--                <li th:if="${pagination.isShowLast()}"><a th:text="Next"  href="#">Next</a></li>-->
+<!--                <li th:if="${pagination2.isShowLast()}"><a th:text="Next"  href="#">Next</a></li>-->
             </ul>
         </div>
 

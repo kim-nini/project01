@@ -3,7 +3,7 @@ package com.ezen.grrreung.domain.item.mapper;
 import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
-import com.ezen.grrreung.web.common.page.RequestParams;
+import com.ezen.grrreung.web.common.RequestParams;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

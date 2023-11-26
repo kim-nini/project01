@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping("/itemrev")
+@RequestMapping("/grrreung/itemrev")
 @RequiredArgsConstructor
 @Controller
 public class ItemRevController {

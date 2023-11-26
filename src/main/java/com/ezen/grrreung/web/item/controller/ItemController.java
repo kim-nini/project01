@@ -4,9 +4,9 @@ import com.ezen.grrreung.domain.item.dto.*;
 import com.ezen.grrreung.domain.item.service.ItemService;
 import com.ezen.grrreung.domain.member.dto.Member;
 import com.ezen.grrreung.domain.member.service.MemberService;
+import com.ezen.grrreung.web.common.Pagination;
+import com.ezen.grrreung.web.common.RequestParams;
 import com.ezen.grrreung.web.common.page.FileStore;
-import com.ezen.grrreung.web.common.page.Pagination;
-import com.ezen.grrreung.web.common.page.RequestParams;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -48,13 +48,16 @@ public class ItemController {
     public String homeItemList(HttpServletRequest request, Model model){
         // #1) 로그인정보
         HttpSession session = request.getSession();
-        Member loginMember = (Member) session.getAttribute("loginMember");
+//        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member findMember = memberService.login("ddalang", "1111");
 
-        // 로그인한 사용자 정보가 세션에 있는 경우
-        if (loginMember != null) {
-            model.addAttribute("loggedIn", true);
-            model.addAttribute("loginMember", loginMember);
-        }
+        session.setAttribute("loginMember", findMember);
+
+//        // 로그인한 사용자 정보가 세션에 있는 경우
+//        if (loginMember != null) {
+//            model.addAttribute("loggedIn", true);
+//            model.addAttribute("loginMember", loginMember);
+//        }
 
 
         // #2) 아이템 정보
@@ -75,11 +78,11 @@ public class ItemController {
         int totalElement = itemService.countByParams(params);
         log.info(" *** 검색 개수 : {} ", totalElement);
 
-        Pagination pagination = new Pagination(params, totalElement);
-        log.info(" *** 첫페이지 : {}",pagination.getStartPage());
-        log.info(" *** 끝페이지 : {}",pagination.getEndPage());
-        log.info(" ***** pagination : {}", pagination);
-        model.addAttribute("pagination", pagination);
+        Pagination pagination2 = new Pagination(params, totalElement);
+        log.info(" *** 첫페이지 : {}", pagination2.getStartPage());
+        log.info(" *** 끝페이지 : {}", pagination2.getEndPage());
+        log.info(" ***** pagination : {}", pagination2);
+        model.addAttribute("pagination", pagination2);
 
         return "/grrreung/sub/shop";
     }
@@ -101,8 +104,8 @@ public class ItemController {
         log.info(" *** 검색 개수 : {} ", totalElement);
 
         Pagination pagination = new Pagination(params, totalElement);
-        log.info(" *** 첫페이지 : {}",pagination.getStartPage());
-        log.info(" *** 끝페이지 : {}",pagination.getEndPage());
+        log.info(" *** 첫페이지 : {}", pagination.getStartPage());
+        log.info(" *** 끝페이지 : {}", pagination.getEndPage());
         log.info(" ***** pagination : {}", pagination);
         model.addAttribute("pagination", pagination);
 
