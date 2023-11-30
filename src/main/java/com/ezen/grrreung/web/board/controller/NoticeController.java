@@ -28,13 +28,14 @@ public class NoticeController {
     public String postList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                            @RequestParam(value = "search", required = false, defaultValue = "") String search,
                            Model model){
+
         // 페이징 처리와 관련된 변수
         int elementSize = 5; // 화면에 보여지는 행의 갯수
         int pageSize = 3;     // 화면에 보여지는 페이지 갯수
 
         // 여러개의 요청 파라메터 정보 저장
         RequestParams params = new RequestParams(page, elementSize, pageSize, search);
-
+        log.info("page 값 : {}", params.getRequestPage());
         // 페이징처리 값 테이블의 전체 갯수
         int selectCount = noticeService.postListCount(params);
         
@@ -49,7 +50,7 @@ public class NoticeController {
         
         
         model.addAttribute("params", params); // 요청 파라메터
-        model.addAttribute("pagination2", pagination); // 페이징 계산 결과
+        model.addAttribute("pagination", pagination); // 페이징 계산 결과
         model.addAttribute("list",list); // db 리스트
         
         return "/grrreung/sub/notice";
