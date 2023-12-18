@@ -47,21 +47,7 @@ public class ItemController {
     // 홈화면
     @RequestMapping("")
     public String homeItemList(HttpServletRequest request, Model model){
-        // #1) 로그인정보
-        HttpSession session = request.getSession();
-        // 계속 로그인 상태로 가정하고 작업하기 위해 임시값 지정
-        Member findMember = memberService.login("ddalang", "1111"); 
-//        Member loginMember = (Member) session.getAttribute("loginMember");
-
-        session.setAttribute("loginMember", findMember);
-
-//        // 로그인한 사용자 정보가 세션에 있는 경우
-//        if (loginMember != null) {
-//            model.addAttribute("loggedIn", true);
-//            model.addAttribute("loginMember", loginMember);
-//        }
-
-        // #2) 아이템 정보
+        //  아이템 정보
         List<Item> list = itemService.allItems();
         model.addAttribute("item", list);
         return "/grrreung/index";

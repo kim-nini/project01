@@ -31,20 +31,18 @@ public class MemberController {
      */
     @PostMapping("/login")
     public String login(Member member, HttpServletRequest request, Model model) {
-        Member findMember = memberService.login("ddalang", "1111");
+        Member loginMember = memberService.login(member.getMemberId(),member.getPassword());
         HttpSession session = request.getSession();
 
-        session.setAttribute("loginMember", findMember);
+        session.setAttribute("loginMember", loginMember);
+        // 로그인한 사용자 정보가 세션에 있는 경우
+        if (loginMember != null) {
+            model.addAttribute("loggedIn", true);
+            model.addAttribute("loginMember", loginMember);
+        }
+
         return "redirect:/grrreung";
 
-//        if (findMember != null) {
-//            session.setAttribute("loginMember", findMember);
-//            return "redirect:/grrreung";
-//        } else {
-//
-//            model.addAttribute("loginResult", false);
-//            return "grrreung/sub/login";
-//        }
     }
 
     /**
@@ -128,9 +126,9 @@ public class MemberController {
      * 마이페이지 수정 처리
      */
     @PostMapping("/update")
-    public String update(@ModelAttribute Member member) {
+    public String update(@ModelAttribute Member member, Model model) {
         memberService.updateInfo(member);
-        return "redirect:/grreung/mypage/{memberId}";
+        return "redirect:/grrreung/mypage/{memberId}";
     }
 
 
