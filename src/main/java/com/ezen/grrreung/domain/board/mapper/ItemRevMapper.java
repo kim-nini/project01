@@ -6,6 +6,7 @@ import com.ezen.grrreung.web.common.RequestParams;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ItemRevMapper {
@@ -30,4 +31,13 @@ public interface ItemRevMapper {
 
     // 조회수
     public void hitCountUpdate(int revCode);
+
+    // 상품이름으로 상품코드itemId 가져오기
+    public int getItemId(String itemName);
+
+    // 구매 수량 조회
+    public int numberOfPurchases(Map<String, Object> map);
+
+    // 아이템별 작성된 후기 갯수
+    public int writtenPost(ItemRev itemRev);
 }

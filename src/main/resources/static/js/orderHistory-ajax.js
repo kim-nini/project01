@@ -80,7 +80,7 @@ async function orderHistory(event) {
         const titleDiv = document.createElement('div');
         titleDiv.classList.add('title');
         titleDiv.id = 'order-id';
-        titleDiv.tagName ='orderId'
+        titleDiv.tagName = 'orderId'
         titleDiv.textContent = `주문번호: ${orderId}`
 
         const itemCountDiv = document.createElement('div');
@@ -144,11 +144,11 @@ async function orderHistory(event) {
             const orderPrice = Number(order.ORDER_PRICE).toLocaleString() + '원';
             const orderStatus = order.ORDER_STATUS;
             const orderId = order.ORDER_ID;
+
             const itemWrapperDiv = itemContent(itemName, orderAmount, orderPrice, orderStatus, orderId);
             // console.log(`ITEM_NAME: ${itemName}, ORDER_AMOUNT: ${orderAmount}, ORDER_PRICE: ${orderPrice}, ORDER_STATUS: ${orderStatus}`);
             accordianContent.appendChild(itemWrapperDiv);
         }
-
 
 
         accordianItem.appendChild(accordianContent);
@@ -191,7 +191,6 @@ async function orderHistory(event) {
 
         return wrapperDiv;
 
-
     }
 
 
@@ -200,9 +199,7 @@ async function orderHistory(event) {
         tClass = tClass.replace(/\s/g, "");
 
         var classes = element.className;
-        element.className = classes.indexOf(tClass) !== -1
-            ? classes.replace(" " + tClass, "")
-            : classes + " " + tClass;
+        element.className = classes.indexOf(tClass) !== -1 ? classes.replace(" " + tClass, "") : classes + " " + tClass;
     }
 
 
@@ -217,32 +214,14 @@ async function orderHistory(event) {
     }
 
 
-    // // 후기작성 처리
-    // $(document).ready(function() {
-    //     $('#item-review').on('click', function(e) {
-    //         e.preventDefault(); // 기본 동작 방지 (페이지 이동 등)
-    //
-    //         // AJAX 요청
-    //         $.ajax({
-    //             url: `/itemrev/create/${name}/${orderId}`, // 서버의 매핑 경로
-    //             type: 'GET',
-    //             success: function(data) {
-    //                 // 성공 시 처리
-    //                 alert('이미 작성된 후기입니다.');
-    //             },
-    //             error: function() {
-    //                 // 오류 시 처리
-    //                 $('#result').text('오류 발생');
-    //             }
-    //         });
-    //     });
-    // });
+
+
 
 }
 
 
 // 아이템 출력 함수 생성
-function itemContent(name, amount, price, status, orderId) {
+function itemContent(name, amount, price, orderStatus, orderId) {
     const itemWrapperDiv = document.createElement('div');
     itemWrapperDiv.classList.add('item-wrapper');
 
@@ -288,14 +267,17 @@ function itemContent(name, amount, price, status, orderId) {
     const returnsDiv = document.createElement('div');
     returnsDiv.classList.add('returns');
     returnsDiv.id = 'order-status-value';
-    returnsDiv.textContent = status;
+    returnsDiv.textContent = orderStatus;
 
     // <a> 태그 생성
     const anchorTag = document.createElement('a');
-    anchorTag.href = '#';  // 원하는 링크 주소 설정
+    anchorTag.href = 'javascript:void(0)';
     anchorTag.id = 'item-review';
+    anchorTag.onclick = function(){
+
+        writeReview(name, orderId);};
     anchorTag.textContent = '후기 작성';
-    anchorTag.href = `/itemrev/create/${name}/${orderId}`;
+    // anchorTag.href = `/itemrev/create/${name}/${orderId}`;
 
 
     // <a> 태그를 returnsDiv에 추가
@@ -308,6 +290,33 @@ function itemContent(name, amount, price, status, orderId) {
 
     return itemWrapperDiv;
 }
+
+// ajax
+function writeReview(name, orderId) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', `/itemrev/create/${name}/${orderId}`, true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+
+            // 서버에서의 응답을 기반으로 동적으로 버튼 변경
+            if (response.status === 'success') {
+                document.getElementById('item-review').textContent = '상품 후기 수정';
+            } else {
+                document.getElementById('item-review').textContent = '상품 후기 작성';
+                document.getElementById('item-review').setAttribute('href', `/itemrev/create/${encodeURIComponent(name)}`);
+
+
+
+            }
+        }
+    };
+
+    xhr.send();
+}
+
 
 
 // db에서 주문내역 리스트 불러오기
@@ -324,3 +333,8 @@ function formatDateTime(dateTimeString) {
     const formattedDateTime = dateTimeString.replace(/T|(\.\d{3})|(\+\d{2}:\d{2})/g, ' ');
     return formattedDateTime;
 }
+
+
+
+
+

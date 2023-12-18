@@ -13,11 +13,11 @@
 			rev_cont,
 			member_id
 		) VALUES (
-					 item_rev_no_seq.NEXTVAL,
-					 111111,
+					 item_rev_seq.NEXTVAL,
+					 #{itemId},
 					 #{revTitle},
 					 #{revCont},
-					 '멤버아이디'
+					 #{memberId}
 				 )
 	</insert>
 
@@ -52,7 +52,7 @@
 			<if test="search != null">
 				rev_title LIKE '%' || #{search} || '%'
 				OR rev_code LIKE '%' || #{search} || '%'
-				OR member_id LIKE '%' || #{search} || '%'
+				OR member_id = #{search}
 			</if>
 		</where>
 		ORDER BY
@@ -87,6 +87,42 @@
 		FROM item_rev
 		WHERE rev_code = #{revCode}
 	</select>
-	
+
+<!--	상품명으로 상품코드 가져오기-->
+	<select id="getItemId" parameterType="string" resultType="int">
+		SELECT
+			item_id
+		FROM
+			item
+		WHERE
+			item_name = #{itemName}
+	</select>
+
+<!--	구매 수량 조회하기-->
+	<select id="numberOfPurchases" parameterType="map" resultType="int">
+		SELECT
+			oi.order_amount
+		FROM
+			order_gr og
+				JOIN member     m ON og.member_id = m.member_id
+				JOIN order_item oi ON og.order_id = oi.order_id
+		WHERE
+			og.member_id = #{memberId, jdbcType=VARCHAR}
+		  AND og.order_id = #{orderId, jdbcType=INTEGER}
+		  AND oi.order_item_id = #{itemId, jdbcType=INTEGER}
+
+	</select>
+
+<!--	아이템 별 작성된 후기 갯수-->
+	<select id="writtenPost" parameterType="ItemRev" resultType="int">
+		SELECT
+			COUNT(*) cnt
+		FROM
+			item_rev
+		WHERE
+			item_id = #{itemId}
+		  And
+			member_id =#{memberId}
+	</select>
 </mapper>
 
