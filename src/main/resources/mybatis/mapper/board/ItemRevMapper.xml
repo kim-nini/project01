@@ -124,5 +124,44 @@
 		  And
 			member_id =#{memberId}
 	</select>
+
+	<!-- 아이템 상세페이지 리뷰목록 조회 - 아이템id -->
+	<select id="itemRevList" parameterType="RequestParams" resultType="ItemRev">
+		SELECT
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		rev_date
+		FROM
+		(
+		SELECT
+		ceil(ROWNUM / #{elementSize})  page,
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		rev_date
+		FROM
+		(
+		SELECT
+		rev_code,
+		rev_title,
+		rev_cont,
+		member_id,
+		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+		FROM
+		item_rev
+		WHERE item_id= #{search}
+		ORDER BY
+		rev_code DESC
+		)
+		)
+		WHERE
+		page = #{requestPage}
+	</select>
+
+
+
 </mapper>
 

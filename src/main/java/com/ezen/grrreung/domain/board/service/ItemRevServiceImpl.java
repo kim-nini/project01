@@ -1,10 +1,8 @@
 package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemRev;
-import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.mapper.ItemRevMapper;
 import com.ezen.grrreung.web.common.RequestParams;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,5 +64,11 @@ public class ItemRevServiceImpl implements ItemRevService{
     public int writtenPost(ItemRev itemRev) {
         return itemRevMapper.writtenPost(itemRev);
     }
+
+    @Override
+    public List<ItemRev> itemReviews(RequestParams params) {
+        return itemRevMapper.itemRevList(params);
+    }
+
 
 }

@@ -41,4 +41,9 @@ public interface ItemRevService {
     // 아이템별 작성된 게시글 수 검색
     public int writtenPost(ItemRev itemRev);
 
+    // 아이템 상세페이지 리뷰목록 조회 - 아이템id
+    public List<ItemRev> itemReviews(RequestParams params);
+
+
+
 }

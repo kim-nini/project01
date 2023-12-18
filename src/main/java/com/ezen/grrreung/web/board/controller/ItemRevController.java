@@ -44,7 +44,6 @@ public class ItemRevController {
 
         log.info("받아온 아이디 : {}", memberId);
         // 여러개의 요청 파라메터 정보 저장
-
         RequestParams params = new RequestParams(page, elementSize, pageSize, search);
 
         // 페이징처리 값 테이블의 전체 갯수

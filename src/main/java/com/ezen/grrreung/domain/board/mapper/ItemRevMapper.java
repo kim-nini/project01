@@ -40,4 +40,7 @@ public interface ItemRevMapper {
 
     // 아이템별 작성된 후기 갯수
     public int writtenPost(ItemRev itemRev);
+
+    // 아이템 상세페이지 리뷰목록 조회 - 아이템id
+    public List<ItemRev> itemRevList(RequestParams params);
 }

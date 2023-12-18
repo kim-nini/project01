@@ -168,65 +168,41 @@
                                               <th scope="col" class="th-title">제목</th>
                                               <th scope="col" class="th-date">작성자</th>
                                               <th scope="col" class="th-date">등록일</th>
-                                              <th scope="col" class="th-date">조회수</th>
                                           </tr>
                                           </thead>
 
                                           <tbody>
                                         <!-- 지연언니한테 리뷰리스트 매핑 받아서 연결하기 -> 반복문 돌려서 리뷰 게시글 리스트 보여줄곳-->
-                                          <tr>
-                                              <td>1</td>
-                                              <th><a href="#!">리뷰제목</a></th>
-                                              <td>작성자</td>
-                                              <td>리뷰 등록일</td>
-                                              <td>0</td>
-                                          </tr>
-
-                                          </tbody>
+                                        <tr th:each="itemRev : ${list}">
+                                            <td th:text="${itemRev.revCode}"></td>
+                                            <!--                          <td th:text="${itemRev.revTitle}"></td>-->
+                                            <td><a th:text="${itemRev.revTitle}" th:href="@{/itemrev/{revCode}(revCode=${itemRev.revCode})}"></a></td>
+                                            <td th:text="${itemRev.memberId}"></td>
+                                            <td th:text="${itemRev.revDate}"></td>
+                                            </tr>
+                                      </tbody>
                                       </table>
+                                      <nav aria-label="Page navigation example">
+                                          <ul class="pagination" style="" >
+                                              <li th:if="${pagination.isShowFirst()}" class="page-item">
+                                                  <a class="page-link" th:href="@{/itemrev(page=1)}">&laquo;</a></li>
+                                              <li th:if="${pagination.isShowPrevious()}" class="page-item">
+                                                  <a class="page-link" th:href="@{/itemrev(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
+                                              <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
+                                                  <a class="page-link" th:href="@{/itemrev(page=${page})}" name="page" th:text="${page}"></a>
+                                              </li>
+                                              <li th:if="${pagination.isShowNext()}" class="page-item">
+                                                  <a class="page-link" th:href="@{/itemrev(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
+                                              <li th:if="${pagination.isShowLast()}" class="page-item">
+                                                  <a class="page-link" th:href="@{/itemrev(page=${pagination.totalPages})}">&raquo;</a></li>
+                                          </ul>
+                                      </nav>
                                   </div>
                               </div>
                               <!-- 게시글이 없을경우 아래-->
 <!--                              <p class="mb-20">리뷰가 존재하지 않습니다 (っ °Д °;)っ</p>-->
 
 
-                                <!-- 리뷰 작성하기 form -->
-<!--                              <form class="review-form">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label>Your rating</label>-->
-<!--                                    <div class="reviews-counter">-->
-<!--                                        <div class="rate">-->
-<!--                                            <input type="radio" id="star5" name="rate" value="5" />-->
-<!--                                            <label for="star5" title="text">5 stars</label>-->
-<!--                                            <input type="radio" id="star4" name="rate" value="4" />-->
-<!--                                            <label for="star4" title="text">4 stars</label>-->
-<!--                                            <input type="radio" id="star3" name="rate" value="3" />-->
-<!--                                            <label for="star3" title="text">3 stars</label>-->
-<!--                                            <input type="radio" id="star2" name="rate" value="2" />-->
-<!--                                            <label for="star2" title="text">2 stars</label>-->
-<!--                                            <input type="radio" id="star1" name="rate" value="1" />-->
-<!--                                            <label for="star1" title="text">1 star</label>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label>Your message</label>-->
-<!--                                    <textarea class="form-control" rows="10"></textarea>-->
-<!--                                </div>-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-md-6">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <input type="text" name="" class="form-control" placeholder="Name*">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-md-6">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <input type="text" name="" class="form-control" placeholder="Email Id*">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <button class="round-black-btn">Submit Review</button>-->
-<!--                            </form>-->
                           </div>
                     </div>
                 </div>

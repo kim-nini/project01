@@ -1763,6 +1763,20 @@ INSERT INTO item_rev (
     'member001'
 );
 
+INSERT INTO item_rev (
+    rev_code,
+    item_id,
+    rev_title,
+    rev_cont,
+    member_id
+) VALUES (
+    item_rev_seq.NEXTVAL,
+    12,
+    'Great product',
+    '내용이 들어간당',
+    'ddalang'
+);
+
 -- Insert data into item_qna_re table
 INSERT INTO item_qna_re (
     re_code,

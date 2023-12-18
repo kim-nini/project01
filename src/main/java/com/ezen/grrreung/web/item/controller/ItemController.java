@@ -1,6 +1,7 @@
 package com.ezen.grrreung.web.item.controller;
 
 import com.ezen.grrreung.domain.board.dto.ItemRev;
+import com.ezen.grrreung.domain.board.service.ItemRevService;
 import com.ezen.grrreung.domain.item.dto.*;
 import com.ezen.grrreung.domain.item.service.ItemService;
 import com.ezen.grrreung.domain.member.dto.Member;
@@ -36,8 +37,8 @@ import java.util.*;
 @Slf4j
 public class ItemController {
 
-    private final MemberService memberService;
     private final ItemService itemService;
+    private final ItemRevService itemRevService;
 
     @Value("${file.dir}")
     private String location;
@@ -47,21 +48,7 @@ public class ItemController {
     // 홈화면
     @RequestMapping("")
     public String homeItemList(HttpServletRequest request, Model model){
-        // #1) 로그인정보
-        HttpSession session = request.getSession();
-        // 계속 로그인 상태로 가정하고 작업하기 위해 임시값 지정
-        Member findMember = memberService.login("ddalang", "1111"); 
-//        Member loginMember = (Member) session.getAttribute("loginMember");
-
-        session.setAttribute("loginMember", findMember);
-
-//        // 로그인한 사용자 정보가 세션에 있는 경우
-//        if (loginMember != null) {
-//            model.addAttribute("loggedIn", true);
-//            model.addAttribute("loginMember", loginMember);
-//        }
-
-        // #2) 아이템 정보
+        // 아이템 정보
         List<Item> list = itemService.allItems();
         model.addAttribute("item", list);
         return "/grrreung/index";
@@ -126,7 +113,9 @@ public class ItemController {
 
     // 아이템 아이디로 상품 한개 상세정보
     @RequestMapping("/shop/item/{itemId}")
-    public String itemInfo(@PathVariable("itemId")int itemId, Model model){
+    public String itemInfo(@PathVariable("itemId") int itemId,
+                           @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                           Model model){
         Item item = itemService.findByItemId(itemId);
         log.info("아이템 상세정보 : {}", item.toString());
 
@@ -138,6 +127,30 @@ public class ItemController {
         model.addAttribute("item", item);
         model.addAttribute("imgFiles", imgFiles);
         model.addAttribute("itemDescription", itemDescription);
+
+        // 리뷰 리스트 출력하기
+        // 페이징 처리와 관련된 변수
+
+        int elementSize = 5; // 화면에 보여지는 행의 갯수
+        int pageSize = 3;     // 화면에 보여지는 페이지 갯수
+        String search = Integer.toString(itemId);
+        // 여러개의 요청 파라메터 정보 저장
+        RequestParams params = new RequestParams(page, elementSize, pageSize, search);
+        // 페이징처리 값 테이블의 전체 갯수
+        int selectCount = itemRevService.postListCount(params);
+        log.info("selectCount: {}",selectCount);
+
+        // params : 사용자가 선택한 페이지번호 , 검색값 여부
+        // 페이징 처리 계산 유틸리티 활용
+        Pagination pagination = new Pagination(params, selectCount);
+        if (pagination.getEndPage() == 0) {
+            pagination.setEndPage(1);
+        }
+        List<ItemRev> list = itemRevService.itemReviews(params);
+
+        model.addAttribute("params", params); // 요청 파라메터
+        model.addAttribute("pagination", pagination); // 페이징 계산 결과
+        model.addAttribute("list",list); // db 리스트
         return "/grrreung/sub/item";
     }
 
