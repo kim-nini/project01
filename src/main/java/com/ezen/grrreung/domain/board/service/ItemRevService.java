@@ -2,7 +2,7 @@ package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.dto.Notice;
-import com.ezen.grrreung.domain.item.dto.item;
+import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.web.common.RequestParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
