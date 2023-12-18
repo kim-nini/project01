@@ -31,17 +31,19 @@ public class MemberController {
      */
     @PostMapping("/login")
     public String login(Member member, HttpServletRequest request, Model model) {
-        Member loginMember = memberService.login(member.getMemberId(),member.getPassword());
+        Member loginMember = memberService.login(member.getMemberId(), member.getPassword());
         HttpSession session = request.getSession();
 
-        session.setAttribute("loginMember", loginMember);
         // 로그인한 사용자 정보가 세션에 있는 경우
         if (loginMember != null) {
             model.addAttribute("loggedIn", true);
             model.addAttribute("loginMember", loginMember);
+            session.setAttribute("loginMember", loginMember);
+            return "redirect:/grrreung";
+        } else {
+            session.setAttribute("loginMember", null);
+            return "redirect:/grrreung/login";
         }
-
-        return "redirect:/grrreung";
 
     }
 
@@ -126,9 +128,9 @@ public class MemberController {
      * 마이페이지 수정 처리
      */
     @PostMapping("/update")
-    public String update(@ModelAttribute Member member, Model model) {
+    public String update(@ModelAttribute Member member) {
         memberService.updateInfo(member);
-        return "redirect:/grrreung/mypage/{memberId}";
+        return "/grrreung/sub/updateInfo";
     }
 
 
