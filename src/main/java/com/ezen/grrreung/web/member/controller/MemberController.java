@@ -34,6 +34,7 @@ public class MemberController {
         Member loginMember = memberService.login(member.getMemberId(), member.getPassword());
         HttpSession session = request.getSession();
 
+
         // 로그인한 사용자 정보가 세션에 있는 경우
         if (loginMember != null) {
             model.addAttribute("loggedIn", true);

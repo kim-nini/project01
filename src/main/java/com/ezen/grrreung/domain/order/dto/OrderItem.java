@@ -2,6 +2,8 @@ package com.ezen.grrreung.domain.order.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -16,6 +18,8 @@ public class OrderItem {
 	// 주문수량x상품가격-할인가격?
 	private int orderPrice;
 	private int orderAmount;
+
+//	private List<OrderItem> orderItems;
 
 }
 

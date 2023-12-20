@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface ItemRevService {
@@ -30,6 +31,14 @@ public interface ItemRevService {
     // 리뷰 수정
     public void updatePost(ItemRev itemRev);
 
+    // 상품명으로 상품id 가져오기
+    public int getItemId(String itemName);
+
+    // 구매 수량 검색
+    public int numberOfPurchases(Map<String, Object> map);
+
+    // 아이템별 작성된 게시글 수 검색
+    public int writtenPost(ItemRev itemRev);
 
 
 }

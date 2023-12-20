@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -48,5 +49,22 @@ public class ItemRevServiceImpl implements ItemRevService{
     // 리뷰 수정
     @Override
     public void updatePost(ItemRev itemRev) { itemRevMapper.updateByBno(itemRev);  }
+
+    // 상품명으로 상품아이디가져오기
+    @Override
+    public int getItemId(String itemName) {
+        return itemRevMapper.getItemId(itemName);
+    }
+
+    // 구매 수량 조회
+    @Override
+    public int numberOfPurchases(Map<String, Object> map) {
+        return itemRevMapper.numberOfPurchases(map);
+    }
+
+    @Override
+    public int writtenPost(ItemRev itemRev) {
+        return itemRevMapper.writtenPost(itemRev);
+    }
 
 }

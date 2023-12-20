@@ -54,7 +54,7 @@ async function orderHistory(event) {
 		// 주문한 상품의 총 금액
 		const orderPrice = data.map(order => order.ORDER_PRICE_ALL);
 		const totalOrderPrice = orderPrice.reduce((sum, amount) => sum + amount, 0);
-		console.log(`ORDER_ID: ${totalOrderPrice}`);
+		console.log(`totalOrderPrice: ${totalOrderPrice}`);
 
 		// 주문 날짜(정규표현식 사용)
 		const orderDate = data.map(order => order.ORDER_DATE)[0].replace(/T|(\.\d{3})|(\+\d{2}:\d{2})/g, ' ');
@@ -139,13 +139,14 @@ async function orderHistory(event) {
 
 
 		for (const order of data) {
+			const itemId = order.ITEM_ID;
 			const itemName = order.ITEM_NAME;
 			const orderAmount = order.ORDER_AMOUNT;
 			const orderPrice = Number(order.ORDER_PRICE).toLocaleString() + '원';
 			const orderStatus = order.ORDER_STATUS;
 			const orderId = order.ORDER_ID;
-			const itemWrapperDiv = itemContent(itemName, orderAmount, orderPrice, orderStatus, orderId);
-			// console.log(`ITEM_NAME: ${itemName}, ORDER_AMOUNT: ${orderAmount}, ORDER_PRICE: ${orderPrice}, ORDER_STATUS: ${orderStatus}`);
+			const itemWrapperDiv = itemContent(itemName, orderAmount, orderPrice, orderStatus, orderId, itemId);
+			console.log(`ITEM_NAME: ${itemName}, ORDER_AMOUNT: ${orderAmount}, ORDER_PRICE: ${orderPrice}, ORDER_STATUS: ${orderStatus}, ITEM_ID: ${itemId}`);
 			accordianContent.appendChild(itemWrapperDiv);
 		}
 
@@ -173,7 +174,8 @@ async function orderHistory(event) {
 
 		const refDiv = document.createElement('div');
 		refDiv.classList.add('ref');
-		refDiv.textContent = `Ref: ${data.reference}`;
+		// refDiv.textContent = `Ref: ${data.reference}`;
+		refDiv.textContent = '';
 
 		statusDiv.appendChild(successDiv);
 
@@ -217,7 +219,7 @@ async function orderHistory(event) {
 	}
 
 
-	// // 후기작성 처리
+	// 후기작성 처리
 	// $(document).ready(function() {
 	//     $('#item-review').on('click', function(e) {
 	//         e.preventDefault(); // 기본 동작 방지 (페이지 이동 등)
@@ -242,7 +244,7 @@ async function orderHistory(event) {
 
 
 // 아이템 출력 함수 생성
-function itemContent(name, amount, price, status, orderId) {
+function itemContent(name, amount, price, status, orderId, itemId) {
 	const itemWrapperDiv = document.createElement('div');
 	itemWrapperDiv.classList.add('item-wrapper');
 
@@ -250,7 +252,7 @@ function itemContent(name, amount, price, status, orderId) {
 	productDiv.classList.add('product');
 
 	const productImage = document.createElement('img');
-	productImage.src = '../../../../../../upload/item01_image01.png';
+	productImage.src = "/grrreung/thumbnail/"+itemId;
 	productImage.alt = '';
 
 	const productDetailDiv = document.createElement('div');
@@ -258,11 +260,17 @@ function itemContent(name, amount, price, status, orderId) {
 	productDetailDiv.id = 'item-name-value';
 	productDetailDiv.textContent = name;
 
-	const warningDiv = document.createElement('div');
-	warningDiv.classList.add('warning');
-	warningDiv.textContent = '';
+	// const warningDiv = document.createElement('div');
+	// warningDiv.classList.add('warning');
+	// warningDiv.textContent = itemId;
+	//
+	// productDetailDiv.appendChild(warningDiv);
 
-	productDetailDiv.appendChild(warningDiv);
+	const itemIdInput = document.createElement('input');
+	itemIdInput.style = 'display: none';
+	itemIdInput.value = itemId;
+
+	productDetailDiv.appendChild(itemIdInput);
 
 	productDiv.appendChild(productImage);
 	productDiv.appendChild(productDetailDiv);
@@ -295,7 +303,7 @@ function itemContent(name, amount, price, status, orderId) {
 	anchorTag.href = '#';  // 원하는 링크 주소 설정
 	anchorTag.id = 'item-review';
 	anchorTag.textContent = '후기 작성';
-	anchorTag.href = `/itemrev/create/${name}/${orderId}`;
+	anchorTag.href = `/grrreung/itemrev/create/${itemId}/${orderId}`;
 
 
 	// <a> 태그를 returnsDiv에 추가

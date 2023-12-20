@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -23,5 +25,6 @@ public class OrderGr {
 	private String orderAdd;
 	private String orderHp;
 	private String orderPriceAll;
+
 }
 

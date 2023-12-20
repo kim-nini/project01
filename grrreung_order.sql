@@ -152,7 +152,7 @@ FROM
     JOIN order_gr g ON g.order_id = oi.order_id
     LEFT OUTER JOIN item     i ON oi.item_id = i.item_id
 WHERE
-    g.order_id = 10001;
+    g.order_id = 10000;
     
 
 ----
@@ -196,6 +196,7 @@ SELECT
     COUNT(oi.order_item_id)               AS order_item_id,
     SUM(oi.order_price * oi.order_amount) AS order_price_all,
     i.item_name,
+    i.item_id,
     oi.order_amount,
     oi.order_price,
     og.order_status,
@@ -211,6 +212,7 @@ GROUP BY
     og.order_status,
     og.order_date,
     i.item_name,
+    i.item_id,
     oi.order_amount,
     oi.order_price
 ORDER BY
@@ -241,10 +243,10 @@ FROM
     JOIN order_item oi ON og.order_id = oi.order_id
 WHERE
         og.member_id = 'customer1'
-    AND oi.order_item_id = 1
+    AND oi.item_id = 2
     AND og.order_id = 10000;
     
-    
+
 -- 작성된 게시글 수 조회
 SELECT
     COUNT(*) cnt
@@ -254,3 +256,8 @@ WHERE
     item_id = 1
     And
     member_id ='멤버아이디';
+
+
+
+update member set password = 'qwer123456!@' where password = '123456';
+commit;

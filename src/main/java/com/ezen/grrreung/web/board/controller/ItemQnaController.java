@@ -55,7 +55,7 @@ public class ItemQnaController {
    //  게시글 등록 겟매핑 -> 게시글 등록 화면으로 넘어감
     @GetMapping("/create")
     public String form(){
-        return "qna-cont";
+        return "grrreung/sub/qna-write";
     }
 
     // 포스트 매핑 -> 게시글 등록에서 submit 버튼 클릭시 작동 -> 리스트화 면으로 넘어감

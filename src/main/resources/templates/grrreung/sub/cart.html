@@ -47,7 +47,8 @@
                             <input type="button" value="+" class="plus_btn" >
                         </div>
                         <div class="total_p">
-                            <strong class="price_amount" th:text="|${#numbers.formatInteger((map.ITEM_PRICE * map.CART_AMOUNT), 0 , 'COMMA')}원|"></strong>
+<!--                            <strong class="price_amount" th:text="|${#numbers.formatInteger((map.ITEM_PRICE * map.CART_AMOUNT), 0 , 'COMMA')}원|"></strong>-->
+                            <strong class="price_amount" th:text="${#numbers.formatInteger((map.ITEM_PRICE * map.CART_AMOUNT), 0 , 'COMMA')}">원</strong>
                             <span class="del_li_btn"><img src="https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/btn_del_circle.svg"></span>
                         </div>
                     </div>
@@ -69,7 +70,8 @@
 
             <div class="btn_box">
                 <button type="button" onclick="location.href='/grrreung/shop'" class="btn wh-btn">계속 쇼핑하기</button>
-                <button type="button" onclick="location.href='/order/form'" class="btn black-btn">구매하기</button>
+<!--                <button type="button" onclick="location.href='/order/form'" class="btn black-btn">구매하기</button>-->
+                <button type="button" onclick="goToOrder()" class="btn black-btn">구매하기</button>
             </div>
         </div>
     </div>
