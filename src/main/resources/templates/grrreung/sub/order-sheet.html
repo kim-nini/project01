@@ -33,11 +33,7 @@
                             </a>
                             <p class="name" th:text="${map.ITEM_NAME}"></p>
                             <p class="txt" th:text="${map.ITEM_DETAIL}"></p>
-                            <input type="text" style="display: none" th:name="itemId" th:value="${map.ITEM_ID}">
-<!--                            <input type="text" th:name="'orderItems[' + ${index} + '].itemId'" th:value="${map.ITEM_ID}">-->
-<!--                            <th:block th:each="item, itemStat : ${orderForm.orderItems}">-->
-<!--                            <input type="text"  th:field="*{orderItems[__${mapStat.index}__].itemId}"  th:value="${map.ITEM_ID}">-->
-<!--                            </th:block>-->
+                            <input type="text" style="display: none"  th:name="'orderItems[' + ${mapStat.index} + '].itemId'" th:value="${map.ITEM_ID}">
                         </div>
                         <div class="opt_info">
                             <div class="price_btn">
@@ -46,11 +42,12 @@
                                 <input id="itemPrice" class="itemPrice" style="display: none;"
                                        th:value="${map.ITEM_PRICE}"
                                        th:data-item="${map.ITEM_PRICE}">
-                                <input type="text" th:value="${map.CART_AMOUNT}" id="count" class="number" readonly>개
+                                <input type="text" th:value="${map.CART_AMOUNT}" id="count" class="number" th:name="'orderItems[' + ${mapStat.index} + '].orderAmount'"  readonly>개
                             </div>
                             <div class="total_p">
-                                <strong class="price_amount"
-                                        th:text="|${#numbers.formatInteger((map.ITEM_PRICE * map.CART_AMOUNT), 0 , 'COMMA')}원|"></strong>
+                                <input type="text" style="display: none"  th:name="'orderItems[' + ${mapStat.index} + '].orderPrice'" th:value="${map.ITEM_PRICE * map.CART_AMOUNT}">
+                                <strong class="price_amount" name="orderPrice"
+                                        th:text="${#numbers.formatInteger((map.ITEM_PRICE * map.CART_AMOUNT), 0 , 'COMMA')}">원</strong>
                             </div>
                         </div>
                     </li>
@@ -60,24 +57,62 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label class="form-label">주문하시는 분</label>
-                        <input type="text" name="name" class="form-control" th:value="${member.name}"
+                        <input type="text" name="name" class="form-control readonly" th:value="${session.loginMember.name}"
                                readonly>
                     </div>
                     <div class="form-group">
                         <label class="form-label">주소</label>
                         <div class="row1">
-                            <input type="text" name="address" id="sample3_postcode" placeholder="우편번호"
-                                   th:value="${member.address}">
+                            <input type="text" class="readonly" placeholder="우편번호"
+                                   readonly th:value="${session.loginMember.address}">
                         </div>
                         <div class="row2">
-                            <input type="text" name="address2" id="sample3_address" placeholder="주소"
-                                   th:value="${member.address2}"><br>
-                            <input type="text" name="address3" id="sample3_detailAddress"
+                            <input type="text"   placeholder="주소"
+                                   th:value="${session.loginMember.address2}" class="readonly" readonly >
+                            <input type="text"
                                    placeholder="상세주소"
-                                   th:value="${member.address3}">
-                            <input type="text" name="address4" id="sample3_extraAddress"
+                                   th:value="${session.loginMember.address3}" class="readonly" readonly >
+                            <input type="text"  class="readonly"
                                    placeholder="참고항목"
-                                   th:value="${member.address4}">
+                                   th:value="${session.loginMember.address4}"  readonly >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">휴대전화</label>
+                        <input type="text" class="form-control readonly" th:value="${session.loginMember.hp}"  readonly >
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">이메일</label>
+                        <input type="text" class="form-control mb-1 readonly"
+                               th:value="${session.loginMember.email}"  readonly >
+                    </div>
+                </div>
+                <hr>
+                <!--배송정보-->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label">받으시는 분</label>
+                        <input type="text" name="orderName" class="form-control" th:value="${session.loginMember.name}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">주소</label>
+                        <div class="row1">
+                            <input type="text" name="orderAdd" placeholder="우편번호" id="sample3_postcode"
+                                   th:value="${session.loginMember.address}" class="ship">
+                            <input  id="postCodeBtn"  type="button"
+                                   onclick="sample3_execDaumPostcode()"
+                                   value="우편번호 찾기"><br>
+                        </div>
+                        <div class="row2">
+                            <input type="text" name="orderAdd" placeholder="주소" class="ship" id="sample3_address"
+                                   th:value="${session.loginMember.address2}">
+                            <input type="text" name="orderAdd"
+                                   placeholder="상세주소" class="ship" id="sample3_detailAddress"
+                                   th:value="${session.loginMember.address3}">
+                            <input type="text" name="orderAdd"  id="sample3_extraAddress"
+                                   placeholder="참고항목" class="ship"
+                                   th:value="${session.loginMember.address4}">
                         </div>
                         <div id="wrap"
                              style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
@@ -87,57 +122,20 @@
                                  onclick="foldDaumPostcode()" alt="접기 버튼">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="form-label">휴대전화</label>
-                        <input type="text" name="hp" class="form-control" th:value="${member.hp}">
+                        <input type="text" name="orderHp" class="form-control" th:value="${session.loginMember.hp}">
                     </div>
                     <div class="form-group">
                         <label class="form-label">이메일</label>
                         <input type="text" name="email" class="form-control mb-1"
-                               th:value="${member.email}">
-                    </div>
-                </div>
-                <hr>
-                <!--배송정보-->
-                <div class="card-body">
-                    <div class="form-group">
-                        <label class="form-label">받으시는 분</label>
-                        <input type="text" name="orderName" class="form-control" th:value="${member.name}"
-                               readonly>
-                        <input style="display: none" name="memberId" th:value="${member.memberId}">
+                               th:value="${session.loginMember.email}">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">주소</label>
-                        <div class="row1">
-                            <input type="text" name="orderAdd" placeholder="우편번호"
-                                   th:value="${member.address}">
-                            <input type="button"
-                                   onclick="sample3_execDaumPostcode()"
-                                   value="우편번호 찾기"><br>
-                        </div>
-                        <div class="row2">
-                            <input type="text" name="address2" placeholder="주소"
-                                   th:value="${member.address2}"><br>
-                            <input type="text" name="address3"
-                                   placeholder="상세주소"
-                                   th:value="${member.address3}">
-                            <input type="text" name="address4"
-                                   placeholder="참고항목"
-                                   th:value="${member.address4}">
-                        </div>
-
+                        <label class="form-label">배송 요청사항</label>
+                        <input type="text" name="orderMemo" class="form-control mb-1">
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">휴대전화</label>
-                        <input type="text" name="orderHp" class="form-control" th:value="${member.hp}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">이메일</label>
-                        <input type="text" name="email" class="form-control mb-1"
-                               th:value="${member.email}">
-                    </div>
                 </div>
 
 
@@ -154,8 +152,8 @@
                 </div>
 
                 <div class="btn_box">
-                    <button type="button" onclick="location.href='/grrreung/shop'" class="btn wh-btn">돌아가기</button>
-                    <button type="submit" class="btn black-btn">결제하기</button>
+                    <button type="button" onclick="location.href='/grrreung/cart'" class="btn wh-btn">돌아가기</button>
+                    <button type="submit" onclick="orderComplete()" class="btn black-btn" id="payBtn">결제하기</button>
                 </div>
 
             </form>
@@ -166,9 +164,9 @@
 
 <!-- 푸터 -->
 <th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
-<script src="/js/cart.js"></script>
 <!-- 우편번호 찾기 스트립트 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/cart.js"></script>
 <script>
     // 우편번호 찾기 찾기 화면을 넣을 element
     var element_wrap = document.getElementById('wrap');

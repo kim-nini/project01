@@ -165,5 +165,27 @@ $(document).ready(function () {
 
 
 
-
 });
+
+
+function goToOrder() {
+
+
+    // 체크된 상품들의 체크박스를 선택
+    var selectedCheckboxes = document.querySelectorAll('input[name="item_chk"]:checked');
+    if(selectedCheckboxes.length === 0 ){
+
+        alert("주문하실 상품을 선택 해 주세요.")
+    } else {
+
+    let param = ''
+
+    // 체크박스의 value(itemId) 가져와서 param에 담기
+    selectedCheckboxes.forEach(function (checkbox) {
+        param += `itemId=${checkbox.value}&`;
+    });
+
+    // 주문서 작성화면으로 get매핑
+    window.location.href = `/order/form?${param}`;
+    }
+}

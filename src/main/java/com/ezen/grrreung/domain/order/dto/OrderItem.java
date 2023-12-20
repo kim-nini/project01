@@ -11,6 +11,7 @@ import java.util.List;
 @ToString
 @Builder
 public class OrderItem {
+	private boolean isCheck;
 	private int orderId;
 	private int orderItemId;
 	private int itemId;
@@ -19,7 +20,7 @@ public class OrderItem {
 	private int orderPrice;
 	private int orderAmount;
 
-//	private List<OrderItem> orderItems;
+
 
 }
 

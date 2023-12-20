@@ -107,7 +107,7 @@
                                 <label for="count">수량</label>
 
 <!--                                    <form method="post" th:action="@{/grrreung/add-to-cart/{itemId}/{memberId}(itemId=${itemId}, memberId = ${session.loginMember.memberId})}">-->
-                                    <form method="post" th:action="@{/grrreung/cart/{memberId}(memberId = ${session.loginMember.memberId})}">
+                                    <form method="post" th:action="@{/grrreung/cart}">
                                          <div class="display-flex">
                                             <div class="qtyminus caculatorBtn">-</div>
                                                 <input type="text" id="count" name="cartAmount" value="1" class="qty">

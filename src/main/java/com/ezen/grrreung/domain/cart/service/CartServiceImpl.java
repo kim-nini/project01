@@ -24,4 +24,9 @@ public class CartServiceImpl implements CartService {
     public void addToCart(Cart cart) {
         cartMapper.insertItemToCart(cart);
     }
+
+    @Override
+    public List<Map<String, Object>> getCheckedList(Map<String,Object> map) {
+        return cartMapper.findByItemId(map);
+    }
 }

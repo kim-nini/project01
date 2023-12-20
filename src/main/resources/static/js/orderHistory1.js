@@ -17,18 +17,16 @@ async function orderHistory(event) {
 	const ordersData = await getOrderHistory();
 
 	// 주문을 ORDER_ID를 기준으로 그룹화
-	const groupedOrders = Array.isArray(ordersData)
-		? ordersData.reduce((acc, order) => {
-			const orderId = order.ORDER_ID;
+	const groupedOrders = ordersData.reduce((acc, order) => {
+		const orderId = order.ORDER_ID;
 
-			if (!acc[orderId]) {
-				acc[orderId] = [];
-			}
+		if (!acc[orderId]) {
+			acc[orderId] = [];
+		}
 
-			acc[orderId].push(order);
-			return acc;
-		}, {})
-		: {};
+		acc[orderId].push(order);
+		return acc;
+	}, {});
 
 
 	// 데이터가 있을때만 생성
@@ -41,11 +39,6 @@ async function orderHistory(event) {
 		}
 	} else {
 		// 없을때 출력
-
-		const wrapperDiv = document.createElement('div');
-		wrapperDiv.classList.add('wrapper');
-		wrapperDiv.textContent='데이터가없습니다';
-		createTag.appendChild(wrapperDiv);
 		console.log('데이터가 없습니다.');
 	}
 

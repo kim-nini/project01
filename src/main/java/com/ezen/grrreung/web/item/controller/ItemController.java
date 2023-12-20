@@ -61,8 +61,8 @@ public class ItemController {
                                @RequestParam(value="searchValue", required = false, defaultValue = "") String searchValue,
                                @RequestParam(value="cateTop", required = false) String cateTop,
                                Model model){
-        log.info("들어온 검색값 : {}" ,searchValue);
-        log.info("들어온 카테고리값 : {}" , cateTop);
+//        log.info("들어온 검색값 : {}" ,searchValue);
+//        log.info("들어온 카테고리값 : {}" , cateTop);
 
         // 페이징 처리와 관련된 변수
         int elementSize = 8; // 화면에 보여지는 상품의 갯수
@@ -114,7 +114,7 @@ public class ItemController {
     @RequestMapping("/shop/item/{itemId}")
     public String itemInfo(@PathVariable("itemId")int itemId, Model model){
         Item item = itemService.findByItemId(itemId);
-        log.info("아이템 상세정보 : {}", item.toString());
+//        log.info("아이템 상세정보 : {}", item.toString());
 
         // 슬라이드 상품이미지 가져오기
         List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
@@ -131,14 +131,14 @@ public class ItemController {
     // 썸네일 이미지 1개 불러오기 => index, shop
     @GetMapping("/thumbnail/{itemId}")
     public ResponseEntity<Resource> thumbnailImage(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
-        log.info("아이템 아이디:{}", itemId);
+//        log.info("아이템 아이디:{}", itemId);
 
         String imgFileName = itemService.showThumbnail(itemId);
-        log.info("파일명: {}", imgFileName);
+//        log.info("파일명: {}", imgFileName);
 
         Path path = Paths.get(location + imgFileName);
         String contentType = Files.probeContentType(path);
-        log.info("컨텐트타입 : {}",contentType);
+//        log.info("컨텐트타입 : {}",contentType);
 
 		// 이미지 파일
 		HttpHeaders headers = new HttpHeaders();
@@ -175,7 +175,7 @@ public class ItemController {
 
         for(Map<String, Object>  map : itemDescription) {
             imageDescription = (String) map.get("IMG_NAME");
-            log.info("1)파일명 : {}", imageDescription);
+//            log.info("1)파일명 : {}", imageDescription);
             Path path = Paths.get(location + "/" + imageDescription);
 
             String contentType = Files.probeContentType(path);
@@ -193,7 +193,7 @@ public class ItemController {
     @PostMapping("/register-item")
     public String  registerItem(@ModelAttribute Item item, @RequestParam int cateCode, @ModelAttribute UploadForm uploadForm, RedirectAttributes redirectAttributes)
             throws IOException {
-        log.info("수신정보:{}", item.toString());
+//        log.info("수신정보:{}", item.toString());
         item.setCateCode(cateCode);
         itemService.registerItem(item);
         // 카테고리 선택한정보로 value값으로 카테고리 코드 cateCode 받아오기
@@ -223,14 +223,14 @@ public class ItemController {
                 itemImg.setRepImgYN("N");
             }
 
-            log.info("*********** 썸네일 파일정보 : {}", itemImg);
+//            log.info("*********** 썸네일 파일정보 : {}", itemImg);
             itemService.uploadItemImg(itemImg);
         }
 
         // 상세정보))) DB 테이블에 업로드 파일과 저장된 파일명 저장 후
         for(UploadFile uploadFile : uploadFiles2) {
             ItemImg itemImg = new ItemImg(item.getItemId(), uploadFile.getStoreFileName(), uploadFile.getUploadFileName());
-            log.info("상세이미지 파일정보 : {}", uploadFile);
+//            log.info("상세이미지 파일정보 : {}", uploadFile);
             itemService.uploadItemImg(itemImg);
         }
 
@@ -250,9 +250,9 @@ public class ItemController {
     @GetMapping("/sub-category")
     @ResponseBody
     public List<Category> searchDetailCategory(@RequestParam String category, Model model) {
-        log.info("수신한 메인카테고리 : {}", category);
+//        log.info("수신한 메인카테고리 : {}", category);
         List<Category> subCateList = itemService.showCateName(category);
-        log.info("검색한 상세 카테고리 : {}", subCateList);
+//        log.info("검색한 상세 카테고리 : {}", subCateList);
         return subCateList;
     }
 

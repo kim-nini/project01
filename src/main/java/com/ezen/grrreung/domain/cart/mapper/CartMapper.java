@@ -18,5 +18,8 @@ public interface CartMapper {
     // 장바구니 상품 추가
     public void insertItemToCart(Cart cart);
 
+    // 선택된 장바구니 상품 리스트
+    public List<Map<String, Object>> findByItemId(Map<String, Object> map);
+
 
 }

@@ -16,6 +16,7 @@ import java.util.List;
 @ToString
 @Builder
 public class OrderGr {
+
 	private int orderId;
 	private String memberId;
 	private String orderDate;
@@ -25,6 +26,7 @@ public class OrderGr {
 	private String orderAdd;
 	private String orderHp;
 	private String orderPriceAll;
+	private List<OrderItem> orderItems;
 
 }
 

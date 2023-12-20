@@ -26,7 +26,7 @@
                 <!-- 장바구니 상품목록 for문 -->
                 <li th:each="map : ${list}">
                     <div class="checkbox">
-                        <input type="checkbox" name="item_chk" id="item_chk01">
+                        <input type="checkbox" name="item_chk" id="item_chk01" th:value="${map.ITEM_ID}">
                         <label for="item_chk01"></label>
                     </div>
                     <div class="item_detail">
@@ -70,7 +70,7 @@
 
             <div class="btn_box">
                 <button type="button" onclick="location.href='/grrreung/shop'" class="btn wh-btn">계속 쇼핑하기</button>
-<!--                <button type="button" onclick="location.href='/order/form'" class="btn black-btn">구매하기</button>-->
+                <!--<button type="button" onclick="location.href='/order/form'" class="btn black-btn">구매하기</button>-->
                 <button type="button" onclick="goToOrder()" class="btn black-btn">구매하기</button>
             </div>
         </div>

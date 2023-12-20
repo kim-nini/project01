@@ -44,6 +44,7 @@ DROP SEQUENCE order_item_seq;
 CREATE SEQUENCE order_gr_seq START WITH 10000 INCREMENT BY 1;
 
 CREATE SEQUENCE order_item_seq START WITH 20000 INCREMENT BY 1;
+commit;
 
 -- order_gr table 임시데이터
 INSERT INTO order_gr (
@@ -83,7 +84,7 @@ INSERT INTO order_gr (
 );
 
 select * from order_gr;
-
+select * from order_item;
 -- order_item table 임시데이터 
 
 -- order_id = 10000 2개
@@ -142,7 +143,6 @@ ORDER BY
     order_id DESC;
 
 
-
 -- #2. order_id 별 조회
 
 SELECT
@@ -168,6 +168,24 @@ WHERE
     member_id = 'customer1';
     
     
+-- order_Gr, order_item insert문    
+INSERT INTO order_gr (
+    order_id,
+    member_id,
+    order_memo,
+    order_name,
+    order_add,
+    order_hp,
+    order_price_all
+) VALUES (
+    order_gr_seq.NEXTVAL,
+    'customer1',
+    '문앞에 놔주세요',
+    '주문자이름',
+    '주문자주소',
+    '010-1111-2222',
+    '200000'
+);  
     
 -- xml 에 있는 sql문 
 SELECT
