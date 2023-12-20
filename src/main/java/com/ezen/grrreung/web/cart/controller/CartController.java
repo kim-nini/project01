@@ -84,12 +84,13 @@ public class CartController {
 //
 
 
-
-
-
-
-
-
-
+    // 장바구니 개별 삭제
+    @GetMapping("/cart/delete/{memberId}/{itemId}")
+    public String deleteItemToCart(@PathVariable String memberId, @PathVariable int itemId) {
+        log.info("삭제된 아이템 : {}", itemId);
+        log.info("삭제된 아이디 : {}", memberId);
+        cartService.removeCartOne(memberId, itemId);
+        return "redirect:/grrreung/cart/{memberId}";
+    }
 
 }

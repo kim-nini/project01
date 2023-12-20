@@ -12,4 +12,7 @@ public interface CartService {
 
     // 장바구니 상품 추가하기
     public void addToCart(Cart cart);
+
+    // 장바구니 상품 개별 삭제하기
+    public void removeCartOne(String memberId, int itemId);
 }

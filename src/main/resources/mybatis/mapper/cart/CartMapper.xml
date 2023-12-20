@@ -5,10 +5,8 @@
 
     <!-- 장바구니 상품 리스트 -->
     <select id="findById" parameterType="String" resultType="map">
-        SELECT i.item_name, i.item_detail, i.item_price,
-               c.member_id, c.item_id,
-               SUM(c.cart_amount) AS cart_amount,
-               m.img_name AS item_img
+        SELECT i.item_name, i.item_detail, i.item_price, c.member_id, c.item_id,
+               SUM(c.cart_amount) AS cart_amount, m.img_name AS item_img
         FROM
             cart c
                 INNER JOIN item i ON c.item_id = i.item_id
@@ -17,9 +15,7 @@
             c.member_id = #{value}
           AND m.rep_img_yn='Y'
         GROUP BY
-            i.item_name, i.item_detail, i.item_price,
-            c.member_id, c.item_id,
-            m.img_name
+            i.item_name, i.item_detail, i.item_price, c.member_id, c.item_id, m.img_name
         ORDER BY
             item_id DESC
     </select>
@@ -30,11 +26,11 @@
         VALUES (cart_id_seq.nextval, #{memberId}, #{itemId}, #{cartAmount})
     </insert>
 
-
-
-
-
-
+    <!-- 장바구니에 상품 삭제하기-->
+    <delete id="deleteItemToCart" parameterType="map">
+        DELETE FROM cart
+        WHERE item_id = #{itemId} AND member_id = #{memberId}
+    </delete>
 
 </mapper>
 

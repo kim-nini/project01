@@ -36,12 +36,12 @@ public class GrrItemTest {
 		log.info(item.toString());
 	}
 
-	@Test
-	public void findByCateTest() {
-		String cateTop = "living";
-		List<Item> item = itemMapper.findByCategory(cateTop);
-		log.info(item.toString());
-	}
+//	@Test
+//	public void findByCateTest() {
+//		String cateTop = "living";
+//		List<Item> item = itemMapper.findByCategory(cateTop);
+//		log.info(item.toString());
+//	}
 
 	@Test
 	public void createItemTest() {
@@ -57,13 +57,13 @@ public class GrrItemTest {
 	}
 
 
-	@Test
-	public void findByCategoryTest() {
-		List<Item> list = itemMapper.findByCategory("living");
-		for(Item item: list) {
-			log.info(item.toString());
-		}
-	}
+//	@Test
+//	public void findByCategoryTest() {
+//		List<Item> list = itemMapper.findByCategory("living");
+//		for(Item item: list) {
+//			log.info(item.toString());
+//		}
+//	}
 
 
 	@Test

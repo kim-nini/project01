@@ -4,14 +4,14 @@ body {
 }
 
 .ui-w-80 {
-    width : 80px !important;
+    width: 80px !important;
     height: auto;
 }
 
 .btn-default {
     border-color: rgba(24, 28, 33, 0.1);
-    background  : rgba(0, 0, 0, 0);
-    color       : #4E5155;
+    background: rgba(0, 0, 0, 0);
+    color: #4E5155;
 }
 
 label.btn {
@@ -20,8 +20,8 @@ label.btn {
 
 .btn-outline-primary {
     border-color: #26B4FF;
-    background  : transparent;
-    color       : #26B4FF;
+    background: transparent;
+    color: #26B4FF;
 }
 
 .btn {
@@ -35,7 +35,7 @@ label.btn {
 
 .card {
     background-clip: padding-box;
-    box-shadow     : 0 1px 4px rgba(24, 28, 33, 0.012);
+    box-shadow: 0 1px 4px rgba(24, 28, 33, 0.012);
 }
 
 .row-bordered {
@@ -43,11 +43,11 @@ label.btn {
 }
 
 .account-settings-fileinput {
-    position  : absolute;
+    position: absolute;
     visibility: hidden;
-    width     : 1px;
-    height    : 1px;
-    opacity   : 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
 }
 
 .account-settings-links .list-group-item.active {
@@ -58,12 +58,12 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     background: transparent !important;
 }
 
-.account-settings-multiselect~.select2-container {
+.account-settings-multiselect ~ .select2-container {
     width: 100% !important;
 }
 
 .light-style .account-settings-links .list-group-item {
-    padding     : 0.85rem 1.5rem;
+    padding: 0.85rem 1.5rem;
     border-color: rgba(24, 28, 33, 0.03) !important;
 }
 
@@ -72,7 +72,7 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 }
 
 .material-style .account-settings-links .list-group-item {
-    padding     : 0.85rem 1.5rem;
+    padding: 0.85rem 1.5rem;
     border-color: rgba(24, 28, 33, 0.03) !important;
 }
 
@@ -81,7 +81,7 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 }
 
 .dark-style .account-settings-links .list-group-item {
-    padding     : 0.85rem 1.5rem;
+    padding: 0.85rem 1.5rem;
     border-color: rgba(255, 255, 255, 0.03) !important;
 }
 
@@ -94,7 +94,7 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 }
 
 .light-style .account-settings-links .list-group-item {
-    padding     : 0.85rem 1.5rem;
+    padding: 0.85rem 1.5rem;
     border-color: rgba(24, 28, 33, 0.03) !important;
 }
 
@@ -121,23 +121,29 @@ form {
 .page .wrapper {
     padding: 30px;
 }
+
 .page .wrapper .title h1 {
     font-family: 'Playfair Display', serif;
 }
+
 .page .wrapper .title p {
     font-family: 'Lato', sans-serif;
 }
+
 .page .wrapper input[type=number]::-webkit-inner-spin-button, .page .wrapper input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 .page .wrapper .accordian-container .accordian-item.active2 .accordian-content {
     height: auto;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-title, .page .wrapper .accordian-container .accordian-item .accordian-footer, .page .wrapper .accordian-container .accordian-item .accordian-content {
     background-color: #FAF6F4;
     font-family: 'Lato', sans-serif;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-title {
     padding: 23px;
     display: flex;
@@ -145,22 +151,27 @@ form {
     border-bottom: 2px solid #d8d8d8;
     border-radius: 4px 4px 0 0;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-title .left {
     display: flex;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-title .left .title {
     font-weight: 700;
     margin-right: 10px;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-title .left .total {
     font-weight: 700;
     margin-left: 30px;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content {
     border-radius: 0 0 4px 4px;
     height: 0;
     overflow: hidden;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content::after {
     content: "";
     border-bottom: 2px solid #d8d8d8;
@@ -168,10 +179,12 @@ form {
     height: 0;
     width: 100%;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .title, .page .wrapper .accordian-container .accordian-item .accordian-content .item-wrapper {
     display: flex;
     font-family: 'Lato', sans-serif;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .title .qty, .page .wrapper .accordian-container .accordian-item .accordian-content .item-wrapper .qty {
     text-align: center;
     box-sizing: border-box;
@@ -179,6 +192,7 @@ form {
     flex: 0 0 63px;
     item-wrapperalign: center;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .title .product, .page .wrapper .accordian-container .accordian-item .accordian-content .item-wrapper .product {
     box-sizing: border-box;
     padding: 23px;
@@ -186,6 +200,7 @@ form {
     display: flex;
     align-items: center;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .title .price, .page .wrapper .accordian-container .accordian-item .accordian-content .item-wrapper .price {
     box-sizing: border-box;
     padding: 23px;
@@ -194,6 +209,7 @@ form {
     display: flex;
     align-items: center;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .title .returns, .page .wrapper .accordian-container .accordian-item .accordian-content .item-wrapper .returns {
     box-sizing: border-box;
     border-left: 1px solid #d8d8d8;
@@ -204,13 +220,16 @@ form {
     display: flex;
     align-items: center;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .title {
     font-size: 14px;
     font-weight: 700;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .item .qty {
     padding: 23px 10px;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .item .qty .qty-wrapper {
     padding: 0;
     max-width: 38px;
@@ -219,54 +238,65 @@ form {
     border-radius: 4px;
     text-align: center;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .item .qty .qty-wrapper .plusminus {
     padding: 2px 6px;
     width: 10px;
     height: 10px;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .item .qty .qty-wrapper .up, .page .wrapper .accordian-container .accordian-item .accordian-content .item .qty .qty-wrapper .down {
     border: 0;
     background: 0;
     cursor: pointer;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .item .qty .qty-wrapper .value {
     text-align: center;
     max-width: 100%;
     border: 0;
     padding: 4px 0;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .item .price {
     font-weight: bold;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .item .product .product-detail {
     margin-left: 30px;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-content .item .product .product-detail .warning {
     color: #E81C3B;
     font-family: Arial;
     font-size: 14px;
     margin-top: 10px;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-footer {
     padding: 23px;
     border-radius: 0 0 4px 4px;
     display: flex;
     justify-content: space-between;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-footer .right {
     display: flex;
     font-size: 14px;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-footer .right .status {
     color: #666666;
     margin-right: 20px;
     display: flex;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-footer .right .status .success {
     margin-left: 5px;
     color: #91C83E;
     font-weight: bold;
 }
+
 .page .wrapper .accordian-container .accordian-item .accordian-footer .date {
     font-size: 14px;
     color: #666666;
@@ -276,8 +306,8 @@ form {
 /*-------------------------------------------------------------*/
 
 .active2 .accordian-content {
-        height: auto;
-    }
+    height: auto;
+}
 
 
 .accordian-container {
@@ -375,6 +405,8 @@ form {
 }
 
 .product img {
+    width: 100px;
+    height: 100px;
     border-radius: 4px;
     margin-right: 10px;
 }
@@ -392,19 +424,22 @@ form {
 }
 
 .qty {
-    flex: 0 0 63px;
+    flex: 0 0 100px;
     text-align: center;
+    font-size: 14px;
 }
 
 .product {
     flex: 1 1 auto;
     display: flex;
     align-items: center;
+    font-size: 14px;
 }
 
 .price {
-    flex: 0 0 90px;
+    flex: 0 0 125px;
     text-align: right;
+    font-size: 14px;
 }
 
 .returns {
@@ -414,4 +449,29 @@ form {
 }
 
 
-.accordian-content .title { display: flex;}
+.accordian-content .title {
+    display: flex;
+}
+
+#item-review {
+    margin-top: 4px;
+    display: block;
+    padding: 5px;
+    background-color: #FFC924;
+    color: black;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+/* updateInfo.html 회원수정 결과 메세지 */
+#mypagemessage {
+    display: block;
+    border: #FFC924 solid 3px;
+    border-radius: 10px;
+    width: 550px;
+    margin: 10px auto;
+    padding: 20px 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}

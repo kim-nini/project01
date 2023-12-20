@@ -19,4 +19,9 @@ public interface CartMapper {
     public void insertItemToCart(Cart cart);
 
 
+    // 장바구니 상품 삭제
+        public void deleteItemToCart(@Param("memberId") String memberId,
+                                     @Param("itemId") int itemId);
+
+
 }
