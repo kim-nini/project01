@@ -163,5 +163,116 @@ $(document).ready(function () {
         pay_total_func();
     }
 
+    // 장바구니 수량 업데이트
+    /*<![CDATA[*/
+    var memberId = $("#memberId").text();
+    console.log(memberId);
+    /*]]>*/
+
+    // let memberId = ""; // 실제 멤버 ID를 가져오는 로직으로 대체
+    // console.log(memberId);
+
+    $(".cart-action-btn").click(function () {
+        let itemId = $(this).data("item-id");
+        console.log(memberId, itemId);
+        let action = $(this).hasClass("plus_btn") ? "plus" : "minus";
+
+        // AJAX 요청을 통해 백엔드 컨트롤러에 데이터 전송
+        $.ajax({
+            type: "GET",
+            url: "/cart/amount-" + action,
+            data: { memberId: memberId, itemId: itemId },
+            success: function () {
+                // 성공 시 페이지의 장바구니 수량 업데이트
+                updateCartAmount(itemId, action);
+            },
+            error: function (xhr, status, error) {
+                console.error("장바구니 수량 업데이트 에러:", error);
+            }
+        });
+    });
+
+    // 페이지의 장바구니 수량 업데이트를 위한 함수
+    function updateCartAmount(itemId, action) {
+        var cartAmountInput = $("input.cart-amount[data-item-id='" + itemId + "']");
+        var currentAmount = parseInt(cartAmountInput.val());
+
+        if (action === "plus") {
+            currentAmount++;
+        } else if (action === "minus" && currentAmount > 1) {
+            currentAmount--;
+        }
+
+        // 업데이트된 수량을 페이지에 반영
+        cartAmountInput.val(currentAmount);
+    }
+
+
+
+
+
+
+
+
+
 
 });
+
+
+// =====================================================================================================================
+// const plusBtn = document.querySelector('.plus_btn');
+// const minusBtn = document.querySelector('.minus_btn');
+//
+// plusBtn.addEventListener('click', amountPlus);
+// minusBtn.addEventListener('click', amountMinus);
+//
+//
+// async function amountPlus() {
+//     await amountPlusRequest();
+// }
+//
+// function amountPlusRequest() {
+//     const url=`/grrreung/cart/amount-plus?memberId=${map.MEMBER_ID}&itemId=${map.ITEM_ID}`;
+//     return fetch(url)
+//         .then((response) => {
+//             return response.json();
+//         });
+// }
+//
+// async function amountMinus() {
+//     await amountMinusRequest();
+// }
+// function amountMinusRequest() {
+//     const url=`/grrreung/cart/amount-minus?memberId=${map.MEMBER_ID}&itemId=${map.ITEM_ID}`;
+//     return fetch(url)
+//         .then((response) => {
+//             return response.json();
+//         });
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
