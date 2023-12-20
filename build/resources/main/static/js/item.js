@@ -81,10 +81,10 @@ $(document).ready(function() {
 
     $(".qty").on("input", function() {
         var quantity = parseInt($(this).val()) || 0; // 수량
-        var itemPrice = parseInt($("#totalAmount").val()) || 0; // 상품 가격
+        var itemPrice = parseInt($(".totalAmount").val()) || 0; // 상품 가격
 
-        // 계산된 총 가격을 표시할 곳의 id를 잘 확인하셔서 적절히 변경해주세요.
-        var totalAmountPrint = $("#totalAmountPrint");
+        // 계산된 총 가격을 표시할 곳
+        var totalAmountPrint = $(".totalAmountPrint");
 
         var totalAmount = quantity * itemPrice;
 
@@ -92,3 +92,20 @@ $(document).ready(function() {
         totalAmountPrint.text(new Intl.NumberFormat().format(totalAmount) + "원");
     });
 });
+// 리뷰 페이지 이동 비동기처리 ------------------------------------------------------------------------------------------
+
+let pageBtn = document.querySelector(".page-item");
+pageBtn.addEventListener('click',pageRequest);
+
+function pageRequest(){
+    pagination();
+
+    }
+
+    async function pagination(){
+        let url=`/grrreung/shop/item(itemId = ${item.itemId}, page=${page})`;
+        return fetch(url)
+            .then((response)=> {
+                return response.json;
+            })
+    }

@@ -4,13 +4,9 @@ import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.service.ItemRevService;
 import com.ezen.grrreung.domain.item.dto.*;
 import com.ezen.grrreung.domain.item.service.ItemService;
-import com.ezen.grrreung.domain.member.dto.Member;
-import com.ezen.grrreung.domain.member.service.MemberService;
 import com.ezen.grrreung.web.common.Pagination;
 import com.ezen.grrreung.web.common.RequestParams;
 import com.ezen.grrreung.web.common.page.FileStore;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,7 +43,7 @@ public class ItemController {
 
     // 홈화면
     @RequestMapping("")
-    public String homeItemList(HttpServletRequest request, Model model){
+    public String homeItemList(Model model){
         // 아이템 정보
         List<Item> list = itemService.allItems();
         model.addAttribute("item", list);
@@ -57,12 +53,12 @@ public class ItemController {
 
 
     // shop 상품 전체목록 불러오기
-    @GetMapping("/shop")
+    @RequestMapping("/shop")
     public String allItemsList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                               @RequestParam(value="searchValue", required = false, defaultValue = "") String searchValue,
+                               @RequestParam(value="search", required = false, defaultValue = "") String search,
                                @RequestParam(value="cateTop", required = false) String cateTop,
                                Model model){
-        log.info("들어온 검색값 : {}" ,searchValue);
+        log.info("들어온 검색값 : {}" ,search);
         log.info("들어온 카테고리값 : {}" , cateTop);
 
         // 페이징 처리와 관련된 변수
@@ -70,12 +66,12 @@ public class ItemController {
         int pageSize = 5;     // 화면에 보여지는 페이지 갯수
 
         // 여러개의 요청 파라메터 정보 저장
-        RequestParams params =  params = new RequestParams(page, elementSize, pageSize, searchValue);
+        RequestParams params = new RequestParams(page, elementSize, pageSize, search);
 
         int  selectCount = itemService.countBySearchValue(params);    // 페이징처리 값 테이블의 전체 갯수
         List<Item> list;    // model에 저장할 리스트
 
-        
+
         if(cateTop != null) {
             // 카테고리 버튼으로 카테고리별 아이템 검색할때
             // params의 search 값을 cateTop으로 변경
@@ -92,7 +88,6 @@ public class ItemController {
         if (pagination.getEndPage() == 0) {
             pagination.setEndPage(1);
         }
-
 
         model.addAttribute("params", params); // 요청 파라메터
         model.addAttribute("pagination", pagination); // 페이징 계산 결과
@@ -112,9 +107,10 @@ public class ItemController {
 
 
     // 아이템 아이디로 상품 한개 상세정보
-    @RequestMapping("/shop/item/{itemId}")
+    @GetMapping("/shop/item/{itemId}")
     public String itemInfo(@PathVariable("itemId") int itemId,
                            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+
                            Model model){
         Item item = itemService.findByItemId(itemId);
         log.info("아이템 상세정보 : {}", item.toString());
@@ -132,7 +128,7 @@ public class ItemController {
         // 페이징 처리와 관련된 변수
 
         int elementSize = 5; // 화면에 보여지는 행의 갯수
-        int pageSize = 3;     // 화면에 보여지는 페이지 갯수
+        int pageSize = 5;     // 화면에 보여지는 페이지 갯수
         String search = Integer.toString(itemId);
         // 여러개의 요청 파라메터 정보 저장
         RequestParams params = new RequestParams(page, elementSize, pageSize, search);
@@ -151,6 +147,10 @@ public class ItemController {
         model.addAttribute("params", params); // 요청 파라메터
         model.addAttribute("pagination", pagination); // 페이징 계산 결과
         model.addAttribute("list",list); // db 리스트
+
+        int revCount = itemRevService.itemRevPostCount(itemId); // 리뷰 총 개수
+        model.addAttribute("revCount",revCount);
+
         return "/grrreung/sub/item";
     }
 

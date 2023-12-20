@@ -70,5 +70,10 @@ public class ItemRevServiceImpl implements ItemRevService{
         return itemRevMapper.itemRevList(params);
     }
 
+    @Override
+    public int itemRevPostCount(int itemId) {
+        return itemRevMapper.itemRevPostCount(itemId);
+    }
+
 
 }

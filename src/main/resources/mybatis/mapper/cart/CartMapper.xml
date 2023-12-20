@@ -31,8 +31,23 @@
     </insert>
 
 
+    <!-- 장바구니 수량 증가시키기 -->
+    <update id="cartAmountPlus" parameterType="map">
+        UPDATE cart
+        SET cart_amount = (SELECT MAX(cart_amount) + 1 AS max_cart_amount
+                            FROM cart
+                            WHERE member_id = #{memberId} AND item_id = #{itemId})
+        WHERE member_id = #{memberId} AND item_id = #{itemId}
+    </update>
 
-
+    <!-- 장바구니 수량 감소시키기 -->
+    <update id="cartAmountMinus" parameterType="map">
+        UPDATE cart
+        SET cart_amount = (SELECT MAX(cart_amount) + 1 AS max_cart_amount
+                           FROM cart
+                           WHERE member_id = #{memberId} AND item_id = #{itemId})
+        WHERE member_id = #{memberId} AND item_id = #{itemId}
+    </update>
 
 
 

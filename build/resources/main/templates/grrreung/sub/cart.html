@@ -25,6 +25,10 @@
 
                             <!-- 장바구니 상품목록 for문 -->
                             <li th:each="map : ${list}">
+
+                                <!-- memberId 값을 HTML에 추가 -->
+                                <div id="memberId" th:text="${map.MEMBER_ID}" style="display: none;"></div>
+
                                 <div class="checkbox">
                                     <input type="checkbox" name="item_chk" id="item_chk01">
                                     <label for="item_chk01"></label>
@@ -41,14 +45,17 @@
 
                                         <!-- 1개의 상품가격 -->
                                         <input id="itemPrice" class="itemPrice" style="display: none;" th:value="${map.ITEM_PRICE}" th:data-item="${map.ITEM_PRICE}">
-
-                                        <input type="button" value="-" class="minus_btn">
+                                        <!-- 감소 버튼 -->
+                                        <input type="button" value="-" class="cart-action-btn minus_btn">
                                             <input type="text" th:value="${map.CART_AMOUNT}" id="count" class="number" readonly>
-                                        <input type="button" value="+" class="plus_btn" >
+                                        <!-- 증가 버튼 -->
+                                        <input type="button" value="+" class="cart-action-btn plus_btn" >
                                     </div>
                                     <div class="total_p">
                                         <strong class="price_amount" th:text="|${#numbers.formatInteger((map.ITEM_PRICE * map.CART_AMOUNT), 0 , 'COMMA')}원|"></strong>
-                                        <span class="del_li_btn"><img src="https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/btn_del_circle.svg"></span>
+                                        <span class="del_li_btn"><a href="#">
+                                            <img src="https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/btn_del_circle.svg">
+                                            </a></span>
                                     </div>
                                 </div>
                             </li>

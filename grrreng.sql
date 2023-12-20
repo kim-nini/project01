@@ -1662,14 +1662,15 @@ INSERT INTO order_gr (
     order_price_all
 ) VALUES (
     order_gr_seq.NEXTVAL,
-    'customer2',
+    'customer1',
     '경비실에 맡겨주세요',
     '주문자이름22',
     '주문자주소22',
     '010-1111-3333',
     '88000'
 );
-
+select * from order_gr;
+commit;
 -- order_item table 임시데이터 
 
 -- order_id = 10000 2개
@@ -1695,11 +1696,15 @@ INSERT INTO order_item (
     order_amount
 ) VALUES (
     1,
-    10020,
+    10022,
     1001,
     30000,
     10
 );
+
+update order_item 
+set item_id=11
+where order_id=10022;
 
 SELECT
     *
@@ -1772,11 +1777,11 @@ INSERT INTO item_rev (
 ) VALUES (
     item_rev_seq.NEXTVAL,
     12,
-    'Great product',
+    '아이템 샘플 리뷰12',
     '내용이 들어간당',
-    'ddalang'
+    'customer1'
 );
-
+commit;
 -- Insert data into item_qna_re table
 INSERT INTO item_qna_re (
     re_code,
@@ -2120,4 +2125,13 @@ WHERE
     item_id = 1
     And
     member_id ='멤버아이디';
+    
+    
+--  아이템별 (전체 회원) 리뷰 개수 조회
+SELECT
+    COUNT(*) cnt
+FROM
+    item_rev
+WHERE
+    item_id = 11;
     

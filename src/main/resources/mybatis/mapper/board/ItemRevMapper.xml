@@ -135,32 +135,41 @@
 		rev_date
 		FROM
 		(
-		SELECT
-		ceil(ROWNUM / #{elementSize})  page,
-		rev_code,
-		rev_title,
-		rev_cont,
-		member_id,
-		rev_date
-		FROM
-		(
-		SELECT
-		rev_code,
-		rev_title,
-		rev_cont,
-		member_id,
-		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
-		FROM
-		item_rev
-		WHERE item_id= #{search}
-		ORDER BY
-		rev_code DESC
-		)
-		)
+			SELECT
+			ceil(ROWNUM / #{elementSize})  page,
+			rev_code,
+			rev_title,
+			rev_cont,
+			member_id,
+			rev_date
+			FROM
+			(
+			SELECT
+				rev_code,
+				rev_title,
+				rev_cont,
+				member_id,
+				to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+			FROM
+				item_rev
+			WHERE item_id= #{search}
+			ORDER BY
+				rev_code DESC
+			)
+				)
 		WHERE
 		page = #{requestPage}
 	</select>
 
+	<!-- 아이템별 (전체 회원) 리뷰 개수 조회 -->
+	<select id="itemRevPostCount" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*) cnt
+		FROM
+			item_rev
+		WHERE
+			item_id = #{itemId}
+	</select>
 
 
 </mapper>

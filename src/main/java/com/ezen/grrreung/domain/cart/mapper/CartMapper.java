@@ -18,5 +18,9 @@ public interface CartMapper {
     // 장바구니 상품 추가
     public void insertItemToCart(Cart cart);
 
+    // 장바구니 수량 증가
+    public void cartAmountPlus(@Param("memberId")String memberId, @Param("itemId")int itemId);
 
+    // 장바구니 수량 감소
+    public void cartAmountMinus(@Param("memberId")String memberId, @Param("itemId")int itemId);
 }

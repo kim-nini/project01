@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("/itemrev")
+@RequestMapping("/grrreung/itemrev")
 @RequiredArgsConstructor
 @Controller
 @Slf4j

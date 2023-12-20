@@ -44,6 +44,7 @@ public interface ItemRevService {
     // 아이템 상세페이지 리뷰목록 조회 - 아이템id
     public List<ItemRev> itemReviews(RequestParams params);
 
-
+    // 아이템별 (전체 회원) 리뷰 개수 조회
+    public int itemRevPostCount(int itemId);
 
 }

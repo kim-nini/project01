@@ -24,4 +24,16 @@ public class CartServiceImpl implements CartService {
     public void addToCart(Cart cart) {
         cartMapper.insertItemToCart(cart);
     }
+
+    @Override
+    public void cartAmountPlus(String memberId, int itemId) {
+        cartMapper.cartAmountPlus(memberId, itemId);
+    }
+
+    @Override
+    public void cartAmountMinus(String memberId, int itemId) {
+        cartMapper.cartAmountMinus(memberId, itemId);
+    }
+
+
 }
