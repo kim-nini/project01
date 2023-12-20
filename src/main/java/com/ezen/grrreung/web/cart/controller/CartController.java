@@ -3,6 +3,7 @@ package com.ezen.grrreung.web.cart.controller;
 import com.ezen.grrreung.domain.cart.dto.Cart;
 import com.ezen.grrreung.domain.cart.service.CartService;
 import com.ezen.grrreung.domain.item.dto.Item;
+import com.ezen.grrreung.domain.member.dto.Member;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +29,16 @@ public class CartController {
     /**
      * 장바구니 목록 조회
      */
-    @GetMapping("/cart/{memberId}")
-    public String list(@PathVariable("memberId") String memberId, Model model){
-        log.info("받아오는 아이디 : {}", memberId);
+    @GetMapping("/cart")
+    public String list(HttpSession session, Model model) {
+        // 세션에서 memberId 가져오기
+        Member member = (Member)session.getAttribute("loginMember");
+        String memberId = member.getMemberId();
+
         List<Map<String, Object>> list = cartService.getCartList(memberId);
         model.addAttribute("list", list);
 
-        for (Map<String, Object> map: list) {
+        for (Map<String, Object> map : list) {
             log.info("**** 카트 정보 확인 : {}", map);
         }
 
@@ -42,41 +46,55 @@ public class CartController {
     }
 
     // 장바구니 상품 추가
-    @PostMapping("/cart/{memberId}")
-    public String addToCartItem(@PathVariable("memberId") String memberId,
-                              @ModelAttribute Cart cart,@ModelAttribute Item item) {
-        int itemId = item.getItemId();
+    @PostMapping("/cart")
+    public String addToCartItem(HttpSession session, @ModelAttribute Cart cart, @ModelAttribute Item item) {
+        // 세션에서 memberId 가져오기
+        Member member = (Member)session.getAttribute("loginMember");
+        String memberId = member.getMemberId();
 
-        int cartAmount = cart.getCartAmount();
+        int itemId = item.getItemId();  // 아이템 아이디
+        int cartAmount = cart.getCartAmount();  // 상품 수량
         log.info("itemId : {}", itemId);
         log.info("memberId : {}", memberId);
         log.info("상품 수량: {}", cartAmount);
-        log.info("장바구니 넣기 넘겨받은 정보 : {}", cart);
+        log.info("장바구니 넣기/ 넘겨받은 정보 : {}", cart);
 
         // 서버로부터 전송받은 값 Cart객체에 저장
         cart.setMemberId(memberId);
         cart.setItemId(itemId);
         cart.setCartAmount(cartAmount);
 
-        cartService.addToCart(cart);
-        return "redirect:/grrreung/cart/{memberId}";
+        // 장바구니에 담겨있는 상품인지 확인 => 중복값일경우 업데이트, 중복값이 아닌경우 인서트
+        List<Integer> list = cartService.itemIdDuplication(memberId);
+
+        if (list.contains(itemId)) {
+            cartService.updateRegisteredAmount(cart);
+            log.info("########### 업데이트됨 ##############");
+        } else {
+            cartService.addToCart(cart);
+            log.info("########### 추가됨 ##############");
+        }
+
+        return "redirect:/grrreung/cart";
     }
+
+
 
     // 장바구니 수량 증가
     @ResponseBody
     @GetMapping("/cart/amount-plus")
-    public void cartAmountPlus(@RequestParam String memberId, @RequestParam int itemId){
-        log.info("****** 멤버아이디, 아이템아이디 :{}, {}",memberId,itemId);
-        cartService.cartAmountPlus(memberId, itemId);
+    public void cartAmountPlus(@RequestParam int cartId){
+        log.info("****** 선택한 카트 아이디 :{}", cartId);
+        cartService.cartAmountPlus(cartId);
     }
 
 
     // 장바구니 수량 감소
     @ResponseBody
     @GetMapping("/cart/amount-minus")
-    public void cartAmountMinus(@RequestParam String memberId, @RequestParam int itemId){
-        log.info("****** 멤버아이디, 아이템아이디 :{}, {}",memberId,itemId);
-        cartService.cartAmountMinus(memberId, itemId);
+    public void cartAmountMinus(@RequestParam int cartId){
+        log.info("****** 선택한 카트 아이디 :{}",cartId);
+        cartService.cartAmountMinus(cartId);
     }
 
 

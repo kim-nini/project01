@@ -5,9 +5,8 @@
 
     <!-- 장바구니 상품 리스트 -->
     <select id="findById" parameterType="String" resultType="map">
-        SELECT i.item_name, i.item_detail, i.item_price,
-               c.member_id, c.item_id,
-               SUM(c.cart_amount) AS cart_amount,
+        SELECT c.cart_id, i.item_name, i.item_detail, i.item_price,
+               c.member_id, c.item_id, c.cart_amount,
                m.img_name AS item_img
         FROM
             cart c
@@ -15,11 +14,7 @@
                 INNER JOIN item_img m ON i.item_id = m.item_id
         WHERE
             c.member_id = #{value}
-          AND m.rep_img_yn='Y'
-        GROUP BY
-            i.item_name, i.item_detail, i.item_price,
-            c.member_id, c.item_id,
-            m.img_name
+             AND m.rep_img_yn='Y'
         ORDER BY
             item_id DESC
     </select>
@@ -30,23 +25,32 @@
         VALUES (cart_id_seq.nextval, #{memberId}, #{itemId}, #{cartAmount})
     </insert>
 
-
-    <!-- 장바구니 수량 증가시키기 -->
-    <update id="cartAmountPlus" parameterType="map">
+    <!-- 장바구니에 같은 ITEM_ID 가 존재할 경우 , 장바구니에 담긴 수량만 증가  -->
+    <update id="updateRegisteredAmount" parameterType="Cart">
         UPDATE cart
-        SET cart_amount = (SELECT MAX(cart_amount) + 1 AS max_cart_amount
-                            FROM cart
-                            WHERE member_id = #{memberId} AND item_id = #{itemId})
+        SET cart_amount = cart_amount + #{cartAmount}
         WHERE member_id = #{memberId} AND item_id = #{itemId}
     </update>
 
-    <!-- 장바구니 수량 감소시키기 -->
-    <update id="cartAmountMinus" parameterType="map">
+    <!-- 장바구니에 담긴 아이템 중복값 확인하기 위한 쿼리문 -->
+    <select id="itemIdDuplication" parameterType="String" resultType="int">
+        SELECT DISTINCT item_id
+        FROM cart
+        WHERE member_id = #{memberId}
+    </select>
+
+    <!-- 장바구니 수량 증가시키기 -->
+    <update id="cartAmountPlus" parameterType="int">
         UPDATE cart
-        SET cart_amount = (SELECT MAX(cart_amount) + 1 AS max_cart_amount
-                           FROM cart
-                           WHERE member_id = #{memberId} AND item_id = #{itemId})
-        WHERE member_id = #{memberId} AND item_id = #{itemId}
+        SET cart_amount = cart_amount + 1
+        WHERE cart_id = #{value}
+    </update>
+
+    <!-- 장바구니 수량 감소시키기 -->
+    <update id="cartAmountMinus" parameterType="int">
+        UPDATE cart
+        SET cart_amount = cart_amount - 1
+        WHERE cart_id = #{value}
     </update>
 
 

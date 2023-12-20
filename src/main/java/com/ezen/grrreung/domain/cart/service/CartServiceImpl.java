@@ -26,13 +26,23 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void cartAmountPlus(String memberId, int itemId) {
-        cartMapper.cartAmountPlus(memberId, itemId);
+    public void updateRegisteredAmount(Cart cart) {
+        cartMapper.updateRegisteredAmount(cart);
     }
 
     @Override
-    public void cartAmountMinus(String memberId, int itemId) {
-        cartMapper.cartAmountMinus(memberId, itemId);
+    public List<Integer> itemIdDuplication(String memberId) {
+        return cartMapper.itemIdDuplication(memberId);
+    }
+
+    @Override
+    public void cartAmountPlus(int cartId) {
+        cartMapper.cartAmountPlus(cartId);
+    }
+
+    @Override
+    public void cartAmountMinus(int cartId) {
+        cartMapper.cartAmountMinus(cartId);
     }
 
 

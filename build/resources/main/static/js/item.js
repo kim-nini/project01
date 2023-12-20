@@ -91,21 +91,81 @@ $(document).ready(function() {
         // 총 가격을 포맷팅하여 표시
         totalAmountPrint.text(new Intl.NumberFormat().format(totalAmount) + "원");
     });
+
+
+
+
+
 });
-// 리뷰 페이지 이동 비동기처리 ------------------------------------------------------------------------------------------
 
-let pageBtn = document.querySelector(".page-item");
-pageBtn.addEventListener('click',pageRequest);
 
-function pageRequest(){
-    pagination();
+// 리뷰 페이지 이동 비동기처리  ------------------------------------------------------------------------------------------
 
-    }
+// const pageBtn = $('.page-link');
+// const pageNum = pageBtn.text();
+// pageBtn.attr('onclick',loadPage(pageNum));
 
-    async function pagination(){
-        let url=`/grrreung/shop/item(itemId = ${item.itemId}, page=${page})`;
-        return fetch(url)
-            .then((response)=> {
-                return response.json;
-            })
-    }
+function loadPage(page) {
+    let itemId = $("#itemId").text();
+    console.log("itemId : " + itemId);
+    console.log("page : " + page)
+
+
+    // 페이지를 비동기적으로 로드하는 로직을 작성
+    $.ajax({
+        url: '/grrreung/itemrev/all-reviews',  // 페이지 로드할 URL
+        type: 'GET',
+        data: { itemId: itemId, page: page },
+        dataType: 'json',
+        success: function(data) {
+            // 페이지 내용을 업데이트
+            console.dir("data : " + data);
+            updateReviewBoard(data);
+        },
+        error: function(error) {
+            console.error('Error loading page:', error);
+        }
+    });
+}
+
+function updateReviewBoard(data) {
+    // Assuming data is an array of ItemRev objects
+    let reviewBoard = $('.review-board');
+    reviewBoard.empty(); // Clear the existing content
+
+    data.forEach(function(itemRev) {
+        let row = $('<tr>');
+        row.append('<td>' + itemRev.revCode + '</td>');
+        row.append('<td><a href="/grrreung/itemrev/' + itemRev.revCode + '">' + itemRev.revTitle + '</a></td>');
+        row.append('<td>' + itemRev.memberId + '</td>');
+        row.append('<td>' + itemRev.revDate + '</td>');
+        reviewBoard.append(row);
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

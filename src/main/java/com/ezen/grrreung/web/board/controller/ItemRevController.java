@@ -4,6 +4,7 @@ import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.service.ItemRevService;
+import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.web.common.Pagination;
 import com.ezen.grrreung.web.common.RequestParams;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class ItemRevController {
     private final ItemRevService itemRevService;
 
     // itemRev 전체 목록
-    @GetMapping(value = {"myreview/{memberId}",""})
+    @GetMapping(value = {"/myreview/{memberId}",""})
 //    @GetMapping()
     public String postList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                            @RequestParam(value = "search", required = false, defaultValue = "") String search,
@@ -178,6 +179,30 @@ public class ItemRevController {
         model.addAttribute("itemRev",itemRevInfo);
         return "/grrreung/sub/rev-cont";
     }
+
+    // 아이템 상세보기 페이지에 보여줄 리뷰 목록 조회
+    @ResponseBody
+    @GetMapping("/all-reviews")
+    public ResponseEntity<List<ItemRev>> findItemReviews(@RequestParam String itemId, Model model
+                               , @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+
+        log.info("itemId : {}",itemId);
+        log.info("page : {}", page);
+
+        // 데이터
+        RequestParams params = new RequestParams(page, 5, 5, itemId);
+        int reviewCount = itemRevService.postListCount(params);
+        List<ItemRev> list = itemRevService.postList(params);
+
+        model.addAttribute("list", list);
+        Pagination pagination = new Pagination(params, reviewCount);
+        // 페이징 계산 로직을 여기서 생략하고, 페이지에 맞는 데이터를 가져오는 로직을 추가해야 함
+        model.addAttribute("pagination", pagination);
+        // 데이터를 가져와서 model에 추가하는 로직도 필요
+
+        return ResponseEntity.ok(list);
+    }
+
 
 
     

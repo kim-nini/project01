@@ -110,8 +110,8 @@ public class ItemController {
     @GetMapping("/shop/item/{itemId}")
     public String itemInfo(@PathVariable("itemId") int itemId,
                            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-
                            Model model){
+
         Item item = itemService.findByItemId(itemId);
         log.info("아이템 상세정보 : {}", item.toString());
 
@@ -126,7 +126,6 @@ public class ItemController {
 
         // 리뷰 리스트 출력하기
         // 페이징 처리와 관련된 변수
-
         int elementSize = 5; // 화면에 보여지는 행의 갯수
         int pageSize = 5;     // 화면에 보여지는 페이지 갯수
         String search = Integer.toString(itemId);
@@ -143,6 +142,8 @@ public class ItemController {
             pagination.setEndPage(1);
         }
         List<ItemRev> list = itemRevService.itemReviews(params);
+
+        log.info("리뷰정보 : {}", list);
 
         model.addAttribute("params", params); // 요청 파라메터
         model.addAttribute("pagination", pagination); // 페이징 계산 결과
@@ -315,17 +316,12 @@ public class ItemController {
     // 회원 장바구니에 아이템 추가하기
     @RequestMapping("/my-cart")
     public String addItemToCart(){
-
-
         return "/grrreung/sub/cart";
     }
 
 
 
-//    @GetMapping("/order")
-//    public String orderSheet() {
-//        return "/grrreung/sub/order-sheet";
-//    }
+
 
 
 

@@ -47,4 +47,8 @@ public interface ItemRevMapper {
     // 아이템별 (전체 회원) 리뷰 개수 조회
     public int itemRevPostCount(int itemId);
 
+    // 아이템 상세보기 페이지에서 보여줄 리뷰목록 조회
+    public List<ItemRev> itemReviewAll(int itemId);
+
+
 }
