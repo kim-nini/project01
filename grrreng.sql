@@ -76,6 +76,7 @@ select * from member;
 
 
 -- cart seq
+drop sequence cart_id_seq;
 
 CREATE SEQUENCE cart_id_seq
     START WITH 1

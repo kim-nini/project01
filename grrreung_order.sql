@@ -138,10 +138,10 @@ FROM
     JOIN order_gr g ON g.order_id = oi.order_id
     LEFT OUTER JOIN item     i ON oi.item_id = i.item_id
 WHERE
-    member_id = 'customer1'
+    member_id = 'ddalang'
 ORDER BY
-    order_id DESC;
-
+    order_id desc;
+    
 
 -- #2. order_id 별 조회
 
@@ -156,6 +156,7 @@ WHERE
     
 
 ----
+
 
 
 SELECT
@@ -205,9 +206,8 @@ ORDER BY
     order_id DESC;
 
 commit;
+
 --=====================================================================
-
-
 
 SELECT
     og.order_id,
@@ -224,7 +224,7 @@ FROM
     JOIN order_item oi ON og.order_id = oi.order_id
     JOIN item       i ON oi.item_id = i.item_id
 WHERE
-    og.member_id = 'customer1'
+    og.member_id = 'ddalang'
 GROUP BY
     og.order_id,
     og.order_status,
@@ -234,7 +234,7 @@ GROUP BY
     oi.order_amount,
     oi.order_price
 ORDER BY
-    og.order_date DESC;
+    og.order_id ASC;
 
 COMMIT;
     

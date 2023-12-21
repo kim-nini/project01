@@ -38,7 +38,7 @@ public interface ItemRevService {
     public int numberOfPurchases(Map<String, Object> map);
 
     // 아이템별 작성된 게시글 수 검색
-    public int writtenPost(ItemRev itemRev);
+    public int writtenPost(Map<String, Object> map);
 
 
 }

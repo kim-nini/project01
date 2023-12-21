@@ -14,11 +14,11 @@
 			member_id
 		) VALUES (
 					 item_rev_seq.NEXTVAL,
-					 2,
+					 #{itemId},
 					 #{revTitle},
 					 #{revCont},
-					 '멤버아이디'
-				 )
+					 #{memberId}
+						 )
 	</insert>
 
 	<!-- 전체리스트 및 검색 리스트-->
@@ -28,7 +28,8 @@
 		rev_title,
 		rev_cont,
 		member_id,
-		rev_date
+		rev_date,
+		item_id
 		FROM
 		(
 		SELECT
@@ -37,7 +38,8 @@
 		rev_title,
 		rev_cont,
 		member_id,
-		rev_date
+		rev_date,
+		item_id
 		FROM
 		(
 		SELECT
@@ -45,7 +47,8 @@
 		rev_title,
 		rev_cont,
 		member_id,
-		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date,
+		item_id
 		FROM
 		item_rev
 		<where>
@@ -114,7 +117,7 @@
 	</select>
 
 	<!--	아이템 별 작성된 후기 갯수-->
-	<select id="writtenPost" parameterType="ItemRev" resultType="int">
+	<select id="writtenPost" parameterType="map" resultType="int">
 		SELECT
 			COUNT(*) cnt
 		FROM

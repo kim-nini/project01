@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/notice.css">
     <link rel="stylesheet" href="/css/post.css">
 
-    <title>그르릉Grr - 공지사항작성</title>
+    <title>그르릉Grr - 문의 수정</title>
 </head>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
@@ -16,7 +16,7 @@
 
 <!-- 서브 타이틀 -->
 <th:block th:replace="~{/fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}">
-    <h2 class="category-title" th:fragment="title">NOTICE</h2>
+    <h2 class="category-title" th:fragment="title">Q&A</h2>
 </th:block>
 
 
@@ -25,7 +25,7 @@
         <form class="qna" method="post">
             <div>
                 <ul>
-                    <li><a href="#">공지사항 작성</a></li>
+                    <li><a href="#">문의 수정</a></li>
                 </ul>
             </div>
             <table>
@@ -35,7 +35,7 @@
                 <tbody>
                 <tr>
                     <th>
-                        <label>문의유형</label>
+                        <label>상품선택</label>
                     </th>
 
                     <td>
@@ -58,7 +58,7 @@
                         <label>제목</label>
                     </th>
                     <td>
-                        <input name="notiTitle" placeholder="제목을 입력하세요" style="width:98%;height:40px;">
+                        <input name="qnaTitle" placeholder="제목을 입력 해 주세요" th:value="${itemQna.qnaTitle}" style="width:98%;height:40px;">
                     </td>
                 </tr>
 
@@ -66,8 +66,8 @@
 
                     <th>내용</th>
                     <td>
-                        <textarea id="InputTextarea" name="notiCont" cols="5" rows="1"
-                                  placeholder="공지사항 내용을 입력해주세요.(2000자 이내)" style="width:98%;height:280px;"></textarea>
+                        <textarea id="InputTextarea" name="qnaCont" cols="5" rows="1"
+                                  placeholder="상품후기 내용을 입력해주세요.(2000자 이내)" th:text="${itemQna.qnaCont}" style="width:98%;height:280px;"></textarea>
                     </td>
                     <td>
                         <div class="filebox">
@@ -84,29 +84,10 @@
                         </div>
                     </td>
                 </tr>
-<!--                <tr>-->
-<!--                    <th>답변등록알림(선택)</th>-->
-<!--                    <td>-->
-<!--                        <ul>-->
-<!--                            <li><input type="checkbox" value="y">-->
-<!--                                <label>sms</label>-->
-<!--                                <select>-->
-<!--                                    <option>010</option>-->
-<!--                                    <option>02</option>-->
-<!--                                    <option>031</option>-->
-<!--                                    <option>0502</option>-->
-<!--                                </select><span>-</span>-->
-<!--                                <input type="tel"><span>-</span><input type="tel">-->
-<!--                            </li>-->
-<!--                            <li><input type="checkbox"><label>E-mail</label> <input type="email"><span>@</span><input-->
-<!--                                    type="email"></li>-->
-<!--                        </ul>-->
-<!--                    </td>-->
-<!--                </tr>-->
                 </tbody>
             </table>
             <div class="btn_wrap">
-                <button type="submit">등록</button>
+                <button type="submit">수정하기</button>
                 <button href="#">취소</button>
             </div>
         </form>

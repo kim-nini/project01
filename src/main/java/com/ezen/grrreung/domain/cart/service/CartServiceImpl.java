@@ -26,6 +26,31 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void updateRegisteredAmount(Cart cart) {
+        cartMapper.updateRegisteredAmount(cart);
+    }
+
+    @Override
+    public List<Integer> itemIdDuplication(String memberId) {
+        return cartMapper.itemIdDuplication(memberId);
+    }
+
+    @Override
+    public void cartAmountPlus(int cartId) {
+        cartMapper.cartAmountPlus(cartId);
+    }
+
+    @Override
+    public void cartAmountMinus(int cartId) {
+        cartMapper.cartAmountMinus(cartId);
+    }
+
+    @Override
+    public void removeCartOne(String memberId, int itemId) {
+        cartMapper.deleteItemToCart(memberId, itemId);
+    }
+
+    @Override
     public List<Map<String, Object>> getCheckedList(Map<String,Object> map) {
         return cartMapper.findByItemId(map);
     }

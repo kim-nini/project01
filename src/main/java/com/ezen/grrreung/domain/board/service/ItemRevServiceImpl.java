@@ -63,8 +63,8 @@ public class ItemRevServiceImpl implements ItemRevService{
     }
 
     @Override
-    public int writtenPost(ItemRev itemRev) {
-        return itemRevMapper.writtenPost(itemRev);
+    public int writtenPost(Map<String, Object> map) {
+        return itemRevMapper.writtenPost(map);
     }
 
 }

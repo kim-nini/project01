@@ -39,5 +39,5 @@ public interface ItemRevMapper {
     public int numberOfPurchases(Map<String, Object> map);
 
     // 아이템별 작성된 후기 갯수
-    public int writtenPost(ItemRev itemRev);
+    public int writtenPost(Map<String, Object> map);
 }

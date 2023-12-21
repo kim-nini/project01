@@ -195,8 +195,7 @@ FROM
     )
 WHERE
     page = 1;
-    
-    
+
     
 -- 아이템 리뷰 서치
 SELECT

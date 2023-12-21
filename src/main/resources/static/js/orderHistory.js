@@ -1,13 +1,9 @@
 // 이벤트 타겟에 이벤트 리스너 등록
 document.querySelector("#order-history").addEventListener("click", orderHistory);
-let title = document.querySelector("#title");
 
-// 멤버아이디 가져오기
-let memberId = document.querySelector("#member-id").value;
 
 
 let createTag = document.querySelector("#account-order-history");
-let item_name, order_amount, order_price, order_status;
 
 // 가져온 리스트 뷰에 보여주기
 async function orderHistory(event) {
@@ -21,11 +17,13 @@ async function orderHistory(event) {
 		? ordersData.reduce((acc, order) => {
 			const orderId = order.ORDER_ID;
 
+
 			if (!acc[orderId]) {
 				acc[orderId] = [];
 			}
 
 			acc[orderId].push(order);
+
 			return acc;
 		}, {})
 		: {};
@@ -44,7 +42,7 @@ async function orderHistory(event) {
 
 		const wrapperDiv = document.createElement('div');
 		wrapperDiv.classList.add('wrapper');
-		wrapperDiv.textContent='데이터가없습니다';
+		wrapperDiv.textContent='주문내역이 없습니다';
 		createTag.appendChild(wrapperDiv);
 		console.log('데이터가 없습니다.');
 	}
@@ -59,8 +57,11 @@ async function orderHistory(event) {
 		const totalOrderAmount = orderAmounts.length;
 
 		// 주문한 상품의 총 금액
-		const orderPrice = data.map(order => order.ORDER_PRICE_ALL);
-		const totalOrderPrice = orderPrice.reduce((sum, amount) => sum + amount, 0);
+		const orderPrice = data.map(order => order.ORDER_PRICE);
+		let totalOrderPrice = 0;
+		orderPrice.forEach(sum => {
+			totalOrderPrice += sum;
+		});
 		console.log(`totalOrderPrice: ${totalOrderPrice}`);
 
 		// 주문 날짜(정규표현식 사용)
@@ -152,7 +153,8 @@ async function orderHistory(event) {
 			const orderPrice = Number(order.ORDER_PRICE).toLocaleString() + '원';
 			const orderStatus = order.ORDER_STATUS;
 			const orderId = order.ORDER_ID;
-			const itemWrapperDiv = itemContent(itemName, orderAmount, orderPrice, orderStatus, orderId, itemId);
+			const writtenPost = order.writtenPost;
+			const itemWrapperDiv = itemContent(itemName, orderAmount, orderPrice, orderStatus, orderId, itemId, writtenPost);
 			console.log(`ITEM_NAME: ${itemName}, ORDER_AMOUNT: ${orderAmount}, ORDER_PRICE: ${orderPrice}, ORDER_STATUS: ${orderStatus}, ITEM_ID: ${itemId}`);
 			accordianContent.appendChild(itemWrapperDiv);
 		}
@@ -226,32 +228,12 @@ async function orderHistory(event) {
 	}
 
 
-	// 후기작성 처리
-	// $(document).ready(function() {
-	//     $('#item-review').on('click', function(e) {
-	//         e.preventDefault(); // 기본 동작 방지 (페이지 이동 등)
-	//
-	//         // AJAX 요청
-	//         $.ajax({
-	//             url: `/itemrev/create/${name}/${orderId}`, // 서버의 매핑 경로
-	//             type: 'GET',
-	//             success: function(data) {
-	//                 // 성공 시 처리
-	//                 alert('이미 작성된 후기입니다.');
-	//             },
-	//             error: function() {
-	//                 // 오류 시 처리
-	//                 $('#result').text('오류 발생');
-	//             }
-	//         });
-	//     });
-	// });
 
 }
 
 
 // 아이템 출력 함수 생성
-function itemContent(name, amount, price, status, orderId, itemId) {
+function itemContent(name, amount, price, status, orderId, itemId, writtenPost ) {
 	const itemWrapperDiv = document.createElement('div');
 	itemWrapperDiv.classList.add('item-wrapper');
 
@@ -307,11 +289,14 @@ function itemContent(name, amount, price, status, orderId, itemId) {
 
 	// <a> 태그 생성
 	const anchorTag = document.createElement('a');
-	anchorTag.href = '#';  // 원하는 링크 주소 설정
 	anchorTag.id = 'item-review';
+	if ( writtenPost){
 	anchorTag.textContent = '후기 작성';
-	anchorTag.href = `/grrreung/itemrev/create/${itemId}/${orderId}`;
-
+	anchorTag.href = `/grrreung/itemrev/create/${itemId}`;
+	} else {
+		anchorTag.textContent = '후기 보기';
+		anchorTag.href = `/grrreung/itemrev/myreview`;
+	}
 
 	// <a> 태그를 returnsDiv에 추가
 	returnsDiv.appendChild(anchorTag);
@@ -327,15 +312,10 @@ function itemContent(name, amount, price, status, orderId, itemId) {
 
 // db에서 주문내역 리스트 불러오기
 function getOrderHistory() {
-	const url = `/order`;
+	const url = `/grrreung/order`;
 	return fetch(url)
 		.then((response) => {
 			return response.json();
 		});
 }
 
-// 날짜 포맷팅
-function formatDateTime(dateTimeString) {
-	const formattedDateTime = dateTimeString.replace(/T|(\.\d{3})|(\+\d{2}:\d{2})/g, ' ');
-	return formattedDateTime;
-}

@@ -5,31 +5,31 @@ $(document).ready(function () {
     calculateTotalPrice();
 
 
-      function pay_total_func(){
+    function pay_total_func(){
         //2번 단
         var amount_total=0;
         var converse_unit=0;
         $('.cart_list li').each(function() {
-          //console.log($(this).find('.price_amount').text());
-          converse_unit=$(this).find('.price_amount').text().replace(/[^0-9]/g,"");
-          amount_total=amount_total+(parseInt(converse_unit)|| 0);
-          //총 상품금액
-          //console.log(amount_total);
+            //console.log($(this).find('.price_amount').text());
+            converse_unit=$(this).find('.price_amount').text().replace(/[^0-9]/g,"");
+            amount_total=amount_total+(parseInt(converse_unit)|| 0);
+            //총 상품금액
+            //console.log(amount_total);
         });
         //총 상품금액
         //var total_amount_money = $('.cart_total_price').children().find('.item_price').text();
         var total_amount_money =$('.cart_total_price').children().find('.item_price').text(amount_total.toLocaleString());
         //할인금액
         var total_sale_money = parseInt($('.cart_total_price').children().find('.sale_price').text().replace(/[^0-9]/g,"")|| 0);
-        console.log(total_sale_money);
+        // console.log(total_sale_money);
         //총 배송비
         var total_delivery_price = parseInt($('.cart_total_price').children().find('.delivery_price').text().replace(/[^0-9]/g,"")|| 0);
-        console.log(total_delivery_price);
+        // console.log(total_delivery_price);
         //총 결제금액
         var total_price=(parseInt(amount_total|| 0)-total_sale_money+total_delivery_price);
         var total_total_price = $('.cart_total_price').children().find('.total_price').text(total_price.toLocaleString());
 
-      }
+    }
 
 
 
@@ -58,32 +58,14 @@ $(document).ready(function () {
     });
 
 
-    // document.getElementById('all_chk').addEventListener("change", updateAllCheckbox);
-    // // 전체 선택 체크박스 업데이트 함수
-    // function updateAllCheckbox() {
-    //     var checkboxes = document.querySelectorAll('[name="item_chk"]');
-    //     var allCheckbox = document.getElementById('all_chk');
-    //     allCheckbox.checked = Array.from(checkboxes).every(function (checkbox) {
-    //         return checkbox.checked;
-    //     });
-    // }
-
-
-
-
-
-    // 전체 선택 체크박스
-    document.getElementById('all_chk').addEventListener('click', function () {
-        document.getElementById('all_chk').addEventListener('click', function () {
-            let checkboxes = document.querySelectorAll('[name="item_chk"]');
-            checkboxes.forEach(function (checkbox) {
-                checkbox.checked = !checkbox.checked; // Toggle the state
-            });
-
-            updateTotal();
-        });
+    document.getElementsByName('all_chk')[0].addEventListener('change', function () {
+        /* 체크박스 체크/해제 */
+        if ($("input[name='all_chk']").prop("checked")) {
+            $("input[name='item_chk']").prop("checked", true);
+        } else {
+            $("input[name='item_chk']").prop("checked", false);
+        }
     });
-
 
 
     // 개별 상품 체크박스 클릭 시
@@ -165,27 +147,95 @@ $(document).ready(function () {
 
 
 
+    // 장바구니 수량 업데이트
+    // const memberId = $("#memberId").text();
+    // console.log("장바구니 멤버아이디: " + memberId);
+
+    $(".cart-action-btn").click(function () {
+        let cartId = $(this).siblings("#cartId").text();
+        console.log("선택한 아이템의 카트아이디 : " + cartId);
+        let action = $(this).hasClass("plus_btn") ? "plus" : "minus";
+
+        // AJAX 요청을 통해 백엔드 컨트롤러에 데이터 전송
+        $.ajax({
+            type: "GET",
+            url: "/grrreung/cart/amount-" + action,
+            data: { cartId: cartId },
+            success: function () {
+                // 성공 시 페이지의 장바구니 수량 업데이트
+                // updateCartAmount(itemId, action);
+            },
+            error: function (xhr, status, error) {
+                console.error("장바구니 수량 업데이트 에러:", error);
+            }
+        });
+    });
+
+    // 페이지의 장바구니 수량 업데이트를 위한 함수
+    function updateCartAmount(itemId, action) {
+        var cartAmountInput = $("input.cart-amount[data-item-id='" + itemId + "']");
+        var currentAmount = parseInt(cartAmountInput.val());
+
+        if (action === "plus") {
+            currentAmount++;
+        } else if (action === "minus" && currentAmount > 1) {
+            currentAmount--;
+        }
+
+        // 업데이트된 수량을 페이지에 반영
+        cartAmountInput.val(currentAmount);
+    }
+
 });
 
 
 function goToOrder() {
 
-
     // 체크된 상품들의 체크박스를 선택
     var selectedCheckboxes = document.querySelectorAll('input[name="item_chk"]:checked');
+
     if(selectedCheckboxes.length === 0 ){
 
         alert("주문하실 상품을 선택 해 주세요.")
+
     } else {
 
-    let param = ''
+        let param = ''
 
-    // 체크박스의 value(itemId) 가져와서 param에 담기
-    selectedCheckboxes.forEach(function (checkbox) {
-        param += `itemId=${checkbox.value}&`;
-    });
+        // 체크박스의 value(itemId) 가져와서 param에 담기
+        selectedCheckboxes.forEach(function (checkbox) {
+            param += `itemId=${checkbox.value}&`;
+        });
 
-    // 주문서 작성화면으로 get매핑
-    window.location.href = `/order/form?${param}`;
+        // 주문서 작성화면으로 get매핑
+        window.location.href = `/grrreung/order/form?${param}`;
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
