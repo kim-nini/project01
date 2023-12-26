@@ -109,8 +109,11 @@ public class ItemRevController {
 
         // itemId로 카테고리 가져오기
         Category category = itemService.getCateByItemId(itemId);
-
         model.addAttribute("category", category);
+
+        // itemId로 item 가져오기
+        Item item = itemService.findByItemId(itemId);
+        model.addAttribute("item", item);
 
 
         return "/grrreung/sub/rev-write";
