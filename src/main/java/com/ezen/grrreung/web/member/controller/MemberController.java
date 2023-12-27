@@ -30,14 +30,14 @@ public class MemberController {
      * 로그인 처리 요청
      */
     @PostMapping("/login")
-    public String login(Member member, HttpServletRequest request, Model model) {
+    public String login(Member member, HttpSession session, Model model) {
         Member loginMember = memberService.login(member.getMemberId(), member.getPassword());
-        HttpSession session = request.getSession();
 
-        // 로그인한 사용자 정보가 세션에 있는 경우
+        // 로그인한 사용자 정보가 세션에 있는 경우(세션 유지)
         if (loginMember != null) {
             model.addAttribute("loggedIn", true);
             model.addAttribute("loginMember", loginMember);
+            
             session.setAttribute("loginMember", loginMember);
             return "redirect:/grrreung";
         } else {

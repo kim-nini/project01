@@ -2,35 +2,7 @@ $(document).ready(function () {
     // 초기화면 출력시 전체checked 속성 부여하기, 전체선택 check box도 포함
     $('#all_chk').prop('checked', true);
     $('[name="item_chk"]').prop('checked', true);
-    calculateTotalPrice();
-
-
-      function pay_total_func(){
-        //2번 단
-        var amount_total=0;
-        var converse_unit=0;
-        $('.cart_list li').each(function() {
-          //console.log($(this).find('.price_amount').text());
-          converse_unit=$(this).find('.price_amount').text().replace(/[^0-9]/g,"");
-          amount_total=amount_total+(parseInt(converse_unit)|| 0);
-          //총 상품금액
-          //console.log(amount_total);
-        });
-        //총 상품금액
-        //var total_amount_money = $('.cart_total_price').children().find('.item_price').text();
-        var total_amount_money =$('.cart_total_price').children().find('.item_price').text(amount_total.toLocaleString());
-        //할인금액
-        var total_sale_money = parseInt($('.cart_total_price').children().find('.sale_price').text().replace(/[^0-9]/g,"")|| 0);
-        console.log(total_sale_money);
-        //총 배송비
-        var total_delivery_price = parseInt($('.cart_total_price').children().find('.delivery_price').text().replace(/[^0-9]/g,"")|| 0);
-        console.log(total_delivery_price);
-        //총 결제금액
-        var total_price=(parseInt(amount_total|| 0)-total_sale_money+total_delivery_price);
-        var total_total_price = $('.cart_total_price').children().find('.total_price').text(total_price.toLocaleString());
-
-      }
-
+    calculateTotalPrice(); // 총 가격 계산 함수 호출
 
 
     // 합계 업데이트 함수
@@ -38,17 +10,56 @@ $(document).ready(function () {
         var total = 0;
         var checkboxes = document.querySelectorAll('[name="item_chk"]:checked');
         checkboxes.forEach(function (checkbox) {
-            var row = checkbox.parentElement.parentElement;
+            var row = checkbox.closest('li');
             var amount = parseInt(row.querySelector('.number').value);
             var itemPrice = parseInt(row.querySelector('.itemPrice').value);
             total += amount * itemPrice;
         });
 
-        calculateTotalPrice(total); // Pass the total to the calculateTotalPrice function
+        // 총 결제 금액 업데이트
+        calculateTotalPrice(total);
         var totalElement = document.querySelector('.total_price');
-        totalElement.innerText = total;
+        totalElement.innerText = total.toLocaleString();
     }
 
+    // 총 결제 금액
+    function pay_total_func(){
+        let amount_total = 0;
+
+        $('.cart_list li').each(function() {
+            let converse_unit;
+            if($(this).find('[name="item_chk"]').prop("checked")){
+                converse_unit = $(this).find('.price_amount').text().replace(/[^0-9]/g,"");
+            }
+            amount_total = amount_total + (parseInt(converse_unit) || 0);
+        });
+
+        //총 상품금액
+        $('.cart_total_price').children().find(".item_price").text(amount_total.toLocaleString());
+
+        //총 배송비
+        let total_delivery_price = parseInt($('.cart_total_price').children().find('.delivery_price').text().replace(/[^0-9]/g, "") || 0);
+
+        // 삭제 버튼에 표시되는 선택된 상품 수 업데이트
+        let total_price = amount_total + total_delivery_price;
+        $('.cart_total_price').children().find('.total_price').text(total_price.toLocaleString());
+
+        // 체크된 상품 수 업데이트
+        let selectedItemsCount = $('.cart_list li input[name="item_chk"]:checked').length;
+        $('.del_btn .num').text(selectedItemsCount);
+
+    }
+
+    // 체크박스 변경 시 총 결제 금액 업데이트
+    $('.cart_list li input[name="item_chk"]').on('change', function() {
+        pay_total_func();
+    });
+
+    // 페이지 로딩 시 초기 총 결제 금액 설정
+    pay_total_func();
+
+
+    // 전체 선택 체크박스
     document.getElementById('all_chk').addEventListener('change', function () {
         var checkboxes = document.querySelectorAll('[name="item_chk"]');
         checkboxes.forEach(function (checkbox) {
@@ -58,40 +69,41 @@ $(document).ready(function () {
     });
 
 
-    // document.getElementById('all_chk').addEventListener("change", updateAllCheckbox);
-    // // 전체 선택 체크박스 업데이트 함수
-    // function updateAllCheckbox() {
-    //     var checkboxes = document.querySelectorAll('[name="item_chk"]');
-    //     var allCheckbox = document.getElementById('all_chk');
-    //     allCheckbox.checked = Array.from(checkboxes).every(function (checkbox) {
-    //         return checkbox.checked;
-    //     });
-    // }
-
-
-
-
-
-    // 전체 선택 체크박스
-    document.getElementById('all_chk').addEventListener('click', function () {
-        document.getElementById('all_chk').addEventListener('click', function () {
-            let checkboxes = document.querySelectorAll('[name="item_chk"]');
-            checkboxes.forEach(function (checkbox) {
-                checkbox.checked = !checkbox.checked; // Toggle the state
-            });
-
-            updateTotal();
+    // 체크박스 변경 시 총 결제 금액 업데이트 및 선택된 상품 수 업데이트
+        document.getElementsByName('all_chk')[0].addEventListener('change', function () {
+            /* 체크박스 체크/해제 */
+            if($('[name="all_chk"]').prop("checked")){
+                $('[name="item_chk"]').prop("checked", true);
+            } else {
+                $('[name="item_chk"]').prop("checked", false);
+            }
+            updateTotal(); // 전체 선택 체크박스 변경 시 총 결제 금액 업데이트
+            updateSelectedCount(); // 선택된 상품 수 업데이트
         });
-    });
-
 
 
     // 개별 상품 체크박스 클릭 시
     document.querySelectorAll('[name="item_chk"]').forEach(function (checkbox) {
-        checkbox.addEventListener('click', function () {
-            updateTotal();
+        checkbox.addEventListener('change', function () {
+
+            updateTotal(); // 개별 체크박스 변경 시 총 결제 금액 업데이트
+            updateSelectedCount(); // 선택된 상품 수 업데이트
         });
     });
+
+    // 초기 페이지 로딩 시 기본 전체선택에 따른 삭제 수량 동적 업데이트
+    $(document).ready(function () {
+        if ($('[name="all_chk"]').prop("checked")) {
+            $('[name="item_chk"]').prop("checked", true);
+        }
+        updateSelectedCount();
+    });
+
+    // 상품 선택 시 삭제 수량 동적 업데이트
+    function updateSelectedCount() {
+        var selectedCount = $('[name="item_chk"]:checked').length;
+        $('.del_btn .num').text(selectedCount);
+    }
 
 
     $(".minus_btn").on("click", function () {
@@ -114,16 +126,12 @@ $(document).ready(function () {
         $checkbox.prop("checked", true);
         updateTotal();
     }
-    // Update total price when a checkbox is changed
+    // 체크박스 변경 시 총 결제 금액 업데이트
     document.querySelectorAll('[name="item_chk"]').forEach(function (checkbox) {
         checkbox.addEventListener('change', function () {
             calculateTotalPrice();
         });
     });
-
-
-
-
 
 
     function updateQuantity(change, button) {
@@ -164,4 +172,63 @@ $(document).ready(function () {
     }
 
 
+    // 장바구니 수량 업데이트
+    // const memberId = $("#memberId").text();
+    // console.log("장바구니 멤버아이디: " + memberId);
+
+    $(".cart-action-btn").click(function () {
+        let cartId = $(this).siblings("#cartId").text();
+        console.log("선택한 아이템의 카트아이디 : " + cartId);
+        let action = $(this).hasClass("plus_btn") ? "plus" : "minus";
+
+        // AJAX 요청을 통해 백엔드 컨트롤러에 데이터 전송
+        $.ajax({
+            type: "GET",
+            url: "/grrreung/cart/amount-" + action,
+            data: { cartId: cartId },
+            success: function () {
+                // 성공 시 페이지의 장바구니 수량 업데이트
+                // updateCartAmount(itemId, action);
+            },
+            error: function (xhr, status, error) {
+                console.error("장바구니 수량 업데이트 에러:", error);
+            }
+        });
+    });
+
+    // 페이지의 장바구니 수량 업데이트를 위한 함수
+    function updateCartAmount(itemId, action) {
+        var cartAmountInput = $("input.cart-amount[data-item-id='" + itemId + "']");
+        var currentAmount = parseInt(cartAmountInput.val());
+
+        if (action === "plus") {
+            currentAmount++;
+        } else if (action === "minus" && currentAmount > 1) {
+            currentAmount--;
+        }
+
+        // 업데이트된 수량을 페이지에 반영
+        cartAmountInput.val(currentAmount);
+    }
+
 });
+
+// 체크된 상품 삭제
+function selectDelete() {
+    // 체크된 상품의 정보를 담을 배열
+    var selectedItems = [];
+
+    // 체크된 상품들의 체크박스를 선택
+    var selectedCheckboxes = document.querySelectorAll('input[name="item_chk"]:checked');
+    let param = ''
+    // 각 체크된 상품에 대한 처리
+    selectedCheckboxes.forEach(function (checkbox) {
+        param += `itemId=${checkbox.value}&`;
+    });
+
+    // 추출된 상품 정보 확인 (개발자 도구의 콘솔에 출력)
+    console.log(selectedItems);
+
+    // 여기서 추출한 정보를 이용하여 장바구니 페이지로 이동 또는 처리할 로직 추가
+    window.location.href = `/grrreung/cart/delete?${param}`;  // 예시: 장바구니 페이지로 이동
+    }
