@@ -54,6 +54,11 @@
     </update>
 
 
+    <!-- 장바구니에 상품 삭제하기-->
+    <delete id="deleteItemToCart" parameterType="map">
+        DELETE FROM cart
+        WHERE item_id = #{itemId} AND member_id = #{memberId}
+    </delete>
 
 </mapper>
 

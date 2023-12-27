@@ -21,5 +21,4 @@ public class RequestParams {
         return "RequestParams [requestPage=" + requestPage + ", elementSize=" + elementSize + ", pageSize=" + pageSize
                 + ", search=" + search + "]";
     }
-
 }

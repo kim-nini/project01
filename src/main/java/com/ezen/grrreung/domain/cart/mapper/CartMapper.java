@@ -18,6 +18,7 @@ public interface CartMapper {
     // 장바구니 상품 추가
     public void insertItemToCart(Cart cart);
 
+
     // 장바구니에 같은 ITEM_ID 가 존재할 경우 , 장바구니에 담긴 수량만 증가
     public void updateRegisteredAmount(Cart cart);
 
@@ -29,4 +30,8 @@ public interface CartMapper {
 
     // 장바구니 수량 감소
     public void cartAmountMinus(int cartId);
+
+    // 장바구니 상품 삭제
+    public void deleteItemToCart(@Param("memberId") String memberId,
+                                 @Param("itemId") int itemId);
 }

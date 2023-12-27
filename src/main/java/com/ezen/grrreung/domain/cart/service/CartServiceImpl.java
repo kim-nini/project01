@@ -45,5 +45,8 @@ public class CartServiceImpl implements CartService {
         cartMapper.cartAmountMinus(cartId);
     }
 
-
+    @Override
+    public void removeCartOne(String memberId, int itemId) {
+        cartMapper.deleteItemToCart(memberId, itemId);
+    }
 }

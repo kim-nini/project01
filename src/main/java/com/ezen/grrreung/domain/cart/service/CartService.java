@@ -1,7 +1,6 @@
 package com.ezen.grrreung.domain.cart.service;
 
 import com.ezen.grrreung.domain.cart.dto.Cart;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -26,8 +25,7 @@ public interface CartService {
     // 장바구니 수량 감소
     public void cartAmountMinus(int cartId);
 
-
-
-
+    // 장바구니 상품 개별 삭제하기
+    public void removeCartOne(String memberId, int itemId);
 
 }

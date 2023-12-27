@@ -103,6 +103,28 @@ public class CartController {
 
 
 
+    // 장바구니 개별 삭제
+    @GetMapping("/cart/delete/{itemId}")
+    public String deleteItemToCart(@PathVariable int itemId, HttpSession session) {
+        Member member = (Member) session.getAttribute("loginMember");
+        String memberId = member.getMemberId();
+        log.info("가져온 memberId : {}", memberId);
+        cartService.removeCartOne(memberId, itemId);
+        return "redirect:/grrreung/cart";
+    }
 
+
+    // 장바구니 선택 삭제
+    @GetMapping("/cart/delete")
+    public String selectItemToCart(@RequestParam("itemId") List<Integer> itemId, HttpSession session) {
+        Member member = (Member) session.getAttribute("loginMember");
+        String memberId = member.getMemberId();
+        for (int selectItem : itemId) {
+            cartService.removeCartOne(memberId, selectItem);
+        }
+        log.info("가져온 memberId : {}", memberId);
+        return "redirect:/grrreung/cart";
+
+    }
 
 }
