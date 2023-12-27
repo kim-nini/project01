@@ -61,8 +61,8 @@ public class ItemRevServiceImpl implements ItemRevService{
     }
 
     @Override
-    public int writtenPost(ItemRev itemRev) {
-        return itemRevMapper.writtenPost(itemRev);
+    public int writtenPost(Map<String, Object> map) {
+        return itemRevMapper.writtenPost(map);
     }
 
     @Override
@@ -81,21 +81,6 @@ public class ItemRevServiceImpl implements ItemRevService{
     }
 
 
-    // 상품명으로 상품아이디가져오기
-    @Override
-    public int getItemId(String itemName) {
-        return itemRevMapper.getItemId(itemName);
-    }
 
-    // 구매 수량 조회
-    @Override
-    public int numberOfPurchases(Map<String, Object> map) {
-        return itemRevMapper.numberOfPurchases(map);
-    }
-
-    @Override
-    public int writtenPost(Map<String, Object> map) {
-        return itemRevMapper.writtenPost(map);
-    }
 
 }

@@ -36,19 +36,4 @@ public interface CartMapper {
     public List<Map<String, Object>> findByItemId(Map<String, Object> map);
 
 
-    // 장바구니에 같은 ITEM_ID 가 존재할 경우 , 장바구니에 담긴 수량만 증가
-    public void updateRegisteredAmount(Cart cart);
-
-    // 장바구니에 담긴 아이템 중복값 확인
-    public List<Integer> itemIdDuplication(String memberId);
-
-    // 장바구니 수량 증가
-    public void cartAmountPlus(int cartId);
-
-    // 장바구니 수량 감소
-    public void cartAmountMinus(int cartId);
-
-    // 장바구니 상품 삭제
-    public void deleteItemToCart(@Param("memberId") String memberId,
-                                 @Param("itemId") int itemId);
 }

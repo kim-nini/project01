@@ -131,7 +131,7 @@
 	</select>
 
 <!--	아이템 별 작성된 후기 갯수-->
-	<select id="writtenPost" parameterType="ItemRev" resultType="int">
+	<select id="writtenPost" parameterType="map" resultType="int">
 		SELECT
 			COUNT(*) cnt
 		FROM
