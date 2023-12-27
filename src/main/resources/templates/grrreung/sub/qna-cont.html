@@ -4,8 +4,13 @@
     <!-- 공통 환경설정 -->
     <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
 
+    <!-- 스타일시트 -->
     <link rel="stylesheet" href="/css/notice.css">
     <link rel="stylesheet" href="/css/post.css">
+
+    <!-- js -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/js/qna-re.js"></script>
 
     <title>그르릉Grr - 상품 문의</title>
 </head>
@@ -25,6 +30,12 @@
     <p th:text="${itemQna.qnaDate}"></p>
     <p th:text="${itemQna.qnaCont}"></p>
 
+    <div class="re-div">
+        <p>└ 답변 들어갈 곳</p>
+        <input class="re-ip">
+        <button onclick="sendQnaRe()">답변등록</button>
+
+    </div>
     <!-- 수정 버튼 -->
     <a th:if="${itemQna.memberId == session.loginMember.memberId}" th:href="@{/grrreung/itemqna/update/{qnaCode}(qnaCode=${itemQna.qnaCode})}" class="btn">수정</a>
 
