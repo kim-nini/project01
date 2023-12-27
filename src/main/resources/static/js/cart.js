@@ -237,9 +237,62 @@ function selectDelete() {
         param += `itemId=${checkbox.value}&`;
     });
 
+
     // 추출된 상품 정보 확인 (개발자 도구의 콘솔에 출력)
     console.log(selectedItems);
 
     // 여기서 추출한 정보를 이용하여 장바구니 페이지로 이동 또는 처리할 로직 추가
     window.location.href = `/grrreung/cart/delete?${param}`;  // 예시: 장바구니 페이지로 이동
     }
+
+
+function goToOrder() {
+
+    // 체크된 상품들의 체크박스를 선택
+    var selectedCheckboxes = document.querySelectorAll('input[name="item_chk"]:checked');
+
+    if(selectedCheckboxes.length === 0 ){
+
+        alert("주문하실 상품을 선택 해 주세요.")
+
+    } else {
+
+        let param = ''
+
+        // 체크박스의 value(itemId) 가져와서 param에 담기
+        selectedCheckboxes.forEach(function (checkbox) {
+            param += `itemId=${checkbox.value}&`;
+        });
+
+        // 주문서 작성화면으로 get매핑
+        window.location.href = `/grrreung/order/form?${param}`;
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,18 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ItemQna {
+public class ItemQnaRe {
   private int qnaCode;
-  private int itemId;
-  private String qnaTitle;
-  private String qnaCont;
-  private String qnaDate;
-  private String memberId;
-
+  private int reCode;
+  private String reCont;
+  private String reDate;
 
 }

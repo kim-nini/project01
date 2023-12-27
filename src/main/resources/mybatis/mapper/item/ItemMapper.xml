@@ -232,6 +232,22 @@
 		WHERE i.item_id = #{value}
 	</select>
 
+	<!-- itemId로 카테고리 가져오기 -->
+	<select id="getCateByItemId" parameterType="int" resultType="Category">
+		SELECT
+			*
+		FROM
+			category
+		WHERE
+				cate_code = (
+				SELECT
+					cate_code
+				FROM
+					item
+				WHERE
+					item_id = #{itemId}
+			)
+	</select>
 	<!--	<update id="updateItem">-->
 	<!--		UPDATE item-->
 	<!--		SET-->

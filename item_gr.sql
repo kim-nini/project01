@@ -9,7 +9,7 @@ CREATE TABLE item (
 );
 
 
-select * from item;
+
 
 
 -- 상품 판매상태 제약조건 추가 

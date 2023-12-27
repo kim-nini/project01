@@ -31,7 +31,7 @@ public interface ItemRevService {
 
     // 리뷰 수정
     public void updatePost(ItemRev itemRev);
-    
+
     // 상품명으로 상품id 가져오기
     public int getItemId(String itemName);
 
@@ -39,7 +39,8 @@ public interface ItemRevService {
     public int numberOfPurchases(Map<String, Object> map);
 
     // 아이템별 작성된 게시글 수 검색
-    public int writtenPost(ItemRev itemRev);
+    public int writtenPost(Map<String, Object> map);
+
 
     // 아이템 상세페이지 리뷰목록 조회 - 아이템id
     public List<ItemRev> itemReviews(RequestParams params);

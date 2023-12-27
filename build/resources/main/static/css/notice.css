@@ -282,7 +282,7 @@ body {
 }
 
 .custom-notice h1 {
-  font-size: 36px;
+  font-size: 20px;
   color: #333;
   margin-bottom: 20px;
 }
@@ -334,4 +334,24 @@ body {
 /* Ensure elements are centered */
 .custom-notice {
   text-align: center;
+}
+
+.re-ip {
+  width: 90%;
+  border: 2px solid #555;
+}
+
+.re-div {
+  margin: auto;
+  width: 80%;
+  border-radius: 1px;
+  border: 2px solid #FFC924;
+  padding: 5px;
+  box-sizing: border-box;
+
+}
+.re-div p {
+  text-align: left;
+  color: #555;
+  font-size: 11px;
 }

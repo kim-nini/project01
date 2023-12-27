@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper	namespace="com.ezen.grrreung.domain.board.mapper.ItemRevMapper">
-<!--게시글등록-->
+	<!--게시글등록-->
 	<insert id="create" parameterType="ItemRev">
 		INSERT INTO item_rev(
 			rev_code,
@@ -28,7 +28,8 @@
 		rev_title,
 		rev_cont,
 		member_id,
-		rev_date
+		rev_date,
+		item_id
 		FROM
 		(
 		SELECT
@@ -37,7 +38,8 @@
 		rev_title,
 		rev_cont,
 		member_id,
-		rev_date
+		rev_date,
+		item_id
 		FROM
 		(
 		SELECT
@@ -45,7 +47,8 @@
 		rev_title,
 		rev_cont,
 		member_id,
-		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date,
+		item_id
 		FROM
 		item_rev
 		<where>
@@ -87,6 +90,20 @@
 		FROM item_rev
 		WHERE rev_code = #{revCode}
 	</select>
+
+    <!-- 게시글 수정 -->
+    <update id="updateByBno" parameterType="ItemRev">
+        UPDATE item_rev
+        SET rev_title = #{revTitle},
+            rev_cont = #{revCont}
+        WHERE rev_code = #{revCode}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM item_rev
+        WHERE rev_code = #{revCode}
+    </delete>
 
 <!--	상품명으로 상품코드 가져오기-->
 	<select id="getItemId" parameterType="string" resultType="int">
