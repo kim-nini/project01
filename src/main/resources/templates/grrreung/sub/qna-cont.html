@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="/css/notice.css">
     <link rel="stylesheet" href="/css/post.css">
 
-    <!-- js -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="/js/qna-re.js"></script>
+
+
 
     <title>그르릉Grr - 상품 문의</title>
 </head>
@@ -30,23 +29,32 @@
     <p th:text="${itemQna.qnaDate}"></p>
     <p th:text="${itemQna.qnaCont}"></p>
 
-    <div class="re-div">
-        <p>└ 답변 들어갈 곳</p>
-        <input class="re-ip">
-        <button onclick="sendQnaRe()">답변등록</button>
-
-    </div>
     <!-- 수정 버튼 -->
-    <a th:if="${itemQna.memberId == session.loginMember.memberId}" th:href="@{/grrreung/itemqna/update/{qnaCode}(qnaCode=${itemQna.qnaCode})}" class="btn">수정</a>
+    <a th:if="${itemQna.memberId == session.loginMember.memberId}"
+       th:href="@{/grrreung/itemqna/update/{qnaCode}(qnaCode=${itemQna.qnaCode})}" class="btn">수정</a>
 
     <!-- 삭제 버튼 -->
-    <a th:if="${itemQna.memberId == session.loginMember.memberId}"  th:href="@{/grrreung/itemqna/delete/{qnaCode}(qnaCode=${itemQna.qnaCode})}" onclick="return confirm('정말 삭제 하시겠습니까?')" class="btn">삭제</a>
+    <a th:if="${itemQna.memberId == session.loginMember.memberId}"
+       th:href="@{/grrreung/itemqna/delete/{qnaCode}(qnaCode=${itemQna.qnaCode})}"
+       onclick="return confirm('정말 삭제 하시겠습니까?')" class="btn">삭제</a>
 
     <!-- 목록으로 돌아가기 버튼 -->
     <a th:href="@{/grrreung/itemqna}" class="btn">목록으로</a>
+
+    <div class="re-div" th:value="${itemQna.qnaCode}" >
+        <!--        <p>└ 답변 들어갈 곳</p>-->
+        <input type="text" name="reCont" class="re-ip">
+        <!--        <input type="text" name="qnaCode"  style="display: none">-->
+        <button onclick="sendQnaRe()">답변등록</button>
+        <!--        <button onclick="sendQnaRe()">수정</button>-->
+        <!--        <button onclick="sendQnaRe()">답변삭제</button>-->
+    </div>
 </div>
 
 <!-- 푸터 -->
 <th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+<!-- js -->
+<!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+<script src="/js/qna-re.js"></script>
 </body>
 </html>

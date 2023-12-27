@@ -39,11 +39,11 @@
                 #{orderPrice},
                 #{orderAmount})
     </insert>
-    <update id="updatePayStatus" parameterType="OrderGr">
-        UPDATE orders
-        SET pay_status = #{payStatus}
-        WHERE order_id = #{orderId}
-    </update>
+<!--    <update id="updatePayStatus" parameterType="OrderGr">-->
+<!--        UPDATE orders-->
+<!--        SET pay_status = #{payStatus}-->
+<!--        WHERE order_id = #{orderId}-->
+<!--    </update>-->
 
     <!--	주문내역조회-->
     <select id="orderHistoryByMember" parameterType="String" resultType="map">

@@ -1,6 +1,7 @@
 package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemQna;
+import com.ezen.grrreung.domain.board.dto.ItemQnaRe;
 import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.mapper.ItemQnaMapper;
 import com.ezen.grrreung.web.common.RequestParams;
@@ -52,5 +53,12 @@ public class ItemQnaServiceImpl implements ItemQnaService{
     // QNA 수정
     @Override
     public void updatePost(ItemQna itemQna) { itemQnaMapper.updateByBno(itemQna); }
+
+    @Override
+    public ItemQnaRe postRe(ItemQnaRe itemQnaRe) {
+         itemQnaMapper.createRe(itemQnaRe);
+         int qnaCode = itemQnaRe.getQnaCode();
+         return itemQnaMapper.getQnaRe(qnaCode);
+    }
 
 }

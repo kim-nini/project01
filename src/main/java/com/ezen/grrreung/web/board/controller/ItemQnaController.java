@@ -2,6 +2,7 @@ package com.ezen.grrreung.web.board.controller;
 
 import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemQna;
+import com.ezen.grrreung.domain.board.dto.ItemQnaRe;
 import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.service.ItemQnaService;
 import com.ezen.grrreung.domain.item.dto.Category;
@@ -9,6 +10,9 @@ import com.ezen.grrreung.domain.item.service.ItemService;
 import com.ezen.grrreung.web.common.Pagination;
 import com.ezen.grrreung.web.common.RequestParams;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +21,7 @@ import java.util.List;
 @RequestMapping("/grrreung/itemqna")
 @RequiredArgsConstructor
 @Controller
+@Slf4j
 public class ItemQnaController {
 
     // 비지니스로직을 제공하는 객체생성
@@ -105,6 +110,25 @@ public class ItemQnaController {
     }
    
 
+
+    // qna 답변 등록하기
+    @GetMapping("/qna-re")
+    public ResponseEntity<ItemQnaRe> qnaCreate(@RequestParam String reCont, @RequestParam int qnaCode){
+
+
+        log.info("reCont {}",reCont);
+        log.info("qnaCode {}",qnaCode);
+
+        ItemQnaRe itemQnaRe = new ItemQnaRe();
+        itemQnaRe.setQnaCode(qnaCode);
+        itemQnaRe.setReCont(reCont);
+        itemQnaRe = itemQnaService.postRe(itemQnaRe);
+
+        log.info("Qna 답변 {}", itemQnaRe);
+
+
+        return new ResponseEntity<>(itemQnaRe, HttpStatus.OK);
+    }
 
 
 
