@@ -9,8 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class Member {
     private String memberId;
-    private String passwd;
+    private String password;
     private String name;
+    private String hp;
     private String email;
-    private String regdate;
+    private String admin;
+    private String address;
+    private String address2;
+    private String address3;
+    private String address4;
 }

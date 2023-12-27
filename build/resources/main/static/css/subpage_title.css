@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+.category-title{
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+
+.category-button {
+    width:700px;
+    margin: auto;
+}
+
+.category-button>a {
+    width: 150px;
+    height: 60px;
+    font-size: 18px;
+    color: black;
+    background-color: #F3F3F3;
+    border-radius: 25px;
+    margin: 0 10px;
+    transition: 0.3s;
+    display: block;
+    text-align: center;
+    padding-top: 18px;
+
+}
+
+.category-button>a:hover {
+    background-color: #FFC924;
+    color: #F3F3F3;
+}
+

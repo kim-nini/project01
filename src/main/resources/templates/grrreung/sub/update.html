@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/update.css">
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js" defer></script>
+
+<title>Grr-reung 그르릉 회원정보 수정 페이지</title>
+</head>
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+<!-- 헤더 -->
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+
+<!-- 서브페이지 내용 붙여넣기할 부분 -->
+<section class="bg-white py-8">
+    <div class="container light-style flex-grow-1 container-p-y">
+        <h4 class="font-weight-bold py-3 mb-4">
+            My page
+        </h4>
+        <div class="card overflow-hidden">
+            <div class="row no-gutters row-bordered row-border-light">
+                <div class="col-md-3 pt-0">
+                    <div class="list-group list-group-flush account-settings-links">
+                        <a class="list-group-item list-group-item-action active" data-toggle="list"
+                           href="#account-general">프로필</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                           href="#account-notifications">알림</a>
+                    </div>
+                </div>
+                <form action="/grrreung/update" method="post">
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="account-general">
+                                <div class="card-body media align-items-center">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt
+                                         class="d-block ui-w-80">
+                                    <div class="media-body ml-4">
+                                        <label class="btn btn-outline-primary">
+                                            사진 업로드
+                                            <input type="file" class="account-settings-fileinput">
+                                        </label>
+                                        <button type="button" class="btn btn-default md-btn-flat">Reset</button>
+                                        <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="border-light m-0">
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">아이디</label>
+                                        <input type="text" name="memberId" class="form-control mb-1"
+                                               th:value="${member.memberId}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">이름</label>
+                                        <input type="text" name="name" class="form-control" th:value="${member.name}"
+                                               readonly>
+                                    </div>
+                                    <div class="alert alert-warning mt-3">
+                                        ※ 아이디, 이름 수정 불가 ※<br>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">이메일</label>
+                                        <input type="text" name="email" class="form-control mb-1"
+                                               th:value="${member.email}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">새로운 비밀번호</label>
+                                        <input type="password" name="password" class="form-control"
+                                               th:value="${member.password}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">주소</label>
+                                        <div class="row1">
+                                            <input type="text" name="address" id="sample3_postcode" placeholder="우편번호"
+                                                   th:value="${member.address}">
+                                            <input type="button" id="sample3_postsearch"
+                                                   onclick="sample3_execDaumPostcode()"
+                                                   value="우편번호 찾기"><br>
+                                        </div>
+                                        <div class="row2">
+                                            <input type="text" name="address2" id="sample3_address" placeholder="주소"
+                                                   th:value="${member.address2}"><br>
+                                            <input type="text" name="address3" id="sample3_detailAddress"
+                                                   placeholder="상세주소"
+                                                   th:value="${member.address3}">
+                                            <input type="text" name="address4" id="sample3_extraAddress"
+                                                   placeholder="참고항목"
+                                                   th:value="${member.address4}">
+                                        </div>
+
+                                        <div id="wrap"
+                                             style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+                                            <img src="//t1.daumcdn.net/postcode/resource/images/close.png"
+                                                 id="btnFoldWrap"
+                                                 style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1"
+                                                 onclick="foldDaumPostcode()" alt="접기 버튼">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">휴대전화</label>
+                                        <input type="text" name="hp" class="form-control" th:value="${member.hp}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-connections">
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-twitter">Connect to
+                                        <strong>Twitter</strong></button>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <h5 class="mb-2">
+                                        <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i
+                                                class="ion ion-md-close"></i> Remove</a>
+                                        <i class="ion ion-logo-google text-google"></i>
+                                        You are connected to Google:
+                                    </h5>
+                                    <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                       data-cfemail="f9979498818e9c9595b994989095d79a9694">[email&#160;protected]</a>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-facebook">Connect to
+                                        <strong>Facebook</strong></button>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-instagram">Connect to
+                                        <strong>Instagram</strong></button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-notifications">
+                                <div class="card-body pb-2">
+                                    <h6 class="mb-4">Activity</h6>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input" checked>
+                                            <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                            <span class="switcher-label">Email me when someone comments on my article</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input" checked>
+                                            <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                            <span class="switcher-label">Email me when someone answers on my forum
+                                                    thread</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input">
+                                            <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                            <span class="switcher-label">Email me when someone follows me</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body pb-2">
+                                    <h6 class="mb-4">Application</h6>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input" checked>
+                                            <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                            <span class="switcher-label">News and announcements</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input">
+                                            <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                            <span class="switcher-label">Weekly product updates</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input type="checkbox" class="switcher-input" checked>
+                                            <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                            <span class="switcher-label">Weekly blog digest</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 버튼 -->
+                        <div class="text-right mt-3">
+                            <button type="submit" class="btn btn-warning">저장</button>
+                            <button class="btn btn-default"><a
+                                    th:href="@{/grrreung/mypage/{memberId}(memberId=${session.loginMember.memberId})}">돌아가기</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- 우편번호 찾기 스트립트 -->
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script>
+            // 우편번호 찾기 찾기 화면을 넣을 element
+            var element_wrap = document.getElementById('wrap');
+
+            function foldDaumPostcode() {
+                // iframe을 넣은 element를 안보이게 한다.
+                element_wrap.style.display = 'none';
+            }
+
+            function sample3_execDaumPostcode() {
+                // 현재 scroll 위치를 저장해놓는다.
+                var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                        var addr = ''; // 주소 변수
+                        var extraAddr = ''; // 참고항목 변수
+
+                        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                            addr = data.roadAddress;
+                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                            addr = data.jibunAddress;
+                        }
+
+                        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                        if (data.userSelectedType === 'R') {
+                            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                                extraAddr += data.bname;
+                            }
+                            // 건물명이 있고, 공동주택일 경우 추가한다.
+                            if (data.buildingName !== '' && data.apartment === 'Y') {
+                                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                            }
+                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                            if (extraAddr !== '') {
+                                extraAddr = ' (' + extraAddr + ')';
+                            }
+                            // 조합된 참고항목을 해당 필드에 넣는다.
+                            document.getElementById("sample3_extraAddress").value = extraAddr;
+
+                        } else {
+                            document.getElementById("sample3_extraAddress").value = '';
+                        }
+
+                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                        document.getElementById('sample3_postcode').value = data.zonecode;
+                        document.getElementById("sample3_address").value = addr;
+                        // 커서를 상세주소 필드로 이동한다.
+                        document.getElementById("sample3_detailAddress").focus();
+
+                        // iframe을 넣은 element를 안보이게 한다.
+                        // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+                        element_wrap.style.display = 'none';
+
+                        // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
+                        document.body.scrollTop = currentScroll;
+                    },
+                    // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
+                    onresize: function (size) {
+                        element_wrap.style.height = size.height + 'px';
+                    },
+                    width: '100%',
+                    height: '100%'
+                }).embed(element_wrap);
+
+                // iframe을 넣은 element를 보이게 한다.
+                element_wrap.style.display = 'block';
+            }
+        </script>
+    </div>
+</section>
+<!-- 푸터 -->
+
+<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+
+</body>
+</html>
