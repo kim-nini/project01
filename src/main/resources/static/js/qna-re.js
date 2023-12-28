@@ -1,27 +1,39 @@
-
-
+// 전역 변수로 선언
+const reContBox = $('textarea[name="reCont"]');
+const reBox = $('.re-div');
+const reCreateBtn = $('button[name="reCreateBtn"]');
 
 async function sendQnaRe() {
-    var reData = $('input[name="reCont"]').val();
-    var reQnaCode = $('.re-div').attr('value');
-    let reContBox = $('input[name="reCont"]');
-    let reBox = $('.re-div');
+
+    const reCont = reContBox.val();
+    const qnaCode = reBox.attr('value');
 
     try {
         const response = await $.ajax({
             url: "/grrreung/itemqna/qna-re",
             method: "GET",
             data: {
-                reCont: reData,
-                qnaCode: reQnaCode
+                reCont: reCont,
+                qnaCode: qnaCode
             }
         });
+
+        // 등록버튼 수정으로 변경
+        reCreateBtn.text('수정');
+        reCreateBtn.attr('onclick', 'changeReadOnly()');
+
+        // 삭제버튼 생성
         const updateBtn = document.createElement('button');
-        updateBtn.textContent = '수정';
+        updateBtn.textContent = '삭제';
+
+
+
         // 리드온리로 변경
         reBox.append(updateBtn);
-        reContBox.textContent = data.reCont;
+        // reContBox.textContent = data.reCont;
+        reContBox.val(`${response.reCont}\n${response.reDate}`);
         reContBox.prop('readonly',true);
+        reContBox.addClass('qna-re-style');
         // getReCont(response);
 
 
@@ -45,4 +57,27 @@ async function sendQnaRe() {
 function getReCont(data){
 
 
+}
+
+function changeReadOnly(){
+    reContBox.prop('readonly',false);
+    reContBox.removeClass('qna-re-style');
+    reCreateBtn.attr('onclick', 'updateQnaRe()');
+}
+
+function updateQnaRe(){
+    // try {
+    //     const response = await $.ajax({
+    //         url: "/grrreung/itemqna/qna-re",
+    //         method: "GET",
+    //         data: {
+    //             reCont: reCont,
+    //             qnaCode: qnaCode
+    //         }
+    //     });
+    //
+    //
+    // } catch (error) {
+    //     console.error("실패", error);
+    // }
 }

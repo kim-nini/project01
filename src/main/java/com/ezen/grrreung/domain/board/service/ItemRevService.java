@@ -1,8 +1,6 @@
 package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemRev;
-import com.ezen.grrreung.domain.board.dto.Notice;
-import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.web.common.RequestParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +38,6 @@ public interface ItemRevService {
 
     // 아이템별 작성된 게시글 수 검색
     public int writtenPost(Map<String, Object> map);
-
 
     // 아이템 상세페이지 리뷰목록 조회 - 아이템id
     public List<ItemRev> itemReviews(RequestParams params);

@@ -120,7 +120,7 @@ INSERT INTO order_item (
 SELECT
     *
 FROM
-    order_item;
+    order_gr;
     
     
 

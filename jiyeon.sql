@@ -23,7 +23,10 @@ ORDER BY
 SELECT
     *
 FROM
-    cart;
+    item_qna_re;
+    
+delete from item_qna_re where re_code =4;
+commit;
 
 SELECT
     *

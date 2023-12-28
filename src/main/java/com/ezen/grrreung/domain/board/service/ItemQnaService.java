@@ -2,7 +2,6 @@ package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemQnaRe;
-import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.web.common.RequestParams;
 
 import java.util.List;
@@ -29,5 +28,8 @@ public interface ItemQnaService {
     public void updatePost(ItemQna itemQna);
 
     // 상품 문의 답변 등록
-    public ItemQnaRe postRe(ItemQnaRe itemQnaRe);
+    public int postRe(ItemQnaRe itemQnaRe);
+
+    // 생성된 reCode로 등록된 답변 가져오기
+    public ItemQnaRe getReByReCode(int reCode);
 }

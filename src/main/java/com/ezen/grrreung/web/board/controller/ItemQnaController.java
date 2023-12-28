@@ -1,14 +1,14 @@
 package com.ezen.grrreung.web.board.controller;
 
 import com.ezen.grrreung.domain.board.dto.ItemQna;
-import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemQnaRe;
-import com.ezen.grrreung.domain.board.dto.Notice;
 import com.ezen.grrreung.domain.board.service.ItemQnaService;
 import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.service.ItemService;
+import com.ezen.grrreung.domain.member.dto.Member;
 import com.ezen.grrreung.web.common.Pagination;
 import com.ezen.grrreung.web.common.RequestParams;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -73,7 +73,13 @@ public class ItemQnaController {
 
     // 포스트 매핑 -> 게시글 등록에서 submit 버튼 클릭시 작동 -> 리스트화 면으로 넘어감
     @PostMapping("/create")
-    public String posting(@ModelAttribute("itemQna")ItemQna itemQna){
+    public String posting(@ModelAttribute("itemQna")ItemQna itemQna, HttpSession session){
+        //세션에서 memberId 가져오기
+        Member member = (Member) session.getAttribute("loginMember");
+        String memberId = member.getMemberId();
+
+        itemQna.setMemberId(memberId);
+
         itemQnaService.posting(itemQna);
         return "redirect:/grrreung/itemqna";
     }
@@ -115,17 +121,18 @@ public class ItemQnaController {
     @GetMapping("/qna-re")
     public ResponseEntity<ItemQnaRe> qnaCreate(@RequestParam String reCont, @RequestParam int qnaCode){
 
-
-        log.info("reCont {}",reCont);
-        log.info("qnaCode {}",qnaCode);
-
+        // 요청파라미터가 적용된 dto 생성
         ItemQnaRe itemQnaRe = new ItemQnaRe();
         itemQnaRe.setQnaCode(qnaCode);
         itemQnaRe.setReCont(reCont);
-        itemQnaRe = itemQnaService.postRe(itemQnaRe);
 
+        // qna 답변 db에 등록 후 시퀀스로 생성된 reCode받아오기
+        int reCode = itemQnaService.postRe(itemQnaRe);
+
+        // 받아온 reCode로 db에 등록된 itemQnaRe 데이터 가져오기
+        itemQnaRe = itemQnaService.getReByReCode(reCode);
+        
         log.info("Qna 답변 {}", itemQnaRe);
-
 
         return new ResponseEntity<>(itemQnaRe, HttpStatus.OK);
     }

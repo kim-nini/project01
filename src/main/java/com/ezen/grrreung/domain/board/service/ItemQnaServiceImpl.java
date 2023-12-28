@@ -2,11 +2,9 @@ package com.ezen.grrreung.domain.board.service;
 
 import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemQnaRe;
-import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.mapper.ItemQnaMapper;
 import com.ezen.grrreung.web.common.RequestParams;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,11 +52,20 @@ public class ItemQnaServiceImpl implements ItemQnaService{
     @Override
     public void updatePost(ItemQna itemQna) { itemQnaMapper.updateByBno(itemQna); }
 
+    // Qna 답변 등록
     @Override
-    public ItemQnaRe postRe(ItemQnaRe itemQnaRe) {
-         itemQnaMapper.createRe(itemQnaRe);
-         int qnaCode = itemQnaRe.getQnaCode();
-         return itemQnaMapper.getQnaRe(qnaCode);
+    public int postRe(ItemQnaRe itemQnaRe) {
+        // 답변 db에 insert
+        itemQnaMapper.createRe(itemQnaRe);
+        // insert이후 생성된 reCode 가져오기
+        int reCode = itemQnaRe.getReCode();
+        return reCode;
+    }
+
+    // Qna 답변 가져오기
+    public ItemQnaRe getReByReCode(int reCode){
+
+        return itemQnaMapper.getQnaRe(reCode);
     }
 
 }
