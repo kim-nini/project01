@@ -69,17 +69,14 @@ public class ItemController {
         RequestParams params = new RequestParams(page, elementSize, pageSize, search);
 
         int  selectCount = itemService.countBySearchValue(params);    // 페이징처리 값 테이블의 전체 갯수
-        List<Item> list;    // model에 저장할 리스트
+        List<Item> list = itemService.searchItem(params);  // model에 저장할 리스트
 
-
+        // 카테고리 버튼으로 카테고리별 아이템 검색할때
         if(cateTop != null) {
-            // 카테고리 버튼으로 카테고리별 아이템 검색할때
             // params의 search 값을 cateTop으로 변경
             params.setSearch(cateTop);
             selectCount = itemService.countBySearchValue(params);
             list = itemService.findByCate(params);
-        } else {
-            list = itemService.searchItem(params);
         }
 
         // params : 사용자가 선택한 페이지번호 , 검색값 여부
@@ -95,15 +92,6 @@ public class ItemController {
 
         return "/grrreung/sub/shop";
     }
-
-//    // 카테고리별 상품 출력
-//    @GetMapping("/shop/{cateTop}")
-//    public String itemCate(@PathVariable("cateTop")String cateTop, Model model) {
-//        List<Item> item = itemService.findByCate(cateTop);
-//        model.addAttribute("item", item);
-//        return "/grrreung/sub/shop";
-//    }
-
 
 
     // 아이템 아이디로 상품 한개 상세정보
@@ -155,7 +143,7 @@ public class ItemController {
         return "/grrreung/sub/item";
     }
 
-//==============================================================================================
+    //==============================================================================================
     // 썸네일 이미지 1개 불러오기 => index, shop
     @GetMapping("/thumbnail/{itemId}")
     public ResponseEntity<Resource> thumbnailImage(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
@@ -168,25 +156,25 @@ public class ItemController {
         String contentType = Files.probeContentType(path);
         log.info("컨텐트타입 : {}",contentType);
 
-		// 이미지 파일
-		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.CONTENT_TYPE, contentType);
-		Resource resource = new FileSystemResource(path);
+        // 이미지 파일
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+        Resource resource = new FileSystemResource(path);
 
-		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
-	}
+        return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+    }
 
     //  이미지 1개 불러오기 => 보여주기
     @GetMapping("/img/{imgName}")
     public ResponseEntity<Resource> imageRender(@PathVariable("imgName") String imgName, Model model) throws IOException {
 
         Path path = Paths.get(location + imgName);
-		String contentType = Files.probeContentType(path);
+        String contentType = Files.probeContentType(path);
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.CONTENT_TYPE, contentType);
-		Resource resource = new FileSystemResource(path);
-		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+        Resource resource = new FileSystemResource(path);
+        return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
     }
 
 //==============================================================================================
