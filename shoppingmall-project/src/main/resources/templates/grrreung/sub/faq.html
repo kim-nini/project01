@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 공통 환경설정 -->
+    <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
+    <link rel="stylesheet" href="/css/notice.css">
+    <link rel="stylesheet" href="/css/faq.css">
+    <script src="/js/faq.js" defer></script>
+    <title>그르르Grr - FAQ자주묻는질문</title>
+</head>
+
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+
+<!-- 헤더 -->
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+
+
+<!-- 서브 타이틀 -->
+<th:block th:replace="~{/fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}" >
+    <h2 class="category-title" th:fragment="title">FAQ</h2>
+</th:block>
+
+    <!-- 서브페이지 내용 붙여넣기할 부분 -->
+    <section class="bg-white py-8">
+        <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+
+        <div id="faq">
+            <h2>FAQ</h2>
+            <ol class="qna-list accordion">
+                <li class="qna-item">
+                  <div class="question-article">
+                      <a href="#!" class="question btn-fold">
+                          <strong class="blind">질문:</strong>
+                          <span class="q">Q</span>방문 상담이 가능한가요?
+                      </a>
+                  </div>
+                  <div class="answer-article">
+                      <strong class="blind">답변</strong>
+                      <div id="answer-cnt">
+                          <p>보도자료 배포 결과는 뉴스 가치, 주제, 배포시기 등에 따라 달라집니다. </p>
+                          <p>평균적으로 <a href="#!">스탠다드 서비스</a>는 보도자료 한 건당 7.9개 기사가 보도되며, 프리미엄 서비스는 평균 17개 기사가 보도됩니다.</p>
+                      </div>
+                  </div>
+                </li>
+                <li class="qna-item">
+                  <div class="question-article">
+                      <a href="#!" class="question btn-fold">
+                          <strong class="blind">질문:</strong>
+                          <span class="q">Q</span>승인된 보도자료를 수정 또는 삭제하려면 어떻게 해야 하나요?
+                      </a>
+                  </div>
+                  <div class="answer-article">
+                      <strong class="blind">답변</strong>
+                      <div id="answer-cnt">
+                          <p>보도자료 배포 결과는 뉴스 가치, 주제, 배포시기 등에 따라 달라집니다. </p>
+                          <p>평균적으로 <a href="#!">스탠다드 서비스</a>는 보도자료 한 건당 7.9개 기사가 보도되며, 프리미엄 서비스는 평균 17개 기사가 보도됩니다.</p>
+                      </div>
+                  </div>
+                </li>
+                <li class="qna-item">
+                  <div class="question-article">
+                      <a href="#!" class="question btn-fold">
+                          <strong class="blind">질문:</strong>
+                          <span class="q">Q</span>방문 상담이 가능한가요?
+                      </a>
+                  </div>
+                  <div class="answer-article">
+                      <strong class="blind">답변</strong>
+                      <div id="answer-cnt">
+                          <p>보도자료 배포 결과는 뉴스 가치, 주제, 배포시기 등에 따라 달라집니다. </p>
+                          <p>평균적으로 <a href="#!">스탠다드 서비스</a>는 보도자료 한 건당 7.9개 기사가 보도되며, 프리미엄 서비스는 평균 17개 기사가 보도됩니다.</p>
+                      </div>
+                  </div>
+                </li>
+                <li class="qna-item">
+                  <div class="question-article">
+                      <a href="#!" class="question btn-fold">
+                          <strong class="blind">질문:</strong>
+                          <span class="q">Q</span>방문 상담이 가능한가요?
+                      </a>
+                  </div>
+                  <div class="answer-article">
+                      <strong class="blind">답변</strong>
+                      <div id="answer-cnt">
+                          <p>보도자료 배포 결과는 뉴스 가치, 주제, 배포시기 등에 따라 달라집니다. </p>
+                          <p>평균적으로 <a href="#!">스탠다드 서비스</a>는 보도자료 한 건당 7.9개 기사가 보도되며, 프리미엄 서비스는 평균 17개 기사가 보도됩니다.</p>
+                      </div>
+                  </div>
+                </li>
+                <li class="qna-item">
+                  <div class="question-article">
+                      <a href="#!" class="question btn-fold">
+                          <strong class="blind">질문:</strong>
+                          <span class="q">Q</span>방문 상담이 가능한가요?
+                      </a>
+                  </div>
+                  <div class="answer-article">
+                      <strong class="blind">답변</strong>
+                      <div id="answer-cnt">
+                          <p>보도자료 배포 결과는 뉴스 가치, 주제, 배포시기 등에 따라 달라집니다. </p>
+                          <p>평균적으로 <a href="#!">스탠다드 서비스</a>는 보도자료 한 건당 7.9개 기사가 보도되며, 프리미엄 서비스는 평균 17개 기사가 보도됩니다.</p>
+                      </div>
+                  </div>
+                </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+<!-- 푸터 -->
+<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+</body>
+</html>

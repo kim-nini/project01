@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 공통 환경설정 -->
+    <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
+
+    <!-- 스타일시트 -->
+    <link rel="stylesheet" href="/css/notice.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+    <title>그르릉Grr - 상품 문의</title>
+</head>
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+
+<!-- 헤더 -->
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+
+<!-- 서브 타이틀 -->
+<th:block th:replace="~{/fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}">
+    <h2 class="category-title" th:fragment="title">NOTICE</h2>
+</th:block>
+
+<div class="container mx-auto bg-white py-8 notice custom-notice">
+    <h1 th:text="${itemQna.qnaTitle}"></h1>
+    <p th:text="${itemQna.memberId}"></p>
+    <p th:text="${itemQna.qnaDate}"></p>
+    <p th:text="${itemQna.qnaCont}"></p>
+
+    <th:block th:if="${session.loginMember != null and itemQna.memberId == session.loginMember.memberId}">
+        <!-- 수정 버튼 -->
+        <a th:href="@{/grrreung/itemqna/update/{qnaCode}(qnaCode=${itemQna.qnaCode})}" class="btn">수정</a>
+        <!-- 삭제 버튼 -->
+        <a th:href="@{/grrreung/itemqna/delete/{qnaCode}(qnaCode=${itemQna.qnaCode})}"
+           onclick="return confirm('정말 삭제 하시겠습니까?')" class="btn">삭제</a>
+    </th:block>
+
+    <!-- 목록으로 돌아가기 버튼 -->
+    <a th:href="@{/grrreung/itemqna}" class="btn">목록으로</a>
+
+
+    <!-- 상품 답변 박스 -->
+    <!-- 리스트가 비어있지않(있)거나, (로그인맴버가 비어있지않고 그맴버의 admin이 y)일 때 노출 -->
+    <div th:if="${not #lists.isEmpty(qnaReList)} or ${session.loginMember != null and session.loginMember.admin == 'Y'}" class="re-div" th:value="${itemQna.qnaCode}">
+        <th:block th:each="qnaRe : ${qnaReList}">
+            <div class="qna-re-style" th:value="${qnaRe.reCode}">
+                <p class="re-cont" th:text="${qnaRe.reCont}"></p>
+                <p class="re-date" th:text="${qnaRe.reDate}"></p>
+                <th:block th:if="${session.loginMember != null and session.loginMember.admin == 'Y'}">
+                    <button name="reUpdateBtn" onclick="updateQnaRe()">수정</button>
+                    <button onclick="deleteQnaRe()">삭제</button>
+                </th:block>
+                <hr>
+            </div>
+        </th:block>
+        <th:block th:if="${session.loginMember != null and session.loginMember.admin == 'Y'}">
+            <textarea placeholder="여기에 답변 내용을 입력하세요" type="text" name="reCont" class="re-ip"></textarea>
+            <button name="reCreateBtn" onclick="sendQnaRe()">답변등록</button>
+        </th:block>
+    </div>
+</div>
+
+<!-- 푸터 -->
+<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+<!-- js -->
+<!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+<script src="/js/qna-re.js"></script>
+</body>
+</html>

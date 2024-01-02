@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 공통 환경설정 -->
+    <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
+
+    <link rel="stylesheet" href="/css/notice.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+    <title>그르릉Grr - 상품 후기</title>
+</head>
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+
+<!-- 헤더 -->
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+
+<!-- 서브 타이틀 -->
+<th:block th:replace="~{/fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}">
+    <h2 class="category-title" th:fragment="title">REVIEW</h2>
+</th:block>
+
+<div class="container mx-auto bg-white py-8 notice custom-notice">
+    <h1 th:text="${itemRev.revTitle}"></h1>
+    <p th:text="${itemRev.memberId}"></p>
+    <p th:text="${itemRev.revDate}"></p>
+<!--    <p style="display: none" name="revCode" th:value="${itemRev.revCode}"></p>-->
+    <p th:text="${itemRev.revCont}"></p>
+
+    <th:block th:unless="${session.loginMember} == null">
+    <!-- 수정 버튼 -->
+    <a th:if="${itemRev.memberId == session.loginMember.memberId}" th:href="@{/grrreung/itemrev/update/{revCode}(revCode=${itemRev.revCode})}" class="btn">수정</a>
+    <!-- 삭제 버튼 -->
+    <a th:if="${itemRev.memberId == session.loginMember.memberId}"  th:href="@{/grrreung/itemrev/delete/{revCode}(revCode=${itemRev.revCode})}" onclick="return confirm('정말 삭제 하시겠습니까?')" class="btn">삭제</a>
+    </th:block>
+
+    <!-- 목록으로 돌아가기 버튼 -->
+    <a th:href="@{/grrreung/itemrev}" class="btn">목록으로</a>
+</div>
+
+<!-- 푸터 -->
+<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+</body>
+</html>

@@ -1,0 +1,100 @@
+/* https://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a {
+  text-decoration: none;
+}
+.blind {
+  display: none;
+}
+
+
+
+/* FAQ 질문 답변 영역. */
+h2 {
+  margin-bottom: 10px;
+}
+#faq {
+  width: 940px;
+  margin: 20px auto;
+}
+.qna-list {
+  border-top: 2px solid #000;
+}
+.qna-item {
+  border-bottom: 1px solid #f0f0f0;
+}
+.qna-item:hover {
+  background: #fafafa;
+}
+.qna-item .question-article {padding:0 40px;border-bottom:0;}
+.qna-item:first-child .question-article {border-top:0;}
+.qna-item.on .question-article {border-bottom:0;}
+.qna-item.on + .qna-item .question-article {border-top:0;}
+
+.qna-item .question {display:block; position:relative;padding:15px 40px 14px 0; background:url(https://dev2.newswire.co.kr/assets/img/sub/qna-down.png) no-repeat 100% 50%; color:#000; font-size:16px; line-height:24px;
+  -webkit-transition:all 0.3s ease;
+  -moz-transition:all 0.3s ease;
+  -o-transition:all 0.3s ease;
+  -ms-transition:all 0.3s ease;
+  transition:all 0.3s ease;
+;}
+
+.qna-item.on .question {
+  background:url(https://dev2.newswire.co.kr/assets/img/sub/qna-up.png) no-repeat 100% 50%; font-family:'YouandiModernTB';
+  font-weight: bold;}
+.qna-item .question span.q {
+  margin-right: 10px;
+  display: inline-block;
+  color: #648294;
+}
+.qna-item .answer-article a:hover {
+  text-decoration: underline;
+}
+.qna-item .answer-article {display:none; padding:20px 40px 20px; border:0; background:#fafafa; color:#666; font-size:16px; line-height:24px;}
+.qna-item .answer-article strong {font-weight:normal;}

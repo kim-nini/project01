@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+
+    <!-- 공통 환경설정 -->
+    <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
+    <link rel="stylesheet" href="/css/item.css">
+    <link rel="stylesheet" href="/css/notice.css">
+    <title>그르릉 Grr-reung 상세페이지</title>
+</head>
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+<!-- 헤더 -->
+<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+
+
+    <section class="bg-white py-8">
+        <div class="pd-wrap">
+            <div class="container">
+                <div class="heading-section">
+                    <h2>상세정보</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div id="slider"  class="owl-carousel product-slider">
+                            <div class="item"  th:each="imgFiles : ${imgFiles}">
+                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지" />
+                            </div>
+                        </div>
+
+                        <div id="thumb" class="owl-carousel product-thumb">
+                            <div class="item"  th:each="imgFiles : ${imgFiles}">
+                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지 미리보기" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="product-dtl">
+                            <div class="product-info">
+                                <h3 th:text="${item.itemName}" class="product-name">상품명</h3>
+                                <p>배송비 : 3,000원 (70,000원 이상 구매 시 무료)</p>
+
+                                <div class="reviews-counter">
+
+<!--                                    <div class="rate">-->
+<!--                                        <input type="radio" id="star5" name="rate" value="5" checked />-->
+<!--                                        <label for="star5" title="text">5 stars</label>-->
+<!--                                        <input type="radio" id="star4" name="rate" value="4" checked />-->
+<!--                                        <label for="star4" title="text">4 stars</label>-->
+<!--                                        <input type="radio" id="star3" name="rate" value="3" checked />-->
+<!--                                        <label for="star3" title="text">3 stars</label>-->
+<!--                                        <input type="radio" id="star2" name="rate" value="2" />-->
+<!--                                        <label for="star2" title="text">2 stars</label>-->
+<!--                                        <input type="radio" id="star1" name="rate" value="1" />-->
+<!--                                        <label for="star1" title="text">1 star</label>-->
+<!--                                      </div>-->
+
+                                    <!-- 리뷰 총개수 -->
+                                    <span th:text="${revCount+'Reviews'}">Reviews</span>
+
+                                </div>
+
+                                <div th:text="|${#numbers.formatInteger(item.itemPrice, 0, 'COMMA')}원|" class="product-price-discount">
+                                    <span>상품가격</span>
+                                    <span class="line-through">sale가격</span>
+                                </div>
+
+                            </div>
+
+                            <p th:text="${item.itemDetail}">상품 상세 설명</p>
+                                <!-- 상품 옵션 관련 html-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <label for="size">Size</label>-->
+<!--                                    <select id="size" name="size" class="form-control">-->
+<!--                                        <option>S</option>-->
+<!--                                        <option>M</option>-->
+<!--                                        <option>L</option>-->
+<!--                                        <option>XL</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-6">-->
+<!--                                    <label for="color">Color</label>-->
+<!--                                    <select id="color" name="color" class="form-control">-->
+<!--                                        <option>Blue</option>-->
+<!--                                        <option>Green</option>-->
+<!--                                        <option>Red</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="product-count">
+                                <!-- 수량 -->
+                                <label for="count">수량</label>
+
+                                <!-- 로그인으로 접근하는 경우-->
+                                    <form method="post" th:action="@{/grrreung/cart}" th:if="${session.loginMember}!=null" >
+                                         <div class="display-flex">
+                                            <div class="qtyminus caculatorBtn">-</div>
+                                                <input type="text" name="cartAmount" value="1" class="qty">
+                                            <div class="qtyplus caculatorBtn">+</div>
+                                         </div>
+                                        <input style="display:none;" type="text" name="itemId" th:value="${item.itemId}">
+                                        <label for="totalAmountPrint">총액 :
+                                            <input class="totalAmount" style="display:none;" th:value="${item.itemPrice}">
+                                            <span type="text" class="totalAmountPrint" name="totalAmountPrint" readonly th:text="|${#numbers.formatDecimal(item.itemPrice, 0, 'DEFAULT', 0, 'DEFAULT')}원|"></span>
+                                        </label>
+                                        <div>
+                                            <button type="submit" class="round-gray-btn">장바구니</button>
+                                            <button type="submit" href="#" class="round-black-btn">바로구매</button>
+                                        </div>
+                                    </form>
+                                <!-- 비회원으로 접근하는 경우 로그인페이지로 매핑 -->
+                                <form  th:action="@{/grrreung/login}" th:if="${session.loginMember}==null">
+                                    <div class="display-flex">
+                                        <div class="qtyminus caculatorBtn">-</div>
+                                        <input type="text" name="cartAmount" value="1" class="qty">
+                                        <div class="qtyplus caculatorBtn">+</div>
+                                    </div>
+
+                                    <input style="display:none;" type="text" name="itemId" th:value="${item.itemId}">
+
+                                    <label for="totalAmountPrint">총액 :
+                                        <input class="totalAmount" style="display:none;" th:value="${item.itemPrice}">
+                                        <span type="text" class="totalAmountPrint" name="totalAmountPrint" readonly th:text="|${#numbers.formatDecimal(item.itemPrice, 0, 'DEFAULT', 0, 'DEFAULT')}원|"></span>
+                                    </label>
+
+
+                                    <div>
+
+                                        <button type="submit" class="round-gray-btn">장바구니</button>
+                                        <button type="submit" href="#" class="round-black-btn">바로구매</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info-tabs">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                          <li class="nav-item">
+                            <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false"  th:text="|Reviews (${revCount})|">Reviews (0)</a>
+                          </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                          <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+
+                              <!-- 상세정보 출력할 부분 (DB에 저장한 이미지 파일 루프 돌려서 보여줌 -->
+                              <th:block th:each="itemDescription : ${itemDescription}">
+                                 <img th:src="@{'/grrreung/img/'+ ${itemDescription.IMG_NAME} }" alt="제품 상세 정보" />
+                              </th:block>
+
+                          </div>
+                          <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                              <div class="review-heading">그르릉 리뷰 🐾</div>
+                              <div id="board-list">
+                                  <div class="container">
+                                      <table class="board-table">
+                                          <thead>
+                                          <tr>
+                                              <th scope="col" class="th-num">번호</th>
+                                              <th scope="col" class="th-title">제목</th>
+                                              <th scope="col" class="th-date">작성자</th>
+                                              <th scope="col" class="th-date">등록일</th>
+                                          </tr>
+                                          </thead>
+
+                                      <tbody class="review-board">
+                                        <tr th:each="itemRev : ${list}" >
+                                            <td th:text="${itemRev.revCode}"></td>
+                                            <td><a th:text="${itemRev.revTitle}" th:href="@{/grrreung/itemrev/{revCode}(revCode=${itemRev.revCode})}"></a></td>
+                                            <td th:text="${itemRev.memberId}"></td>
+                                            <td th:text="${itemRev.revDate}"></td>
+                                        </tr>
+                                      </tbody>
+                                      </table>
+
+                                      <!-- 게시글이 없을경우 아래-->
+                                      <th:block th:if="${#lists.isEmpty(list)}">
+                                          <p style="text-align: center; padding: 30px 0; box-sizing: border-box; font-size: large">리뷰가 존재하지 않습니다</p>
+                                      </th:block>
+<!--****************************************************************************************************************************************-->
+                                      <nav aria-label="Page navigation example">
+                                          <!-- itemId 값을 HTML에 추가 => 브라우저상에는 나타나지 않음 *** -->
+                                          <div type="text" id="itemId" th:text="${item.itemId}" style="display:none;" ></div>
+
+                                          <ul class="pagination">
+<!--                                              <li th:if="${pagination.isShowFirst()}" class="page-item">-->
+<!--                                                  <a class="page-link" th:href="@{/itemrev(page=1)}">&laquo;</a>-->
+<!--                                              </li>-->
+                                              <ul class="pagination">
+                                              <li th:if="${pagination.isShowPrevious()}" class="page-item">
+                                                  <a class="page-link"  th:attr="onclick='loadPage(' + ${pagination.getPreviousStartPage()} + ')">&lsaquo;</a>
+                                              </li>
+
+                                              <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
+                                                  <a class="page-link" th:attr="onclick='loadPage(' + ${page} + ')'" name="page" th:text="${page}"></a>
+                                              </li>
+
+                                              <li th:if="${pagination.isShowNext()}" class="page-item">
+                                                  <a class="page-link"  th:attr="onclick='loadPage(' + ${pagination.getNextStartPage()} + ')'">&rsaquo;</a>
+                                              </li>
+                                              </ul>
+
+                                              <!--                                              <li th:if="${pagination.isShowLast()}" class="page-item">-->
+<!--                                                  <a class="page-link"-->
+<!--                                                     th:href="@{/grrreung/shop/item(itemId = ${item.itemId}, page=${pagination.totalPages})}">&raquo;</a>-->
+<!--                                              </li>-->
+
+
+                                          </ul>
+                                      </nav>
+<!--***********************************************원본*****************************************************************************************-->
+<!--                                            <nav aria-label="Page navigation example">-->
+<!--                                                <ul class="pagination">-->
+<!--                                                    <li th:if="${pagination.isShowFirst()}" class="page-item">-->
+<!--                                                        <a class="page-link">&laquo;</a></li>-->
+<!--                                                    <li th:if="${pagination.isShowPrevious()}" class="page-item">-->
+<!--                                                        <a class="page-link">&lsaquo;</a></li>-->
+<!--                                                    <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">-->
+<!--                                                        <a class="page-link" name="page" th:text="${page}"></a>-->
+<!--                                                    </li>-->
+<!--                                                    <li th:if="${pagination.isShowNext()}" class="page-item">-->
+<!--                                                        <a class="page-link">&rsaquo;</a></li>-->
+<!--                                                    <li th:if="${pagination.isShowLast()}" class="page-item">-->
+<!--                                                        <a class="page-link">&raquo;</a></li>-->
+<!--                                                </ul>-->
+<!--                                            </nav>-->
+
+<!--****************************************************************************************************************************************-->
+
+
+
+                                  </div>
+                              </div>
+
+
+
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<!-- 푸터 -->
+<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+
+
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer></script>
+
+
+    <script src="/js/owl.carousel.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+<script src="/js/item.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.ezen.grrreung.domain.board.mapper.ItemQnaMapper">
+<!--게시글등록-->
+	<insert id="create" parameterType="ItemQna">
+        INSERT INTO item_qna (
+            qna_code,
+            item_id,
+            qna_title,
+            qna_cont,
+            member_id
+        ) VALUES (
+                     item_qna_seq.NEXTVAL,
+                     101,
+                     #{qnaTitle},
+                     #{qnaCont},
+                     #{memberId}
+                 )
+	</insert>
+
+    <!-- 전체리스트 및 검색 리스트-->
+    <select id="postList" parameterType="RequestParams" resultType="ItemQna">
+        SELECT
+        qna_code,
+        qna_title,
+        qna_cont,
+        member_id,
+        qna_date
+        FROM
+        (
+        SELECT
+        ceil(ROWNUM / #{elementSize})  page,
+        qna_code,
+        qna_title,
+        qna_cont,
+        member_id,
+        qna_date
+        FROM
+        (
+        SELECT
+        qna_code,
+        qna_title,
+        qna_cont,
+        member_id,
+        to_char(qna_date, 'yyyy-MM-DD HH24:MI:SS') qna_date
+        FROM
+        item_qna
+        <where>
+            <if test="search != null">
+                qna_title LIKE '%' || #{search} || '%'
+                OR member_id LIKE '%' || #{search} || '%'
+            </if>
+        </where>
+        ORDER BY
+        qna_code DESC
+        )
+        )
+        WHERE
+        page = #{requestPage}
+
+    </select>
+
+    <!--전체리스트 행갯수-->
+    <select id="postListCount" parameterType="RequestParams" resultType="int">
+        SELECT COUNT(*) count
+        FROM item_qna
+        <where>
+            <if test="search != null">
+                qna_title LIKE '%' || #{search} || '%'
+                OR qna_date LIKE '%' || #{search} || '%'
+            </if>
+        </where>
+        order by qna_code DESC
+    </select>
+
+<!--상세보기-->
+    <select id="findByBno" parameterType="int" resultType="ItemQna">
+        SELECT qna_code,
+               qna_title,
+               qna_cont,
+               member_id,
+               TO_CHAR(qna_date, 'yyyy-MM-DD HH24:MI:SS') qna_date
+        FROM item_qna
+        WHERE qna_code = #{qnaCode}
+    </select>
+    <!-- 게시글 수정 -->
+    <update id="updateByBno" parameterType="ItemQna">
+        UPDATE item_qna
+        SET qna_title = #{qnaTitle},
+            qna_cont = #{qnaCont}
+        WHERE qna_code = #{qnaCode}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM item_qna
+        WHERE qna_code = #{qnaCode}
+    </delete>
+
+    <!-- qnaCode로 답변 가져오기 -->
+    <select id="qnaReByQnaCode" parameterType="int" resultType="ItemQnaRe">
+        SELECT
+            *
+        FROM
+            item_qna_re
+        WHERE
+            qna_code = #{qnaCode}
+        ORDER BY re_code ASC
+    </select>
+
+    <!-- 문의 답변 등록 -->
+    <insert id="createRe" parameterType="ItemQnaRe" >
+        INSERT INTO item_qna_re (
+            re_code,
+            qna_code,
+            re_cont
+        ) VALUES (
+                     item_qna_re_seq.NEXTVAL,
+                     #{qnaCode},
+                     #{reCont}
+                 )
+        <selectKey keyProperty="reCode" resultType="int" order="AFTER">
+            SELECT item_qna_re_seq.CURRVAL FROM dual
+        </selectKey>
+    </insert>
+    <!-- 등록된 답변 가져오기 -->
+    <select id="getQnaRe" parameterType="int" resultType="ItemQnaRe">
+        SELECT
+            *
+        FROM
+            item_qna_re
+        WHERE re_code = #{reCode}
+    </select>
+    <!-- 답변 수정하기 -->
+    <update id="updateQnaRe" parameterType="ItemQnaRe" >
+        UPDATE item_qna_re
+        SET
+            re_cont = #{reCont},
+            re_date = SYSDATE
+        WHERE re_code = #{reCode}
+    </update>
+    <!-- 답변 삭제하기 -->
+    <delete id="deleteQnaRe" parameterType="int">
+        DELETE FROM item_qna_re
+        WHERE re_code = #{reCode}
+    </delete>
+</mapper>
+

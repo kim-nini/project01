@@ -1,0 +1,353 @@
+@charset "utf-8";
+button {
+  padding: 10px 30px;
+  background: white;
+}
+
+
+
+.hd> :first-child {
+  width: 100%;
+  height: 100px;
+}
+
+
+.sub-cont-title {
+  width: 90%;
+  margin: 0 auto;
+  font-size: 2.6rem;
+  border-bottom: 2px solid #222;
+  padding: 0 0 10px 40px;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+
+
+.hd> :last-child {
+  width: 90%;
+  height: 253px;
+  margin: 5.5rem auto 0 auto;
+  text-align: center;
+}
+
+.hd> :last-child h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.15rem;
+}
+
+.hd> :last-child h3 img {
+  width: 22px;
+  height: 22px;
+  padding-top: 3px;
+}
+
+.hd :last-child p {
+  margin: 1rem;
+  line-height: 1.5;
+}
+
+.item-register  {
+  width: 60%;
+  margin: 0 auto;
+  text-transform: uppercase;
+}
+
+.item-register > :nth-child(1) {
+  /*display: flex;*/
+  /*justify-content: center;*/
+  margin: 0 auto;
+}
+
+
+table {
+  width: 100%;
+  border-top: 1px solid #888;
+  border-collapse: collapse;
+}
+tbody{
+  width: 80%;
+  margin: auto;
+}
+
+tr, th, td, input {
+  padding: 10px;
+}
+
+tr:first-of-type>th:first-of-type ,td:first-of-type{
+  padding-top: 30px;
+}
+
+
+input {
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin-right: 8px;
+}
+
+
+select {
+  width: 150px;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #999;
+  border-radius: 5px;
+}
+
+.item-register {
+  /*display: flex;*/
+  /*flex-direction: column-reverse;*/
+  /*align-items: center;*/
+  margin: auto;
+}
+.item-register> :nth-child(1) th {
+  width: 160px;
+  color: black;
+  text-align: left;
+  padding-right: 5px;
+}
+
+
+textarea {
+  margin-top: 1rem;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  resize: none;
+}
+
+.item-register> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) div {
+  margin: 10px 0 2rem 0;
+  /*display: flex;*/
+  align-items: center;
+}
+
+.item-register> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) div label button {
+  width: 85px;
+  height: 38px;
+  padding: 0;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.item-register> :nth-child(1)> :last-child> :nth-child(2) :nth-child(3) p {
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+/*.item-register> :nth-child(1)> :last-child> :nth-child(3) td {*/
+/*  height: 100px;*/
+/*  margin-top: 10px;*/
+/*  border-top: 1px solid #eee;*/
+/*}*/
+
+
+.item-register> :nth-child(2) {
+  text-align: center;
+}
+
+.item-register> :nth-child(2) button {
+  width: 150px;
+  height: 50px;
+  margin: 20px 10px;
+  font-size: 1rem;
+}
+
+.item-register> :nth-child(2) :first-child {
+  background: #FFC924;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.item-register> :nth-child(2) :last-child td {
+  background: #888;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+
+}
+.item-register> :last-child :last-child>td {
+  text-align: center;
+}
+
+/*[type="file"]>p:first-child {*/
+/*  width: 200px;*/
+/*  font-size: 0.7rem;*/
+/*  border: 1px solid #444;*/
+/*  cursor: pointer;*/
+/*}*/
+
+
+/*.filebox  {*/
+/*  display: inline-block;*/
+/*  padding: 0 10px;*/
+/*  vertical-align: middle;*/
+/*  width: 550px;*/
+/*  color: #999;*/
+/*}*/
+/*.upload-btn {*/
+/*  height: 40px;*/
+/*  padding: 0 10px;*/
+/*  color: #333;*/
+/*  z-index: 1;*/
+/*}*/
+
+
+.filebox  p {
+  padding-top : 47px;
+}
+
+
+/*.filebox label {*/
+/*  display: inline-block;*/
+/*  padding: 10px 20px;*/
+/*  color: #333;*/
+/*  vertical-align: middle;*/
+/*  background-color: #999999;*/
+/*  cursor: pointer;*/
+/*  height: 40px;*/
+/*  margin-left: 10px;*/
+/*}*/
+
+
+[type='file'] {
+  position: absolute;
+  width: 400px;
+  height: 40px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #999;
+  line-height: 40px;
+  /*left: 37px;*/
+}
+
+
+button {
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  background-color: #555;
+  border-radius: 3px;
+  color:#eee;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #888;
+}
+
+button:first-of-type {
+  margin-right: 30px;
+}
+
+
+
+
+
+input[type="file"] {
+  /*position: absolute;*/
+  width: 400px;
+  height: 40px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #999;
+  line-height: 40px;
+  /*display: none;*/
+}
+
+/*.custom-file-upload {*/
+/*  display: inline-block;*/
+/*  padding: 10px 20px;*/
+/*  font-size: 16px;*/
+/*  font-family: Arial, sans-serif;*/
+/*  cursor: pointer;*/
+/*  border: 2px solid #ccc;*/
+/*  border-radius: 5px;*/
+/*  background-color: #f8f8f8;*/
+/*}*/
+
+/* Style the file input label */
+/*.custom-file-upload span {*/
+/*  color: #333;*/
+/*}*/
+
+/* Change style on hover */
+/*.custom-file-upload:hover {*/
+/*  background-color: #e0e0e0;*/
+/*}*/
+
+#image-container1, #image-container2{
+  width: 400px;
+  overflow: auto;
+  border: 1px solid rgba(197, 197, 197, 0.41);
+  border-radius: 3px;
+  /* WebKit 기반 브라우저 (Chrome, Safari) */
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 5px;
+
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* 스크롤바 트랙 배경색 */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ffd700; /* 스크롤바 색 */
+    border-radius: 6px; /* 스크롤바 모서리 둥글게 */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #ffcc00; /* 스크롤바 호버시 색 */
+  }
+}
+
+.preview-image {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.preview-ul {
+  width: max-content;
+  height: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.selected {
+  border: 3px solid red; /* 선택된 이미지에 대한 border 스타일 지정 */
+}
+
+.thumbnail {
+  border: 2px solid green; /* 썸네일에 대한 border 스타일 지정 */
+}
+
+/*!* 특정 요소에만 적용할 스크롤바 스타일 *!*/
+/*#image-container1 {*/
+/*  !* 스크롤바 너비 및 스타일 설정 *!*/
+/*  scrollbar-width: thin; !* Firefox 지원 *!*/
+/*  scrollbar-color: #ffd700 #f0f0f0; !* Firefox 지원 *!*/
+
+/*  !* WebKit 기반 브라우저 (Chrome, Safari) *!*/
+/*  &::-webkit-scrollbar {*/
+/*    width: 0px; !* 세로 스크롤바 너비 *!*/
+/*  }*/
+
+/*  &::-webkit-scrollbar-track {*/
+/*    background-color: #f0f0f0; !* 스크롤바 트랙 배경색 *!*/
+/*  }*/
+
+/*  &::-webkit-scrollbar-thumb {*/
+/*    background-color: #ffd700; !* 스크롤바 색 *!*/
+/*    border-radius: 6px; !* 스크롤바 모서리 둥글게 *!*/
+/*  }*/
+
+/*  &::-webkit-scrollbar-thumb:hover {*/
+/*    background-color: #ffcc00; !* 스크롤바 호버시 색 *!*/
+/*  }*/
+/*}*/
