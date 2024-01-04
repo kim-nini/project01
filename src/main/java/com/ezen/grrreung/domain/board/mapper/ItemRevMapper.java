@@ -1,6 +1,5 @@
 package com.ezen.grrreung.domain.board.mapper;
 
-import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.web.common.RequestParams;
 import org.apache.ibatis.annotations.Mapper;
@@ -48,7 +47,7 @@ public interface ItemRevMapper {
     public int itemRevPostCount(int itemId);
 
     // 아이템 상세보기 페이지에서 보여줄 리뷰목록 조회
-    public List<ItemRev> itemReviewAll(int itemId);
+    public List<ItemRev> itemReviewAll(int ItemId);
 
 
 }

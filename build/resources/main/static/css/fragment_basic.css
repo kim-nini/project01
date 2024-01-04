@@ -1,16 +1,21 @@
 @charset "utf-8";
 
 #header {
-    /*position: fixed;*/
+    position: fixed;
     z-index: 9999;
     background-color: #fff;
-    /*box-shadow: 1px 1px 20px 7px  rgba(0,0,0,.2);*/
-
+    box-shadow: -3px -6px 20px 7px rgba(0,0,0,.2);
 }
 
-.firstPosition {
-    padding-top: 180px;
+.header-p{
+    padding-top: 80px;
 }
+
+.section-m {
+    margin-top: 40px;
+}
+
+
 h2 {
     font-size: 32px;
 }
@@ -128,6 +133,109 @@ h2 {
 
 #loginInfo {
     font-size: 10px;
+}
+
+/* 검색창 */
+.sb-search {
+    position: relative;
+    margin-top: 10px;
+    width: 0%;
+    min-width: 60px;
+    height: 60px;
+    float: right;
+    overflow: hidden;
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    transition: width 0.3s;
+    -webkit-backface-visibility: hidden;
+}
+
+.sb-search-input {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    border: none;
+    outline: none;
+    background: #fff;
+    width: 100%;
+    height: 60px;
+    margin: 0;
+    z-index: 10;
+    padding: 20px 65px 20px 20px;
+    font-family: inherit;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+input[type="search"].sb-search-input {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+}
+.sb-search-input::-webkit-input-placeholder {
+    color: #4f4f4f;
+}
+
+.sb-search-input:-moz-placeholder {
+    color: #4f4f4f;}
+
+.sb-search-input::-moz-placeholder {
+    color: #4f4f4f;}
+
+.sb-search-input:-ms-input-placeholder {
+    color: #4f4f4f;
+}
+
+.sb-icon-search,
+.sb-search-submit  {
+    width: 60px;
+    height: 60px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 60px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sb-search-submit {
+    background: #fff; /* IE needs this */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* IE 8 */
+    filter: alpha(opacity=0); /* IE 5-7 */
+    opacity: 0;
+    color: transparent;
+    border: none;
+    outline: none;
+    z-index: -1;
+}
+
+.sb-icon-search {
+    color: #333;
+    z-index: 90;
+    font-size: 22px;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sb-icon-search:before {
+    content: "";
+}
+
+.sb-search.sb-search-open,
+.no-js .sb-search {
+    width: 350px;
+}
+
+.sb-search.sb-search-open .sb-icon-search,
+.no-js .sb-search .sb-icon-search {
+    color: #333;
+    z-index: 11;
 }
 
 .pt-4 {padding-top: 0!important;}
