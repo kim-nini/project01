@@ -1,9 +1,7 @@
 package com.ezen.grrreung.web.order.controller;
 
 
-import com.ezen.grrreung.domain.board.dto.ItemRev;
 import com.ezen.grrreung.domain.board.service.ItemRevService;
-import com.ezen.grrreung.domain.cart.dto.Cart;
 import com.ezen.grrreung.domain.cart.service.CartService;
 import com.ezen.grrreung.domain.item.service.ItemService;
 import com.ezen.grrreung.domain.member.dto.Member;
@@ -18,8 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("grrreung/order")
@@ -109,6 +108,18 @@ public class OrderGrController {
         // itemId와 memberId로 카트에 담긴 리스트 가져오기
         List<Map<String, Object>> list = cartService.getCheckedList(map);
         model.addAttribute("list", list);
+        log.info("카트리스트 {}", list);
+
+        // 총결제금액 계산하기
+//        int totalPrice =0;
+//        for (Map<String, Object> item : list) {
+//            int itemPrice = (int) item.get("ITEM_PRICE");
+//            int cartAmount = (Integer) item.get("CART_AMOUNT");
+//            int cartAmount = ((Integer)item.get("CART_AMOUNT")).intValue();
+//            totalPrice += itemPrice * cartAmount;
+//            log.info("itemPrice {}", itemPrice);
+//        }
+//        model.addAttribute("totalPrice", totalPrice);
 
 
         return "/grrreung/sub/order-sheet";

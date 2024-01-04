@@ -67,7 +67,7 @@
                       <li th:if="${pagination.isShowPrevious()}" class="page-item">
                           <a class="page-link" th:href="@{/grrreung/itemqna(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
                       <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
-                          <a class="page-link" th:href="@{/itemqna(page=${page})}" name="page" th:text="${page}"></a>
+                          <a class="page-link" th:href="@{/grrreung/itemqna(page=${page})}" name="page" th:text="${page}"></a>
                       </li>
                       <li th:if="${pagination.isShowNext()}" class="page-item">
                           <a class="page-link" th:href="@{/grrreung/itemqna(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
