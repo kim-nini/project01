@@ -21,9 +21,9 @@
 
 <div class="container mx-auto bg-white py-8 notice custom-notice">
     <h1 th:text="${notice.notiTitle}"></h1>
-    <p th:text="${notice.notiAuth}"></p>
-    <p th:text="${notice.notiDate}"></p>
-    <p th:text="${notice.notiCont}"></p>
+    <p class="member-id-p" th:text="${notice.notiAuth}"></p>
+    <p class="date-p" th:text="${notice.notiDate}"></p>
+    <p class="cont-p" th:text="${notice.notiCont}"></p>
 
     <th:block th:if="${session.loginMember != null and session.loginMember.admin == 'Y'}">
     <!-- 수정 버튼 -->

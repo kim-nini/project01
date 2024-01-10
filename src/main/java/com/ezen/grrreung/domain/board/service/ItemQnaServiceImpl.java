@@ -53,6 +53,7 @@ public class ItemQnaServiceImpl implements ItemQnaService{
     @Override
     public void updatePost(ItemQna itemQna) { itemQnaMapper.updateByBno(itemQna); }
 
+    // qnaCode로 등록된 답변 리스트 가져오기
     @Override
     public List<ItemQnaRe> getListByQnaCode(int qnaCode) {
         return itemQnaMapper.qnaReByQnaCode(qnaCode);
@@ -84,5 +85,6 @@ public class ItemQnaServiceImpl implements ItemQnaService{
     public void deleteQnaRe(int reCode) {
         itemQnaMapper.deleteQnaRe(reCode);
     }
+
 
 }

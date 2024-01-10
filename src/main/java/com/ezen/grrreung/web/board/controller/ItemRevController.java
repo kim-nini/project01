@@ -13,12 +13,21 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RequestMapping("/grrreung/itemrev")
@@ -30,6 +39,9 @@ public class ItemRevController {
     // 이미지 경로
     @Value("${file.dir}")
     private String location;
+
+    @Value("${reviewImg.path}")
+    private String reviewImgPath;
 
     // 비지니스로직을 제공하는 객체생성
     private final ItemRevService itemRevService;
@@ -112,7 +124,8 @@ public class ItemRevController {
 
     // 포스트매핑 -> 게시글 작성화면에서 submit 버튼 클릭시 작동 -> 리스트화면으로 넘어감
     @PostMapping("/create/{itemId}")
-    public String posting(@ModelAttribute("itemRev") ItemRev itemRev, @PathVariable int itemId, HttpSession session, Model model) {
+    public String posting(@ModelAttribute("itemRev") ItemRev itemRev, @PathVariable int itemId,
+                          HttpSession session, Model model, @RequestParam(value = "revImg", required = false) MultipartFile revImg) throws IOException {
         //세션에서 memberId 가져오기
         Member member = (Member) session.getAttribute("loginMember");
         String memberId = member.getMemberId();
@@ -123,10 +136,25 @@ public class ItemRevController {
         // itemId 담아주기
         itemRev.setItemId(itemId);
 
+        // 후기사진
+        if (!revImg.isEmpty()) {
+            // 이미지 파일이 업로드된 경우
+            String imagePath = saveImage(revImg);
+            itemRev.setImagePath(imagePath);
+        }
+
         // 포스팅매소트 호출
         itemRevService.posting(itemRev);
 
         return "redirect:/grrreung/itemrev";
+    }
+
+    // 이미지를 서버에 저장하고 경로를 반환
+    private String saveImage(MultipartFile imageFile) throws IOException {
+        String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+        File file = new File(reviewImgPath, fileName);
+        imageFile.transferTo(file);
+        return fileName;
     }
 
     // 상세보기 겟매핑
@@ -135,6 +163,19 @@ public class ItemRevController {
         ItemRev itemRevInfo = itemRevService.postInfo(revCode);
         model.addAttribute("itemRev", itemRevInfo);
         return "/grrreung/sub/rev-cont";
+    }
+
+    // 상세보기에 나타나는 후기사진
+    @GetMapping("/img/{imagePath}")
+    public ResponseEntity<Resource> imageRender(@PathVariable("imagePath") String imgName, Model model) throws IOException {
+        log.info("이미지 이름 {}",imgName);
+        Path path = Paths.get(reviewImgPath + imgName);
+        String contentType = Files.probeContentType(path);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+        Resource resource = new FileSystemResource(path);
+        return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
     }
 
     // 수정하기 겟매핑
@@ -170,6 +211,7 @@ public class ItemRevController {
         List<ItemRev> list = itemRevService.itemReviewAll(itemId);
         log.info("reviewCount : {}", reviewCount);
         log.info("itemId : {}",itemId);
+
 
         return list;
     }

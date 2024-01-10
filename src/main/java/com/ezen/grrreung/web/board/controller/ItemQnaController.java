@@ -35,8 +35,8 @@ public class ItemQnaController {
                            @RequestParam(value = "search", required = false, defaultValue = "") String search,
                            Model model) {
         // 페이징 처리와 관련된 변수
-        int elementSize = 5; // 화면에 보여지는 행의 갯수
-        int pageSize = 3;     // 화면에 보여지는 페이지 갯수
+        int elementSize = 8; // 화면에 보여지는 행의 갯수
+        int pageSize = 5;     // 화면에 보여지는 페이지 갯수
 
         // 여러개의 요청 파라메터 정보 저장
         RequestParams params = new RequestParams(page, elementSize, pageSize, search);
@@ -51,6 +51,13 @@ public class ItemQnaController {
             pagination.setEndPage(1);
         }
         List<ItemQna> list = itemQnaService.postList(params);
+
+        for (ItemQna item : list){
+            int qnaCode = item.getQnaCode();
+            if(!itemQnaService.getListByQnaCode(qnaCode).isEmpty()){
+                item.setHasRe(true);
+            }
+        }
 
 
         model.addAttribute("params", params); // 요청 파라메터
@@ -168,11 +175,6 @@ public class ItemQnaController {
     }
 
     // qna 답변 삭제하기
-//    @GetMapping("/re-delete")
-//    public ResponseEntity<ItemQnaRe> reDelete(@RequestParam int reCode) {
-//        itemQnaService.deleteQnaRe(reCode);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
     @GetMapping("/re-delete")
     public ResponseEntity<ItemQnaRe> reDelete(@RequestParam int reCode, @RequestParam int qnaCode) {
         itemQnaService.deleteQnaRe(reCode);

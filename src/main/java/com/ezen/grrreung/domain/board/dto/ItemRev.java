@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -17,6 +15,9 @@ public class ItemRev {
   private String revTitle;
   private String revCont;
   private String revDate;
+  
+  // 파일 경로 추가
+  private String imagePath;
 
   private Item item;
 }

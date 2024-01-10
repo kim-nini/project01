@@ -6,6 +6,10 @@ DROP TABLE item_rev;
 
 DROP TABLE item_qna_re;
 
+
+
+select * from item_rev;
+
 -- create 
 
 CREATE TABLE notice (
@@ -31,7 +35,8 @@ CREATE TABLE item_rev (
     rev_title VARCHAR2(100) NOT NULL,
     rev_cont  VARCHAR2(500) NOT NULL,
     rev_date  DATE DEFAULT sysdate,
-    member_id VARCHAR2(30) NOT NULL
+    member_id VARCHAR2(30) NOT NULL,
+    image_path VARCHAR2(255)
 );
 
 CREATE TABLE item_qna_re (
@@ -123,6 +128,7 @@ INSERT INTO item_rev (
     '상품후기 테스트 내용 입니다',
     'customer1'
 );
+commit;
 
 -- Insert data into item_qna_re table
 INSERT INTO item_qna_re (

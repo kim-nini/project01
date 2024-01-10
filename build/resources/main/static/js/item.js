@@ -143,6 +143,7 @@ $(document).ready(function() {
                         + " | 제목 : "+ data[i].REV_TITLE
                         + " | 작성자 : " + data[i].MEMBER_ID
                         + " | 등록일 : "+ data[i].REV_DATE
+                        + " | 이미지패스 : "+ data[i].IMAGE_PATH
                         + " [ITEM ID : "+ data[i].ITEM_ID + "]");
                 }
 
@@ -186,9 +187,18 @@ $(document).ready(function() {
                 "</td><td>" +
                 dataList[i].REV_DATE +
                 "</td></tr>" +
-                "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'><p>" +
+                "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'>" +
+                "<img class='rev-img' src='/grrreung/itemrev/img/" + dataList[i].IMAGE_PATH + " 'onclick='showImageModal(this.src)'>" +
+                "<div id='imageModal' class='modal' onclick='closeImageModal()'>" +
+                "<img class='modal-content' id='modalImage'>" +
+                "</div>" +
+                "<p>" +
                 dataList[i].REV_CONT +
-                "</p></td></tr>";
+                "</p>" +
+                "</td></tr>";
+                // "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'><p>" +
+                // dataList[i].REV_CONT +
+                // "</p></td></tr>";
         } //dataList는 임의의 데이터임.. 각 소스에 맞게 변수를 넣어주면 됨...
         $(".review-board").html(chartHtml);
     }

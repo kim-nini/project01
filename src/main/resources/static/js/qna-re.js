@@ -4,6 +4,7 @@ const reBox = $('.re-div');
 const reCreateBtn = $('button[name="reCreateBtn"]');
 const exNewReBox = $('.qna-re-style:last');
 
+// qna 답변 로직
 async function sendQnaRe() {
     const reCont = reContBox.val();
     const qnaCode = reBox.attr('value');

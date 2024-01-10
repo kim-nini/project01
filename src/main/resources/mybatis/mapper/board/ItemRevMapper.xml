@@ -11,13 +11,15 @@
 			item_id,
 		    rev_title,
 			rev_cont,
-			member_id
+			member_id,
+			image_path
 		) VALUES (
 					 item_rev_seq.NEXTVAL,
 					 #{itemId},
 					 #{revTitle},
 					 #{revCont},
-					 #{memberId}
+					 #{memberId},
+		          	 #{imagePath}
 				 )
 	</insert>
 
@@ -86,7 +88,8 @@
 			   rev_title,
 			   rev_cont,
 			   member_id,
-			   TO_CHAR(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
+			   TO_CHAR(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date,
+			   image_path
 		FROM item_rev
 		WHERE rev_code = #{revCode}
 	</select>
@@ -192,7 +195,7 @@
 	<select id="itemReviewAll" parameterType="int" resultType="map">
 		SELECT
 			rev_code, rev_title, rev_cont,
-			to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date, member_id, item_id
+			to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date, member_id, item_id, image_path
 		FROM
 			item_rev
 		WHERE

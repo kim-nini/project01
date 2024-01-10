@@ -51,9 +51,9 @@
                   </thead>
                   <tbody>
                   <tr th:each="itemQna, status : ${list}">
-                      <td th:text="${itemQna.qnaCode}"></td>
-<!--                      <td th:text="${itemQna.qnaTitle}"></td>-->
-                      <td><a th:text="${itemQna.qnaTitle}" th:href="@{/grrreung/itemqna/{qnaCode}(qnaCode=${itemQna.qnaCode})}"></a></td>
+                      <td class="qnaCode" th:text="${itemQna.qnaCode}"></td>
+                      <td><a th:text="${itemQna.qnaTitle}" th:href="@{/grrreung/itemqna/{qnaCode}(qnaCode=${itemQna.qnaCode})}"></a>
+                      <span th:if="${itemQna.hasRe}" style="margin-left: 10px; color: red">답변완료</span></td>
                       <td th:text="${itemQna.memberId}"></td>
                       <td th:text="${itemQna.qnaDate}"></td>
                   </tr>
@@ -82,5 +82,6 @@
 
 <!-- 푸터 -->
 <th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+<script src="/js/qna-re.js"></script>
 </body>
 </html>

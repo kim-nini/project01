@@ -41,4 +41,5 @@ public interface ItemQnaService {
 
     // 답변 삭제 하기
     public  void  deleteQnaRe(int reCode);
+
 }

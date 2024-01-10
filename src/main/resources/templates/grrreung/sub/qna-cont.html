@@ -23,9 +23,9 @@
 
 <div class="container mx-auto bg-white py-8 notice custom-notice">
     <h1 th:text="${itemQna.qnaTitle}"></h1>
-    <p th:text="${itemQna.memberId}"></p>
-    <p th:text="${itemQna.qnaDate}"></p>
-    <p th:text="${itemQna.qnaCont}"></p>
+    <p class="member-id-p" th:text="${itemQna.memberId}"></p>
+    <p class="date-p" th:text="${itemQna.qnaDate}"></p>
+    <p class="cont-p" th:text="${itemQna.qnaCont}"></p>
 
     <th:block th:if="${session.loginMember != null and itemQna.memberId == session.loginMember.memberId}">
         <!-- 수정 버튼 -->
