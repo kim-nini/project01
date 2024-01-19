@@ -17,6 +17,12 @@
   width: 1100px;
   margin: 0 auto;
 }
+/*푸터에는 적용안함*/
+.px-3 {
+  width: initial;
+  margin: initial;
+}
+
 .blind {
   position: absolute;
   overflow: hidden;

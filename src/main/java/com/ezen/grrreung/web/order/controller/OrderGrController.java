@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,15 +112,18 @@ public class OrderGrController {
         log.info("카트리스트 {}", list);
 
         // 총결제금액 계산하기
-//        int totalPrice =0;
-//        for (Map<String, Object> item : list) {
-//            int itemPrice = (int) item.get("ITEM_PRICE");
-//            int cartAmount = (Integer) item.get("CART_AMOUNT");
-//            int cartAmount = ((Integer)item.get("CART_AMOUNT")).intValue();
-//            totalPrice += itemPrice * cartAmount;
-//            log.info("itemPrice {}", itemPrice);
-//        }
-//        model.addAttribute("totalPrice", totalPrice);
+        int totalPrice =0;
+        for (Map<String, Object> item : list) {
+            // int타입으로 변환
+            int itemPrice = ((BigDecimal) item.get("ITEM_PRICE")).intValue();
+            int cartAmount = ((BigDecimal) item.get("CART_AMOUNT")).intValue();
+
+            totalPrice += itemPrice * cartAmount;
+            log.info("itemPrice {}", itemPrice);
+        }
+
+        log.info("totalPrice {}", totalPrice);
+        model.addAttribute("totalPrice", totalPrice);
 
 
         return "/grrreung/sub/order-sheet";

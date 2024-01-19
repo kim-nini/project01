@@ -6,9 +6,9 @@ DROP TABLE item_rev;
 
 DROP TABLE item_qna_re;
 
+select* from item_qna_re;
 
 
-select * from item_rev;
 
 -- create 
 
@@ -30,12 +30,12 @@ CREATE TABLE item_qna (
 );
 
 CREATE TABLE item_rev (
-    rev_code  NUMBER(20) NOT NULL,
-    item_id   NUMBER(20) NOT NULL,
-    rev_title VARCHAR2(100) NOT NULL,
-    rev_cont  VARCHAR2(500) NOT NULL,
-    rev_date  DATE DEFAULT sysdate,
-    member_id VARCHAR2(30) NOT NULL,
+    rev_code   NUMBER(20) NOT NULL,
+    item_id    NUMBER(20) NOT NULL,
+    rev_title  VARCHAR2(100) NOT NULL,
+    rev_cont   VARCHAR2(500) NOT NULL,
+    rev_date   DATE DEFAULT sysdate,
+    member_id  VARCHAR2(30) NOT NULL,
     image_path VARCHAR2(255)
 );
 
@@ -128,7 +128,8 @@ INSERT INTO item_rev (
     '상품후기 테스트 내용 입니다',
     'customer1'
 );
-commit;
+
+COMMIT;
 
 -- Insert data into item_qna_re table
 INSERT INTO item_qna_re (
@@ -159,7 +160,9 @@ SELECT
     noti_title,
     noti_cont,
     noti_auth,
-    to_char(noti_date, 'yyyy-MM-DD HH24:MI:SS') noti_date
+    to_char(
+        noti_date, 'yyyy-MM-DD HH24:MI:SS'
+    ) noti_date
 FROM
     notice
 WHERE
@@ -189,7 +192,9 @@ FROM
                     noti_title,
                     noti_cont,
                     noti_auth,
-                    to_char(noti_date, 'yyyy-MM-DD HH24:MI:SS') noti_date
+                    to_char(
+                        noti_date, 'yyyy-MM-DD HH24:MI:SS'
+                    ) noti_date
                 FROM
                     notice
                 WHERE
@@ -205,45 +210,49 @@ WHERE
     
 -- 아이템 리뷰 서치
 SELECT
-		rev_code,
-		rev_title,
-		rev_cont,
-		member_id,
-		rev_date
-		FROM
-		(
-		SELECT
-		ceil(ROWNUM / 5)  page,
-		rev_code,
-		rev_title,
-		rev_cont,
-		member_id,
-		rev_date
-		FROM
-		(
-		SELECT
-		rev_code,
-		rev_title,
-		rev_cont,
-		member_id,
-		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
-		FROM
-		item_rev
-		where
-				rev_title LIKE '%cust%'
-				OR rev_code LIKE '%cust%'
-				OR member_id = 'cust'
-			
-		ORDER BY
-		rev_code DESC
-		)
-		)
-		WHERE
-		page = 1;
+    rev_code,
+    rev_title,
+    rev_cont,
+    member_id,
+    rev_date
+FROM
+    (
+        SELECT
+            ceil(ROWNUM / 5) page,
+            rev_code,
+            rev_title,
+            rev_cont,
+            member_id,
+            rev_date
+        FROM
+            (
+                SELECT
+                    rev_code,
+                    rev_title,
+                    rev_cont,
+                    member_id,
+                    to_char(
+                        rev_date, 'yyyy-MM-DD HH24:MI:SS'
+                    ) rev_date
+                FROM
+                    item_rev
+                WHERE
+                    rev_title LIKE '%cust%'
+                    OR rev_code LIKE '%cust%'
+                    OR member_id = 'cust'
+                ORDER BY
+                    rev_code DESC
+            )
+    )
+WHERE
+    page = 1;
 
-select *
-from item_rev
-where member_id = 'customer1';
+SELECT
+    *
+FROM
+    item_rev
+WHERE
+    member_id = 'customer1';
     
     
 -- 페이징 처리 카운트
@@ -265,11 +274,11 @@ ORDER BY
 SELECT
     oi.order_amount
 FROM
-         order_gr og
+    order_gr og
     JOIN member     m ON og.member_id = m.member_id
     JOIN order_item oi ON og.order_id = oi.order_id
 WHERE
-        og.member_id = 'customer1'
+    og.member_id = 'customer1'
     AND oi.order_item_id = 1
     AND og.order_id = 10000;
     
@@ -281,5 +290,4 @@ FROM
     item_rev
 WHERE
     item_id = 1
-    And
-    member_id ='멤버아이디';
+    AND member_id = '멤버아이디';
