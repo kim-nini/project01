@@ -84,6 +84,7 @@ public class ItemRevController {
             pagination.setEndPage(1);
         }
 
+
         // db에서 list 가져오기
         List<ItemRev> list = itemRevService.postList(params);
 

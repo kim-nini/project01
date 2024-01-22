@@ -7,14 +7,12 @@
 	<!--게시글등록-->
 	<insert id="create" parameterType="ItemRev">
 		INSERT INTO item_rev(
-			rev_code,
 			item_id,
 		    rev_title,
 			rev_cont,
 			member_id,
 			image_path
 		) VALUES (
-					 item_rev_seq.NEXTVAL,
 					 #{itemId},
 					 #{revTitle},
 					 #{revCont},
@@ -30,43 +28,17 @@
 		rev_title,
 		rev_cont,
 		member_id,
-		rev_date,
-		item_id
-		FROM
-		(
-		SELECT
-		ceil(ROWNUM / #{elementSize})  page,
-		rev_code,
-		rev_title,
-		rev_cont,
-		member_id,
-		rev_date,
-		item_id
-		FROM
-		(
-		SELECT
-		rev_code,
-		rev_title,
-		rev_cont,
-		member_id,
-		to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date,
+		DATE_FORMAT(rev_date, '%Y-%m-%d %H:%i:%s') as rev_date,
 		item_id
 		FROM
 		item_rev
 		<where>
 			<if test="search != null">
-				rev_title LIKE '%' || #{search} || '%'
-				OR rev_code LIKE '%' || #{search} || '%'
-				OR member_id = #{search}
+				AND (rev_title LIKE CONCAT('%', #{search}, '%') OR item_id LIKE CONCAT('%', #{search}, '%') OR member_id LIKE CONCAT('%', #{search}, '%'))
 			</if>
 		</where>
-		ORDER BY
-		rev_code DESC
-		)
-		)
-		WHERE
-		page = #{requestPage}
-
+		ORDER BY rev_code DESC
+		LIMIT #{elementSize} OFFSET #{offset}
 	</select>
 
 	<!--전체리스트 행갯수-->
@@ -75,8 +47,7 @@
 		FROM item_rev
 		<where>
 			<if test="search != null">
-				rev_title LIKE '%' || #{search} || '%'
-				OR rev_date LIKE '%' || #{search} || '%'
+				AND (rev_title LIKE CONCAT('%', #{search}, '%') OR item_id LIKE CONCAT('%', #{search}, '%') OR member_id LIKE CONCAT('%', #{search}, '%'))
 			</if>
 		</where>
 		order by rev_code DESC
@@ -88,7 +59,7 @@
 			   rev_title,
 			   rev_cont,
 			   member_id,
-			   TO_CHAR(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date,
+			   DATE_FORMAT(rev_date, '%Y-%m-%d %H:%i:%s') as rev_date,
 			   image_path
 		FROM item_rev
 		WHERE rev_code = #{revCode}
@@ -141,7 +112,7 @@
 			item_rev
 		WHERE
 			item_id = #{itemId}
-		  And
+		  AND
 			member_id =#{memberId}
 	</select>
 
@@ -152,33 +123,13 @@
 		rev_title,
 		rev_cont,
 		member_id,
-		rev_date
+		DATE_FORMAT(rev_date, '%Y-%m-%d %H:%i:%s') as rev_date,
+		item_id
 		FROM
-		(
-			SELECT
-			ceil(ROWNUM / #{elementSize})  page,
-			rev_code,
-			rev_title,
-			rev_cont,
-			member_id,
-			rev_date
-			FROM
-			(
-			SELECT
-				rev_code,
-				rev_title,
-				rev_cont,
-				member_id,
-				to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date
-			FROM
-				item_rev
-			WHERE item_id= #{search}
-			ORDER BY
-				rev_code DESC
-			)
-				)
-		WHERE
-		page = #{requestPage}
+		item_rev
+		WHERE item_id= #{search}
+		ORDER BY rev_code DESC
+		LIMIT #{elementSize} OFFSET #{offset}
 	</select>
 
 	<!-- 아이템별 (전체 회원) 리뷰 개수 조회 -->
@@ -195,7 +146,10 @@
 	<select id="itemReviewAll" parameterType="int" resultType="map">
 		SELECT
 			rev_code, rev_title, rev_cont,
-			to_char(rev_date, 'yyyy-MM-DD HH24:MI:SS') rev_date, member_id, item_id, image_path
+			DATE_FORMAT(rev_date, '%Y-%m-%d %H:%i:%s') as rev_date,
+			member_id,
+			item_id,
+			image_path
 		FROM
 			item_rev
 		WHERE
@@ -203,7 +157,6 @@
 		ORDER BY
 		    rev_code DESC
 	</select>
-
 
 </mapper>
 

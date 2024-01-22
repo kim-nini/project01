@@ -32,9 +32,6 @@ function previewImage(input) {
 }
 
 
-
-
-
 //-----------------상세보기화면------------------------
 /* 이미지를 확대해서 보여주기 위한 JavaScript 코드 */
 function showImageModal(imageSrc) {

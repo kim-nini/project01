@@ -7,11 +7,9 @@
 <!--게시글등록-->
 	<insert id="create" parameterType="Notice">
 		INSERT INTO notice (
-			noti_code,
 			noti_title,
 			noti_cont
 		) VALUES (
-					 notice_seq.NEXTVAL,
 					 #{notiTitle},
 					 #{notiCont}
 				 )
@@ -24,39 +22,17 @@
 			noti_title,
 			noti_cont,
 			noti_auth,
-			noti_date
+			DATE_FORMAT(noti_date, '%Y-%m-%d %H:%i:%s') as noti_date
 		FROM
-			(
-				SELECT
-					ceil(ROWNUM / #{elementSize})  page,
-					noti_code,
-					noti_title,
-					noti_cont,
-					noti_auth,
-					noti_date
-				FROM
-					(
-						SELECT
-							noti_code,
-							noti_title,
-							noti_cont,
-							noti_auth,
-							to_char(noti_date, 'yyyy-MM-DD HH24:MI:SS') noti_date
-						FROM
-							notice
-					<where>
-						<if test="search != null">
-							noti_title LIKE '%' || #{search} || '%'
-							OR noti_date LIKE '%' || #{search} || '%'
-						</if>
-					</where>
-						ORDER BY
-							noti_code DESC
-					)
-			)
-		WHERE
-			page = #{requestPage}
-
+			notice
+			<where>
+				<if test="search != null">
+					AND (noti_title LIKE CONCAT('%', #{search}, '%') OR noti_date LIKE CONCAT('%', #{search}, '%'))
+				</if>
+			</where>
+			ORDER BY
+			noti_code DESC
+			LIMIT #{elementSize} OFFSET #{offset}
 	</select>
 
 <!--전체리스트 행갯수-->
@@ -65,8 +41,7 @@
 		FROM notice
 		<where>
 			<if test="search != null">
-				noti_title LIKE '%' || #{search} || '%'
-				OR noti_date LIKE '%' || #{search} || '%'
+				AND (noti_title LIKE CONCAT('%', #{search}, '%') OR noti_date LIKE CONCAT('%', #{search}, '%'))
 			</if>
 		</where>
 		order by noti_code DESC
@@ -78,7 +53,7 @@
 			   noti_title,
 			   noti_cont,
 			   noti_auth,
-			   TO_CHAR(noti_date, 'yyyy-MM-DD HH24:MI:SS')  noti_date
+			   DATE_FORMAT(noti_date, '%Y-%m-%d %H:%i:%s') as noti_date
 		FROM notice
 		WHERE noti_code = #{notiCode}
 	</select>

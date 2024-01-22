@@ -7,7 +7,7 @@
 
     <!-- 주문하기 -->
     <insert id="create" parameterType="OrderGr">
-        INSERT INTO order_gr (order_id,
+        INSERT INTO order_gr (
         member_id,
         order_memo,
         order_name,
@@ -15,7 +15,6 @@
         order_hp,
         order_price_all)
         VALUES (
-        order_gr_seq.NEXTVAL,
         #{memberId},
         #{orderMemo},
         #{orderName},
@@ -24,27 +23,21 @@
         #{orderPriceAll}
         )
         <selectKey keyProperty="orderId" resultType="int" order="AFTER">
-            SELECT order_gr_seq.CURRVAL FROM dual
+            SELECT LAST_INSERT_ID() AS orderId
         </selectKey>
     </insert>
     <insert id="createOrderItem" parameterType="OrderItem">
-        INSERT INTO order_item (order_item_id,
+        INSERT INTO order_item (
                                 order_id,
                                 item_id,
                                 order_price,
                                 order_amount)
-        VALUES (order_item_seq.NEXTVAL,
+        VALUES (
                 #{orderId},
                 #{itemId},
                 #{orderPrice},
                 #{orderAmount})
     </insert>
-<!--    <update id="updatePayStatus" parameterType="OrderGr">-->
-<!--        UPDATE orders-->
-<!--        SET pay_status = #{payStatus}-->
-<!--        WHERE order_id = #{orderId}-->
-<!--    </update>-->
-
     <!--	주문내역조회-->
     <select id="orderHistoryByMember" parameterType="String" resultType="map">
         SELECT og.order_id,

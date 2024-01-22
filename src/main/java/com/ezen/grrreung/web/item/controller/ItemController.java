@@ -59,7 +59,7 @@ public class ItemController {
                                @RequestParam(value="cateTop", required = false) String cateTop,
                                Model model){
         log.info("들어온 검색값 : {}" ,search);
-        log.info("들어온 카테고리값 : {}" , cateTop);
+
 
         // 페이징 처리와 관련된 변수
         int elementSize = 8; // 화면에 보여지는 상품의 갯수
@@ -67,8 +67,9 @@ public class ItemController {
 
         // 여러개의 요청 파라메터 정보 저장
         RequestParams params = new RequestParams(page, elementSize, pageSize, search);
-
+        log.info("offset : {}" , params.getOffset());
         int  selectCount = itemService.countBySearchValue(params);    // 페이징처리 값 테이블의 전체 갯수
+
         List<Item> list = itemService.searchItem(params);  // model에 저장할 리스트
 
         // 카테고리 버튼으로 카테고리별 아이템 검색할때
@@ -121,7 +122,7 @@ public class ItemController {
         RequestParams params = new RequestParams(page, elementSize, pageSize, search);
         // 페이징처리 값 테이블의 전체 갯수
         int selectCount = itemRevService.postListCount(params);
-        log.info("selectCount: {}",selectCount);
+        log.info("offset: {}", params.getOffset());
 
         // params : 사용자가 선택한 페이지번호 , 검색값 여부
         // 페이징 처리 계산 유틸리티 활용
@@ -129,6 +130,7 @@ public class ItemController {
         if (pagination.getEndPage() == 0) {
             pagination.setEndPage(1);
         }
+
         List<ItemRev> list = itemRevService.itemReviews(params);
 
         log.info("리뷰정보 : {}", list);
@@ -138,6 +140,7 @@ public class ItemController {
         model.addAttribute("list",list); // db 리스트
 
         int revCount = itemRevService.itemRevPostCount(itemId); // 리뷰 총 개수
+        log.info("리뷰 총 개수 : {}", revCount);
         model.addAttribute("revCount",revCount);
 
         return "/grrreung/sub/item";

@@ -7,13 +7,11 @@
 <!--게시글등록-->
 	<insert id="create" parameterType="ItemQna">
         INSERT INTO item_qna (
-            qna_code,
             item_id,
             qna_title,
             qna_cont,
             member_id
         ) VALUES (
-                     item_qna_seq.NEXTVAL,
                      101,
                      #{qnaTitle},
                      #{qnaCont},
@@ -28,38 +26,15 @@
         qna_title,
         qna_cont,
         member_id,
-        qna_date
-        FROM
-        (
-        SELECT
-        ceil(ROWNUM / #{elementSize})  page,
-        qna_code,
-        qna_title,
-        qna_cont,
-        member_id,
-        qna_date
-        FROM
-        (
-        SELECT
-        qna_code,
-        qna_title,
-        qna_cont,
-        member_id,
-        to_char(qna_date, 'yyyy-MM-DD HH24:MI:SS') qna_date
-        FROM
-        item_qna
+        DATE_FORMAT(qna_date, '%Y-%m-%d %H:%i:%s') as qna_date
+        FROM item_qna
         <where>
             <if test="search != null">
-                qna_title LIKE '%' || #{search} || '%'
-                OR member_id LIKE '%' || #{search} || '%'
+                AND (qna_title LIKE CONCAT('%', #{search}, '%') OR member_id LIKE CONCAT('%', #{search}, '%'))
             </if>
         </where>
-        ORDER BY
-        qna_code DESC
-        )
-        )
-        WHERE
-        page = #{requestPage}
+        ORDER BY qna_code DESC
+        LIMIT #{elementSize} OFFSET #{offset}
 
     </select>
 
@@ -69,27 +44,28 @@
         FROM item_qna
         <where>
             <if test="search != null">
-                qna_title LIKE '%' || #{search} || '%'
-                OR qna_date LIKE '%' || #{search} || '%'
+                AND (qna_title LIKE CONCAT('%', #{search}, '%') OR member_id LIKE CONCAT('%', #{search}, '%'))
             </if>
         </where>
-        order by qna_code DESC
+        ORDER BY qna_code DESC
     </select>
 
-<!--상세보기-->
+    <!--상세보기-->
     <select id="findByBno" parameterType="int" resultType="ItemQna">
-        SELECT qna_code,
-               qna_title,
-               qna_cont,
-               member_id,
-               TO_CHAR(qna_date, 'yyyy-MM-DD HH24:MI:SS') qna_date
+        SELECT
+            qna_code,
+            qna_title,
+            qna_cont,
+            member_id,
+            DATE_FORMAT(qna_date, '%Y-%m-%d %H:%i:%s') as qna_date
         FROM item_qna
         WHERE qna_code = #{qnaCode}
     </select>
     <!-- 게시글 수정 -->
     <update id="updateByBno" parameterType="ItemQna">
         UPDATE item_qna
-        SET qna_title = #{qnaTitle},
+        SET
+            qna_title = #{qnaTitle},
             qna_cont = #{qnaCont}
         WHERE qna_code = #{qnaCode}
     </update>
@@ -118,12 +94,11 @@
             qna_code,
             re_cont
         ) VALUES (
-                     item_qna_re_seq.NEXTVAL,
                      #{qnaCode},
                      #{reCont}
                  )
         <selectKey keyProperty="reCode" resultType="int" order="AFTER">
-            SELECT item_qna_re_seq.CURRVAL FROM dual
+            SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
     <!-- 등록된 답변 가져오기 -->
@@ -139,7 +114,7 @@
         UPDATE item_qna_re
         SET
             re_cont = #{reCont},
-            re_date = SYSDATE
+            re_date = CURRENT_TIMESTAMP
         WHERE re_code = #{reCode}
     </update>
     <!-- 답변 삭제하기 -->
@@ -147,6 +122,5 @@
         DELETE FROM item_qna_re
         WHERE re_code = #{reCode}
     </delete>
-
 </mapper>
 

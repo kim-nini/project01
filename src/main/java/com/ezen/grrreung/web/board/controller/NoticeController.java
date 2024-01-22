@@ -45,6 +45,9 @@ public class NoticeController {
         if (pagination.getEndPage() == 0) {
             pagination.setEndPage(1);
         }
+
+        // mySQL문의 offset에 적용하기위해 requestPage값 변경하기
+        params.setRequestPage((params.getRequestPage()-1)*elementSize);
         List<Notice> list = noticeService.postList(params);
         
         

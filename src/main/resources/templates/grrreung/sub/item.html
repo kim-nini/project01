@@ -56,19 +56,6 @@
 
                                 <div class="reviews-counter">
 
-<!--                                    <div class="rate">-->
-<!--                                        <input type="radio" id="star5" name="rate" value="5" checked />-->
-<!--                                        <label for="star5" title="text">5 stars</label>-->
-<!--                                        <input type="radio" id="star4" name="rate" value="4" checked />-->
-<!--                                        <label for="star4" title="text">4 stars</label>-->
-<!--                                        <input type="radio" id="star3" name="rate" value="3" checked />-->
-<!--                                        <label for="star3" title="text">3 stars</label>-->
-<!--                                        <input type="radio" id="star2" name="rate" value="2" />-->
-<!--                                        <label for="star2" title="text">2 stars</label>-->
-<!--                                        <input type="radio" id="star1" name="rate" value="1" />-->
-<!--                                        <label for="star1" title="text">1 star</label>-->
-<!--                                      </div>-->
-
                                     <!-- 리뷰 총개수 -->
                                     <span th:text="${revCount+'Reviews'}">Reviews</span>
 
@@ -82,26 +69,6 @@
                             </div>
 
                             <p th:text="${item.itemDetail}">상품 상세 설명</p>
-                                <!-- 상품 옵션 관련 html-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-6">-->
-<!--                                    <label for="size">Size</label>-->
-<!--                                    <select id="size" name="size" class="form-control">-->
-<!--                                        <option>S</option>-->
-<!--                                        <option>M</option>-->
-<!--                                        <option>L</option>-->
-<!--                                        <option>XL</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6">-->
-<!--                                    <label for="color">Color</label>-->
-<!--                                    <select id="color" name="color" class="form-control">-->
-<!--                                        <option>Blue</option>-->
-<!--                                        <option>Green</option>-->
-<!--                                        <option>Red</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
                             <div class="product-count">
                                 <!-- 수량 -->
                                 <label>수량</label>
@@ -182,12 +149,6 @@
                                           </thead>
 
                                       <tbody class="review-board">
-<!--                                        <tr th:each="itemRev : ${list}" >-->
-<!--                                            <td th:text="${itemRev.revCode}"></td>-->
-<!--                                            <td><a th:text="${itemRev.revTitle}" th:href="@{/grrreung/itemrev/{revCode}(revCode=${itemRev.revCode})}"></a></td>-->
-<!--                                            <td th:text="${itemRev.memberId}"></td>-->
-<!--                                            <td th:text="${itemRev.revDate}"></td>-->
-<!--                                        </tr>-->
                                       </tbody>
                                       </table>
 
@@ -195,69 +156,9 @@
                                       <th:block th:if="${#lists.isEmpty(list)}">
                                           <p style="text-align: center; padding: 30px 0; box-sizing: border-box; font-size: large">등록된 리뷰가 없습니다.</p>
                                       </th:block>
-<!--****************************** #1안 ) *************************************************************************************************-->
-<!--                                      <nav aria-label="Page navigation example">-->
-<!--                                          &lt;!&ndash; itemId 값을 HTML에 추가 => 브라우저상에는 나타나지 않음 *** &ndash;&gt;-->
                                           <div type="text" id="itemId" th:text="${item.itemId}" style="display:none;" ></div>
-
-<!--                                          <ul class="pagination">-->
-<!--                                              <li th:if="${pagination.isShowFirst()}" class="page-item">-->
-<!--                                                  <a class="page-link" th:href="@{/grrreung/itemrev(page=1)}">&laquo;</a>-->
-<!--                                              </li>-->
-
-<!--                                              <li th:if="${pagination.isShowPrevious()}" class="page-item">-->
-<!--                                                  <a class="page-link"  th:attr="onclick='loadPage(' + ${pagination.getPreviousStartPage()} + ')">&lsaquo;</a>-->
-<!--                                              </li>-->
-
-<!--                                              <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">-->
-<!--                                                  <a class="page-link" th:attr="onclick='loadPage(' + ${page} + ')'" name="page" th:text="${page}"></a>-->
-<!--                                              </li>-->
-
-<!--                                              <li th:if="${pagination.isShowNext()}" class="page-item">-->
-<!--                                                  <a class="page-link"  th:attr="onclick='loadPage(' + ${pagination.getNextStartPage()} + ')'">&rsaquo;</a>-->
-<!--                                              </li>-->
-
-
-<!--                                              <li th:if="${pagination.isShowLast()}" class="page-item">-->
-<!--                                                  <a class="page-link"-->
-<!--                                                        th:href="@{/grrreung/shop/item(itemId = ${item.itemId}, page=${pagination.totalPages})}">&raquo;</a>-->
-<!--                                              </li>-->
-<!--                                          </ul>-->
-<!--                                      </nav>-->
-<!--****************************** #2안 ) *************************************************************************************************-->
-<!--                                      <select id="dataPerPage">-->
-<!--                                          <option value="3">3개씩보기</option>-->
-<!--                                          <option value="5">5개씩보기</option>-->
-<!--                                          <option value="10">10개씩보기</option>-->
-<!--                                      </select>-->
-
-<!--                                      <span id="displayCount"></span>-->
-<!--                                      <table id="dataTableBody">-->
-
-<!--                                      </table>-->
-
-
                                       <ul class="pagination">
                                       </ul>
-<!--***********************************************원본*****************************************************************************************-->
-<!--                                            <nav aria-label="Page navigation example">-->
-<!--                                                <ul class="pagination">-->
-<!--                                                    <li th:if="${pagination.isShowFirst()}" class="page-item">-->
-<!--                                                        <a class="page-link">&laquo;</a></li>-->
-<!--                                                    <li th:if="${pagination.isShowPrevious()}" class="page-item">-->
-<!--                                                        <a class="page-link">&lsaquo;</a></li>-->
-<!--                                                    <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">-->
-<!--                                                        <a class="page-link" name="page" th:text="${page}"></a>-->
-<!--                                                    </li>-->
-<!--                                                    <li th:if="${pagination.isShowNext()}" class="page-item">-->
-<!--                                                        <a class="page-link">&rsaquo;</a></li>-->
-<!--                                                    <li th:if="${pagination.isShowLast()}" class="page-item">-->
-<!--                                                        <a class="page-link">&raquo;</a></li>-->
-<!--                                                </ul>-->
-<!--                                            </nav>-->
-
-<!--****************************************************************************************************************************************-->
-
                                   </div>
                               </div>
 
@@ -270,11 +171,6 @@
 
 <!-- 푸터 -->
 <th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
-
-
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
-<!--	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" defer></script>-->
 
 
     <script src="/js/owl.carousel.js"></script>
