@@ -36,13 +36,13 @@
 
                         <div id="slider"  class="owl-carousel product-slider">
                             <div class="item"  th:each="imgFiles : ${imgFiles}">
-                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지" />
+                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.img_name} }" alt="상세이미지" />
                             </div>
                         </div>
 
                         <div id="thumb" class="owl-carousel product-thumb">
                             <div class="item"  th:each="imgFiles : ${imgFiles}">
-                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.IMG_NAME} }" alt="상세이미지 미리보기" />
+                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.img_name} }" alt="상세이미지 미리보기" />
                             </div>
                         </div>
 
@@ -130,7 +130,7 @@
 
                               <!-- 상세정보 출력할 부분 (DB에 저장한 이미지 파일 루프 돌려서 보여줌 -->
                               <th:block th:each="itemDescription : ${itemDescription}">
-                                 <img th:src="@{'/grrreung/img/'+ ${itemDescription.IMG_NAME} }" alt="제품 상세 정보" />
+                                 <img th:src="@{'/grrreung/img/'+ ${itemDescription.img_name} }" alt="제품 상세 정보" />
                               </th:block>
 
                           </div>

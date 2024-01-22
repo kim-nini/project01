@@ -102,17 +102,18 @@ public class ItemController {
                            Model model){
 
         Item item = itemService.findByItemId(itemId);
-        log.info("아이템 상세정보 : {}", item.toString());
+
 
         // 슬라이드 상품이미지 가져오기
         List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
         // 상품 정보 이미지 가져오기
         List<Map<String, Object>> itemDescription = itemService.showDescriptionImages(itemId);
+        log.info("아이템 파일즈 : {}", imgFiles.toString());
 
         model.addAttribute("item", item);
         model.addAttribute("imgFiles", imgFiles);
         model.addAttribute("itemDescription", itemDescription);
-
+        log.info("아이템 파일즈 : {}", itemDescription.toString());
         // 리뷰 리스트 출력하기
         // 페이징 처리와 관련된 변수
         int elementSize = 5; // 화면에 보여지는 행의 갯수
