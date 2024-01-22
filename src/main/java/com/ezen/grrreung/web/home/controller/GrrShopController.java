@@ -16,36 +16,13 @@ public class GrrShopController {
     }
 
 
-//    // 공지사항 이동
-//    @RequestMapping("/notice")
-//    public String notice(){
-//        return "/grrreung/sub/notice";
-//    }
-
     // FAQ 페이지 이동
     @RequestMapping("/faq")
     public String faq(){
         return "/grrreung/sub/faq";
     }
 
-    // Q&A 페이지 이동
-//    @RequestMapping("/qna")
-//    public String qna(){
-//        return "/grrreung/sub/qna";
-//    }
 
-//    // Q&A 글쓰기(문의하기) 페이지 이동
-//    @RequestMapping("/post")
-//    public String post(){
-//        return "/grrreung/sub/post";
-//    }
-
-//    // 리뷰 페이지 이동
-//    @RequestMapping("/review")
-//    public String review(){
-//        return "/grrreung/sub/review";
-//    }
-//
     // 로그인 페이지 이동
     @RequestMapping("/login")
     public String login(){

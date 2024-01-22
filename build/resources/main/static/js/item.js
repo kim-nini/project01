@@ -126,40 +126,40 @@ $(document).ready(function() {
 
 // **************************************************************************************
 
-        // dataPerPage = $("#dataPerPage").val();
-        dataPerPage = 5;
-        console.log("아이템 아이디: "+ itemId);
-        console.log("데이터 개수 선택: "+ dataPerPage);
+    // dataPerPage = $("#dataPerPage").val();
+    dataPerPage = 5;
+    console.log("아이템 아이디: "+ itemId);
+    console.log("데이터 개수 선택: "+ dataPerPage);
 
-        $.ajax({ // ajax로 데이터 가져오기
-            method: "GET",
-            url: "/grrreung/itemrev/all-reviews?itemId="+itemId,
-            contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-            dataType: "json",
-            success: function (data) {
-                // console.log("ajax데이터 확인: " + data);
-                for(var i = 0; i<data.length; i++){
-                    console.log("글번호: " + data[i].REV_CODE
-                        + " | 제목 : "+ data[i].REV_TITLE
-                        + " | 작성자 : " + data[i].MEMBER_ID
-                        + " | 등록일 : "+ data[i].REV_DATE
-                        + " | 이미지패스 : "+ data[i].IMAGE_PATH
-                        + " [ITEM ID : "+ data[i].ITEM_ID + "]");
-                }
-
-                //데이터 대입
-                dataList = data;
-                //totalData(총 데이터 수) 구하기
-                totalData = dataList.length;
-                //글 목록 표시 호출 (테이블 생성)
-                displayData(1, dataPerPage);
-                //페이징 표시 호출
-                paging(totalData, dataPerPage, pageCount, 1);
-            },
-            error : function(request, status, error){
-                console.log("code:"+request.status+"\n"+"error:"+error);
+    $.ajax({ // ajax로 데이터 가져오기
+        method: "GET",
+        url: "/grrreung/itemrev/all-reviews?itemId="+itemId,
+        contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "json",
+        success: function (data) {
+            // console.log("ajax데이터 확인: " + data);
+            for(var i = 0; i<data.length; i++){
+                console.log("글번호: " + data[i].rev_code
+                    + " | 제목 : "+ data[i].rec_title
+                    + " | 작성자 : " + data[i].member_id
+                    + " | 등록일 : "+ data[i].rev_date
+                    + " | 이미지패스 : "+ data[i].image_path
+                    + " [ITEM ID : "+ data[i].item_id + "]");
             }
-        });
+
+            //데이터 대입
+            dataList = data;
+            //totalData(총 데이터 수) 구하기
+            totalData = dataList.length;
+            //글 목록 표시 호출 (테이블 생성)
+            displayData(1, dataPerPage);
+            //페이징 표시 호출
+            paging(totalData, dataPerPage, pageCount, 1);
+        },
+        error : function(request, status, error){
+            console.log("code:"+request.status+"\n"+"error:"+error);
+        }
+    });
 
 
 
@@ -179,26 +179,26 @@ $(document).ready(function() {
 
             chartHtml +=
                 "<tr><td>" +
-                dataList[i].REV_CODE +
+                dataList[i].rev_code +
                 "</td><td class='rev_title'>" +
-                dataList[i].REV_TITLE  +
+                dataList[i].rev_title  +
                 "</td><td>" +
-                dataList[i].MEMBER_ID +
+                dataList[i].member_id +
                 "</td><td>" +
-                dataList[i].REV_DATE +
+                dataList[i].rev_date +
                 "</td></tr>" +
                 "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'>" +
-                "<img class='rev-img' src='/grrreung/itemrev/img/" + dataList[i].IMAGE_PATH + " 'onclick='showImageModal(this.src)'>" +
+                "<img class='rev-img' src='/grrreung/itemrev/img/" + dataList[i].image_path + " 'onclick='showImageModal(this.src)'>" +
                 "<div id='imageModal' class='modal' onclick='closeImageModal()'>" +
                 "<img class='modal-content' id='modalImage'>" +
                 "</div>" +
                 "<p>" +
-                dataList[i].REV_CONT +
+                dataList[i].rev_cont +
                 "</p>" +
                 "</td></tr>";
-                // "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'><p>" +
-                // dataList[i].REV_CONT +
-                // "</p></td></tr>";
+            // "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'><p>" +
+            // dataList[i].REV_CONT +
+            // "</p></td></tr>";
         } //dataList는 임의의 데이터임.. 각 소스에 맞게 변수를 넣어주면 됨...
         $(".review-board").html(chartHtml);
     }
@@ -290,6 +290,4 @@ $(document).on("click", ".rev_title", function () {
 });
 
 // 페이지 로드 시 rev_cont를 숨김
-
-
 

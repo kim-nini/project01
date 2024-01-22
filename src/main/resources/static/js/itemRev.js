@@ -35,14 +35,18 @@ function previewImage(input) {
 //-----------------상세보기화면------------------------
 /* 이미지를 확대해서 보여주기 위한 JavaScript 코드 */
 function showImageModal(imageSrc) {
-    var modal = document.getElementById('imageModal');
-    var modalImage = document.getElementById('modalImage');
+    // 호출된 요소 가져오기
+    var clickedElement = event.target;
+
+    var modal =  clickedElement.parentNode.querySelector('.modal');
+    var modalImage = modal.querySelector('#modalImage');
 
     modal.style.display = 'block';
     modalImage.src = imageSrc;
 }
 
 function closeImageModal() {
-    var modal = document.getElementById('imageModal');
+
+    var modal = event.target;
     modal.style.display = 'none';
 }

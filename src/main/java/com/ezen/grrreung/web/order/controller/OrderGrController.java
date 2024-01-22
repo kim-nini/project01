@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,12 +59,12 @@ public class OrderGrController {
 
         for (Map<String,Object> map: list ) {
             // 구매수량 담기
-            count = Integer.parseInt(map.get("ORDER_AMOUNT").toString());
+            count = Integer.parseInt(map.get("order_amount").toString());
             log.info("구매수량 : {}" , count);
             // 주문아이디
-            checkMap.put("orderId",map.get("ORDER_ID"));
+            checkMap.put("orderId",map.get("order_id"));
             // 아이템아이디
-            checkMap.put("itemId",map.get("ITEM_ID"));
+            checkMap.put("itemId",map.get("item_id"));
             log.info("orderId : {}" ,checkMap.get("orderId"));
             log.info("itemId : {}" , checkMap.get("itemId"));
 
@@ -115,8 +114,10 @@ public class OrderGrController {
         int totalPrice =0;
         for (Map<String, Object> item : list) {
             // int타입으로 변환
-            int itemPrice = ((BigDecimal) item.get("ITEM_PRICE")).intValue();
-            int cartAmount = ((BigDecimal) item.get("CART_AMOUNT")).intValue();
+            log.info("데시말아이템타입 {}", item.get("item_price").getClass().getName());
+//            int itemPrice = ((BigDecimal) item.get("item_price")).intValue();
+            int itemPrice = (int) item.get("item_price");
+            int cartAmount = (int) item.get("cart_amount");
 
             totalPrice += itemPrice * cartAmount;
             log.info("itemPrice {}", itemPrice);

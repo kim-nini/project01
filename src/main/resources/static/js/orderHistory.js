@@ -15,7 +15,8 @@ async function orderHistory(event) {
 	// 주문을 ORDER_ID를 기준으로 그룹화
 	const groupedOrders = Array.isArray(ordersData)
 		? ordersData.reduce((acc, order) => {
-			const orderId = order.ORDER_ID;
+			const orderId = order.order_id;
+
 
 
 			if (!acc[orderId]) {
@@ -53,11 +54,11 @@ async function orderHistory(event) {
 		console.log(`ORDER_ID: ${orderId}`);
 
 		// 주문한 상품의 갯수
-		const orderAmounts = data.map(order => order.ORDER_AMOUNT);
+		const orderAmounts = data.map(order => order.order_amount);
 		const totalOrderAmount = orderAmounts.length;
-
+		console.log(`order_amount : ${orderAmounts}`);
 		// 주문한 상품의 총 금액
-		const orderPrice = data.map(order => order.ORDER_PRICE);
+		const orderPrice = data.map(order => order.order_price);
 		let totalOrderPrice = 0;
 		orderPrice.forEach(sum => {
 			totalOrderPrice += sum;
@@ -65,10 +66,10 @@ async function orderHistory(event) {
 		console.log(`totalOrderPrice: ${totalOrderPrice}`);
 
 		// 주문 날짜(정규표현식 사용)
-		const orderDate = data.map(order => order.ORDER_DATE)[0].replace(/T|(\.\d{3})|(\+\d{2}:\d{2})/g, ' ');
+		const orderDate = data.map(order => order.order_date)[0].replace(/T|(\.\d{3})|(\+\d{2}:\d{2})/g, ' ');
 
 		// 주문 상태
-		const orderStatus = data.map(order => order.ORDER_STATUS)[0];
+		const orderStatus = data.map(order => order.order_status)[0];
 
 		const wrapperDiv = document.createElement('div');
 		wrapperDiv.classList.add('wrapper');
@@ -147,12 +148,12 @@ async function orderHistory(event) {
 
 
 		for (const order of data) {
-			const itemId = order.ITEM_ID;
-			const itemName = order.ITEM_NAME;
-			const orderAmount = order.ORDER_AMOUNT;
-			const orderPrice = Number(order.ORDER_PRICE).toLocaleString() + '원';
-			const orderStatus = order.ORDER_STATUS;
-			const orderId = order.ORDER_ID;
+			const itemId = order.item_id;
+			const itemName = order.item_name;
+			const orderAmount = order.order_amount;
+			const orderPrice = Number(order.order_price).toLocaleString() + '원';
+			const orderStatus = order.order_status;
+			const orderId = order.order_id;
 			const writtenPost = order.writtenPost;
 			const itemWrapperDiv = itemContent(itemName, orderAmount, orderPrice, orderStatus, orderId, itemId, writtenPost);
 			console.log(`ITEM_NAME: ${itemName}, ORDER_AMOUNT: ${orderAmount}, ORDER_PRICE: ${orderPrice}, ORDER_STATUS: ${orderStatus}, ITEM_ID: ${itemId}`);

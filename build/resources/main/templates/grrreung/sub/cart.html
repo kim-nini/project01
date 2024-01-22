@@ -31,15 +31,15 @@
                 <!-- 장바구니 상품목록 for문 -->
                 <li th:each="map : ${list}">
                     <div class="checkbox">
-                        <input type="checkbox" name="item_chk" id="item_chk01" th:value="${map.ITEM_ID}">
+                        <input type="checkbox" name="item_chk" id="item_chk01" th:value="${map.item_id}">
                         <label for="item_chk01"></label>
                     </div>
                     <div class="item_detail">
-                        <a th:href="@{/grrreung/shop/item/{itemId}(itemId=${map.ITEM_ID})}">
-                            <img th:src="@{/grrreung/img/{imgName}(imgName=${map.ITEM_IMG})}">
+                        <a th:href="@{/grrreung/shop/item/{itemId}(itemId=${map.item_id})}">
+                            <img th:src="@{/grrreung/img/{imgName}(imgName=${map.item_img})}">
                         </a>
-                        <p class="name" th:text="${map.ITEM_NAME}"></p>
-                        <p class="txt" th:text="${map.ITEM_DETAIL}"></p>
+                        <p class="name" th:text="${map.item_name}"></p>
+                        <p class="txt" th:text="${map.item_detail}"></p>
                     </div>
 
                     <div class="opt_info">
@@ -47,24 +47,24 @@
                             <label for="itemPrice">
                                 <!-- 1개의 상품가격 -->
                                 <input id="itemPrice" class="itemPrice" style="display: none;"
-                                       th:value="${map.ITEM_PRICE}" th:data-item="${map.ITEM_PRICE}">
+                                       th:value="${map.item_price}" th:data-item="${map.item_price}">
                                 <!-- 수량 감소(-) 버튼 -->
                                 <input type="button" value="-" class="cart-action-btn minus_btn">
                                 <!-- 수량 표시창 -->
-                                <input type="text" th:value="${map.CART_AMOUNT}" id="count" class="number" readonly>
+                                <input type="text" th:value="${map.cart_amount}" id="count" class="number" readonly>
                                 <!-- 수량 증가(+) 버튼 -->
                                 <input type="button" value="+" class="cart-action-btn plus_btn" >
                                 <!-- cartId 값을 HTML에 추가 => 브라우저상에는 나타나지 않음 *** -->
-                                <div id="cartId" th:text="${map.CART_ID}" style="display: none;"></div>
+                                <div id="cartId" th:text="${map.cart_id}" style="display: none;"></div>
                             </label>
                         </div>
 
 
                         <div class="total_p">
                             <strong class="price_amount"
-                                    th:text="|${#numbers.formatInteger((map.ITEM_PRICE * map.CART_AMOUNT), 0 , 'COMMA')}원|"></strong>
+                                    th:text="|${#numbers.formatInteger((map.item_price * map.cart_amount), 0 , 'COMMA')}원|"></strong>
                             <button class="del_li_btn"><a
-                                    th:href="@{/grrreung/cart/delete/{itemId}(itemId=${map.ITEM_ID})}">
+                                    th:href="@{/grrreung/cart/delete/{itemId}(itemId=${map.item_id})}">
                                     <img src="https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/btn_del_circle.svg"></a>
                             </button>
                         </div>

@@ -21,8 +21,8 @@
 
     <!-- 장바구니에 상품 추가하기 -->
     <insert id="insertItemToCart" parameterType="Cart">
-        INSERT INTO cart (cart_id, member_id, item_id, cart_amount)
-        VALUES (cart_id_seq.nextval, #{memberId}, #{itemId}, #{cartAmount})
+        INSERT INTO cart (member_id, item_id, cart_amount)
+        VALUES (#{memberId}, #{itemId}, #{cartAmount})
     </insert>
 
     <!-- 장바구니에 같은 ITEM_ID 가 존재할 경우 , 장바구니에 담긴 수량만 증가  -->
