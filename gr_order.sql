@@ -1,5 +1,5 @@
 -- CREATE ORDER ---------------------------------
-
+select * from order_gr;
 CREATE TABLE order_gr (
     order_id        INT AUTO_INCREMENT NOT NULL,
     member_id       VARCHAR(30) NOT NULL,
