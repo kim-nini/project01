@@ -27,7 +27,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 @Controller
-@RequestMapping("/grrreung")
 @RequiredArgsConstructor
 @SessionAttributes
 @Slf4j
@@ -42,12 +41,12 @@ public class ItemController {
     private final FileStore fileStore;
 
     // 홈화면
-    @RequestMapping("")
+    @RequestMapping("/")
     public String homeItemList(Model model){
         // 아이템 정보
         List<Item> list = itemService.allItems();
         model.addAttribute("item", list);
-        return "/grrreung/index";
+        return "grrreung/index";
     }
 
 
@@ -91,7 +90,7 @@ public class ItemController {
         model.addAttribute("pagination", pagination); // 페이징 계산 결과
         model.addAttribute("item",list); // db 리스트
 
-        return "/grrreung/sub/shop";
+        return "grrreung/sub/shop";
     }
 
 
@@ -144,7 +143,7 @@ public class ItemController {
         log.info("리뷰 총 개수 : {}", revCount);
         model.addAttribute("revCount",revCount);
 
-        return "/grrreung/sub/item";
+        return "grrreung/sub/item";
     }
 
     //==============================================================================================
@@ -254,7 +253,7 @@ public class ItemController {
             itemService.uploadItemImg(itemImg);
         }
 
-        return "redirect:/grrreung/admin";
+        return "redirect:/admin";
     }
 
     // 상위 카테고리 이름 DB에서 찾아오기
@@ -263,7 +262,7 @@ public class ItemController {
         List<Category> cateList = itemService.categoryAllList();
         model.addAttribute("cateList", cateList);
 //        log.info("{}", cateList);
-        return "/grrreung/sub/admin-item";
+        return "grrreung/sub/admin-item";
     }
 
     
@@ -287,7 +286,7 @@ public class ItemController {
         Map<String, Object> map = itemService.updateInfo(1);
         model.addAttribute("item", map);
 
-        return "/grrreung/sub/admin-item-update";
+        return "grrreung/sub/admin-item-update";
 
     }
 
@@ -301,7 +300,7 @@ public class ItemController {
 //        log.info("****************************************************");
 //
 //        // 클라이언트에게 응답
-//        return "redirect:/grrreung/admin";
+//        return "redirect:/admin";
 //    }
 
 
@@ -310,7 +309,7 @@ public class ItemController {
     // 회원 장바구니에 아이템 추가하기
     @RequestMapping("/my-cart")
     public String addItemToCart(){
-        return "/grrreung/sub/cart";
+        return "grrreung/sub/cart";
     }
 
 

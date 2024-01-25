@@ -77,7 +77,7 @@ async function idCheck(event) {
 
 // 아이디 중복 여부 요청
 function requestIdDupCheck(inputId) {
-    const url = `/grrreung/idcheck?memberId=${inputId}`;
+    const url = `/idcheck?memberId=${inputId}`;
     return fetch(url)
         .then((response) => {
             return response.json();

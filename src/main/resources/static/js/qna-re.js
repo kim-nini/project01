@@ -11,7 +11,7 @@ async function sendQnaRe() {
 
     try {
         const response = await $.ajax({
-            url: "/grrreung/itemqna/re-create",
+            url: "/itemqna/re-create",
             method: "GET",
             data: {
                 reCont: reCont,
@@ -62,7 +62,7 @@ async function deleteQnaRe() {
 
     try {
         const response = await $.ajax({
-            url: "/grrreung/itemqna/re-delete",
+            url: "/itemqna/re-delete",
             method: "GET",
             data: {
                 qnaCode: qnaCode,
@@ -106,7 +106,7 @@ async function submitUpdate() {
 
     try {
         const response = await $.ajax({
-            url: "/grrreung/itemqna/re-update",
+            url: "/itemqna/re-update",
             method: "GET",
             data: {
                 reCode: reCode,

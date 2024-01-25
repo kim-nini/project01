@@ -211,7 +211,7 @@ $(document).ready(function () {
         // AJAX 요청을 통해 백엔드 컨트롤러에 데이터 전송
         $.ajax({
             type: "GET",
-            url: "/grrreung/cart/amount-" + action,
+            url: "/cart/amount-" + action,
             data: {cartId: cartId},
             success: function () {
                 // 성공 시 페이지의 장바구니 수량 업데이트
@@ -258,7 +258,7 @@ function selectDelete() {
     console.log(selectedItems);
 
     // 여기서 추출한 정보를 이용하여 장바구니 페이지로 이동 또는 처리할 로직 추가
-    window.location.href = `/grrreung/cart/delete?${param}`;  // 예시: 장바구니 페이지로 이동
+    window.location.href = `/cart/delete?${param}`;  // 예시: 장바구니 페이지로 이동
 }
 
 
@@ -281,7 +281,7 @@ function goToOrder() {
         });
 
         // 주문서 작성화면으로 get매핑
-        window.location.href = `/grrreung/order/form?${param}`;
+        window.location.href = `/order/form?${param}`;
 
     }
 

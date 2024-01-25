@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
+    <th:block th:replace="~{fragments/fragment_config :: configFragment}"/>
     <link rel="stylesheet" href="/css/cart.css">
     <title>Grr-reung 그르릉 장바구니</title>
 </head>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 <!-- 헤더 -->
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+<th:block th:replace="~{fragments/fragment_header :: headerFragment}"/>
 
 <!-- 서브페이지 내용 붙여넣기할 부분 -->
 <section class="bg-white py-8 header-p">
@@ -35,8 +35,8 @@
                         <label for="item_chk01"></label>
                     </div>
                     <div class="item_detail">
-                        <a th:href="@{/grrreung/shop/item/{itemId}(itemId=${map.item_id})}">
-                            <img th:src="@{/grrreung/img/{imgName}(imgName=${map.item_img})}">
+                        <a th:href="@{/shop/item/{itemId}(itemId=${map.item_id})}">
+                            <img th:src="@{/img/{imgName}(imgName=${map.item_img})}">
                         </a>
                         <p class="name" th:text="${map.item_name}"></p>
                         <p class="txt" th:text="${map.item_detail}"></p>
@@ -64,7 +64,7 @@
                             <strong class="price_amount"
                                     th:text="|${#numbers.formatInteger((map.item_price * map.cart_amount), 0 , 'COMMA')}원|"></strong>
                             <button class="del_li_btn"><a
-                                    th:href="@{/grrreung/cart/delete/{itemId}(itemId=${map.item_id})}">
+                                    th:href="@{/cart/delete/{itemId}(itemId=${map.item_id})}">
                                     <img src="https://tictoc-web.s3.ap-northeast-2.amazonaws.com/web/img/icon/btn_del_circle.svg"></a>
                             </button>
                         </div>
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="btn_box">
-                <button type="button" onclick="location.href='/grrreung/shop'" class="btn wh-btn">계속 쇼핑하기</button>
+                <button type="button" onclick="location.href='/shop'" class="btn wh-btn">계속 쇼핑하기</button>
                 <button type="button" onclick="goToOrder()" class="btn black-btn">구매하기</button>
             </div>
         </div>
@@ -93,7 +93,7 @@
 
 
 <!-- 푸터 -->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+<th:block th:replace="~{fragments/fragment_footer :: footerFragment}"/>
 <script src="/js/cart.js"></script>
 
 

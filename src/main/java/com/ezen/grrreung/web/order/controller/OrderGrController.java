@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("grrreung/order")
+@RequestMapping("/order")
 @RequiredArgsConstructor
 @Slf4j
 public class OrderGrController {
@@ -127,7 +127,7 @@ public class OrderGrController {
         model.addAttribute("totalPrice", totalPrice);
 
 
-        return "/grrreung/sub/order-sheet";
+        return "grrreung/sub/order-sheet";
     }
 
 
@@ -160,7 +160,7 @@ public class OrderGrController {
         // 주문완료 메소드호출 
         orderService.orderComplete(ordergr);
 
-        return "/grrreung/sub/order-complete";
+        return "grrreung/sub/order-complete";
     }
 
 

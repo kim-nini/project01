@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 공통 환경설정 -->
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
+    <th:block th:replace="~{fragments/fragment_config :: configFragment}" />
     <link rel="stylesheet" href="/css/notice.css">
     <title>그르릉Grr - 공지사항</title>
 </head>
@@ -10,10 +10,10 @@
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
 <!-- 헤더 -->
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+<th:block th:replace="~{fragments/fragment_header :: headerFragment}" />
 
 <!-- 서브 타이틀 -->
-<th:block th:replace="~{/fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}" >
+<th:block th:replace="~{fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}" >
     <h2 class="category-title" th:fragment="title">NOTICE</h2>
 </th:block>
 
@@ -29,7 +29,7 @@
                   <input id="search" type="search" name="search" placeholder="제목 또는 날짜로 검색" >
                   <button type="submit" class="btn btn-dark searchBtn">검색</button>
                     <th:block th:unless="${session.loginMember} == null">
-                  <a th:if="${session.loginMember.admin} == 'Y'" class="btn btn-dark postBtn" style="right: -130px" href="/grrreung/notice/create">글쓰기</a>
+                  <a th:if="${session.loginMember.admin} == 'Y'" class="btn btn-dark postBtn" style="right: -130px" href="/notice/create">글쓰기</a>
 <!--                  th:if="${session.loginMember.getAdmin} == 'Y'"-->
                     </th:block>
               </div>
@@ -55,7 +55,7 @@
               <tr th:each="notice, status : ${list}">
                   <td th:text="${notice.notiCode}"></td>
 <!--                  <td th:text="${notice.notiTitle}"></td>-->
-                  <td><a th:text="${notice.notiTitle}" th:href="@{/grrreung/notice/{notiCode}(notiCode=${notice.notiCode})}"></a></td>
+                  <td><a th:text="${notice.notiTitle}" th:href="@{/notice/{notiCode}(notiCode=${notice.notiCode})}"></a></td>
                   <td th:text="${notice.notiAuth}"></td>
                   <td th:text="${notice.notiDate}"></td>
               </tr>
@@ -66,15 +66,15 @@
           <nav aria-label="Page navigation example">
               <ul class="pagination">
                   <li th:if="${pagination.isShowFirst()}" class="page-item">
-                      <a class="page-link" th:href="@{/grrreung/notice(page=1)}">&laquo;</a></li>
+                      <a class="page-link" th:href="@{/notice(page=1)}">&laquo;</a></li>
                   <li th:if="${pagination.isShowPrevious()}" class="page-item">
-                      <a class="page-link" th:href="@{/grrreung/notice(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
+                      <a class="page-link" th:href="@{/notice(page=${pagination.getPreviousStartPage()})}">&lsaquo;</a></li>
                   <li th:each="page : ${#numbers.sequence(pagination.getStartPage(),pagination.getEndPage())}" class="page-item">
-                      <a class="page-link" th:href="@{/grrreung/notice(page=${page})}" name="page" th:text="${page}"></a>
+                      <a class="page-link" th:href="@{/notice(page=${page})}" name="page" th:text="${page}"></a>
                   <li th:if="${pagination.isShowNext()}" class="page-item">
-                      <a class="page-link" th:href="@{/grrreung/notice(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
+                      <a class="page-link" th:href="@{/notice(page=${pagination.getNextStartPage()})}">&rsaquo;</a></li>
                   <li th:if="${pagination.isShowLast()}" class="page-item">
-                      <a class="page-link" th:href="@{/grrreung/notice(page=${pagination.totalPages})}">&raquo;</a></li>
+                      <a class="page-link" th:href="@{/notice(page=${pagination.totalPages})}">&raquo;</a></li>
               </ul>
           </nav>
 
@@ -83,7 +83,7 @@
 </section>
 
 <!-- 푸터 -->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+<th:block th:replace="~{fragments/fragment_footer :: footerFragment}" />
 
 </body>
 </html>

@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/grrreung")
 @RequiredArgsConstructor
 @SessionAttributes
 @Slf4j
@@ -39,10 +38,10 @@ public class MemberController {
             model.addAttribute("loginMember", loginMember);
 
             session.setAttribute("loginMember", loginMember);
-            return "redirect:/grrreung";
+            return "redirect:/";
         } else {
             session.setAttribute("loginMember", null);
-            return "redirect:/grrreung/login";
+            return "redirect:/login";
         }
 
     }
@@ -54,7 +53,7 @@ public class MemberController {
     public String logout(HttpSession session) {
         session.invalidate();
 
-        return "redirect:/grrreung";
+        return "redirect:/";
     }
 
 
@@ -63,7 +62,7 @@ public class MemberController {
      */
     @GetMapping("/register")
     public String registerForm() {
-        return "/grrreung/sub/register";
+        return "grrreung/sub/register";
     }
 
     /**
@@ -73,7 +72,7 @@ public class MemberController {
     public String register(@ModelAttribute("member") Member member) {
         log.info("수신한 회원 정보 : {}", member.toString());
         memberService.register(member);  // 디비연결
-        return "redirect:/grrreung/result";
+        return "redirect:/result";
     }
 
     /**
@@ -81,7 +80,7 @@ public class MemberController {
      */
     @GetMapping("/result")
     public String result(HttpServletRequest request) {
-        return "/grrreung/sub/result";
+        return "grrreung/sub/result";
     }
 
 
@@ -106,7 +105,7 @@ public class MemberController {
     public String info(@PathVariable String memberId, Model model) {
         Member member = memberService.memberInfo(memberId);
         model.addAttribute("member", member);
-        return "/grrreung/sub/mypage";
+        return "grrreung/sub/mypage";
     }
 
 
@@ -120,7 +119,7 @@ public class MemberController {
         Member member = memberService.memberInfo(memberId);
         // html로 전달해줌
         model.addAttribute("member", member);
-        return "/grrreung/sub/update";
+        return "grrreung/sub/update";
     }
 
 
@@ -128,9 +127,13 @@ public class MemberController {
      * 마이페이지 수정 처리
      */
     @PostMapping("/update")
-    public String update(@ModelAttribute Member member) {
+    public String update(@ModelAttribute Member member,HttpSession session) {
         memberService.updateInfo(member);
-        return "/grrreung/sub/updateInfo";
+        Member updateMember = new Member();
+        // 수정된 멤버정보 세션에 다시 담아주기
+        updateMember = memberService.getMember(member.getMemberId());
+        session.setAttribute("loginMember", updateMember);
+        return "grrreung/sub/updateInfo";
     }
 
 

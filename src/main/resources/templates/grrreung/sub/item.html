@@ -15,14 +15,14 @@
 
 
     <!-- 공통 환경설정 -->
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
+    <th:block th:replace="~{fragments/fragment_config :: configFragment}" />
     <link rel="stylesheet" href="/css/notice.css">
     <link rel="stylesheet" href="/css/item.css">
     <title>그르릉 Grr-reung 상세페이지</title>
 </head>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 <!-- 헤더 -->
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+<th:block th:replace="~{fragments/fragment_header :: headerFragment}" />
 
 
     <section class="bg-white py-8">
@@ -36,13 +36,13 @@
 
                         <div id="slider"  class="owl-carousel product-slider">
                             <div class="item"  th:each="imgFiles : ${imgFiles}">
-                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.img_name} }" alt="상세이미지" />
+                                <img th:src="@{'/img/'+ ${imgFiles.img_name} }" alt="상세이미지" />
                             </div>
                         </div>
 
                         <div id="thumb" class="owl-carousel product-thumb">
                             <div class="item"  th:each="imgFiles : ${imgFiles}">
-                                <img th:src="@{'/grrreung/img/'+ ${imgFiles.img_name} }" alt="상세이미지 미리보기" />
+                                <img th:src="@{'/img/'+ ${imgFiles.img_name} }" alt="상세이미지 미리보기" />
                             </div>
                         </div>
 
@@ -74,7 +74,7 @@
                                 <label>수량</label>
 
                                 <!-- 로그인으로 접근하는 경우-->
-                                    <form method="post" th:action="@{/grrreung/cart}" th:if="${session.loginMember}!=null" >
+                                    <form method="post" th:action="@{/cart}" th:if="${session.loginMember}!=null" >
                                          <div class="display-flex">
                                             <div class="qtyminus caculatorBtn">-</div>
                                                 <input type="text" name="cartAmount" value="1" class="qty">
@@ -91,7 +91,7 @@
                                         </div>
                                     </form>
                                 <!-- 비회원으로 접근하는 경우 로그인페이지로 매핑 -->
-                                <form  th:action="@{/grrreung/login}" th:if="${session.loginMember}==null">
+                                <form  th:action="@{/login}" th:if="${session.loginMember}==null">
                                     <div class="display-flex">
                                         <div class="qtyminus caculatorBtn">-</div>
                                         <input type="text" name="cartAmount" value="1" class="qty">
@@ -130,7 +130,7 @@
 
                               <!-- 상세정보 출력할 부분 (DB에 저장한 이미지 파일 루프 돌려서 보여줌 -->
                               <th:block th:each="itemDescription : ${itemDescription}">
-                                 <img th:src="@{'/grrreung/img/'+ ${itemDescription.img_name} }" alt="제품 상세 정보" />
+                                 <img th:src="@{'/img/'+ ${itemDescription.img_name} }" alt="제품 상세 정보" />
                               </th:block>
 
                           </div>
@@ -170,7 +170,7 @@
 </section>
 
 <!-- 푸터 -->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+<th:block th:replace="~{fragments/fragment_footer :: footerFragment}" />
 
 
     <script src="/js/owl.carousel.js"></script>

@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 공통 환경설정 -->
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}" />
+    <th:block th:replace="~{fragments/fragment_config :: configFragment}" />
 
     <link rel="stylesheet" href="/css/notice.css">
     <link rel="stylesheet" href="/css/admin-item.css">
@@ -11,7 +11,7 @@
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
 <!-- 헤더 -->
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}" />
+<th:block th:replace="~{fragments/fragment_header :: headerFragment}" />
 
     <section class="bg-white py-8 notice firstPosition">
         <div class="container mx-auto items-center flex-wrap pt-4 pb-12">
@@ -21,8 +21,8 @@
 
             <div class="w-full container mx-auto mt-0 px-2 py-3 ">
                 <div class="category-button button_wrap flex itmes-center">
-                    <a href="/grrreung/admin">상품등록</a>
-                    <a href="/grrreung/admin/item-update">상품수정</a>
+                    <a href="/admin">상품등록</a>
+                    <a href="/admin/item-update">상품수정</a>
                     <a href="#">메뉴</a>
                     <a href="#">메뉴</a>
                 </div>
@@ -35,7 +35,7 @@
 
         <article class="item-register">
             <table>
-                <form action="/grrreung/register-item" method="post" enctype="multipart/form-data">
+                <form action="/register-item" method="post" enctype="multipart/form-data">
 
                     <tr>
                         <th>
@@ -135,6 +135,6 @@
 <script src="/js/admin-item.js"></script>
 
 <!-- 푸터 -->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}" />
+<th:block th:replace="~{fragments/fragment_footer :: footerFragment}" />
 </body>
 </html>

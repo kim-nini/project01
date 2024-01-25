@@ -90,7 +90,6 @@
     <!-- 문의 답변 등록 -->
     <insert id="createRe" parameterType="ItemQnaRe" >
         INSERT INTO item_qna_re (
-            re_code,
             qna_code,
             re_cont
         ) VALUES (

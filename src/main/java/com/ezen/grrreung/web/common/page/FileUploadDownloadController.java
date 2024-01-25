@@ -33,7 +33,7 @@ public class FileUploadDownloadController {
 	
 	@GetMapping("/upload")
 	public String uploadForm() {
-		return "/grrreung/sub/addItem";
+		return "grrreung/sub/addItem";
 	}
 
 //	@PostMapping("/upload")

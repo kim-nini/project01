@@ -242,7 +242,7 @@ function itemContent(name, amount, price, status, orderId, itemId, writtenPost )
 	productDiv.classList.add('product');
 
 	const productImage = document.createElement('img');
-	productImage.src = "/grrreung/thumbnail/"+itemId;
+	productImage.src = "/thumbnail/"+itemId;
 	productImage.alt = '';
 
 	const productDetailDiv = document.createElement('div');
@@ -293,10 +293,10 @@ function itemContent(name, amount, price, status, orderId, itemId, writtenPost )
 	anchorTag.id = 'item-review';
 	if ( writtenPost){
 	anchorTag.textContent = '후기 작성';
-	anchorTag.href = `/grrreung/itemrev/create/${itemId}`;
+	anchorTag.href = `/itemrev/create/${itemId}`;
 	} else {
 		anchorTag.textContent = '후기 보기';
-		anchorTag.href = `/grrreung/itemrev/myreview`;
+		anchorTag.href = `/itemrev/myreview`;
 	}
 
 	// <a> 태그를 returnsDiv에 추가
@@ -313,7 +313,7 @@ function itemContent(name, amount, price, status, orderId, itemId, writtenPost )
 
 // db에서 주문내역 리스트 불러오기
 function getOrderHistory() {
-	const url = `/grrreung/order`;
+	const url = `/order`;
 	return fetch(url)
 		.then((response) => {
 			return response.json();

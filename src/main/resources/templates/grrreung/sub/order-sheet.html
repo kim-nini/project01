@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
+    <th:block th:replace="~{fragments/fragment_config :: configFragment}"/>
     <link rel="stylesheet" href="/css/cart.css">
     <title>Grr-reung 그르릉 주문서 작성</title>
 </head>
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 <!-- 헤더 -->
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+<th:block th:replace="~{fragments/fragment_header :: headerFragment}"/>
 
 <!-- 서브페이지 내용 붙여넣기할 부분 -->
 <section class="bg-white py-8 section-m">
@@ -15,7 +15,7 @@
         <div class="cart_table">
             <p>주문서 작성</p>
 
-            <form action="/grrreung/order/form" method="post">
+            <form action="/order/form" method="post">
                 <ul class="cart_list">
                     <!-- 주문 상품목록 for문 -->
                     <li>
@@ -28,8 +28,8 @@
                     </li>
                     <li th:each="map, mapStat : ${list}">
                         <div class="item_detail">
-                            <a th:href="@{/grrreung/shop/item/{itemId}(itemId=${map.item_id})}">
-                                <img th:src="@{/grrreung/img/{imgName}(imgName=${map.item_img})}">
+                            <a th:href="@{/shop/item/{itemId}(itemId=${map.item_id})}">
+                                <img th:src="@{/img/{imgName}(imgName=${map.item_img})}">
                             </a>
                             <p class="name" th:text="${map.item_name}"></p>
                             <p class="txt" th:text="${map.item_detail}"></p>
@@ -153,7 +153,7 @@
                 </div>
 
                 <div class="btn_box">
-                    <button type="button" onclick="location.href='/grrreung/cart'" class="btn wh-btn">돌아가기</button>
+                    <button type="button" onclick="location.href='/cart'" class="btn wh-btn">돌아가기</button>
                     <button type="submit" onclick="orderComplete()" class="btn black-btn" id="payBtn">결제하기</button>
                 </div>
 
@@ -164,7 +164,7 @@
 
 
 <!-- 푸터 -->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+<th:block th:replace="~{fragments/fragment_footer :: footerFragment}"/>
 <!-- 우편번호 찾기 스트립트 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/js/postnumber.js"></script>

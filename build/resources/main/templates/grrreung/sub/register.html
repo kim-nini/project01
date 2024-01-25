@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
+    <th:block th:replace="~{fragments/fragment_config :: configFragment}"/>
     <link rel="stylesheet" href="/css/register.css">
 
     <title>Grr-reung 그르릉 회원가입</title>
@@ -12,7 +12,7 @@
 
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 <!-- 헤더 -->
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+<th:block th:replace="~{fragments/fragment_header :: headerFragment}"/>
 
 <!-- 서브페이지 내용 붙여넣기할 부분 -->
 <section class="bg-white py-8">
@@ -180,7 +180,7 @@
 </section>
 
 <!-- 푸터-->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+<th:block th:replace="~{fragments/fragment_footer :: footerFragment}"/>
 
 </body>
 </html>

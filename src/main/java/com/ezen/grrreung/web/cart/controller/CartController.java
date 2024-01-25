@@ -4,7 +4,6 @@ import com.ezen.grrreung.domain.cart.dto.Cart;
 import com.ezen.grrreung.domain.cart.service.CartService;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.member.dto.Member;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,13 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/grrreung")
 @RequiredArgsConstructor
 @SessionAttributes
 @Slf4j
@@ -42,7 +38,7 @@ public class CartController {
             log.info("**** 카트 정보 확인 : {}", map);
         }
 
-        return "/grrreung/sub/cart";
+        return "grrreung/sub/cart";
     }
 
     // 장바구니 상품 추가
@@ -75,7 +71,7 @@ public class CartController {
             log.info("########### 추가됨 ##############");
         }
 
-        return "redirect:/grrreung/cart";
+        return "redirect:/cart";
     }
 
 
@@ -110,7 +106,7 @@ public class CartController {
         String memberId = member.getMemberId();
         log.info("가져온 memberId : {}", memberId);
         cartService.removeCartOne(memberId, itemId);
-        return "redirect:/grrreung/cart";
+        return "redirect:/cart";
     }
 
 
@@ -123,7 +119,7 @@ public class CartController {
             cartService.removeCartOne(memberId, selectItem);
         }
         log.info("가져온 memberId : {}", memberId);
-        return "redirect:/grrreung/cart";
+        return "redirect:/cart";
 
     }
 

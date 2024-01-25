@@ -33,7 +33,7 @@ document.querySelector("button").addEventListener('click', function() {
     // 상세 카테고리이름 불러오기
    function categoryRequest() {
         const category = mainCate.options[mainCate.selectedIndex].value;
-        const url =`/grrreung/sub-category?category=${category}`;
+        const url =`/sub-category?category=${category}`;
         return fetch(url)
             .then((response) => {
                 return response.json();

@@ -133,7 +133,7 @@ $(document).ready(function() {
 
     $.ajax({ // ajax로 데이터 가져오기
         method: "GET",
-        url: "/grrreung/itemrev/all-reviews?itemId="+itemId,
+        url: "/itemrev/all-reviews?itemId="+itemId,
         contentType : "application/x-www-form-urlencoded; charset=UTF-8",
         dataType: "json",
         success: function (data) {
@@ -188,7 +188,7 @@ $(document).ready(function() {
                 dataList[i].rev_date +
                 "</td></tr>" +
                 "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'>" +
-                "<img class='rev-img' src='/grrreung/itemrev/img/" + dataList[i].image_path + " 'onclick='showImageModal(this.src)'>" +
+                "<img class='rev-img' src='/itemrev/img/" + dataList[i].image_path + " 'onclick='showImageModal(this.src)'>" +
                 "<div id='imageModal' class='modal' onclick='closeImageModal()'>" +
                 "<img class='modal-content' id='modalImage'>" +
                 "</div>" +

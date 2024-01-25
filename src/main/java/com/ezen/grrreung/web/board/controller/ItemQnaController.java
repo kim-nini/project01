@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/grrreung/itemqna")
+@RequestMapping("/itemqna")
 @RequiredArgsConstructor
 @Controller
 @Slf4j
@@ -66,7 +66,7 @@ public class ItemQnaController {
         model.addAttribute("pagination", pagination); // 페이징 계산 결과
         model.addAttribute("list", list); // db 리스트
 
-        return "/grrreung/sub/qna";
+        return "grrreung/sub/qna";
     }
 
 
@@ -90,7 +90,7 @@ public class ItemQnaController {
         itemQna.setMemberId(memberId);
 
         itemQnaService.posting(itemQna);
-        return "redirect:/grrreung/itemqna";
+        return "redirect:/itemqna";
     }
 
     // 상세보기 겟매핑
@@ -105,7 +105,7 @@ public class ItemQnaController {
         model.addAttribute("qnaReList", list);
         log.info("qnaReList : {}", list);
 
-        return "/grrreung/sub/qna-cont";
+        return "grrreung/sub/qna-cont";
     }
 
     // 수정하기 겟매핑
@@ -114,21 +114,21 @@ public class ItemQnaController {
         ItemQna itemQnaInfo = itemQnaService.postInfo(qnaCode);
         model.addAttribute("itemQna", itemQnaInfo);
 
-        return "/grrreung/sub/qna-update";
+        return "grrreung/sub/qna-update";
     }
 
     // 포스트매핑 -> 수정버튼
     @PostMapping("/update/{qnaCode}")
     public String postUpdate(@ModelAttribute("itemQna") ItemQna itemQna) {
         itemQnaService.updatePost(itemQna);
-        return "redirect:/grrreung/itemqna";
+        return "redirect:/itemqna";
     }
 
     // 겟매핑 -> 삭제버튼
     @GetMapping("/delete/{qnaCode}")
     public String delete(@PathVariable int qnaCode, Model model) {
         itemQnaService.deletePost(qnaCode);
-        return "redirect:/grrreung/itemqna";
+        return "redirect:/itemqna";
     }
 
     //----------- 문의 답변 --------------------------

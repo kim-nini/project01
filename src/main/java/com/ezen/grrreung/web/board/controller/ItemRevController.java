@@ -30,7 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-@RequestMapping("/grrreung/itemrev")
+@RequestMapping("/itemrev")
 @RequiredArgsConstructor
 @Controller
 @Slf4j
@@ -64,7 +64,6 @@ public class ItemRevController {
                 search = memberId;
             }
         }
-
 
         //==========페이징처리==========
         // 페이징 처리와 관련된 변수
@@ -102,7 +101,7 @@ public class ItemRevController {
         model.addAttribute("pagination", pagination); // 페이징 계산 결과
         model.addAttribute("list", list); // db 리스트
 
-        return "/grrreung/sub/review";
+        return "grrreung/sub/review";
     }
 
 
@@ -119,7 +118,7 @@ public class ItemRevController {
         model.addAttribute("item", item);
 
 
-        return "/grrreung/sub/rev-write";
+        return "grrreung/sub/rev-write";
     }
 
 
@@ -147,7 +146,7 @@ public class ItemRevController {
         // 포스팅매소트 호출
         itemRevService.posting(itemRev);
 
-        return "redirect:/grrreung/itemrev";
+        return "redirect:/itemrev";
     }
 
     // 이미지를 서버에 저장하고 경로를 반환
@@ -163,7 +162,7 @@ public class ItemRevController {
     public String postInfo(@PathVariable int revCode, Model model) {
         ItemRev itemRevInfo = itemRevService.postInfo(revCode);
         model.addAttribute("itemRev", itemRevInfo);
-        return "/grrreung/sub/rev-cont";
+        return "grrreung/sub/rev-cont";
     }
 
     // 상세보기에 나타나는 후기사진
@@ -185,7 +184,7 @@ public class ItemRevController {
         ItemRev itemRevInfo = itemRevService.postInfo(revCode);
         model.addAttribute("itemRev", itemRevInfo);
 
-        return "/grrreung/sub/rev-update";
+        return "grrreung/sub/rev-update";
     }
 
 
@@ -193,14 +192,14 @@ public class ItemRevController {
     @PostMapping("/update/{revCode}")
     public String postUpdate(@ModelAttribute("itemRev") ItemRev itemRev) {
         itemRevService.updatePost(itemRev);
-        return "redirect:/grrreung/itemrev";
+        return "redirect:/itemrev";
     }
 
     // 겟매핑 -> 삭제버튼
     @GetMapping("/delete/{revCode}")
     public String delete(@PathVariable int revCode, Model model) {
         itemRevService.deletePost(revCode);
-        return "redirect:/grrreung/itemrev";
+        return "redirect:/itemrev";
     }
 
     // 아이템 상세보기 페이지에 보여줄 리뷰 목록 조회

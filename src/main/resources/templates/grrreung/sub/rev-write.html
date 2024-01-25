@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <!-- 공통 환경설정 -->
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
+    <th:block th:replace="~{fragments/fragment_config :: configFragment}"/>
 
     <link rel="stylesheet" href="/css/notice.css">
     <link rel="stylesheet" href="/css/post.css">
@@ -12,10 +12,10 @@
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
 <!-- 헤더 -->
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+<th:block th:replace="~{fragments/fragment_header :: headerFragment}"/>
 
 <!-- 서브 타이틀 -->
-<th:block th:replace="~{/fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}">
+<th:block th:replace="~{fragments/fragment_subpage_title :: subpageTitleFragment(~{this :: title})}">
     <h2 class="category-title" th:fragment="title">REVIEW</h2>
 </th:block>
 
@@ -39,8 +39,8 @@
                     </th>
 
                     <td>
-                        <a th:href="@{/grrreung/shop/item/{itemId}(itemId=${item.itemId})}">
-                            <img class="hover:grow hover:shadow-lg" th:src="@{'/grrreung/thumbnail/'+ ${item.itemId}}"
+                        <a th:href="@{/shop/item/{itemId}(itemId=${item.itemId})}">
+                            <img class="hover:grow hover:shadow-lg" th:src="@{'/thumbnail/'+ ${item.itemId}}"
                                  width="80px" height="80px" style="margin: 5px 0; float: left">
                             <p class="name" style="float:left; margin-left: 10px;" th:text="${item.itemName}"></p>
                         </a>
@@ -75,14 +75,14 @@
             </table>
             <div class="btn_wrap">
                 <button type="submit">등록</button>
-                <button type="button" onclick="window.location.href='/grrreung/itemrev'">취소</button>
+                <button type="button" onclick="window.location.href='/itemrev'">취소</button>
             </div>
         </form>
     </div>
 </section>
 
 <!-- 푸터 -->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+<th:block th:replace="~{fragments/fragment_footer :: footerFragment}"/>
 <script src="/js/itemRev.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{/fragments/fragment_config :: configFragment}"/>
+    <th:block th:replace="~{fragments/fragment_config :: configFragment}"/>
     <link rel="stylesheet" href="/css/login.css">
     <script src="/js/login.js" defer></script>
     <!--    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">-->
@@ -9,7 +9,7 @@
 </head>
 
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
-<th:block th:replace="~{/fragments/fragment_header :: headerFragment}"/>
+<th:block th:replace="~{fragments/fragment_header :: headerFragment}"/>
 
 
 
@@ -18,7 +18,7 @@
     <div class="login_container">
         <h1>LOGIN</h1>
         <!-- Form -->
-        <form action="/grrreung/login" method="post">
+        <form action="/login" method="post">
 
             <!-- 아이디 -->
             <div class="first-input input__block first-input__block">
@@ -42,7 +42,7 @@
             <p>OR</p>
         </div>
         <!-- 회원가입 버튼 -->
-        <button class="signin__btn" onclick="location.href='http://localhost/grrreung/register'">
+        <button class="signin__btn" onclick="location.href='/register'">
             SIGN UP
         </button>
     </div>
@@ -50,7 +50,7 @@
 </section>
 
 <!-- 푸터 -->
-<th:block th:replace="~{/fragments/fragment_footer :: footerFragment}"/>
+<th:block th:replace="~{fragments/fragment_footer :: footerFragment}"/>
 </body>
 
 </html>

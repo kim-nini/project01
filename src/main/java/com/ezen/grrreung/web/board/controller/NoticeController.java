@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RequestMapping("/grrreung/notice")
+@RequestMapping("/notice")
 @RequiredArgsConstructor
 @Controller
 @Slf4j
@@ -56,21 +56,21 @@ public class NoticeController {
         model.addAttribute("pagination", pagination); // 페이징 계산 결과
         model.addAttribute("list",list); // db 리스트
         
-        return "/grrreung/sub/notice";
+        return "grrreung/sub/notice";
     }
 
 
     // 게시글 등록 겟매핑 -> 게시글 등록 화면으로 넘어감
     @GetMapping("/create")
     public String form(){
-        return "/grrreung/sub/notice-write";
+        return "grrreung/sub/notice-write";
     }
 
     // 포스트매핑 -> 게시글 등록에서 submit 버튼 클릭시 작동 -> 리스트화면으로 넘어감
     @PostMapping("/create")
     public String posting(@ModelAttribute("notice")Notice notice){
         noticeService.posting(notice);
-        return "redirect:/grrreung/notice";
+        return "redirect:/notice";
     }
 
     // 상세보기 겟매핑
@@ -78,7 +78,7 @@ public class NoticeController {
     public String postInfo(@PathVariable int notiCode, Model model){
         Notice noticeInfo = noticeService.postInfo(notiCode);
         model.addAttribute("notice",noticeInfo);
-        return "/grrreung/sub/notice-cont";
+        return "grrreung/sub/notice-cont";
     }
 
     // 수정하기 겟매핑
@@ -87,21 +87,21 @@ public class NoticeController {
         Notice noticeInfo = noticeService.postInfo(notiCode);
         model.addAttribute("notice", noticeInfo);
 
-        return "/grrreung/sub/notice-update";
+        return "grrreung/sub/notice-update";
     }
 
     // 포스트매핑 -> 수정버튼
     @PostMapping("/update/{notiCode}")
     public String postUpdate(@ModelAttribute("notice") Notice notice) {
         noticeService.updatePost(notice);
-        return "redirect:/grrreung/notice";
+        return "redirect:/notice";
     }
 
     // 겟매핑 -> 삭제버튼
     @GetMapping("/delete/{notiCode}")
     public String delete(@PathVariable int notiCode, Model model) {
         noticeService.deletePost(notiCode);
-        return "redirect:/grrreung/notice";
+        return "redirect:/notice";
     }
 
 
