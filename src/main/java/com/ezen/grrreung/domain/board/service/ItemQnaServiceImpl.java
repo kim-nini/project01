@@ -86,5 +86,21 @@ public class ItemQnaServiceImpl implements ItemQnaService{
         itemQnaMapper.deleteQnaRe(reCode);
     }
 
+    // 상품상세페이지에서 조회하는 상품 문의
+    @Override
+    public List<ItemQna> itemQna(RequestParams params) {
+        return itemQnaMapper.itemQnaList(params);
+    }
+
+    @Override
+    public int itemQnaPostCount(int itemId) {
+        return itemQnaMapper.itemQnaPostCount(itemId);
+    }
+
+    @Override
+    public List<ItemQna> itemQnaAll(int itemId) {
+        return itemQnaMapper.itemQnaAll(itemId);
+    }
+
 
 }

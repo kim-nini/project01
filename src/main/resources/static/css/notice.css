@@ -91,6 +91,7 @@ section.notice {
   width: 100%;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
 }
 
 .board-table a {
@@ -191,31 +192,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
-/*!* Header Styles *!*/
-/*header {*/
-/*  background-color: #FFC924;*/
-/*  color: #373737;*/
-/*  padding: 10px;*/
-/*  text-align: center;*/
-/*}*/
-
-/* Body Styles */
-/*body {*/
-/*  font-family: Arial, sans-serif;*/
-/*  background-color: #fff;*/
-/*  color: #373737;*/
-/*  margin: 0;*/
-/*  padding: 0;*/
-/*}*/
-
-/*!* Header Styles *!*/
-/*header {*/
-/*  background-color: #FFC924;*/
-/*  color: #373737;*/
-/*  padding: 10px;*/
-/*  text-align: center;*/
-/*}*/
 
 
 /* Pagination Styles */
@@ -434,4 +410,37 @@ body {
   border: none;
   color: #0c63e4;
 
+}
+
+/*상품상세페이지 내부 admin 버튼*/
+.admin-btn {
+  margin: 10px 5px;
+  padding: 0 10px;
+  background-color: #FFC924;
+  border-radius: 5px;
+  color: #fff;
+}
+
+
+.sub-btn {
+  margin-left: 5px;
+  width: 10%;
+  height: 10%;
+  position: relative;
+  top: -20px;
+}
+
+.list-btn {
+  border: solid 1px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  float: right;
+  margin-left: 10px;
+}
+
+.list-btn:hover {
+  border: solid 1px #7a7a7a;
+  background-color: #7a7a7a;
+  color: white;
+  text-decoration: none;
 }

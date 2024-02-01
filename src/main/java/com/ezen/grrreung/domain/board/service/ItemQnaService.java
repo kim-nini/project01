@@ -42,4 +42,15 @@ public interface ItemQnaService {
     // 답변 삭제 하기
     public  void  deleteQnaRe(int reCode);
 
+
+    // 상품 상세페이지 내 상품문의목록
+    // 아이템 상세페이지 상품문의목록 조회 - 아이템id
+    public List<ItemQna> itemQna(RequestParams params);
+
+    // 아이템별 (전체 회원) 상품문의 개수 조회
+    public int itemQnaPostCount(int itemId);
+
+    // 아이템 상세보기 페이지에서 보여줄 문의목록 조회
+    public List<ItemQna> itemQnaAll(int itemId);
+
 }

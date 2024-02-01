@@ -12,7 +12,7 @@
             qna_cont,
             member_id
         ) VALUES (
-                     101,
+                     #{itemId},
                      #{qnaTitle},
                      #{qnaCont},
                      #{memberId}
@@ -121,5 +121,50 @@
         DELETE FROM item_qna_re
         WHERE re_code = #{reCode}
     </delete>
+
+    <!-- =========아이템 상세페이지 내 문의목록 조회 - 아이템id==================== -->
+    <select id="itemQnaList" parameterType="RequestParams" resultType="ItemQna">
+        SELECT
+            qna_code,
+            qna_title,
+            qna_cont,
+            member_id,
+            DATE_FORMAT(qna_date, '%Y-%m-%d %H:%i:%s') as qna_date,
+            item_id
+        FROM
+            item_qna
+        WHERE item_id= #{search}
+        ORDER BY qna_code DESC
+            LIMIT #{elementSize} OFFSET #{offset}
+    </select>
+
+    <!-- 아이템별 (전체 회원) 상품문의 개수 조회 -->
+    <select id="itemQnaPostCount" parameterType="int" resultType="int">
+        SELECT
+            COUNT(*) cnt
+        FROM
+            item_qna
+        WHERE
+            item_id = #{itemId}
+    </select>
+
+    <!-- 아이템 상세보기 페이지에서 보여줄 상품문의목록 조회 -->
+    <select id="itemQnaAll" parameterType="int" resultType="ItemQna">
+        SELECT
+            qna_code,
+            qna_title,
+            qna_cont,
+            DATE_FORMAT(qna_date, '%Y-%m-%d %H:%i:%s') as qna_date,
+            member_id,
+            item_id
+        FROM
+            item_qna
+        WHERE
+            item_id = #{itemId}
+        ORDER BY
+            qna_code DESC
+    </select>
+
+
 </mapper>
 

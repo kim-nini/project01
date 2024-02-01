@@ -91,6 +91,7 @@ public class MemberController {
     @ResponseBody
     public boolean idCheck(@RequestParam("memberId") String memberId) {
         Member member = memberService.getMember(memberId);
+        log.info("member값 : {}",member);
         if (member != null) {
             return true;
         }

@@ -103,13 +103,13 @@ $(document).ready(function () {
         totalAmountPrint.text(new Intl.NumberFormat().format(totalAmount) + "원");
     });
 
-    // **************************************************************************************
+// **************************************************************************************
     // 상세정보,리뷰,상품문의 탭 이동
+    // Tab Menu
     let descTab = $('#desc_tab');
     let revTab = $('#review-tab');
     let qnaTab = $('#qna-tab');
 
-    // 상세정보 탭
     descTab.click(function () {
         descTab.addClass('active');
         revTab.removeClass('active');
@@ -119,7 +119,6 @@ $(document).ready(function () {
         $('#qna').removeClass('active show');
     });
 
-    // 리뷰 탭
     revTab.click(function () {
         revTab.addClass('active');
         descTab.removeClass('active');
@@ -128,6 +127,7 @@ $(document).ready(function () {
         $('#description').removeClass('active show');
         $('#qna').removeClass('active show');
 
+        // dataPerPage = $("#dataPerPage").val();
         dataPerPage = 5;
         console.log("아이템 아이디: " + itemId);
         console.log("데이터 개수 선택: " + dataPerPage);
@@ -139,8 +139,7 @@ $(document).ready(function () {
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             dataType: "json",
             success: function (data) {
-
-                // ajax 리뷰데이터 확인
+                // console.log("ajax데이터 확인: " + data);
                 for (var i = 0; i < data.length; i++) {
                     console.log("글번호: " + data[i].rev_code
                         + " | 제목 : " + data[i].rec_title
@@ -166,7 +165,7 @@ $(document).ready(function () {
 
     });
 
-    qnaTab.click(async function () {
+    qnaTab.click(function () {
         qnaTab.addClass('active');
         revTab.removeClass('active');
         descTab.removeClass('active');
@@ -180,15 +179,14 @@ $(document).ready(function () {
         console.log("데이터 개수 선택: " + dataPerPage);
 
 
-        await $.ajax({ // ajax로 데이터 가져오기
+        $.ajax({ // ajax로 데이터 가져오기
             method: "GET",
             url: "/itemqna/all-qna?itemId=" + itemId,
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-            data: {sessionInfo: "loginMember"},
             dataType: "json",
             success: function (response) {
                 // console.log("ajax데이터 확인: " + data);
-                response.forEach(function (data) {
+                response.forEach(function(data) {
                     console.log("글번호: " + data.qnaCode
                         + " | 제목 : " + data.qnaTitle
                         + " | 작성자 : " + data.memberId
@@ -213,15 +211,15 @@ $(document).ready(function () {
     });
 
 
-    // **************************************************************************************
+// **************************************************************************************
 
 
-    //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
+//현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
     function displayData(currentPage, dataPerPage) {
 
         let chartHtml = "";
 
-        //Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림..
+//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림..
         currentPage = Number(currentPage);
         dataPerPage = Number(dataPerPage);
 
@@ -231,12 +229,13 @@ $(document).ready(function () {
         } //추가
 
         for (var i = (currentPage - 1) * dataPerPage; i < maxpnum && i < dataList.length; i++) {
-            // qna 데이터 일 경우
             if(dataList[i].rev_code == null){
                 chartHtml +=
                     "<tr><td>" +
                     dataList[i].qnaCode +
-                    "</td><td class='rev_title'>" +
+                    "</td><td class='rev_title' onclick='qnaReList("+
+                    dataList[i].qnaCode
+                    +")'>" +
                     dataList[i].qnaTitle +
                     (dataList[i].hasRe === true ? "<span style='color:red'> 답변완료 </span>" : "") +
                     "</td><td>" +
@@ -248,59 +247,101 @@ $(document).ready(function () {
                     "<p>" +
                     dataList[i].qnaCont +
                     "</p>" +
-                    "<div class='re-div' value='" + dataList[i].qnaCode + "'>" ;
-
-                // 문의에 답변이 있을경우 순회하면서 답변 요소를 동적으로 추가 ==============================================
-                if(dataList[i].hasRe === true){
-
-                dataList[i].qnaRes.forEach(function (qnaRe) {
-                    chartHtml +=
-                        // "<div class='re-div' value='" + dataList[i].qnaCode + "'>" +
-                        "<div class='qna-re-style' value='" + qnaRe.reCode + "'>" +
-                        "<p class='re-cont'>" + qnaRe.reCont + "</p>" +
-                        "<p class='re-date'>" + qnaRe.reDate + "</p>";
-
-                    // 관리자인 경우 수정 및 삭제 버튼 추가
-                    if (dataList[i].member !== null && dataList[i].member.admin === 'Y') {
-                        chartHtml +=
-                            "<button onclick='updateQnaRe()' class='admin-btn' >수정</button>" +
-                            "<button onclick='deleteQnaRe()' class='admin-btn' >삭제</button>";
-                    }
-
-                    chartHtml += "<hr></div>";
-                });
-
-                } // 답변유무 if문 end
-
-                // 관리자인 경우 답변 등록 폼 추가
-                if (dataList[i].member !== null && dataList[i].member.admin === 'Y') {
-                    chartHtml +=
-                        "<textarea placeholder='여기에 답변 내용을 입력하세요' type='text' name='reCont' class='re-ip' style='width: 80%'></textarea>" +
-                        "<button name='reCreateBtn' onclick='sendQnaRe()' class='admin-btn sub-btn'>답변등록</button>";
-                }
-
-                chartHtml += "</div></td></tr>";
-
-            } else { // review 데이터 일 경우
-                chartHtml +=
-                    "<tr><td>" +
-                    dataList[i].rev_code +
-                    "</td><td class='rev_title'>" +
-                    dataList[i].rev_title +
-                    "</td><td>" +
-                    dataList[i].member_id +
-                    "</td><td>" +
-                    dataList[i].rev_date +
-                    "</td></tr>" +
-                    "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'>" +
-                    "<img class='rev-img' src='/itemrev/img/" + dataList[i].image_path + " 'onclick='showImageModal(this.src)'>" +
-                    "<div id='imageModal' class='modal' onclick='closeImageModal()'>" +
-                    "<img class='modal-content' id='modalImage'>" +
-                    "</div>" +
-                    "<p>" +
-                    dataList[i].rev_cont +
-                    "</p>" +
                     "</td></tr>";
+
+                // JavaScript에서 서버로부터 받은 데이터
+                // var qnaReList = []; // 서버에서 받은 답변 리스트
+                // var sessionLoginMember = null; // 서버에서 받은 로그인 멤버 정보
+
+                //
+                // $.ajax({ // ajax로 데이터 가져오기
+                //
+                //     method: "GET",
+                //     url: "/itemqna/qnaRe?qnaCode=" + dataList[i].qnaCode,
+                //     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                //     dataType: "json",
+                //     success: function (qnaReList) {
+                //
+                //     // 서버로부터 받은 답변 리스트를 기반으로 상품 답변 박스를 동적으로 생성
+                //     //     if (qnaReList.length > 0 || (sessionLoginMember !== null && sessionLoginMember.admin === 'Y')) {
+                //         if (qnaReList.length > 0 ) {
+                //             var div = document.createElement('div');
+                //             div.classList.add('re-div');
+                //             // 서버로부터 받은 답변 리스트를 순회하면서 상품 답변 박스를 생성
+                //             qnaReList.forEach(function (qnaRe) {
+                //                 var qnaReDiv = document.createElement('div');
+                //                 qnaReDiv.classList.add('qna-re-style');
+                //                 qnaReDiv.dataset.reCode = qnaRe.reCode;
+                //                 // 답변 내용 추가
+                //                 var reCont = document.createElement('p');
+                //                 reCont.classList.add('re-cont');
+                //                 reCont.textContent = qnaRe.reCont;
+                //                 qnaReDiv.appendChild(reCont);
+                //                 // 답변 날짜 추가
+                //                 var reDate = document.createElement('p');
+                //                 reDate.classList.add('re-date');
+                //                 reDate.textContent = qnaRe.reDate;
+                //                 qnaReDiv.appendChild(reDate);
+                //                 // 관리자인 경우 수정 및 삭제 버튼 추가
+                //                 // if (sessionLoginMember !== null && sessionLoginMember.admin === 'Y') {
+                //                 //     var updateBtn = document.createElement('button');
+                //                 //     updateBtn.textContent = '수정';
+                //                 //     updateBtn.addEventListener('click', updateQnaRe);
+                //                 //     qnaReDiv.appendChild(updateBtn);
+                //                 //     var deleteBtn = document.createElement('button');
+                //                 //     deleteBtn.textContent = '삭제';
+                //                 //     deleteBtn.addEventListener('click', deleteQnaRe);
+                //                 //     qnaReDiv.appendChild(deleteBtn);
+                //                 // }
+                //                 // 답변 박스에 추가
+                //                 div.appendChild(qnaReDiv);
+                //                 // 수평선 추가
+                //                 var hr = document.createElement('hr');
+                //                 div.appendChild(hr);
+                //             });
+                //             // 관리자인 경우 답변 등록 폼 추가
+                //             // if (sessionLoginMember !== null && sessionLoginMember.admin === 'Y') {
+                //             //     var textarea = document.createElement('textarea');
+                //             //     textarea.placeholder = '여기에 답변 내용을 입력하세요';
+                //             //     textarea.name = 'reCont';
+                //             //     textarea.classList.add('re-ip');
+                //             //     div.appendChild(textarea);
+                //             //     var createBtn = document.createElement('button');
+                //             //     createBtn.textContent = '답변등록';
+                //             //     createBtn.addEventListener('click', sendQnaRe);
+                //             //     div.appendChild(createBtn);
+                //             // }
+                //             // 생성한 답변 박스를 삽입할 부모 요소 찾기
+                //             var parentElement = document.querySelector('.rev_cont');
+                //             console.log("레브콘트 ",parentElement);
+                //             parentElement.appendChild(div);
+                //         }
+                //     }});
+
+
+
+
+            }
+            else {
+            chartHtml +=
+                "<tr><td>" +
+                dataList[i].rev_code +
+                "</td><td class='rev_title'>" +
+                dataList[i].rev_title +
+                "</td><td>" +
+                dataList[i].member_id +
+                "</td><td>" +
+                dataList[i].rev_date +
+                "</td></tr>" +
+                "<tr class='rev_cont_wrap'><td colspan='4' class='rev_cont toggle-hide'>" +
+                "<img class='rev-img' src='/itemrev/img/" + dataList[i].image_path + " 'onclick='showImageModal(this.src)'>" +
+                "<div id='imageModal' class='modal' onclick='closeImageModal()'>" +
+                "<img class='modal-content' id='modalImage'>" +
+                "</div>" +
+                "<p>" +
+                dataList[i].rev_cont +
+                "</p>" +
+                "</td></tr>";
             }
 
         } //dataList는 임의의 데이터임.. 각 소스에 맞게 변수를 넣어주면 됨...

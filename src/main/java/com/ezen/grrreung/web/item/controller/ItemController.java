@@ -1,6 +1,6 @@
 package com.ezen.grrreung.web.item.controller;
 
-import com.ezen.grrreung.domain.board.dto.ItemRev;
+import com.ezen.grrreung.domain.board.service.ItemQnaService;
 import com.ezen.grrreung.domain.board.service.ItemRevService;
 import com.ezen.grrreung.domain.item.dto.*;
 import com.ezen.grrreung.domain.item.service.ItemService;
@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,6 +36,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ItemRevService itemRevService;
+    private final ItemQnaService itemQnaService;
 
     @Value("${file.dir}")
     private String location;
@@ -57,7 +60,6 @@ public class ItemController {
                                @RequestParam(value="search", required = false, defaultValue = "") String search,
                                @RequestParam(value="cateTop", required = false) String cateTop,
                                Model model){
-        log.info("들어온 검색값 : {}" ,search);
 
 
         // 페이징 처리와 관련된 변수
@@ -66,7 +68,6 @@ public class ItemController {
 
         // 여러개의 요청 파라메터 정보 저장
         RequestParams params = new RequestParams(page, elementSize, pageSize, search);
-        log.info("offset : {}" , params.getOffset());
         int  selectCount = itemService.countBySearchValue(params);    // 페이징처리 값 테이블의 전체 갯수
 
         List<Item> list = itemService.searchItem(params);  // model에 저장할 리스트
@@ -107,41 +108,16 @@ public class ItemController {
         List<Map<String, Object>> imgFiles = itemService.showImageSlide(itemId);
         // 상품 정보 이미지 가져오기
         List<Map<String, Object>> itemDescription = itemService.showDescriptionImages(itemId);
-        log.info("아이템 파일즈 : {}", imgFiles.toString());
 
         model.addAttribute("item", item);
         model.addAttribute("imgFiles", imgFiles);
         model.addAttribute("itemDescription", itemDescription);
-        log.info("아이템 파일즈 : {}", itemDescription.toString());
-        // 리뷰 리스트 출력하기
-        // 페이징 처리와 관련된 변수
-        int elementSize = 5; // 화면에 보여지는 행의 갯수
-        int pageSize = 2;     // 화면에 보여지는 페이지 갯수
-        String search = Integer.toString(itemId);
-        // 여러개의 요청 파라메터 정보 저장
-        RequestParams params = new RequestParams(page, elementSize, pageSize, search);
-        // 페이징처리 값 테이블의 전체 갯수
-        int selectCount = itemRevService.postListCount(params);
-        log.info("offset: {}", params.getOffset());
-
-        // params : 사용자가 선택한 페이지번호 , 검색값 여부
-        // 페이징 처리 계산 유틸리티 활용
-        Pagination pagination = new Pagination(params, selectCount);
-        if (pagination.getEndPage() == 0) {
-            pagination.setEndPage(1);
-        }
-
-        List<ItemRev> list = itemRevService.itemReviews(params);
-
-        log.info("리뷰정보 : {}", list);
-
-        model.addAttribute("params", params); // 요청 파라메터
-        model.addAttribute("pagination", pagination); // 페이징 계산 결과
-        model.addAttribute("list",list); // db 리스트
 
         int revCount = itemRevService.itemRevPostCount(itemId); // 리뷰 총 개수
-        log.info("리뷰 총 개수 : {}", revCount);
+        int qnaCount = itemQnaService.itemQnaPostCount(itemId); // 문의 총 개수
+
         model.addAttribute("revCount",revCount);
+        model.addAttribute("qnaCount",qnaCount);
 
         return "grrreung/sub/item";
     }
@@ -150,14 +126,11 @@ public class ItemController {
     // 썸네일 이미지 1개 불러오기 => index, shop
     @GetMapping("/thumbnail/{itemId}")
     public ResponseEntity<Resource> thumbnailImage(String fileName, @PathVariable("itemId")int itemId, Model model) throws IOException {
-        log.info("아이템 아이디:{}", itemId);
 
         String imgFileName = itemService.showThumbnail(itemId);
-        log.info("파일명: {}", imgFileName);
 
         Path path = Paths.get(location + imgFileName);
         String contentType = Files.probeContentType(path);
-        log.info("컨텐트타입 : {}",contentType);
 
         // 이미지 파일
         HttpHeaders headers = new HttpHeaders();
@@ -194,7 +167,6 @@ public class ItemController {
 
         for(Map<String, Object>  map : itemDescription) {
             imageDescription = (String) map.get("IMG_NAME");
-            log.info("1)파일명 : {}", imageDescription);
             Path path = Paths.get(location + "/" + imageDescription);
 
             String contentType = Files.probeContentType(path);
@@ -212,19 +184,15 @@ public class ItemController {
     @PostMapping("/register-item")
     public String  registerItem(@ModelAttribute Item item, @RequestParam int cateCode, @ModelAttribute UploadForm uploadForm, RedirectAttributes redirectAttributes)
             throws IOException {
-        log.info("수신정보:{}", item.toString());
         item.setCateCode(cateCode);
         itemService.registerItem(item);
         // 카테고리 선택한정보로 value값으로 카테고리 코드 cateCode 받아오기
-//        log.info("업로드 파일: {}", uploadForm.getUploadfiles1());
 
         // 파일 저장************************************************************************
         // 썸네일
         List<UploadFile> uploadFiles1 = fileStore.storeFilesThumb(uploadForm.getUploadfiles1());
-//        log.info("썸네일 파일명 : {}", uploadFiles1);
         // 상세정보
         List<UploadFile> uploadFiles2 = fileStore.storeFilesDescrip(uploadForm.getUploadfiles2());
-//        log.info("상세정보 파일명 : {}", uploadFiles2);
 
         // 썸네일))) DB 테이블에 업로드 파일과 저장된 파일명 저장 후
         for(int i=0; i<uploadFiles1.size(); i++) {
@@ -242,14 +210,12 @@ public class ItemController {
                 itemImg.setRepImgYN("N");
             }
 
-            log.info("*********** 썸네일 파일정보 : {}", itemImg);
             itemService.uploadItemImg(itemImg);
         }
 
         // 상세정보))) DB 테이블에 업로드 파일과 저장된 파일명 저장 후
         for(UploadFile uploadFile : uploadFiles2) {
             ItemImg itemImg = new ItemImg(item.getItemId(), uploadFile.getStoreFileName(), uploadFile.getUploadFileName());
-            log.info("상세이미지 파일정보 : {}", uploadFile);
             itemService.uploadItemImg(itemImg);
         }
 
@@ -261,7 +227,6 @@ public class ItemController {
     public String searchCategory(Model model) {
         List<Category> cateList = itemService.categoryAllList();
         model.addAttribute("cateList", cateList);
-//        log.info("{}", cateList);
         return "grrreung/sub/admin-item";
     }
 
@@ -271,9 +236,7 @@ public class ItemController {
     @GetMapping("/sub-category")
     @ResponseBody
     public List<Category> searchDetailCategory(@RequestParam String category, Model model) {
-        log.info("수신한 메인카테고리 : {}", category);
         List<Category> subCateList = itemService.showCateName(category);
-        log.info("검색한 상세 카테고리 : {}", subCateList);
         return subCateList;
     }
 

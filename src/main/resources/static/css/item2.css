@@ -277,7 +277,7 @@
 }
 
 
-#desc_tab, #review-tab, #qna-tab, .rev_title {
+#desc_tab, #review-tab, .rev_title {
 	/*display: block;*/
 	cursor: pointer;
 }

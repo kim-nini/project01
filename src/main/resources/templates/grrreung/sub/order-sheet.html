@@ -18,13 +18,15 @@
             <form action="/order/form" method="post">
                 <ul class="cart_list">
                     <!-- 주문 상품목록 for문 -->
-                    <li>
-                        <span>이미지</span>
-                        <span>상품정보</span>
-                        <span>판매가</span>
-                        <span>수량</span>
-                        <span>배송비</span>
-                        <span>합계</span>
+                    <li >
+                        <div class="item_detail">
+                        <span class="os-th">이미지</span>
+                        <span class="os-th">상품정보</span>
+                        </div>
+                        <div class="opt_info">
+                        <span class="os-th">수량</span>
+                        <span class="os-th">금액</span>
+                        </div>
                     </li>
                     <li th:each="map, mapStat : ${list}">
                         <div class="item_detail">

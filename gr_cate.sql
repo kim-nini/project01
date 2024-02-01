@@ -27,4 +27,4 @@ insert into category(cate_code, cate_name, cate_top) values(3002, '쮸르', 'foo
 insert into category(cate_code, cate_name, cate_top) values(3003, '영양스튜', 'food');
 insert into category(cate_code, cate_name, cate_top) values(3004, '미니캔', 'food');
 insert into category(cate_code, cate_name, cate_top) values(3005, '덴탈', 'food');
-SELECT cate_code, cate_name, cate_top FROM CATEGORY;
+SELECT cate_code, cate_name, cate_top FROM category;

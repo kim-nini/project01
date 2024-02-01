@@ -4,6 +4,7 @@ import com.ezen.grrreung.domain.board.dto.ItemQna;
 import com.ezen.grrreung.domain.board.dto.ItemQnaRe;
 import com.ezen.grrreung.domain.board.service.ItemQnaService;
 import com.ezen.grrreung.domain.item.dto.Category;
+import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.service.ItemService;
 import com.ezen.grrreung.domain.member.dto.Member;
 import com.ezen.grrreung.web.common.Pagination;
@@ -54,9 +55,9 @@ public class ItemQnaController {
 
         List<ItemQna> list = itemQnaService.postList(params);
 
-        for (ItemQna item : list){
+        for (ItemQna item : list) {
             int qnaCode = item.getQnaCode();
-            if(!itemQnaService.getListByQnaCode(qnaCode).isEmpty()){
+            if (!itemQnaService.getListByQnaCode(qnaCode).isEmpty()) {
                 item.setHasRe(true);
             }
         }
@@ -70,25 +71,45 @@ public class ItemQnaController {
     }
 
 
-    // 겟매핑 -> 게시글 작성 화면으로 넘어감
-    @GetMapping("/create")
-    public String form(Model model) {
-
+    // qna게시판에서 겟매핑 -> 게시글 작성 화면으로 넘어감
+    @GetMapping("/create" )
+    public String form( Model model) {
 
         List<Category> cateList = itemService.categoryAllList();
         model.addAttribute("cateList", cateList);
         return "grrreung/sub/qna-write";
     }
 
-    // 포스트 매핑 -> 게시글 등록에서 submit 버튼 클릭시 작동 -> 리스트화 면으로 넘어감
-    @PostMapping("/create")
-    public String posting(@ModelAttribute("itemQna") ItemQna itemQna, HttpSession session) {
+    // 상품상세정보에서 겟매핑 -> 게시글 작성 화면으로 넘어감
+    @GetMapping("/create/{itemId}")
+    public String form(@PathVariable(value = "itemId",required = false) int itemId,  Model model) {
+
+        // itemId로 item 가져오기
+        Item item = itemService.findByItemId(itemId);
+        model.addAttribute("item", item);
+
+        log.info("게시글작성 item {}", itemId);
+
+        List<Category> cateList = itemService.categoryAllList();
+        model.addAttribute("cateList", cateList);
+        return "grrreung/sub/qna-write";
+    }
+
+    // 포스트 매핑 -> 게시글 등록에서 submit 버튼 클릭시 작동 -> 리스트화면으로 넘어감
+    @PostMapping(value = {"/create", "/create/{itemId}"})
+    public String posting(@PathVariable(value = "itemId",required = false) Integer itemId, @ModelAttribute("itemQna") ItemQna itemQna, HttpSession session) {
         //세션에서 memberId 가져오기
         Member member = (Member) session.getAttribute("loginMember");
         String memberId = member.getMemberId();
-
         itemQna.setMemberId(memberId);
 
+        log.info("게시글작성 itemId {}", itemQna.getItemId());
+        log.info("게시판에서 가져온 ID값 {}", itemId);
+        if(itemId != null){
+            itemQna.setItemId(itemId);
+            itemQnaService.posting(itemQna);
+            return "redirect:/shop/item/"+itemId;
+        }
         itemQnaService.posting(itemQna);
         return "redirect:/itemqna";
     }
@@ -103,7 +124,6 @@ public class ItemQnaController {
         // ItemQnaRe 데이터 가져오기
         List<ItemQnaRe> list = itemQnaService.getListByQnaCode(qnaCode);
         model.addAttribute("qnaReList", list);
-        log.info("qnaReList : {}", list);
 
         return "grrreung/sub/qna-cont";
     }
@@ -148,7 +168,6 @@ public class ItemQnaController {
         // 받아온 reCode로 db에 등록된 itemQnaRe 데이터 가져오기
         itemQnaRe = itemQnaService.getReByReCode(reCode);
 
-        log.info("Qna 답변 {}", itemQnaRe);
 
         return new ResponseEntity<>(itemQnaRe, HttpStatus.OK);
     }
@@ -163,7 +182,6 @@ public class ItemQnaController {
         itemQnaRe.setReCont(reCont);
         itemQnaRe.setReCode(reCode);
 
-        log.info("수정된내용1 {}", itemQnaRe);
         // db 내용 수정
         itemQnaService.updateQnaRe(itemQnaRe);
 
@@ -171,7 +189,6 @@ public class ItemQnaController {
         // 수정된 itemQnRe 가져오기
         itemQnaRe = itemQnaService.getReByReCode(reCode);
 
-        log.info("수정된내용2 {}", itemQnaRe);
 
         return new ResponseEntity<>(itemQnaRe, HttpStatus.OK);
     }
@@ -182,4 +199,49 @@ public class ItemQnaController {
         itemQnaService.deleteQnaRe(reCode);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+    // 아이템 상세보기 페이지에 보여줄 상품문의 목록 조회
+    @ResponseBody
+    @RequestMapping("/all-qna")
+    public List<ItemQna> findItemQna(@RequestParam int itemId, Model model, HttpSession session) {
+
+
+        List<ItemQna> list = itemQnaService.itemQnaAll(itemId);
+
+        // 상품문의 답변 유무
+        for (ItemQna qna : list) {
+
+            int qnaCode = qna.getQnaCode();
+
+            if (session.getAttribute("loginMember") != null) {
+                //세션에서 memberId 가져오기
+                Member member = (Member) session.getAttribute("loginMember");
+                qna.setMember(member);
+            }
+
+            // 답변이 있다면 true
+            if (!itemQnaService.getListByQnaCode(qnaCode).isEmpty()) {
+                qna.setQnaRes(itemQnaService.getListByQnaCode(qnaCode));
+                qna.setHasRe(true);
+            }
+
+        }
+
+
+        return list;
+    }
+
+
+    // 아이템 상세보기 페이지에 보여줄 상품문의 목록 조회
+    @ResponseBody
+    @RequestMapping("/qnaRe")
+    public List<ItemQnaRe> findQnaRe(@RequestParam int qnaCode, Model model) {
+        // ItemQnaRe 데이터 가져오기
+        List<ItemQnaRe> list = itemQnaService.getListByQnaCode(qnaCode);
+//        model.addAttribute("qnaReList", list);
+
+        return list;
+    }
+
 }

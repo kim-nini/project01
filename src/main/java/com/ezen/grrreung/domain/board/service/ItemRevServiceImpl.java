@@ -65,6 +65,7 @@ public class ItemRevServiceImpl implements ItemRevService{
         return itemRevMapper.writtenPost(map);
     }
 
+    // 상품상세페이지에서 조회하는 아이템리뷰
     @Override
     public List<ItemRev> itemReviews(RequestParams params) {
         return itemRevMapper.itemRevList(params);

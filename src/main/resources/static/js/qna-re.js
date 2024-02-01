@@ -6,8 +6,18 @@ const exNewReBox = $('.qna-re-style:last');
 
 // qna 답변 로직
 async function sendQnaRe() {
-    const reCont = reContBox.val();
-    const qnaCode = reBox.attr('value');
+        const thisBtn = $(event.currentTarget);
+    console.log("thisBtn : " + thisBtn.closest('.re-div').text())
+
+
+    // 버튼이 속한 .re-div 요소에서 reCont 값을 가져옴
+    let reCont = thisBtn.siblings('textarea[name="reCont"]').val();
+    console.log("reCont : " + reCont)
+
+
+    // 수정된 부분: 버튼이 속한 .re-div 요소에서 qnaCode 값을 가져옴
+    const qnaCode = thisBtn.closest('.re-div').attr('value');
+    console.log("qnaCode : " + qnaCode)
 
     try {
         const response = await $.ajax({
@@ -19,8 +29,9 @@ async function sendQnaRe() {
             }
         });
 
-        handleNewResponse(response, false);
-        reContBox.val('');
+        let newBox = handleNewResponse(response, false);
+        thisBtn.siblings('textarea[name="reCont"]').val('');
+        thisBtn.siblings('textarea[name="reCont"]').before(newBox);
 
     } catch (error) {
         console.error("실패", error);
@@ -46,11 +57,12 @@ function handleNewResponse(response, isUpdate) {
         return newReBox;
     } else {
         console.log(exNewReBox.length)
-        if (exNewReBox.length > 0) {
-            exNewReBox.before(newReBox);
-        } else {
-            reContBox.before(newReBox);
-        }
+        // if (exNewReBox.length > 0) {
+        //     exNewReBox.before(newReBox);
+        // } else {
+        //     reContBox.before(newReBox);
+        // }
+        return newReBox;
     }
 }
 
@@ -58,7 +70,10 @@ function handleNewResponse(response, isUpdate) {
 async function deleteQnaRe() {
     const thisBtn = $(event.currentTarget);
     const reCode = thisBtn.parent().attr('value');
-    const qnaCode = reBox.attr('value');
+    // const qnaCode = reBox.attr('value');
+    // 수정된 부분: 버튼이 속한 .re-div 요소에서 qnaCode 값을 가져옴
+    const qnaCode = thisBtn.closest('.re-div').attr('value');
+    console.log("qnaCode : " + qnaCode)
 
     try {
         const response = await $.ajax({
@@ -83,6 +98,7 @@ async function deleteQnaRe() {
 function updateQnaRe() {
     const thisBtn = $(event.currentTarget);
     const pTag = thisBtn.parent().find('.re-cont');
+    console.log("re-cont" + pTag)
     const pText = pTag.text();
 
     thisBtn.attr('onclick', 'submitUpdate()').text('수정완료');
@@ -100,9 +116,10 @@ function updateQnaRe() {
 async function submitUpdate() {
     const thisBtn = $(event.currentTarget);
     const reCode = thisBtn.parent().attr('value');
-    const reContBox = thisBtn.closest('.qna-re-style').find('textarea');
+    const reContBox = thisBtn.parent().find('textarea');
     const reCont = reContBox.val();
-    const qnaCode = reBox.attr('value');
+    // 수정된 부분: 버튼이 속한 .re-div 요소에서 qnaCode 값을 가져옴
+    const qnaCode = thisBtn.closest('.re-div').attr('value');
 
     try {
         const response = await $.ajax({
@@ -116,7 +133,6 @@ async function submitUpdate() {
         });
 
         let newBox = handleNewResponse(response, true);
-        // thisBtn.parent().remove();
         thisBtn.parent().replaceWith(newBox);
     } catch (error) {
         console.error("실패", error);

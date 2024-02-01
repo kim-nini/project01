@@ -15,6 +15,7 @@ CREATE TABLE member (
     PRIMARY KEY (member_id)
 );
 
+SELECT * FROM member;
 update member set name = '관리자' where member_id = 'admin';
 
 CREATE TABLE cart (

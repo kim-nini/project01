@@ -38,6 +38,8 @@ public interface ItemRevService {
     // 아이템별 작성된 게시글 수 검색
     public int writtenPost(Map<String, Object> map);
 
+
+    // 상품 상세페이지 내 리뷰목록
     // 아이템 상세페이지 리뷰목록 조회 - 아이템id
     public List<ItemRev> itemReviews(RequestParams params);
 
@@ -45,6 +47,6 @@ public interface ItemRevService {
     public int itemRevPostCount(int itemId);
 
     // 아이템 상세보기 페이지에서 보여줄 리뷰목록 조회
-    public List<ItemRev> itemReviewAll(int ItemId);
+    public List<ItemRev> itemReviewAll(int itemId);
 
 }

@@ -13,4 +13,5 @@ public class ItemQnaRe {
   private String reCont;
   private String reDate;
 
+
 }

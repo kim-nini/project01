@@ -203,7 +203,6 @@ public class ItemRevController {
     }
 
     // 아이템 상세보기 페이지에 보여줄 리뷰 목록 조회
-
     @ResponseBody
     @RequestMapping("/all-reviews")
     public List<ItemRev> findItemReviews(@RequestParam int itemId, Model model) {

@@ -124,3 +124,26 @@ hr {
     height: 35px;
     padding: 10px;
 }
+
+
+/*주문서작성 thead*/
+.os-th {
+    font-weight: bold;
+}
+
+/* 주문서작성> 이미지 */
+.item_detail>span:first-child {
+    margin: 0 11%;
+}
+
+/* 주문서작성> 수량 */
+.opt_info>span:first-child{
+    margin: 0 5%;
+}
+
+/* 주문서작성> 금액 */
+.opt_info>span:last-child{
+    float: right;
+    text-align: center;
+    margin-right: 24px;
+}
