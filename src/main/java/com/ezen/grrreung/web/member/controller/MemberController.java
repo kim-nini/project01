@@ -41,7 +41,9 @@ public class MemberController {
             return "redirect:/";
         } else {
             session.setAttribute("loginMember", null);
-            return "redirect:/login";
+            model.addAttribute("loginResult", false);
+
+            return "grrreung/sub/login";
         }
 
     }
