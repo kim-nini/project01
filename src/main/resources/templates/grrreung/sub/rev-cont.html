@@ -24,7 +24,7 @@
     <p class="member-id-p" th:text="${itemRev.memberId}"></p>
     <p class="date-p" th:text="${itemRev.revDate}"></p>
     <p class="cont-p" th:text="${itemRev.revCont}"></p>
-    <img class="rev-img" th:src="@{/itemrev/img/{imagePath}(imagePath=${itemRev.imagePath})}" onclick="showImageModal(this.src)">
+    <img class="rev-img" th:if="${itemRev.imagePath != null}" th:src="@{/itemrev/img/{imagePath}(imagePath=${itemRev.imagePath})}" onclick="showImageModal(this.src)">
     <!-- 이미지 확대를 위한 모달 창 -->
     <div id="imageModal" class="modal" onclick="closeImageModal()">
         <img class="modal-content" id="modalImage">
