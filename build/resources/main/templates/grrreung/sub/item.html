@@ -133,7 +133,7 @@
 
                               <!-- 상세정보 출력할 부분 (DB에 저장한 이미지 파일 루프 돌려서 보여줌 -->
                               <th:block th:each="itemDescription : ${itemDescription}">
-                                 <img th:src="@{'/img/'+ ${itemDescription.img_name} }" alt="제품 상세 정보" />
+                                 <img class="desc-images" th:src="@{'/img/'+ ${itemDescription.img_name} }" alt="제품 상세 정보" />
                               </th:block>
 
                           </div>
