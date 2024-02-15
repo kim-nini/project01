@@ -40,8 +40,16 @@ public class MemberController {
             session.setAttribute("loginMember", loginMember);
             return "redirect:/";
         } else {
+//            model.addAttribute("loginResult", true);
+            Model model1 = model.addAttribute("loginResult", false);
+            log.info("모델1: {}", model1);
+            log.info("결과:{}", model1.getAttribute("loginResult"));
+
+
+
             session.setAttribute("loginMember", null);
-            return "redirect:/login";
+            log.info("로그인실패");
+            return "grrreung/sub/login";
         }
 
     }

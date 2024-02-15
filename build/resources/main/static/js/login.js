@@ -42,6 +42,12 @@ $(document).ready(function(){
 		$(this).parent().parent().siblings("form")
 			.find(".input__block").find(".input").val("");
 	})
+
+
+
+
+
+
 });
 
 

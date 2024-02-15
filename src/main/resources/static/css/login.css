@@ -185,12 +185,10 @@ form .login__btn:hover, .signin__btn:hover {
 }
 
 #errormessage {
-	display: block;
-	border: #FFC924 solid 3px;
-	border-radius: 10px;
+	display: none;
+	color: #c30101;
 	width: 400px;
-	margin: 10px auto;
+	margin: 15px auto;
 	text-align: center;
 	font-weight: bold;
-
 }

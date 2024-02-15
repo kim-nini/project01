@@ -117,7 +117,7 @@ h2 {
 }
 
 #footer {
-    background-color: #FFC924;
+    background-color: #FFC924!important;
 
 }
 #footer>div {
@@ -238,4 +238,6 @@ input[type="search"].sb-search-input {
     z-index: 11;
 }
 
-.pt-4 {padding-top: 0!important;}
+.pt-4 {
+    padding-top: 0!important;
+}

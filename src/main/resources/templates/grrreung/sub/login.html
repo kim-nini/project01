@@ -27,15 +27,18 @@
 
             <!-- 비밀번호 -->
             <div class="input__block">
-                <input type="password" name="password" placeholder="Password" class="input">
+                <input id="password" type="password" name="password" placeholder="Password" class="input">
             </div>
-            <p id="errormessage" th:if="${loginResult == false}">아이디 또는 비밀번호를 다시 확인하세요.</p>
+
+
 
             <!-- 로그인 버튼 -->
             <button class="login__btn" type="submit">
                 LOGIN
             </button>
         </form>
+        <!-- 에러메세지 -->
+        <p id="errormessage" th:if="${loginResult==false}">아이디 또는 비밀번호를 다시 확인하세요.</p>
 
         <!-- separator -->
         <div class="separator">
