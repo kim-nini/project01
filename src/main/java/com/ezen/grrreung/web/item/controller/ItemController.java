@@ -240,13 +240,30 @@ public class ItemController {
         return subCateList;
     }
 
+
+
+    // 상품정보 삭제하기
+    @RequestMapping("/delete-item")
+    public String deleteItem(@RequestParam int itemId, Model model) {
+        log.info("삭제할 아이템 아이디: {} ", itemId);
+        itemService.deleteByItemId(itemId);
+        return "redirect:/shop";
+    }
+
+    // 상품 목록
+    @RequestMapping("item-list")
+    public String itemList(Model model) {
+            List<Item> list = itemService.allItems();
+            model.addAttribute("list", list);
+        return "grrreung/sub/admin-item-list";
+    }
+
+
+    // 상품 정보 수정
     @RequestMapping ("/update-item")
-    public String registerItem(Model model) {
-        List<Category> cateList = itemService.categoryAllList();
-        model.addAttribute("cateList", cateList);
-
-
-        Map<String, Object> map = itemService.updateInfo(1);
+    public String registerItem(@RequestParam int itemId, Model model) {
+        Map<String, Object> map = itemService.updateInfo(itemId);
+        log.info("업데이트 맵정보 : {}",map.toString());
         model.addAttribute("item", map);
 
         return "grrreung/sub/admin-item-update";

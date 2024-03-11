@@ -89,7 +89,17 @@
                                             <button type="submit" class="round-gray-btn">장바구니</button>
                                             <button type="button" onclick="toOrderSheet()" class="round-black-btn">바로구매</button>
                                         </div>
+
+                                        <!-- 관리자 권한으로 로그인 했을때 나타낼 버튼 => 수정, 삭제 -->
+                                        <div th:if="${session.loginMember.getAdmin()}=='Y'">
+                                            <a th:href="@{/update-item(itemId = ${item.itemId})}">수정</a>
+                                            <a th:href="@{/delete-item(itemId = ${item.itemId})}">삭제</a>
+                                        </div>
                                     </form>
+
+
+
+
                                 <!-- 비회원으로 접근하는 경우 로그인페이지로 매핑 -->
                                 <form  th:action="@{/login}" th:if="${session.loginMember}==null">
                                     <div class="display-flex">

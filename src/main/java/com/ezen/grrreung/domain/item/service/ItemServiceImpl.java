@@ -1,6 +1,5 @@
 package com.ezen.grrreung.domain.item.service;
 
-import com.ezen.grrreung.domain.cart.dto.Cart;
 import com.ezen.grrreung.domain.item.dto.Category;
 import com.ezen.grrreung.domain.item.dto.Item;
 import com.ezen.grrreung.domain.item.dto.ItemImg;
@@ -95,6 +94,10 @@ public class ItemServiceImpl implements ItemService {
     public Map<String, Object> updateInfo(int itemId) {
         return itemMapper.updateItemInfo(itemId);
     }
+
+    public void deleteByItemId(int itemId) {
+        itemMapper.deleteByItemId(itemId);
+    };
 
     @Override
     public Category getCateByItemId(int itemId) {

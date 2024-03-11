@@ -60,6 +60,7 @@ public interface ItemService {
     public Map<String, Object> updateInfo(int itemId);
     // 상품 수정 페이지 출력
 
+    public void deleteByItemId(int itemId);
 //--------------------------------------------------------------------------------------------------------jiyeon
 
     // itemId로 카테고리 가져오기

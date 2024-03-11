@@ -23,7 +23,7 @@
                 <div class="category-button button_wrap flex itmes-center">
                     <a href="/admin">상품등록</a>
                     <a href="/update-item">상품수정</a>
-                    <a href="#">메뉴</a>
+                    <a href="/item-list">상품목록</a>
                     <a href="#">메뉴</a>
                 </div>
             </div>
@@ -46,12 +46,10 @@
                         </th>
 
                        <td>
-                            <select class="mainCategory" name="mainCategory">
-                                <option value="" disabled selected>카테고리</option>
-                                <th:block th:each="category : ${cateList}">
-                                    <option th:text="${category.cateTop}" th:value="${category.cateTop}"></option>
-                                </th:block>
-                            </select>
+<!--                            <select class="mainCategory" name="mainCategory">-->
+<!--                                <option value="" disabled selected>카테고리</option>-->
+<!--                                    <option th:text="${item.CATE_TOP}" th:value="${item.CATE_TOP}"></option>-->
+<!--                            </select>-->
 
                             <select class="subCategory" name="cateCode">
                                 <option value="" selected disabled>------</option>

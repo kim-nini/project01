@@ -167,9 +167,17 @@
 		FROM
 			category c
 				INNER JOIN item i
-						   ON c.cate_code = i.cate_code
+				ON c.cate_code = i.cate_code
 		WHERE i.item_id = #{value}
 	</select>
+
+	<!-- 상품 삭제 처리 -->
+	<delete id="deleteByItemId" parameterType="int">
+		DELETE  FROM item
+		WHERE item_id = #{itemId}
+	</delete>
+
+
 
 	<!-- itemId로 카테고리 가져오기 -->
 	<select id="getCateByItemId" parameterType="int" resultType="Category">
@@ -187,6 +195,8 @@
 					item_id = #{itemId}
 			)
 	</select>
+
+
 
 
 </mapper>
